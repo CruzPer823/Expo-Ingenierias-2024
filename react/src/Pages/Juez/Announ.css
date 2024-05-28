@@ -1,0 +1,66 @@
+.Titulo{
+
+    font-weight: bolder;
+    color: #0C356A;
+    font-size: 20px;
+
+    padding-left: 20px;
+
+}
+
+.Subtitulo{
+
+    font-weight: bolder;
+    color: black;
+
+}
+
+.TextoAnnoun{
+
+    color: #474747;
+
+}
+
+.ContainerAnnoun{
+    background-color: #ffffff;
+    padding: 30px;
+
+    width: 100%;
+
+    border-radius: 5px;
+    --bs-gutter-x: 0;
+}
+
+.ButtonMaterials{  
+
+    background-color: #0C356A;
+    border-color: #0C356A;
+    font-weight: bold;
+    
+}
+
+.AnnounInfoContainer{
+    background-color: #cac9c9e6;
+    border-radius: 5px;
+
+    text-decoration: none;
+}
+
+.AnnounInfoContainer:hover{
+    background-color: #828282e6;
+    border-radius: 5px;
+
+    text-decoration: none;
+
+    color: red;
+}
+
+.AnnounIcon{
+    font-weight: bolder;
+    font-size: 40px;
+
+    text-decoration: none;
+
+    color: black;
+
+}

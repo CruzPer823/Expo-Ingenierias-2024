@@ -1,0 +1,73 @@
+.ToggleButton{
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  font-size: 20px;
+  margin-left: 40px;
+  padding: 1vh;
+
+}
+nav{
+  height: 10vh;
+}
+#NavBar{
+  background-color: #0C356A;
+  margin-bottom: 5vh;
+}
+.Titulo-toggle{
+  text-decoration: none;
+  margin-left: 5px;
+  color: black;
+}
+.Titulo-toggle:hover{
+  color: #6da0e2;
+}
+.ExpoIngLog2{
+  width: 40px;
+  cursor: pointer;
+}
+
+.ExpoIngLog3{
+  cursor: pointer;
+}
+.textm{
+
+  padding-left: 10px;
+  align-self: center;
+  color: #ffffff;
+
+}
+.TextoValid2{
+
+  margin-left: 8px;
+  font-size: 25px;
+  font-weight: bolder;
+  text-decoration: none;
+
+  color: black;
+
+}
+
+.TextoValid2:hover{
+  color: #6da0e2;
+}
+.no-select{
+
+  user-select: none;
+  cursor: pointer;
+}
+
+.the_bars{
+  padding-right: 2%;
+  color: #ffffff;
+  font-weight: bolder;
+  font-size: 40px;
+  cursor: pointer;
+
+}
+
+.the_bars:hover{
+
+  color: #6da0e2;
+
+}

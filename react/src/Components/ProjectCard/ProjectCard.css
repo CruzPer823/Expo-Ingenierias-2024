@@ -1,0 +1,72 @@
+.contenedorSuperior{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 5vh;
+}
+
+.contenedor{
+    display: flex;
+    justify-content:space-around;
+    align-items: center;
+}
+
+.tarjeta{
+    display: flex;
+    justify-content: center;
+    margin: 1vw;
+}
+.card{
+    /* margin-bottom: 1rem;  */
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+    width: 40vw;
+    height: 50vh;
+}
+.card2{
+    width: 40vw;
+    height: 50vh;
+}
+.project-card-content {
+    text-align: center;
+}
+
+.project-card-status {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    font-size: 30px;
+    color: gray;
+    display: inline-flex;
+    border-radius: 50%; 
+}
+
+.project-card-status.review-true {
+    background-color: #D5FFD0; /* Background color for reviewed projects */
+}
+
+.project-card-status.review-false {
+    background-color: #FFD5D5; /* Background color for projects not reviewed */
+}
+
+.category-container {
+    text-align: center; /* Center align the category badges */
+}
+
+.category-container .badge {
+    background-color: #C7C8CC;
+    display: inline-block;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.disqualified {
+    filter: grayscale(100%) opacity(50%);
+  }
+.btnPrin{
+    margin-top: 3vh;
+    width: 10vw;
+
+}
+
+@media (max-width:1024px){
+    
+}

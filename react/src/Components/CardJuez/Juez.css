@@ -1,0 +1,226 @@
+.container h1{
+  text-align: center;
+    font-weight: bolder;
+    color: #0C356A;
+    margin-top: 5vh;
+    font-size: 2.5rem;
+}
+.proyectos{
+    margin-top: 2vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.card {
+    width: 20vw;
+    height: 73vh;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 15px 15px 30px #bebebe,
+               -15px -15px 30px #ffffff;
+    transition: 0.2s ease-in-out;
+    margin: 0.5vw;
+    margin-bottom: 6vh;
+  }
+
+  .imag img {
+    width: 100%;
+    height: 28vh;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    display: flex;
+    align-items: top;
+    justify-content: center;
+  }
+  
+  .text {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: space-around;
+    height: 30vh;
+  }
+  
+  .icon-box {
+    margin-top: 15px;
+    width: 70%;
+    padding: 10px;
+    background-color: #e3fff9;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+  }
+  
+  .icon-box svg {
+    width: 17px;
+  }
+  
+  .text .h3 {
+    font-family: 'Lucida Sans' sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: black;
+  }
+  
+  .text .p {
+    font-family: 'Lucida Sans' sans-serif;
+    color: #999999;
+    font-size: 13px;
+  }
+  
+
+  
+  .card:hover {
+    cursor: pointer;
+    box-shadow: 0px 10px 20px rgba(0,0,0,0.1);
+  }
+  
+  .save:hover {
+    transform: scale(1.1) rotate(10deg);
+  }
+  
+  .save:hover .svg {
+    fill: #ced8de;
+  }
+
+  @media (max-width: 900px) {
+    h1{
+      margin-top: 5vh;
+      text-align: center;
+      font-weight: bolder;
+    color: #0C356A;
+    font-size: 1rem;
+    }
+    .h1 .proyectos{
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        
+      }
+    .imag img{
+      width: 100%;
+      height: 40vh;
+    }
+    
+      .card{
+
+        width: 100%;
+        height: 80vh;
+        margin-bottom: 10px;
+        display: flex;
+        background: white;
+        border-radius: 30px;
+        box-shadow: 15px 15px 30px #bebebe,
+               -15px -15px 30px #ffffff;
+        transition: 0.2s ease-in-out;
+        margin: 0.5vw;
+        margin-bottom: 2vh;
+        
+      }
+  }
+
+  .btn23 {
+    width: 100%;
+    min-height: 6.5vh;
+    
+    margin-top: 0.75rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #0C356A;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    transition: all 0.4s;
+    
+    /* Aplicar flexbox para centrar texto verticalmente */
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    text-decoration: none;
+  }
+  
+   .btncalif {
+    width: 100%;
+    min-height: 6.5vh;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #406eaa;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    transition: all 0.4s;
+    
+    /* Aplicar flexbox para centrar texto verticalmente */
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    
+    /* Quitar línea subrayada */
+    text-decoration: none;
+  }
+  
+
+  
+  .btncalifdisable {
+    width: 100%;
+    min-height: 6.5vh;
+    margin-top: 0.5rem;
+    margin-bottom: 0.1rem;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #A3A3A3;;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    transition: all 0.4s;
+    
+    /* Aplicar flexbox para centrar texto verticalmente */
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    
+    /* Quitar línea subrayada */
+    text-decoration: none;
+  }
+  .centered-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*background-color: white;*/
+    margin-top: 2vh; /* Agrega un margen superior de 1vh */
+    /*height: 8vh;  Ajusta la altura según sea necesario */
+
+  }
+  
+  .input {
+    width: 28vw;
+    height: 6vh;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1.5px solid lightgrey;
+    outline: none;
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    box-shadow: 0px 0px 20px -18px;
+  }
+  
+  .input:hover {
+    border: 2px solid lightgrey;
+    box-shadow: 0px 0px 20px -17px;
+  }
+  
+  .input:active {
+    transform: scale(0.95);
+  }
+  
+  .input:focus {
+    border: 2px solid grey;
+  }

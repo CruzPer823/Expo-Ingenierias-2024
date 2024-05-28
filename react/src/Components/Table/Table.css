@@ -1,0 +1,42 @@
+.text-center {
+    text-align: center;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.table th {
+    background-color: #f2f2f2;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+.role-btn-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.role-btn-group > * {
+    flex: 1;
+}
+
+.role-btn-group > *:not(:last-child) {
+    border-right: 1px solid #ccc;
+}
+
+.btn-separator {
+    margin-right: 10px; /* Adjust the margin as needed */
+}
+

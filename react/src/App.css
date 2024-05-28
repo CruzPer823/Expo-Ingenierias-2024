@@ -1,0 +1,18 @@
+body {
+  background-color: #e6e6e6;
+}
+
+.custom-primaty-btn {
+  background-color: #0C356A;
+  border-color: #0C356A;
+}
+
+/* .custom-primaty-btn:hover {
+  background-color: #11458a; 
+  border-color: #11458a; 
+} */
+
+.custom-primaty-btn:active {
+  background-color: #0C356A; /* Revert back to the original color when clicked */
+  border-color: #0C356A; /* Revert back to the original color when clicked */
+}

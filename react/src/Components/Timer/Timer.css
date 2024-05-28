@@ -1,0 +1,23 @@
+/* Add this CSS to your stylesheet */
+.countdown-timer {
+    display: flex;
+    flex-direction: column;
+}
+  
+.time-fields {
+    display: flex;
+    justify-content: center;
+}
+  
+.time-fields p {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px 10px 75px; /* Adjust margin between sections */
+    font-size: 30px; /* Increase font size */
+}
+  
+.time-fields p span:first-child {
+    font-weight: bold; /* Style the letter label */
+}
+  
