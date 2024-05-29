@@ -1,0 +1,251 @@
+.portadaimg{
+    background-image: url('../../../img/2.png') ;
+    background-size: contain; 
+    background-position: center;
+    width: 100vw;
+    height: 93vh;
+}
+.boton-main {
+    border-radius: 20px; /* Bordes redondeados */
+    background-color: #406eaa; /* Color de fondo personalizado */
+    color: #fff; /* Color de texto */
+    padding: 10px 20px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño de fuente */
+    border: none; /* Sin borde */
+    cursor: pointer; /* Cambiar cursor al pasar el ratón */
+    font-weight: bold;
+  }
+  
+  /* Estilos al pasar el ratón */
+.boton-main:hover {
+    background-color: white; /* Cambiar color de fondo al pasar el ratón */
+    color: black;
+  }
+
+.titulomain{
+    height: 50vh;
+    position: absolute;
+    top: 50%;
+    left: 35%;
+    right: 35%;
+}
+
+.titulomain h1{
+    font-size: 10vh;
+    color: #fff;
+}
+
+.boton-foto-main{
+    height: 50vh;
+    position: absolute;
+    top: 70%;
+    left: 45%;
+    right: 45%;
+}
+.boton-foto-main button{
+    font-size: 20px; /* Tamaño del texto */
+    padding: 20px 30px; 
+}
+.carrusel-main{
+    background-color: #e6e6e6;
+    height: 100vh;
+}
+.carrusel-main img{
+    width: 100%;
+    height: auto;   
+}
+.carrusel-text{
+    width: 30%;
+    justify-self: center;
+}
+.carrusel-text h3{
+    color:white; 
+    background-color: #406eaa;
+    padding-left: none;
+    padding-right: none;
+    border-radius: 10px;
+}
+
+.boton-carrusel{
+    border-radius: 5px; /* Bordes redondeados */
+    background-color: #0C356A; /* Color de fondo personalizado */
+    color: #fff; /* Color de texto */
+    padding: 10px 20px; /* Espaciado interno */
+    border: none; /* Sin borde */
+    cursor: pointer; /* Cambiar cursor al pasar el ratón */
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+}
+.boton-carrusel:hover {
+    background-color: white; /* Cambiar color de fondo al pasar el ratón */
+    color: black;
+  }
+.boton-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: auto; 
+}
+.text-conoce h6{
+    font-weight: bold;
+    text-align: center;
+}
+.pie-foto{
+    display: flex;
+    align-items: end;
+    justify-content: start;
+}
+.coment{
+    height: 100%;
+}
+.participar{
+    width: 100vw;
+    height: auto;
+    padding: 8vh;
+    background-color: #78a6e1;
+}
+.participar h2{
+    color: #0C356A;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.indicaciones li{
+    margin-top: 2vh;
+}
+.participar h3{
+    font-weight: bold;
+    color: #0C356A;
+    font-size: 30px;
+    margin-top: 3vh;
+}
+.convocatoria-foto img{
+    width: 100%;
+    height: auto;
+}
+
+.timer{
+    background-color: #0C356A;
+    border-radius: 5px;
+}
+.timer .text-timer{
+    color: white;
+    text-align: center;
+    font-size: 30px;
+}
+@media only screen and (max-width: 600px) {
+    .portadaimg{
+        background-image: url('../../../img/portada_celular.svg') ;
+    }
+    .participar .timer {
+      font-size: 14px; /* Tamaño de texto más pequeño para pantallas pequeñas */
+    }
+    .participar h2{
+        font-size: 14px;
+    }
+    .indicaciones li{
+    font-size: 12px;
+    }
+    .text-conoce h6{
+        font-size: 12px;
+    }
+    .boton-carrusel{
+        font-size: 14px;
+    }
+    .carrusel-text h3{
+        font-size: 10px;
+    }
+    .fecha{
+        font-size: 12px;
+    }
+  }
+  
+  /* Estilo para pantallas medianas */
+  @media only screen and (min-width: 601px) and (max-width: 1024px) {
+    .participar .timer{
+      font-size: 18px; /* Tamaño de texto más grande para pantallas medianas */
+    }
+    .participar h2{
+        font-size: 18px;
+    }
+    .indicaciones li{
+        font-size: 15px;
+    }
+    .text-conoce h6{
+        font-size: 12px;
+    }
+    .boton-carrusel{
+        font-size: 18px;
+    }
+    .carrusel-text h3{
+        font-size: 15px;
+    }
+    .fecha{
+        font-size: 15px;
+    }
+  }
+  
+  /* Estilo para pantallas grandes */
+  @media only screen and (min-width: 1025px) {
+    .participar .timer {
+      font-size: 50px; /* Tamaño de texto aún más grande para pantallas grandes */
+    }
+    .participar h2{
+        font-size: 40px;
+    }
+    .indicaciones li{
+        font-size: 20px;
+    }
+    .text-conoce h6{
+        font-size: 20px;
+    }
+    .boton-carrusel{
+        font-size: 40px;
+    }
+    .carrusel-text h3{
+        font-size: 25px;
+    }
+    .fecha{
+        font-size: 32px;
+    }
+  }
+  .texto-participar{
+    background-color: white;
+    border-radius: 5px;
+  }
+  .conocenos{
+    width: 100vw;
+    height: auto;
+    background-color: white;
+  }
+  .titulo{
+    text-align: center;
+    font-size: 50px;
+    color:#0C356A;
+    font-weight: bold;
+  }
+  .texto-conocenos{
+    font-size: 25px;
+  }
+
+  .fecha{
+    text-align: center;
+  }
+
+  .categoria{
+    border-radius: 5px;
+  }
+  .categoria:hover{
+    
+  }
+
+.ImagMain{
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+
+
+    width: 100%;
+  }
+  
+  

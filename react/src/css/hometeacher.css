@@ -1,0 +1,302 @@
+
+.aceptado{
+
+  color:rgb(0, 104, 47);
+  font-weight: bold;
+
+}
+
+.rechazado{
+
+  color:rgb(207, 42, 42);
+  font-weight: bold;
+
+}
+
+.espera{
+
+  color:rgb(121, 121, 121);
+  font-weight: bold;
+
+}
+
+.centered-container {
+  height: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.centered-FinalRescontainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.FinalResul{
+
+  color: gray;
+  font-weight: bolder;
+
+  font-size: 75px;
+
+}
+
+#comentario-style{
+  background-color: gainsboro;
+}
+
+.file{
+  color: black;
+}
+.file:hover{
+  color: #0056b3;
+}
+.comments{
+  height: 100px;
+}
+.scrollable-container {
+  width: 100%; /* O el ancho deseado */
+  overflow-x: auto; /* Habilita la barra de desplazamiento horizontal cuando sea necesario */
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.welcomeContent{
+  height: 31.5vh;
+}
+
+.aceptado{
+
+  color:rgb(0, 104, 47);
+  font-weight: bold;
+
+}
+.NombreProyecto{
+  background-color: #406eaa;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 5px;
+}
+.custom-btn3 {
+  border-radius: 5px; /* Bordes redondeados */
+  background-color: #0C356A; /* Color de fondo personalizado */
+  color: #fff; /* Color de texto */
+  padding: 10px 20px; /* Espaciado interno */
+  font-size: 2vh; /* Tamaño de fuente */
+  border: none; /* Sin borde */
+  cursor: pointer; /* Cambiar cursor al pasar el ratón */
+  text-decoration: none;
+  align-items: center;
+  font-weight: bold;
+}
+
+/* Estilos al pasar el ratón */
+.custom-btn3:hover {
+  background-color: #406eaa; /* Cambiar color de fondo al pasar el ratón */
+}
+
+.centered-container {
+  height: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.centered-FinalRescontainer {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+.card {
+  /* margin-bottom: 1rem;  */
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+  width: 320px;
+  height: auto;
+
+  --bs-card-border-radius: 16px !important;
+
+}
+
+
+.area{
+  text-align: center;
+  align-items: center;
+  background-color: #C7C8CC;
+  border-radius: 5px;
+}
+.area span{
+  font-weight: bold;
+  padding-bottom: 0 !important;
+
+}
+.slider-container {
+  display: flex;
+  overflow-x: auto; /* Activar desplazamiento horizontal */
+  width: 100%; /* Ajustar el ancho según sea necesario */
+  text-align: center;
+}
+
+.slider-item {
+  flex: 0 0 auto; /* Evitar que los elementos se ajusten */
+  margin-right: 10px; /* Espacio entre elementos */
+}
+.BGResume-profesor{
+  background-image: url('../img/proyec.svg');
+    background-size: cover; 
+    background-position: center;
+    border-radius: 5px;
+}
+
+.aceptado{
+
+  color:rgb(0, 104, 47);
+  font-weight: bold;
+
+}
+
+.rechazado{
+
+  color:rgb(207, 42, 42);
+  font-weight: bold;
+
+}
+
+.espera{
+
+  color:rgb(121, 121, 121);
+  font-weight: bold;
+
+}
+
+.centered-container {
+  height: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.centered-FinalRescontainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.FinalResul{
+
+  color: gray;
+  font-weight: bolder;
+
+  font-size: 75px;
+
+}
+
+#comentario-style{
+  background-color: gainsboro;
+}
+
+.file{
+  color: black;
+}
+.file:hover{
+  color: #0056b3;
+}
+.comments{
+  height: 100px;
+}
+.scrollable-container {
+  width: 100%; /* O el ancho deseado */
+  overflow-x: auto; /* Habilita la barra de desplazamiento horizontal cuando sea necesario */
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.welcomeContent{
+  height: 31.5vh;
+}
+
+.aceptado{
+
+  color:rgb(0, 104, 47);
+  font-weight: bold;
+
+}
+.NombreProyecto{
+  background-color: #406eaa;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 5px;
+}
+.custom-btn3 {
+  border-radius: 5px; /* Bordes redondeados */
+  background-color: #0C356A; /* Color de fondo personalizado */
+  color: #fff; /* Color de texto */
+  padding: 10px 20px; /* Espaciado interno */
+  font-size: 2vh; /* Tamaño de fuente */
+  border: none; /* Sin borde */
+  cursor: pointer; /* Cambiar cursor al pasar el ratón */
+  text-decoration: none;
+  align-items: center;
+  font-weight: bold;
+}
+
+/* Estilos al pasar el ratón */
+.custom-btn3:hover {
+  background-color: #406eaa; /* Cambiar color de fondo al pasar el ratón */
+}
+
+.centered-container {
+  height: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.centered-FinalRescontainer {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+.card {
+  /* margin-bottom: 1rem;  */
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+  width: 320px;
+  height: auto;
+
+  --bs-card-border-radius: 16px !important;
+
+}
+
+
+.area{
+  text-align: center;
+  align-items: center;
+  background-color: #C7C8CC;
+  border-radius: 5px;
+}
+.area span{
+  font-weight: bold;
+  padding-bottom: 0 !important;
+
+}
+.slider-container {
+  display: flex;
+  overflow-x: auto; /* Activar desplazamiento horizontal */
+  width: 100%; /* Ajustar el ancho según sea necesario */
+  text-align: center;
+}
+
+.slider-item {
+  flex: 0 0 auto; /* Evitar que los elementos se ajusten */
+  margin-right: 10px; /* Espacio entre elementos */
+}
+.BGResume-profesor{
+  background-image: url('../img/proyec.svg');
+    background-size: cover; 
+    background-position: center;
+    border-radius: 5px;
+}

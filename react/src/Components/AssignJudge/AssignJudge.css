@@ -1,0 +1,32 @@
+.judge-container {
+  text-align: center;
+}
+
+.judge-info {
+  margin-bottom: 20px;
+  color: gray;
+}
+
+.judge-image {
+  width: 200px; /* Adjust image size as needed */
+}
+
+.assign-button {
+  display: block;
+  margin: 0 auto;
+}
+
+.not-assign-judge {
+  color: gray;
+  margin-bottom: 10px;
+}
+
+.error-message {
+  color: red; /* You can customize the color as needed */
+  margin-bottom: 10px;
+}
+
+.button-container {
+  display: flex;
+  gap: 10px; /* Adjust the gap as needed */
+}

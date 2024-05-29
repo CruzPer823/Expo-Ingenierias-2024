@@ -1,0 +1,23 @@
+/* RoleFilter.css */
+
+/* Custom checkbox color when checked */
+.btn-check:checked + .btn-outline-primary:focus,
+.btn-check:checked + .btn-outline-primary.focus {
+  color: #fff;
+  background-color: #0C356A; 
+  border-color: #0C356A; 
+}
+
+.btn-check:checked + .btn-outline-primary {
+  color: #fff;
+  background-color: #0C356A; 
+  border-color: #0C356A;
+  border-right-color: #fff;
+  border-left-color: #fff; 
+}
+
+/* Custom border color for normal state */
+.btn-outline-primary {
+    border-color: #0C356A; 
+    color: #0C356A;
+  }

@@ -1,0 +1,27 @@
+/* Widget.css */
+.content-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 5px;
+    text-align: center;
+    
+}
+.content-title {
+    color: gray;
+    padding: 10px;
+}
+
+.content-subtitle {
+    color: gray;
+    font-weight: 500;
+    font-size: 20px;
+    margin-bottom: 3vh;
+}
+
+.card-content {
+    padding-bottom: 20px;
+}
+  

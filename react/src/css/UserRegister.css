@@ -1,0 +1,41 @@
+.Titulo{
+
+    font-weight: bolder;
+    color: #0C356A;
+    font-size: 20px;
+
+
+}
+
+.Subtitulo{
+
+    font-weight: bolder;
+
+}
+
+.Texto{
+
+    margin-left: 5px;
+
+}
+
+.ContainersForm{
+    background-color: #ffffff;
+    padding: 30px;
+
+    width: 50%;
+
+    margin-top: 30px;
+    border-radius: 5px;
+}
+
+.InputFormat{
+    background-color: rgb(225, 225, 225);
+}
+
+.ButtonRegister{
+    background-color: #406eaa;
+    border-color: #406eaa;
+    font-weight: bold;
+    font-size: 25px;
+}

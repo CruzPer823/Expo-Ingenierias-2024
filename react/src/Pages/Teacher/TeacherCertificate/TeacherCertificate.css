@@ -1,0 +1,58 @@
+.Titulo{
+
+    font-weight: bolder;
+    color: #0C356A;
+    font-size: 20px;
+
+
+}
+
+.Subtitulo{
+
+    font-weight: bolder;
+
+}
+
+.Texto{
+
+    margin-left: 5px;
+
+}
+
+.ContainerNotifi{
+    padding: 30px;
+
+    width: 50%;
+
+    border-radius: 5px;
+}
+
+.NotiFoto{
+
+    background-image: url('../../../img/micro.jpg');
+    height: 30vh;
+
+    background-size: 100%;
+    background-position: center;
+
+    border-radius: 5px;
+
+}
+
+.ContainerInfoNoti{
+    background-color: #e6e6e6;
+
+    border-radius: 5px;
+}
+
+.ButtonMaterials{  
+
+    background-color: #0C356A;
+    border-color: #0C356A;
+    font-weight: bold;
+    
+}
+
+.cont-cert{
+    background-color: #ffffff;
+}

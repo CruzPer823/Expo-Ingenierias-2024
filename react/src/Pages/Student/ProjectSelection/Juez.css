@@ -1,0 +1,136 @@
+.text .h3 {
+  font-family: 'Lucida Sans' sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: black;
+}
+
+.text .p {
+  font-family: 'Lucida Sans' sans-serif;
+  color: #999999;
+  font-size: 15px;
+}
+
+  
+.card:hover {
+  cursor: pointer;
+  box-shadow: 0px 10px 20px rgba(0,0,0,0.1);
+  --bs-card-border-radius: 16px !important;
+}
+
+.btn23 {
+  width: 100%;
+  min-height: 6.5vh;
+  
+  margin-top: 0.10rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #0C356A !important;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  transition: all 0.4s;
+  
+  /* Aplicar flexbox para centrar texto verticalmente */
+  display: flex;
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+  text-decoration: none;
+}
+
+.btn23:hover {
+
+  background-color: #0d6efd !important;
+
+}
+
+.cardSelect {
+  width: 30%;
+  height: 69vh;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 15px 15px 30px #bebebe,
+              -15px -15px 30px #ffffff;
+  transition: 0.2s ease-in-out;
+  margin: 0.5vw;
+  margin-bottom: 6vh;
+}
+
+.algoimagConcept {
+  background-image: url('../../../img/CardSelectConcept.png');
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  display: flex;
+  align-items: top;
+  justify-content: center;
+}
+
+.algoimagProto {
+  background-image: url('../../../img/CardSelectProto.png');
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  display: flex;
+  align-items: top;
+  justify-content: center;
+}
+
+.algoimagFinish {
+  background-image: url('../../../img/CardSelectFinish.png');
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  display: flex;
+  align-items: top;
+  justify-content: center;
+}
+
+.text {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: space-around;
+  height: 30vh;
+}
+
+
+.card-container {
+  position: relative;
+}
+
+.button-container {
+  position: absolute;
+  top: 7%;
+  left: 15%;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease;
+}
+
+.card-container:hover .button-container {
+  opacity: 1; /* Mostrar en hover */
+}
+
+.imag{
+
+  height: 225px ;
+  background-color: #999999;
+
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+
+}

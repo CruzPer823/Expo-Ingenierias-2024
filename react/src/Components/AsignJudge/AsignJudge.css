@@ -1,0 +1,23 @@
+.judge-container {
+    text-align: center;
+   
+  }
+  
+  .judge-info {
+    margin-bottom: 20px;
+    color: gray;
+  }
+  
+  .judge-image {
+    width: 200px; /* Adjust image size as needed */
+  }
+  
+  .assign-button {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .not-asign-judge {
+    color: gray;
+  }
+  

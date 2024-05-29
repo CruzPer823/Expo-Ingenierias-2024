@@ -1,0 +1,129 @@
+.login-container {
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-position: center;
+    height: 100vh;
+  }
+  
+  .login-header {
+    margin-bottom: 2rem;
+  }
+  
+  .login-form {
+    /*background: rgba(255, 255, 255, 0.8);*/
+    padding: 2rem;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-form .form-control {
+    margin-bottom: 2rem;
+    background: #ffffff;
+    border: none;
+    border-radius: 5px;
+    height: 3vh;
+    padding: 25px;
+  }
+  
+  
+  .login-form .btn-secondary {
+    border-radius: 10px; /* Bordes redondeados */
+    background-color: #0C356A; /* Color de fondo personalizado */
+    color: #fff; /* Color de texto */
+    padding: 10px 20px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño de fuente */
+    border: none; /* Sin borde */
+    cursor: pointer; /* Cambiar cursor al pasar el ratón */
+    font-weight: bold;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .login-form .btn-secondary:hover{
+    background-color: white;
+    color: black;
+  }
+  
+  .login-form .btn {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+  
+  .login-help {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+  }
+  
+  .login-help a {
+    color: hsl(0, 0%, 100%);
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+  
+  .tec-logo {
+    height: 70px;
+    margin: 0 1rem;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    filter: brightness(0) invert(1);
+  }
+  
+  .brand-container {
+    display: flex;
+    align-items: flex-end;
+  }
+  
+  .expo-logo {
+    height: 110px;
+    margin-right: 0.5rem;
+  }
+  
+  .expo-text-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .expo-text {
+    color: hsl(206, 82%, 60%);
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .ingenierias-text {
+    color: #f5f5dc;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .cuenta-btn{
+    border-radius: 10px; /* Bordes redondeados */
+    background-color: #406eaa; /* Color de fondo personalizado */
+    color: #fff; /* Color de texto */
+    padding: 10px 20px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño de fuente */
+    border: none; /* Sin borde */
+    cursor: pointer; /* Cambiar cursor al pasar el ratón */
+    font-weight: bold;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cuenta-btn:hover{
+    background-color: white;
+    color: black;
+  }

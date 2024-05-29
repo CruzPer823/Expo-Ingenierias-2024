@@ -1,0 +1,407 @@
+.Titulo{
+
+  font-weight: bolder;
+  color: #0C356A;
+  font-size: 20px;
+  
+
+}
+
+.Subtitulo1{
+
+  font-weight: bolder;
+  font-size: 20px;
+
+}
+
+.Texto{
+
+  margin-left: 5px;
+
+}
+
+.TextoValid{
+
+  margin-left: 5px;
+  font-size: 25px;
+
+}
+
+
+.Info{
+
+  background-color: #ffffff;
+  border-radius: 5px;
+  
+
+}
+
+.Info2{
+
+  background-color: #ffffff;
+  border-radius: 5px;
+  height: 300px;
+}
+
+.BGResumeConcept{
+
+  background-image: url('../../../img/CardResumeConcept.png'); 
+  background-size: cover; 
+  background-position: center;
+
+  border-radius: 5px;
+
+  height: 292px;
+
+}
+
+.BGResumeProto{
+
+  background-image: url('../../../img/CardResumeProto.png'); 
+  background-size: cover; 
+  background-position: center;
+
+  border-radius: 5px;
+
+  height: 292px;
+
+
+}
+
+.BGResumeFinish{
+
+  background-image: url('../../../img/CardResumeFinish.png'); 
+  background-size: cover; 
+  background-position: center;
+
+  border-radius: 5px;
+
+  height: 292px;
+
+}
+
+.TesteoSlider{
+
+  overflow-y: auto;
+  height: 210px;
+
+  cursor: pointer;
+}
+
+.TesteoSlider::-webkit-scrollbar{
+  display: none;
+}
+
+.proj-sub-bold{
+
+  color: #ffffff;
+  font-weight: bolder;
+
+}
+
+.proj-sub{
+
+  color: #ffffff;
+
+}
+
+.proj-tit{
+
+  color: #ffffff;
+  font-weight: bolder;
+  font-size: 40px;
+
+}
+
+.BGBar{
+
+  background-color: rgba(8, 34, 67, 0.8);
+  border-radius: 5px;
+
+}
+
+.gemelo{
+
+  font-size: 20px ;
+
+}
+
+.docu-icon{
+
+  font-size: 27px;
+
+}
+
+.docu-icon2{
+
+  font-size: 27px;
+  color: #13417d;
+
+}
+
+
+.Aceptado{
+
+  color:rgb(0, 104, 47);
+  font-weight: bold;
+  border-radius: 5px;
+
+
+}
+
+.Rechazado{
+
+  color:rgb(207, 42, 42);
+  font-weight: bold;
+  border-radius: 5px;
+
+
+}
+
+.Espera{
+  color:rgb(121, 121, 121);
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+
+.AceptadoCont{
+
+  background-color:rgb(0, 104, 47);
+  padding: 5px;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 5px;
+
+  color: #ffffff;
+
+
+}
+
+.RechazadoCont{
+
+  background-color:rgb(207, 42, 42);
+  padding: 5px;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 5px;
+
+  color: #ffffff;
+
+
+}
+
+
+.EsperaCont{
+
+  background-color:rgb(121, 121, 121);
+  padding: 5px;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 5px;
+
+  color: #ffffff;
+
+}
+
+.centered-container {
+  height: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.centered-FinalRescontainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.FinalResul{
+
+  color: #0C356A;
+  font-weight: bolder;
+  font-size: 80px;
+
+  margin-top: 300px !important;
+
+}
+
+.ContFinalRes{
+  border-radius: 5px;
+  width: 275px;
+
+  margin-top: 50px;
+}
+
+.Resultado{
+
+  font-weight: bolder;
+  color: #6da0e2;
+
+}
+
+
+.ContCommentIndiJudge{
+  background-color: #e6e6e6e5;
+  border-radius: 5px;
+  height: auto;
+}
+
+.ComentariosCOntenidoWrap{
+  white-space: wrap;
+}
+
+.SilderCont{
+  white-space: nowrap;
+
+  overflow-y: auto;
+  height: 300px;
+
+}
+
+
+.SilderCont::-webkit-scrollbar {
+  width: 5px;
+}
+
+.SilderCont::-webkit-scrollbar-track {
+  border-radius: 5px;
+  background: #aeaeae;
+  
+}
+
+.SilderCont::-webkit-scrollbar-thumb {
+  background: #555555e6;
+  border-radius: 5px; 
+}
+
+.SilderCont::-webkit-scrollbar-thumb:hover {
+  background: #000000; 
+}
+
+.TextoEdit{
+
+  font-weight: bolder;
+  color: #ffffff;
+  background-color: #0C356A;
+  padding: 10px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.TextoEdit:hover{
+
+  background-color: #0b5ed7;
+
+}
+
+.BolitaDeCarga{
+  --bs-spinner-width: 13rem;
+  --bs-spinner-height: 13rem;
+
+  margin-left: 140px;
+}
+
+.BolitaDeCargaJuez{
+  --bs-spinner-width: 9rem;
+  --bs-spinner-height: 9rem;
+  
+  margin-top: 40px;
+
+  color: #0C356A;
+
+}
+
+.BolitaDeCargaCalFin{
+  --bs-spinner-width: 9rem;
+  --bs-spinner-height: 9rem;
+  
+  margin-top: 125px;
+
+  color: #0C356A;
+
+}
+
+.IconoNohayComentarios{
+
+  font-size: 50px;
+}
+
+.colornohaycomment{
+
+  color: #999999;
+  font-weight: bolder;
+
+  padding: 5px;
+
+
+}
+
+.ContNoComment{
+  background-color: #fff;
+
+  height: 150px;
+
+  border-radius: 5px;
+}
+
+.RubricaContDetiledMOodal{
+
+  background-color: #e6e6e6;
+  border-radius: 5px;
+
+  height: 232px;
+
+  overflow-y: auto;
+
+}
+
+.RubricaContDetiledMOodal h5{
+  color: #0C356A;
+}
+
+.RubricaContDetiledMOodal::-webkit-scrollbar {
+  width: 5px;
+}
+
+.RubricaContDetiledMOodal::-webkit-scrollbar-track {
+  border-radius: 5px;
+  background: #aeaeae;
+  
+}
+
+.RubricaContDetiledMOodal::-webkit-scrollbar-thumb {
+  background: #555555e6;
+  border-radius: 5px; 
+}
+
+.RubricaContDetiledMOodal::-webkit-scrollbar-thumb:hover {
+  background: #000000; 
+}
+
+.contenedortituloparaquesepuedahcaergrande{
+  overflow-y: auto;
+
+  height: 245px;
+}
+
+.contenedortituloparaquesepuedahcaergrande::-webkit-scrollbar {
+  width: 5px;
+}
+
+.contenedortituloparaquesepuedahcaergrande::-webkit-scrollbar-track {
+  border-radius: 5px;
+  background: #ffffff;
+  
+}
+
+.contenedortituloparaquesepuedahcaergrande::-webkit-scrollbar-thumb {
+  background: #9d9d9de6;
+  border-radius: 5px; 
+}
+
+.contenedortituloparaquesepuedahcaergrande::-webkit-scrollbar-thumb:hover {
+  background: #000000; 
+}

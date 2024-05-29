@@ -1,0 +1,35 @@
+.title-bar {
+    background-color: #0C356A;
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+.left-content {
+  display: flex;
+  align-items: center;
+}
+.title {
+  align-items:center;
+  font-size: 20px;
+  font-weight: bold;
+}
+  
+.left-content img,
+.profile-image img {
+  width: 40px; /* Adjust the size of the images as needed */
+  height: 40px;
+  margin: 0 10px; /* Adjust the spacing between the images and the title */
+}
+
+.profile-image img {
+    border-radius: 50px;
+}
+
+.logo {
+  width: 40px;
+    cursor: pointer; /* Change cursor to pointer when hovering over the image */
+  }
+  

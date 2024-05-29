@@ -1,0 +1,101 @@
+.contenedor{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tarj{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40vw;
+    height: 62vh;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 15px 15px 30px #bebebe,
+               -15px -15px 30px #ffffff;
+    transition: 0.2s ease-in-out;
+    margin: 0.5vw;
+    margin-bottom: 6vh;
+}
+.addNew{
+    border: none;
+    background-color: white;
+    border-radius: 15px;
+    padding: 15px;
+}
+.addImg{
+    height: 55vh;
+    
+}
+
+.tar{
+    width: 40vw;
+    height: 62vh;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 15px 15px 30px #bebebe,
+               -15px -15px 30px #ffffff;
+    transition: 0.2s ease-in-out;
+    margin: 0.5vw;
+    margin-bottom: 6vh;
+}
+.contenido{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.tarjeta{
+    display: flex;
+    justify-content: center;
+    margin: 1vw;
+}
+h2{
+    margin-top: 1vw;
+    text-align: center;
+    width: 19vw;
+    font-weight: bold;
+}
+.description{
+    margin-top: 1vw;
+    text-align: center;
+    width: 19vw;
+    height: 5vh;
+}
+.btnPrin{
+    margin-top: 5vh;
+    width: 10vw;
+}
+
+.btnElim{
+    margin-top: 3vh;
+    width: 10vw;
+}
+@media(max-width: 1024px){
+    .areasImg{
+        height: 25vh;
+    }
+    .addImg{
+        height: 60vh;
+        
+    }
+    .tar{
+        width: 70vw;
+        height: 60vh;
+        
+    }
+    .btnPrin{
+        margin: 2vh;
+        width: 30vw;
+    }
+    
+    .btnElim{
+        margin-top: 2vh;
+        width: 30vw;
+    }
+    .description{
+        text-align: center;
+        width: 50vw;
+    }
+}

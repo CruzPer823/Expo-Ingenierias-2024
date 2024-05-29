@@ -1,0 +1,178 @@
+.TituloProjSEL{
+
+    font-weight: bolder;
+    color: #0C356A;
+    font-size: 30px;
+
+}
+
+.TitleSelectContainerVF{
+
+    background-color: #ffffff;
+    border-radius: 5px;
+    width: 50%;
+
+    margin-right: 254px;
+}
+
+.centered-containerProjSelc {
+    height: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 75px;
+}
+
+.NoProjContainer{
+    background-color: #ffffff;
+    border-radius: 5px;
+
+    width: 75%;
+
+}
+
+.BotonRegistrar{
+    background-color: #0C356A;
+    color: #ffffff;
+    font-weight: bolder;
+    border-radius: 5px;
+
+    font-size: 30px;
+
+    text-decoration: none;
+    align-content: center;
+}
+
+.ButtonEliminar{  
+
+    background-color: #ffffff;
+    border-color: #ffffff;
+    color: #FF5733;
+
+    font-weight: bold;
+
+    height: 36px;
+    
+}
+
+.ButtonAddMaterial{  
+
+    background-color: #0C356A;
+    border-color: #0C356A;
+    color: #ffffff;
+
+    font-weight: bold;
+
+    height: 36px;
+
+    text-decoration: none;
+    padding: 7px;
+
+    border-radius: 5px;
+    
+}
+
+.ButtonAddMaterial:hover{  
+
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: #ffffff;
+
+    font-weight: bold;
+
+    height: 36px;
+
+    text-decoration: none;
+    padding: 7px;
+
+    border-radius: 5px;
+    
+}
+
+.NuevoRegister {
+    background-color: #0C356A;
+    color: #ffffff;
+    font-weight: bolder;
+    border-radius: 5px;
+    font-size: 28px;
+    padding: 9px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    transition: width 0.3s ease-in-out;
+    width: 47px; /* Ancho inicial del botón, ajustado para que solo se vea el icono */
+    height: 46px;
+    white-space: nowrap;
+}
+
+.NuevoRegister:hover {
+    background-color: #0C356A;
+    width: 235px; /* Ancho del botón al hacer hover para mostrar el texto */
+}
+
+.NuevoRegister::after {
+    content: "Registrar nuevo proyecto";
+    color: #ffffff;
+    font-weight: normal;
+    font-size: 16px;
+    padding-left: 10px;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.NuevoRegister:hover::after {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.semicircle,
+.semicircle div {
+  /*  Adjust the size of the entire animation here.
+      (Remove max size below to go above 300px.) */
+  width: 350px;
+  height: 350px;
+  /* Adjust the speed or timing function of the animation here. */
+  animation: 6s rotate141 infinite linear;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+}
+
+.semicircle div {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  width: 90%;
+  height: 90%;
+}
+
+.semicircle:before,
+.semicircle div:before {
+  content: '';
+  width: 100%;
+  height: 50%;
+  display: block;
+  background: radial-gradient(transparent, transparent 65%, #0C356A 65%, #000);
+  background-size: 100% 200%;
+}
+
+@keyframes rotate141 {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.BotonDropDownSelect{
+    --bs-btn-bg: #0C356A !important;
+    --bs-btn-border-color: #0C356A !important;
+}
+
+.MenuDropPersonali{
+    --bs-dropdown-link-active-bg:none;
+    --bs-dropdown-link-hover-bg:none;
+}
