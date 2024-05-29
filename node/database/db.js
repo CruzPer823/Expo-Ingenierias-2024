@@ -1,6 +1,10 @@
 import config from '../config.js'
-import { Sequelize } from "sequelize";
+import {Sequelize} from 'sequelize'
 import oracledb from 'oracledb';
+
+
+
+//BASE DE DATOS ORACLE
 
 const db = new Sequelize({
     dialect: 'oracle',

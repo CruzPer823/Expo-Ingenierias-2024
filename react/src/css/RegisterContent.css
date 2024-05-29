@@ -1,0 +1,41 @@
+.Titulo{
+
+    font-weight: bolder;
+    color: #0C356A;
+    font-size: 20px;
+
+
+}
+
+.Subtitulo{
+
+    font-weight: bolder;
+
+}
+
+.Texto{
+
+    margin-left: 5px;
+
+}
+
+.ContainersForm{
+    background-color: #ffffff;
+    padding: 30px;
+
+    width: 50%;
+
+    margin-top: 30px;
+    border-radius: 5px;
+}
+
+.TextoValid3{
+    margin-left: 8px;
+    font-size: 30px;
+    font-weight: bolder;
+    color: #ffffff;
+    background-color: #0C356A;
+    padding: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+}

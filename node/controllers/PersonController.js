@@ -122,7 +122,7 @@ export const getAllPersons = async (req, res) => {
 }
 
 //Mostrar un proyecto
-export const getPerson = async (req, res) => {
+export const getStudent = async (req, res) => {
         try {
             const person = await PersonModel.findAll({
                 where:{ id:req.params.id }

@@ -1,0 +1,278 @@
+.aceptado1{
+  background-color:rgb(0, 104, 47);
+  padding: 5px;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 5px;
+
+  color: #ffffff;
+
+}
+
+.rechazado1{
+  background-color:rgb(207, 42, 42);
+  padding: 5px;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 5px;
+
+  color: #ffffff;
+
+}
+
+.espera1{
+  background-color:rgb(121, 121, 121);
+  padding: 5px;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 5px;
+
+  color: #ffffff;
+
+}
+
+.centered-container {
+  height: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.centered-FinalRescontainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+.custom-btn {
+  border-radius: 5px; 
+  background-color: #0C356A; 
+  color: #fff; 
+  padding: 10px 20px; 
+  font-weight: bold;
+  font-size: 20px;
+  border: none; 
+  cursor: pointer; 
+  height: 50px;
+  width: 150px;
+}
+
+
+.custom-btn:hover {
+  background-color: #406eaa; 
+}
+
+.custom-btn2 {
+  border-radius: 5px; 
+  background-color: rgb(207, 42, 42); 
+  color: #fff; 
+  font-size: 20px; 
+  font-weight: bold;
+  border: none; 
+  cursor: pointer; 
+  height: 50px;
+  width: 150px;
+}
+.custom-btn2:hover {
+  background-color: #406eaa; /* Cambiar color de fondo al pasar el ratón */
+}
+
+#comentario-style{
+  background-color: gainsboro;
+}
+
+.file{
+  color: black;
+  text-decoration: none;
+}
+.file .icono{
+  width: 100%;
+  height: auto;
+}
+#logo{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 120px;
+}
+.file:hover{
+  color: #0056b3;
+}
+.comments{
+  height: 120px;
+}
+
+.scrollable-container {
+  width: 100%; /* O el ancho deseado */
+  overflow-x: auto; /* Habilita la barra de desplazamiento horizontal cuando sea necesario */
+  display: inline-block;
+}
+#imgfondo{
+  background-color: #fff;
+}
+.centered-container {
+  height: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.centered-FinalRescontainer {
+  height: 10vh;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+.centered-container2 {
+  height: 10vh;
+  align-items: center;
+  justify-content: right;
+}
+.centered-container3 {
+  height: 10vh;
+  align-items: center;
+  justify-content: left;
+}
+#comentarioProfe{
+  border: 2px solid #000; 
+}
+
+.proj-sub-bold{
+  color: #ffffff;
+  font-weight: bolder;
+
+}
+.proj-sub{
+  color: #ffffff;
+  
+
+}
+.proj-tit{
+  color: #ffffff;
+  font-weight: bolder;
+  font-size: 40px;
+}
+.Infologo{
+  height: 41vh;
+  background-color: #ffffff;
+  border-radius: 5px;
+  margin-top: 3000px;
+}
+.Titulologo{
+
+  font-weight: bolder;
+  color: #0C356A;
+  font-size: 20px;
+  padding-bottom: 15px;
+  
+
+}
+.BGResumeTeacher{
+  background-image: url("../../../img/CardResumeConcept.png");
+
+  background-size: cover; 
+  background-position: center;
+  border-radius: 5px;
+  height: 256px;
+}
+
+.BGResumeTeacherPlaceHolder{
+  background-color: #999999;
+
+  background-size: cover; 
+  background-position: center;
+  border-radius: 5px;
+  height: 256px;
+}
+
+.circulos{
+  size: 20px;
+}
+.forms{
+  width:100%;
+  height: auto;
+  margin-top: 325px;
+}
+.check input{
+  border: 2px solid #000;
+  justify-items: center;
+}
+.check label{
+  font-weight: bold;
+  margin-left: 7px !important;
+  text-align: center;
+}
+.descr{
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media (max-width: 576px) {
+  .col-8 {
+    width: 100%; /* Cambia el ancho a 100% para pantallas pequeñas */
+  }
+}
+
+.ChecksPosition{
+  margin-left: 90px;
+}
+
+.BolitaProfesorResumenCarga{
+
+  color: #fff;
+
+  width: 145px;
+  height: 145px;
+
+}
+
+.BolitasIconos{
+  width: 90px;
+  height: 90px;
+}
+
+.TextoDescrProf{
+
+  cursor: pointer;
+  user-select: none;
+
+}
+
+.containerdescrprof{
+  overflow-y: auto;
+  height: 200px;
+}
+
+.containerdescrprof::-webkit-scrollbar {
+  width: 5px;
+}
+
+.containerdescrprof::-webkit-scrollbar-track {
+  background: #aeaeae;
+  
+}
+
+.containerdescrprof::-webkit-scrollbar-thumb {
+  background: #555555e6;
+  border-radius: 5px; 
+}
+
+.containerdescrprof::-webkit-scrollbar-thumb:hover {
+  background: #000000; 
+}
+
+.contenedorDecripcionprofesor{
+
+  overflow-y: auto;
+  height: 205px;
+
+}
+
+.contenedortextoparaversisirve{
+
+  height: 265px;
+
+}

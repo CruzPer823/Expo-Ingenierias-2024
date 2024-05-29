@@ -1,30 +1,32 @@
-// teamMember.js
-import { DataTypes } from 'sequelize';
-import sequelize from '../database/db.js';
+// Importar la conexión a la base de datos
+import db from "../database/db.js";
 
-const TeamMember = sequelize.define('team_members', {
-  id_team: {
-    type: DataTypes.NUMBER,
-    allowNull: false,
-  },
-  id_member: {
-    type: DataTypes.STRING(50),
-    allowNull: false,
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: sequelize.NOW,
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: sequelize.NOW,
-  },
+// Importar sequelize y DataTypes
+import { DataTypes } from "sequelize";
+
+// Definir el modelo para la tabla auxiliar
+const TeamMemberModel = db.define('team_members', {
+    id_team: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        references: {
+            model: 'teams',
+            key: 'id'
+        }
+    },
+    id_member: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        references: {
+            model: 'students',
+            key: 'id'
+        }
+    }
 }, {
-  timestamps: true, // Esto asegura que createdAt y updatedAt se incluyan automáticamente
-  createdAt: 'createdAt', // Nombre de la columna createdAt en la base de datos
-  updatedAt: 'updatedAt', // Nombre de la columna updatedAt en la base de datos
+    tableName: 'team_members'
 });
 
-export default TeamMember;
+// Exportar el modelo
+export default TeamMemberModel;

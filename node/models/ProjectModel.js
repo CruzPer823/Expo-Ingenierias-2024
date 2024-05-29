@@ -1,71 +1,28 @@
-import { DataTypes } from 'sequelize';
-import sequelize from '../database/db.js';
+//importamos la conexión a la DB
+import db from "../database/db.js";
+//importamos sequelize
+import { DataTypes } from "sequelize";
 
-const Project = sequelize.define('projects', {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-    allowNull: false,
-  },
-  title: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  description: {
-    type: DataTypes.TEXT, // Usamos TEXT para CLOB
-    allowNull: true,
-  },
-  linkVideo: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-  linkPoster: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-  statusGeneral: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-  statusPoster: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-  statusVideo: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: sequelize.NOW,
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: sequelize.NOW,
-  },
-  id_edition: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
-  },
-  id_area: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
-  },
-  id_category: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
-  },
-  id_lider: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-  id_responsable: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
+
+const ProjectModel = db.define('projects', {
+    id: { 
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    title: { type: DataTypes.STRING },
+    description: { type: DataTypes.STRING(4000) }, // CLOB puede ser representado como STRING con un límite alto en Sequelize
+    linkVideo: { type: DataTypes.STRING },
+    linkPoster: { type: DataTypes.STRING },
+    statusGeneral: { type: DataTypes.STRING },
+    statusPoster: { type: DataTypes.STRING },
+    statusVideo: { type: DataTypes.STRING },
+    id_edition: {type: DataTypes.INTEGER},
+    id_area: { type: DataTypes.INTEGER},
+    id_category: { type: DataTypes.INTEGER},
+    id_lider: { type: DataTypes.STRING},
+    id_responsable: { type: DataTypes.STRING}
+
 });
 
-export default Project;
+ export default ProjectModel;

@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../database/db.js';
 
-const Criteria = sequelize.define('criterias', {
+const CriteriaModel = sequelize.define('criterias', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -27,4 +27,4 @@ const Criteria = sequelize.define('criterias', {
   },
 });
 
-export default Criteria;
+export default CriteriaModel;

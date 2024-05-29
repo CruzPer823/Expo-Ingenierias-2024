@@ -1,0 +1,88 @@
+.Titulo{
+
+    font-weight: bolder;
+    color: #0C356A;
+    font-size: 20px;
+
+
+}
+
+.Subtitulo{
+
+    font-weight: bolder;
+
+}
+
+.Texto{
+
+    margin-left: 5px;
+
+}
+
+
+
+.ButtonMaterials{  
+
+    background-color: #0C356A;
+    border-color: #0C356A;
+    font-weight: bold;
+    
+}
+
+.BckGrnd{
+    background-color: rgb(225, 225, 225);
+    border-radius: 5px;
+    width: 50%;
+}
+
+.ButtonAddLessMaterials{
+
+    background-color: #0C356A;
+    border-color: #0C356A;
+    font-weight: bold;
+}
+
+
+
+.InputFormat{
+
+    background-color: rgb(225, 225, 225);
+  
+}
+
+.InputDescrFormat{
+
+    background-color: rgb(225, 225, 225);
+    height: 150px;
+  
+}
+
+
+.InputDescrFormat::-webkit-scrollbar {
+    width: 5px;
+}
+
+.InputDescrFormat::-webkit-scrollbar-track {
+    background: #aeaeae;
+    
+}
+
+.InputDescrFormat::-webkit-scrollbar-thumb {
+    background: #555555e6;
+    border-radius: 5px; 
+}
+
+.InputDescrFormat::-webkit-scrollbar-thumb:hover {
+    background:#000000;
+}
+
+
+
+
+
+.ButtonRegister{
+    background-color: #406eaa;
+    border-color: #406eaa;
+    font-weight: bold;
+    font-size: 25px;
+}

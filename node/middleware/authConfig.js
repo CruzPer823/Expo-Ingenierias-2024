@@ -1,10 +1,7 @@
-
-import axios from "axios"
-
+import axios from "axios";
 import config from '../config.js';
-import {StudentModel} from "../models/Relations.js"
-
-
+import db from "../database/db.js"
+import { StudentModel, PersonModel, TeamMemberModel, CommentsModel, AsessorProjectModel, ProjectModel } from "../models/Relations.js"; // Asegúrate de importar PersonModel
 
 async function getAuth0Token() {
   console.log(config.AUTH0_CLIENT_ID + " "+  config.AUTH0_DOMAIN + " " +config.AUTH0_CLIENT_SECRET)
@@ -41,39 +38,108 @@ async function fetchAuth0Users(token) {
 }
 
 async function saveUsersToDatabase(users) {
-
+  
+  
   for (const user of users) {
     const { email, user_id } = user;
     const firstName = user.user_metadata ? user.user_metadata.firstName : '';
     const lastName1 = user.user_metadata ? user.user_metadata.lastName : '';
 
-    var matricula = email.slice(0,-7)
+    const username = email.split('@')[0];
+    const isStudent = /^[aA]\d{8}$/.test(username);
 
-    var studentNew = {id: user_id, name: firstName, lastName: lastName1, enrollment: matricula}
+    if (isStudent) {
+      const matricula = username;
+      const studentNew = { id: user_id, name: firstName, lastName: lastName1, enrollment: matricula };
 
-    console.log(studentNew)
+      const [foundUser, created] = await StudentModel.findOrCreate({
+        where: { enrollment: studentNew.enrollment },
+        defaults: studentNew,
+      });
 
-    //const student = await StudentModel.create(studentNew);
-
-    const student = await StudentModel.findOrCreate({
-      where: { id: studentNew.id }, // Supone que 'email' debe ser único
-      defaults: studentNew // los datos que serán insertados si no se encuentra el registro
-    })
-    .then(([user, created]) => {
       if (created) {
-        console.log('Registro creado exitosamente', user);
+        console.log('Registro creado exitosamente', foundUser);
       } else {
         console.log('El registro ya existía y no fue creado de nuevo');
-      }
-    })
-    .catch(error => {
-      console.log('Error en la operación', error);
-    });
+        if (foundUser.id !== studentNew.id) {
+          // Actualizar la tabla intermedia primero
+
+          console.log('Actualizar team_members' + foundUser.id + ' ' + studentNew.id)
+
+
+          await StudentModel.create({
+            id: studentNew.id,
+            name: foundUser.name,
+            lastName: foundUser.lastName,
+            enrollment: foundUser.enrollment,
+          });
     
+
+          await TeamMemberModel.update(
+            { id_member: studentNew.id },
+            { where: { id_member: foundUser.id } }
+          );
+
+          console.log("Se actualizo el equipo")
+
+          await StudentModel.destroy({ where: { id: foundUser.id } });
+          
+          foundUser.id = studentNew.id;
+          console.log('Clave primaria actualizada exitosamente', foundUser);
+        }
+      }
+    }
+    
+    else {
+      const personNew = { id: user_id, name: firstName, lastName: lastName1, email };
+
+      console.log(personNew);
+
+
+
+      const [foundUser, created] = await PersonModel.findOrCreate({
+        where: { email: personNew.email },
+        defaults: personNew
+      })
+        if (created) {
+          console.log('Registro creado exitosamente', foundUser);
+        } else {
+          if(foundUser.id !== personNew.id)
+          {
+            await PersonModel.create({
+              id: personNew.id,
+              name: foundUser.name,
+              lastName: foundUser.lastName,
+              email: foundUser.email,
+            });
+
+            await CommentsModel.update(
+              {id_person: personNew.id},
+              {where: {id_person: foundUser.id}}
+            );
+
+            await AsessorProjectModel.update(
+              {id_person: personNew.id},
+              {where: {id_person: foundUser.id}}
+            )
+
+            await ProjectModel.update(
+              {id_responsable: personNew.id},
+              {where: {id_responsable: foundUser.id}}
+            )
+
+            await PersonModel.destroy({where: {id: foundUser.id}});
+
+            foundUser.id = personNew.id;
+            console.log('Clave primaria actualizada exitosamente', foundUser);
+      
+
+          }
+        }
+      
+    }
   }
 }
-
-
 
 export default async function main() {
   const token = await getAuth0Token();
@@ -85,4 +151,3 @@ export default async function main() {
     console.log('No new users to process.');
   }
 }
-

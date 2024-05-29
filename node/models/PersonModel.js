@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../database/db.js';
 
-const Person = sequelize.define('persons', {
+const PersonModel = sequelize.define('persons', {
   id: {
     type: DataTypes.STRING(50),
     primaryKey: true,
@@ -35,4 +35,4 @@ const Person = sequelize.define('persons', {
   },
 });
 
-export default Person;
+export default PersonModel;

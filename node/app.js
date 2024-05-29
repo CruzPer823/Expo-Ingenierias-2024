@@ -2,8 +2,6 @@ import config from './config.js'
 import cron from "node-cron"
 import express  from "express"
 import cors from 'cors'
-import session from 'express-session'
-import SequelizeStore from 'connect-session-sequelize'
 
 //importamos la conexión a la DB
 import db from "./database/db.js"
@@ -33,6 +31,8 @@ import PersonRoutes from './routes/PersonRoutes.js';
 import TeamRoutes from './routes/TeamRoutes.js';
 import TeamMemberRoutes from './routes/TeamMemberRoutes.js';
 import AnnounRoutes from './routes/AnnounRoutes.js';
+import commenRoutes from './routes/CommentsRoutes.js';
+import main from './middleware/authConfig.js'
 
 
 const app = express()
@@ -51,7 +51,8 @@ app.use('/students', StudentsRoutes);
 app.use('/announ', AnnounsRoutes);
 app.use('/Admin',  AdminRoutes);
 app.use('/Ediciones',EditionRoutes);
-
+app.use('/person',  PersonRoutes);
+app.use('/comments',commenRoutes);
 
 // JUDGE ROUTES
 app.use('/api', CriteriaRoutes);
@@ -77,8 +78,10 @@ try {
 }
 
 
-const sessionStore = SequelizeStore(session.Store)
-const store = new sessionStore({db:db})
+
+
+cron.schedule('*/20 * * * * *', function() { console.log('Running a task every 20 seconds'); main();});
+
 
 
 app.listen(8000, ()=>{

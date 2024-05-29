@@ -1,0 +1,169 @@
+.Titulo{
+
+  font-weight: bolder;
+  color: #0C356A;
+  font-size: 20px;
+  
+
+}
+
+.Subtitulo{
+
+  font-weight: bolder;
+
+}
+
+.Texto{
+
+  margin-left: 5px;
+
+}
+
+.TextoValid{
+
+  margin-left: 5px;
+  font-size: 25px;
+
+}
+
+
+.TextoValid2{
+
+  margin-left: 8px;
+  font-size: 25px;
+  font-weight: bolder;
+  color: #0C356A;
+
+}
+
+
+
+.Info{
+
+  background-color: #ffffff;
+  border-radius: 5px;
+
+}
+
+.BGResume{
+
+  background-image: url('./img/proyec.svg'); 
+  background-size: cover; 
+  background-position: center;
+
+  border-radius: 5px;
+
+}
+
+.proj-sub-bold{
+
+  color: #ffffff;
+  font-weight: bolder;
+
+}
+
+.proj-sub{
+
+  color: #ffffff;
+
+}
+
+.proj-tit{
+
+  color: #ffffff;
+  font-weight: bolder;
+  font-size: 40px;
+
+}
+
+.BGBar{
+
+  background-color: rgba(8, 34, 67, 0.8);
+  border-radius: 5px;
+
+}
+
+.gemelo{
+
+  font-size: 20px ;
+
+}
+
+.docu-icon{
+
+  font-size: 27px;
+
+}
+
+.docu-icon2{
+
+  font-size: 27px;
+  color: #13417d;
+
+}
+
+.TextoValid2{
+
+  margin-left: 8px;
+  font-size: 25px;
+  font-weight: bolder;
+
+  color: black;
+
+}
+
+
+.aceptado{
+
+  color:rgb(0, 104, 47);
+  font-weight: bold;
+
+}
+
+.rechazado{
+
+  color:rgb(207, 42, 42);
+  font-weight: bold;
+
+}
+
+.espera{
+
+  color:rgb(121, 121, 121);
+  font-weight: bold;
+
+}
+
+.centered-container {
+  height: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.centered-FinalRescontainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.FinalResul{
+
+  color: gray;
+  font-weight: bolder;
+
+  font-size: 75px;
+
+}
+
+.FormBack{
+  background-color: #ffffff;
+  border-radius: 5px;
+}
+
+.InputFormat{
+
+  background-color: rgb(225, 225, 225);
+
+}

@@ -4,7 +4,7 @@ import { DataTypes } from "sequelize";
 
 const AnnounModel = db.define('announcements', {
     id: { 
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         primaryKey: true
     },
     title: { type: DataTypes.STRING },

@@ -7,4 +7,8 @@ router.get('/announs', getAllAnnouns);
 
 router.get('/announs/:id', getAnnoun);
 
+router.get('/', getAllAnnouns);
+
+router.get('/:id', getAnnoun);
+
 export default router;

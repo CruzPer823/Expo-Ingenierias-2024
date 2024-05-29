@@ -1,0 +1,263 @@
+
+.aceptado{
+
+  color:rgb(0, 104, 47);
+  font-weight: bold;
+
+}
+
+.rechazado{
+
+  color:rgb(207, 42, 42);
+  font-weight: bold;
+
+}
+
+.espera{
+
+  color:rgb(121, 121, 121);
+  font-weight: bold;
+
+}
+
+.centered-container {
+  height: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.centered-FinalRescontainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.FinalResul{
+
+  color: gray;
+  font-weight: bolder;
+
+  font-size: 75px;
+
+}
+
+#comentario-style{
+  background-color: gainsboro;
+}
+
+.file{
+  color: black;
+}
+.file:hover{
+  color: #0056b3;
+}
+.comments{
+  height: 100px;
+}
+.scrollable-container {
+  width: 100%; /* O el ancho deseado */
+  overflow-x: auto; /* Habilita la barra de desplazamiento horizontal cuando sea necesario */
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.welcomeContent{
+  height: 31.5vh;
+}
+
+.aceptado{
+
+  color:rgb(0, 104, 47);
+  font-weight: bold;
+
+}
+.NombreProyecto{
+  background-color: #406eaa;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 5px;
+}
+.custom-btn3 {
+  border-radius: 5px; /* Bordes redondeados */
+  background-color: #0C356A; /* Color de fondo personalizado */
+  color: #fff; /* Color de texto */
+  padding: 10px 20px; /* Espaciado interno */
+  font-size: 2vh; /* Tamaño de fuente */
+  border: none; /* Sin borde */
+  cursor: pointer; /* Cambiar cursor al pasar el ratón */
+  text-decoration: none;
+  align-items: center;
+  font-weight: bold;
+}
+
+/* Estilos al pasar el ratón */
+.custom-btn3:hover {
+  background-color: #406eaa; /* Cambiar color de fondo al pasar el ratón */
+}
+
+.centered-container {
+  height: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.centered-FinalRescontainer {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+.cardProf {
+
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+  width: 307px;
+  height: 360px;
+
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+
+}
+
+
+.area{
+  text-align: center;
+  align-items: center;
+  background-color: #C7C8CC;
+  border-radius: 5px;
+}
+.area span{
+  font-weight: bold;
+  padding-bottom: 0 !important;
+
+}
+.slider-container {
+  display: flex;
+  overflow-x: auto; /* Activar desplazamiento horizontal */
+  width: 100%; /* Ajustar el ancho según sea necesario */
+  text-align: center;
+
+}
+
+.containerPlaceholderTeach {
+  display: flex;
+  width: 100%; /* Ajustar el ancho según sea necesario */
+  text-align: center;
+
+}
+
+.slider-item {
+  flex: 0 0 auto; /* Evitar que los elementos se ajusten */
+  margin-right: 10px; /* Espacio entre elementos */
+}
+.BGResume-profesor{
+  background-color: #0C356A;
+  background-size: cover; 
+  background-position: center;
+  border-radius: 5px;
+  height: 93%;
+}
+
+.ImagProfe{
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+.prof-titulo-h1{
+  font-size: 45px;
+}
+.prof-titulo-h3-1{
+  font-size: 30px;
+  font-weight: bolder;
+}
+.prof-titulo-h3-2{
+  font-size: 50px;
+  background-color: #406eaa;
+  padding: 5px;
+
+  border-radius: 15px;
+}
+
+.divisor{
+  height: 15px;
+  background-color: #ffffff;
+  border: none;
+  opacity: .65;
+}
+
+.slider-container::-webkit-scrollbar {
+  height: 5px;
+}
+
+.slider-container::-webkit-scrollbar-track {
+  background: #aeaeae;
+  
+}
+
+.slider-container::-webkit-scrollbar-thumb {
+  background: #555555e6;
+  border-radius: 5px; 
+}
+
+.slider-container::-webkit-scrollbar-thumb:hover {
+  background: #000000; 
+}
+
+
+.semicircleteacher,
+.semicircleteacher div {
+  /*  Adjust the size of the entire animation here.
+      (Remove max size below to go above 300px.) */
+  width: 350px;
+  height: 350px;
+  /* Adjust the speed or timing function of the animation here. */
+  animation: 6s rotate141 infinite linear;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+}
+
+.semicircleteacher div {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  width: 90%;
+  height: 90%;
+}
+
+.semicircleteacher:before,
+.semicircleteacher div:before {
+  content: '';
+  width: 100%;
+  height: 50%;
+  display: block;
+  background: radial-gradient(transparent, transparent 65%, #0C356A 65%, #000);
+  background-size: 100% 200%;
+}
+
+@keyframes rotate141 {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.BolitaProfesorCarga{
+
+  color: #0C356A;
+
+  width: 40px ;
+  height: 40px;
+
+}
+
+.IconoNohyProjectsProfe{
+
+  font-size: 100px;
+  color: #aeaeae;
+}
+
+.ColorNohayProyectoprofe{
+  color: #aeaeae;
+}

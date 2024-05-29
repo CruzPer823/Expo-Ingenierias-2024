@@ -1,0 +1,72 @@
+.opciones{
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-style: Arial;
+}
+.opciones:hover{
+    color:#406eaa;
+}
+
+.boton-menu {
+    border-radius: 20px; /* Bordes redondeados */
+    background-color: #406eaa; /* Color de fondo personalizado */
+    color: #fff; /* Color de texto */
+    padding: 10px 20px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño de fuente */
+    border: none; /* Sin borde */
+    cursor: pointer; /* Cambiar cursor al pasar el ratón */
+    font-weight: bold;
+  }
+  
+  /* Estilos al pasar el ratón */
+  .boton-menu:hover {
+    background-color: white; /* Cambiar color de fondo al pasar el ratón */
+    color: black;
+  }
+  
+  #NavMain{
+
+    background-color: #0C356A;
+    text-align: center;
+    align-items: center;
+
+}
+.opciones-btn{
+    color: white;
+    text-decoration: none;
+    background-color: #406eaa; 
+    border-radius: 5px;
+    font-weight: bold;
+    font-style: Arial;
+    padding: 10px 15px;
+}
+.opciones-btn:hover{
+  color: black;
+  background-color: white;
+}
+.ExpoIngLog{
+  display: block;
+}
+.navbar-nav {
+  text-align: center;
+
+}
+
+  .navbar-nav > li {
+    float: none;
+    display: inline-block;
+  }
+
+.ExpoIngLog{
+  margin-right: 20px;
+}
+.navbar-toggler{
+  color:white;
+}
+.navbar-toggler-icon{
+  color: white;
+}
+#NavBar{
+  width: 100vw !important;
+}

@@ -1,0 +1,139 @@
+.badge-container {
+  display: inline-block;
+  margin-left: 0.1vw;
+  margin-right: 0.1vw;
+  margin-bottom: 0.1vh;
+  align-items: center;
+}
+
+.badge {
+  width: 5vw;
+  margin-top: 0.1vh;
+  margin-right: 0.1vw;
+  margin-bottom: 0.1vh;
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  background-color: #A3A3A3; /* GRIS */
+  color: white;
+  border-radius: 12px;
+  padding: 2px 2px;
+  font-size: 10px; /* Añadí "px" al tamaño de fuente */
+}
+
+.badge2 {
+  width: 5vw;
+  margin-top: 0.1vh;
+  margin-right: 0.1vw;
+  margin-bottom: 0.1vh;
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  background-color: #FF5733; /* Rojo */
+  color: white;
+  border-radius: 12px;
+  padding: 2px 2px;
+  font-size: 10px; /* Añadí "px" al tamaño de fuente */
+  text-align: center; /* Añadido para centrar el texto */
+  font-weight: bolder;
+}
+
+.badge3 {
+  width: 5vw;
+  margin-top: 0.1vh;
+  margin-right: 0.1vw;
+  margin-bottom: 0.1vh;
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(0, 104, 47); /* verde */
+  color: white;
+  border-radius: 12px;
+  padding: 2px 2px;
+  font-size: 10px; /* Añadí "px" al tamaño de fuente */
+  text-align: center; /* Añadido para centrar el texto */
+  font-weight: bolder;
+}
+
+.badgeselect {
+
+  width: 130px;
+  margin-top: 0.1vh;
+  margin-right: 0.1vw;
+  margin-bottom: 0.1vh;
+  display: inline-block;
+  justify-content: center !important;
+  align-items: center !important;
+  background-color: #A3A3A3; /* GRIS */
+  color: white;
+  border-radius: 12px;
+  padding: 6px;
+  font-size: 15px; /* Añadí "px" al tamaño de fuente */
+  font-weight: bolder;
+}
+
+.badgeselect2 {
+  width: 130px;
+  margin-top: 0.1vh;
+  margin-right: 0.1vw;
+  margin-bottom: 0.1vh;
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  background-color: #FF5733; /* Rojo */
+  color: white;
+  border-radius: 12px;
+  padding: 2px 2px;
+  font-size: 15px; /* Añadí "px" al tamaño de fuente */
+  text-align: center; /* Añadido para centrar el texto */
+  font-weight: bolder;
+}
+
+.badgeselect3 {
+  width: 130px;
+  margin-top: 0.1vh;
+  margin-right: 0.1vw;
+  margin-bottom: 0.1vh;
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(0, 104, 47); /* verde */
+  color: white;
+  border-radius: 12px;
+  padding: 2px 2px;
+  font-size: 15px; /* Añadí "px" al tamaño de fuente */
+  text-align: center; /* Añadido para centrar el texto */
+  font-weight: bolder;
+}
+
+@media (max-width: 900px) {
+  .badge {
+    width: 16vw;
+    margin-top: 0vh;
+    margin-bottom: 0vh;
+
+  }
+  .badge-container {
+    display: inline-block;
+    margin-bottom: 2vw;
+    margin-left: 2vw;
+    align-items: center;
+  }
+
+  .badge2 {
+    width: 16vw;
+    margin-top: 0vh;
+    margin-bottom: 0vh;
+  }
+  .badge2-container {
+    /* Estilo adicional para centrar horizontalmente */
+    width: 50%; /* Ancho del contenedor */
+    margin: auto; /* Centrar horizontalmente */
+  }
+  .btn{
+    margin-bottom: 0vh;
+    margin-top: 0vh;
+
+
+  }
+}

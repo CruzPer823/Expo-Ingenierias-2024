@@ -1,0 +1,219 @@
+.container h1{
+  text-align: center;
+    font-weight: bolder;
+    color: #0C356A;
+    margin-top: 5vh;
+    font-size: 2.5rem;
+}
+.proyectos{
+    margin-top: 5vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.card {
+    width: 20vw;
+    height: 73vh;
+    background: white;
+    border-radius: 30px;
+    box-shadow: 15px 15px 30px #bebebe,
+               -15px -15px 30px #ffffff;
+    transition: 0.2s ease-in-out;
+    margin: 0.5vw;
+    margin-bottom: 2vh;
+
+    --bs-card-border-radius: 16px !important;
+  }
+  .imag {
+    width: 100%;
+    height: 20vh;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    display: flex;
+    align-items: top;
+    justify-content: center;
+  }
+  img {
+    width: 100%;
+    height: 20vh;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    display: flex;
+    align-items: top;
+    justify-content: center;
+  }
+  
+  .text {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: space-around;
+    height: 30vh;
+  }
+  
+  .icon-box {
+    margin-top: 15px;
+    width: 70%;
+    padding: 10px;
+    background-color: #e3fff9;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+  }
+  
+  .icon-box svg {
+    width: 17px;
+  }
+  
+  .text .h3 {
+    font-family: 'Lucida Sans' sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: black;
+  }
+  
+  .text .p {
+    font-family: 'Lucida Sans' sans-serif;
+    color: #999999;
+    font-size: 13px;
+  }
+  
+  .icon-box .span {
+    margin-left: 10px;
+    font-family: 'Lucida Sans' sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: #9198e5;
+  }
+  
+  .card:hover {
+    cursor: pointer;
+    box-shadow: 0px 10px 20px rgba(0,0,0,0.1);
+    --bs-card-border-radius: 16px !important;
+  }
+  
+  .save:hover {
+    transform: scale(1.1) rotate(10deg);
+  }
+  
+  .save:hover .svg {
+    fill: #ced8de;
+  }
+
+  @media (max-width: 900px) {
+    h1{
+      margin-top: 5vh;
+      text-align: center;
+      font-weight: bolder;
+    color: #0C356A;
+    font-size: 1rem;
+    }
+    .h1 .proyectos{
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        
+      }
+    .imag{
+      height: 40vh;
+    }
+    img{
+      width: 100%;
+      height: 40vh;
+    }
+      .card{
+
+        width: 100%;
+        height: 80vh;
+        margin-bottom: 10px;
+        display: flex;
+        background: white;
+        border-radius: 30px;
+        box-shadow: 15px 15px 30px #bebebe,
+               -15px -15px 30px #ffffff;
+        transition: 0.2s ease-in-out;
+        margin: 0.5vw;
+        margin-bottom: 2vh;
+
+        --bs-card-border-radius: 16px !important;
+        
+      }
+  }
+
+  .btn {
+    width: 100%;
+    min-height: 5.5vh;
+    margin-top: 0.1rem;
+    margin-bottom: 1rem;
+    font-size: 1.1em;
+    font-weight: bolder;
+    cursor: pointer;
+    background-color: #0C356A;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    transition: all 0.4s;
+    
+    /* Aplicar flexbox para centrar texto verticalmente */
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+  }
+  .btn:hover {
+    border-radius: 5px;
+    transform: translateY(-10px);
+    box-shadow: 0 7px 0 -2px #171717,
+     0 15px 0 -4px #39a2db,
+     0 16px 10px -3px #39a2db;
+
+   }
+   
+   .btn:active {
+    transition: all 0.2s;
+    transform: translateY(-5px);
+    box-shadow: 0 2px 0 -2px #171717,
+     0 8px 0 -4px #39a2db,
+     0 12px 10px -3px #39a2db;
+   }
+   .btncalif {
+    width: 100%;
+    min-height: 7.5vh;
+    margin-top: 0.1rem;
+    margin-bottom: 1rem;
+    font-size: 1.1em;
+    font-weight: bolder;
+    cursor: pointer;
+    background-color: #0C6A35;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    transition: all 0.4s;
+    
+    /* Aplicar flexbox para centrar texto verticalmente */
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    
+    /* Quitar línea subrayada */
+    text-decoration: none;
+  }
+  
+  .btncalif:hover {
+    border-radius: 5px;
+    transform: translateY(-10px);
+    box-shadow: 0 7px 0 -2px #171717,
+     0 15px 0 -4px #39a2db,
+     0 16px 10px -3px #39a2db;
+  }
+  
+  .btncalif:active {
+    transition: all 0.2s;
+    transform: translateY(-5px);
+    box-shadow: 0 2px 0 -2px #171717,
+     0 8px 0 -4px #39a2db,
+     0 12px 10px -3px #39a2db;
+  }
+  

@@ -1,0 +1,70 @@
+.navigation-bar {
+    position: fixed; /* Position the navigation bar relative to the viewport */
+    top: 0; /* Align the navigation bar to the top of the viewport */
+    left: 0; /* Align the navigation bar to the left of the viewport */
+    /* width: 200px; Set the width of the navigation bar */
+    height: 100%; /* Make the navigation bar fill the entire height of the viewport */
+    background-color: white; /* Background color */
+    padding-left: 20px; /* Padding around the navigation items */
+    box-sizing: border-box; /* Include padding and border in the navigation bar's total width and height */
+    z-index: 999;
+}
+
+.top-section {
+  color: #0C356A;
+  font-family:'Times New Roman', Times, serif;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.top-section img {
+    width: 40px; 
+    height: 40px;
+    margin: 0%;
+    margin-right: 5px;
+}
+
+.top-section p {
+    margin: 0%;
+}
+
+.close-button {
+    margin: 0; /* Reset margin */
+    padding: 0; /* Reset padding */
+    background: none; /* Remove background */
+    border: none; /* Remove border */
+    font: inherit; /* Inherit font properties */
+    color: gray; /* Inherit text color */
+    cursor: pointer; /* Change cursor to pointer for better UX */
+    /* Add your custom styles */
+    margin-left: 5px;
+    font-size: 15px;
+}
+
+.title-span {
+    color: #279EFF;
+}
+  
+.navigation-bar ul {
+  list-style-type: none; /* Remove default bullet points */
+  padding: 0;
+  margin: 0;
+}
+
+.navigation-bar li {
+  margin-bottom: 10px; /* Spacing between navigation items */
+}
+
+.navigation-bar a {
+  color: gray; /* Link text color */
+  text-decoration: none; /* Remove underline from links */
+  font-size: 16px; /* Font size of the links */
+}
+
+.navigation-bar a:hover {
+  text-decoration: underline; /* Underline links on hover */
+}
+  
