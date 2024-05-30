@@ -1,6 +1,6 @@
 //importamos el Modelo
 import {ProjectModel, PersonModel, AreaModel, AreaPersonModel, AsessorProjectModel} from "../models/Relations.js"
-import Person from '../models/PersonsModel.js';
+
 
 //** Métodos para el CRUD **/
 
@@ -187,7 +187,7 @@ export const fetchAllPersons = async (req, res) => {
   export const fetchPersonById = async (req, res) => {
     const { id } = req.params;
     try {
-      const person = await Person.findByPk(id);
+      const person = await PersonModelS.findByPk(id);
       if (!person) {
         res.status(404).json({ error: 'Person not found.' });
       } else {
