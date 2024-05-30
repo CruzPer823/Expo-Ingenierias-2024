@@ -1,5 +1,5 @@
 // Importar el modelo Team
-import Team from '../models/TeamsModel.js';
+import Team from '../models/TeamModel.js';
 
 // Función para obtener todos los equipos
 async function fetchAllTeams(req, res) {
