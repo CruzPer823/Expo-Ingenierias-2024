@@ -25,6 +25,7 @@ const TeamMemberModel = db.define('team_members', {
         }
     }
 }, {
+    timestamps:false,
     tableName: 'team_members'
 });
 

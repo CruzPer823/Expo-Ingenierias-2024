@@ -1,12 +1,12 @@
 import express from 'express';
-import { deleteProject, disqualifyProject, getAllProjects, getProject, handleRegister, handleEdition, handleResumen, getProjectsByResponsable, getProjectStatusData, getMaterialChecklistItems} from '../controllers/ProjectController.js'
+import { deleteProject, disqualifyProject, getAllProjects, getProject, handleRegister, handleEdition, handleResumen, getProjectsByResponsable, getProjectStatusData, getMaterialChecklistItems,getProjectAdmin} from '../controllers/ProjectController.js'
 
 const router = express.Router();
 
 //Obtener todos los proyectos
 router.get('/', getAllProjects);
 //Obtener un solo proyecto por su id
-router.get('/resume/:id', getProject);
+router.get('/resume/:id', getProjectAdmin);
 
 // Get the count of reviewed project for the dashboard doughnnut chard
 router.get('/getProjectStatusDoughnut/ChartData', getProjectStatusData);

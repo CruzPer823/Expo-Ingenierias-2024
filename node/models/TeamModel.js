@@ -12,6 +12,8 @@ const TeamModel = db.define('teams', {
     name: { type: DataTypes.STRING },
     id_leader: { type: DataTypes.STRING },
     id_project: { type: DataTypes.INTEGER }
+},{
+    timestamps:false
 });
 
  export default TeamModel;
