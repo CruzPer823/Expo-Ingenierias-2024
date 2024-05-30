@@ -341,6 +341,26 @@ Insert into ADMIN."materials_projects" ("id_project","id_material","amount","cre
 
 Insert into ADMIN."asessor_projects" ("id_person","id_project","createdAt","updatedAt") values ('auth0|6654bd87f4306b7b1fa38ae0','ABC10',to_date('28-MAY-24','DD-MON-RR'),to_date('28-MAY-24','DD-MON-RR'));
 
+Insert into ADMIN."announcements" ("title","description","audience","multimedia","createdAt","updatedAt") values ('Aguila roja','descripcion del anuncio','students','imagen.jpg',to_date('17-MAY-24','DD-MON-RR'),to_date('17-MAY-24','DD-MON-RR'));
+Insert into ADMIN."announcements" ("title","description","audience","multimedia","createdAt","updatedAt") values ('Barco Blanco','descripcion del anuncio','students','imagen.jpg',to_date('17-MAY-24','DD-MON-RR'),to_date('17-MAY-24','DD-MON-RR'));
+Insert into ADMIN."announcements" ("title","description","audience","multimedia","createdAt","updatedAt") values ('Coche rapido','descripcion del anuncio','students','imagen.jpg',to_date('17-MAY-24','DD-MON-RR'),to_date('17-MAY-24','DD-MON-RR'));
+Insert into ADMIN."announcements" ("title","description","audience","multimedia","createdAt","updatedAt") values ('Avion Morada','descripcion del anuncio','students','imagen.jpg',to_date('17-MAY-24','DD-MON-RR'),to_date('17-MAY-24','DD-MON-RR'));
+Insert into ADMIN."announcements" ("title","description","audience","multimedia","createdAt","updatedAt") values ('nuevo anuncio','descripcion del anuncio','students','imagen.jpg',to_date('20-MAY-24','DD-MON-RR'),to_date('20-MAY-24','DD-MON-RR'));
+Insert into ADMIN."announcements" ("title","description","audience","multimedia","createdAt","updatedAt") values ('nuevo anuncio','descripcion del anuncio','students','imagen.jpg',to_date('20-MAY-24','DD-MON-RR'),to_date('20-MAY-24','DD-MON-RR'));
+Insert into ADMIN."announcements" ("title","description","audience","multimedia","createdAt","updatedAt") values ('nuevo anuncio','descripcion del anuncio','students','imagen.jpg',to_date('20-MAY-24','DD-MON-RR'),to_date('20-MAY-24','DD-MON-RR'));
+Insert into ADMIN."announcements" ("title","description","audience","multimedia","createdAt","updatedAt") values ('nuevo anuncio','descripcion del anuncio','students','imagen.jpg',to_date('20-MAY-24','DD-MON-RR'),to_date('20-MAY-24','DD-MON-RR'));
+
+Insert into ADMIN."criterias" ("description","weight","createdAt","updatedAt") values ('rubrica 1',20,null,null);
+Insert into ADMIN."criterias" ("description","weight","createdAt","updatedAt") values ('rubrica 2',20,null,null);
+Insert into ADMIN."criterias" ("description","weight","createdAt","updatedAt") values ('rubrica 3',20,null,null);
+Insert into ADMIN."criterias" ("description","weight","createdAt","updatedAt") values ('rubrica 4',20,null,null);
+Insert into ADMIN."criterias" ("description","weight","createdAt","updatedAt") values ('rubrica 5',20,null,null);
+
+
+Insert into ADMIN."admins" ("id","name","lastName","email","password","createdAt","updatedAt") values (1,'gerry','deustua','a01736455','password',null,null);
+
+
+
 COMMIT;
 --DROP ALL THE TABLES
 drop table DBTOOLS$EXECUTION_HISTORY cascade constraints;
