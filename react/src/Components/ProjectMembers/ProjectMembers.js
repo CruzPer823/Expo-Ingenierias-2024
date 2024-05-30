@@ -3,7 +3,10 @@ import "./ProjectMembers.css";
 
 const ProjectMembers = ({ project }) => {
   const { leader, members, teachers } = project;
-
+  
+  if (!members || !Array.isArray(members)) {
+    return <p>No hay miembros en este proyecto.</p>;
+  }
   return (
     <div className="project-members-container">
       <div className="project-leader-container">

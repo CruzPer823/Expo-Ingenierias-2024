@@ -289,7 +289,22 @@ export const getAllProjectsByAreas = async (req, res) => {
         res.json( {message: error.message} )
     }
 }
+//mostrarProyectoAdmin
+export const getProjectAdmin = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const project = await ProjectModel.findByPk(id);
 
+        if (!project) {
+            return res.status(404).json({ message: 'Project not found' });
+        }
+
+        const transformedProject = await transformProjectData(project);
+        res.json(transformedProject);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
 
 //Mostrar un proyecto
 export const getProject = async (req, res) => {

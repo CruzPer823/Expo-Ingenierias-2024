@@ -19,8 +19,7 @@ import AdminRoutes from "./routes/AdminRoutes.js";
 import EditionRoutes from "./routes/EditionRoutes.js";
 
 // las rutas de juez
-import CriteriaRoutes from './routes/CriteriaRoutes.js';
-import ProjectRoutes from './routes/ProjectRoutes.js';
+//import ProjectRoutes from './routes/ProjectRoutes.js';
 import CategoryRoutes from './routes/CategoryRoutes.js';
 import AreaRoutes from './routes/AreaRoutes.js';
 import CriteriaJudgeRoutes from './routes/CriteriaJudgeRoutes.js'; 
@@ -55,18 +54,18 @@ app.use('/person',  PersonRoutes);
 app.use('/comments',commenRoutes);
 
 // JUDGE ROUTES
-app.use('/api', CriteriaRoutes);
-app.use('/api', ProjectRoutes);
-app.use('/api', CategoryRoutes);
-app.use('/api', AreaRoutes);
-app.use('/api', CriteriaJudgeRoutes);
-app.use('/api', CommentRoutes); 
-app.use('/api', JudgeProjectRoutes); 
-app.use('/api', StudentRoutes);
-app.use('/api', PersonRoutes);
-app.use('/api', TeamRoutes);
-app.use('/api', TeamMemberRoutes);
-app.use('/api', AnnounRoutes);
+// app.use('/api', CriteriaRoutes);
+// app.use('/api', ProjectRoutes);
+// app.use('/api', CategoryRoutes);
+// app.use('/api', AreaRoutes);
+// app.use('/api', CriteriaJudgeRoutes);
+// app.use('/api', CommentRoutes); 
+// app.use('/api', JudgeProjectRoutes); 
+// app.use('/api', StudentRoutes);
+// app.use('/api', PersonRoutes);
+// app.use('/api', TeamRoutes);
+// app.use('/api', TeamMemberRoutes);
+// app.use('/api', AnnounRoutes);
 
 //console.log(process.env.DB_CONNECTION_STRING)
 

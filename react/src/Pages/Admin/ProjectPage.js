@@ -67,8 +67,6 @@ function ProjectPage() {
     return <h1>Project with ID "{projectId}" not found!</h1>;
   }
 
-  const { poster, video, description } = project;
-
   return (
     <>
       <NavigationBar NameSection={project.title}/>
@@ -77,15 +75,15 @@ function ProjectPage() {
           {/* Your existing code for displaying project information */}
 
           <div className="col-lg-6">
-            <Widget title={"Póster"} centered={true} content={<img style={{height:"625px"}} src={`${process.env.PUBLIC_URL}/${poster}`} alt="Project Image" />} />
+            <Widget title={"Póster"} centered={true} content={<img style={{height:"625px"}} src={`${process.env.PUBLIC_URL}/${project.linkPoster}`} alt="Project Image" />} />
           </div>
           <div className="col-lg-6">
             <div className="row">
               <div className="col-lg-12">
-                <Widget title={"Video"} centered={true} content={<VideoCard url={video} />} />
+                <Widget title={"Video"} centered={true} content={<VideoCard url={project.linkVideo} />} />
               </div>
               <div className="col-lg-12">
-                <Widget title={"Descripción del proyecto"} centered={true} content={<p style={{marginLeft:"10px", marginRight:"10px"}}>{description}</p>} />
+                <Widget title={"Descripción del proyecto"} centered={true} content={<p style={{marginLeft:"10px", marginRight:"10px"}}>{project.description}</p>} />
               </div>
             </div>
           </div>

@@ -174,14 +174,14 @@ function App() {
 
               {/* Judge Routes */}
 
-              <Route path="/Juez/:idpersona" element={<Juez />} />
+              {/* <Route path="/Juez/:idpersona" element={<Juez />} />
               <Route path="/Juez/General/:idpersona" element={<Proyectos />} />
               <Route path="/Juez/General/:idpersona/Proyectos/:projectId" element={<GeneralProjectResume />} />
               <Route path="/Juez/Anuncios/:idpersona" element={<Anuncios />} />
               <Route path="/Juez/Anuncios/:idpersona/DetailAnnoun/:anuncioId" element={<DetailedAnnoun />} />
               <Route path="/Juez/:idpersona/Calificar/:projectId" element={<Rubrica />} />
               <Route path="/Juez/:idpersona/ProyectoJuez/:projectId" element={<ProjResumeContJudge />} />
-              <Route path="/Juez/Perfil/:idpersona" element={<PerfilJuez />} />
+              <Route path="/Juez/Perfil/:idpersona" element={<PerfilJuez />} /> */}
           </Routes>
       </div>
     </>
