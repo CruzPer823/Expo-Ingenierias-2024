@@ -11,7 +11,7 @@ import ProjectMembers from '../../Components/ProjectMembers/ProjectMembers';
 import NavigationBar from '../../Components/NavigationBar/Admin/NavigationBar';
 import CustomModal from '../../Components/CustomModal/CustomModal';
 
-function ProjectPage({ setPageTitle }) {
+function ProjectPage() {
   const { projectId } = useParams();
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -23,9 +23,8 @@ function ProjectPage({ setPageTitle }) {
   useEffect(() => {
     const fetchProject = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/projects/resume/${projectId}`);
+        const response = await axios.get(`http://localhost:8000/projects/resume/ABC10`);
         setProject(response.data);
-        setPageTitle(response.data.title);
         setLoading(false);
       } catch (err) {
         setError(err.message);
@@ -34,7 +33,7 @@ function ProjectPage({ setPageTitle }) {
     };
 
     fetchProject();
-  }, [projectId, setPageTitle]);
+  }, [projectId]);
 
   const handleDescalify = () => {
     setShowModal(true);
@@ -46,7 +45,7 @@ function ProjectPage({ setPageTitle }) {
 
   const handleSuccess = (message) => {
     alert(message); // Show success message to the user
-    navigate('/proyectos'); // Redirect to the projects page after the alert
+    navigate('/Admin/proyectos'); // Redirect to the projects page after the alert
   };
 
   if (loading) {

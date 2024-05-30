@@ -1,6 +1,6 @@
 //importamos el Modelo
 import {ProjectModel, PersonModel, AreaModel, AreaPersonModel, AsessorProjectModel} from "../models/Relations.js"
-import Person from '../models/PersonModel.js';
+import Person from '../models/PersonsModel.js';
 
 //** Métodos para el CRUD **/
 

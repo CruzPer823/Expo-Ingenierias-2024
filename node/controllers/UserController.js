@@ -1,7 +1,7 @@
 // controllers/UserController.js
 import { PersonModel, StudentModel, AdminModel } from "../models/UserModel.js";
 import  sequelize  from "../database/db.js";
-import ProjectModel from "../models/ProjectsModel.js";
+import ProjectModel from "../models/ProjectModel.js";
 
 export const getUsers = async (req, res) => {
   try {

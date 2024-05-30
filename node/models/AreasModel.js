@@ -10,7 +10,7 @@ const AreaModel = db.define('areas', {
     },
     name: { type: DataTypes.STRING },
     description: { type: DataTypes.STRING }, 
-    IsActive: {type: DataTypes.NUMBER}
-});
+    isActive: {type: DataTypes.NUMBER}
+},{timestamps:false});
 
 export default AreaModel;

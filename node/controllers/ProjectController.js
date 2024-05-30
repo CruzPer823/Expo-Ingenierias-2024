@@ -60,7 +60,7 @@ const transformProjectData = async (project) => {
         review: isReviewed,
         img: "mockProject.jpeg", // Placeholder, update as necessary
         poster: "poster.jpg",
-        video: "https://youtu.be/fFHlfbKVi30?si=L24uiVr-kFUA0eEP",
+        video: project.linkVideo,
         description: project.description,
         categories: [category.title, area.name], 
         id_area: project.id_area,
@@ -244,15 +244,15 @@ export const assignProjectJudge = async (req, res) => {
 //Mostrar todos los registros
 export const getAllProjects = async (req, res) => {
     try {
-        const projects = await ProjectModel.findAll({include:
-            [
-                {model: CategoryModel},
-                
-            ]
-    })
-        res.json(projects)
+        const projects = await ProjectModel.findAll();
+
+        const transformedProjects = await Promise.all(
+            projects.map(project => transformProjectData(project))
+        );
+
+        res.json(transformedProjects);
     } catch (error) {
-        res.json( {message: error.message} )
+        res.status(500).json({ message: error.message });
     }
 }
 

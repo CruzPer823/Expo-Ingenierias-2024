@@ -15,17 +15,10 @@ const CategoryModel = sequelize.define('categories', {
   description: {
     type: DataTypes.STRING,
     allowNull: true,
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: sequelize.NOW,
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: sequelize.NOW,
-  },
-});
+  },isActive:{
+    type: DataTypes.NUMBER,
+    allowNull: true,
+  }
+},{timestamps:false});
 
 export default CategoryModel;

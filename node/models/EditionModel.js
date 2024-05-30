@@ -11,6 +11,6 @@ const EditionModel = db.define('editions', {
     },
     period: { type: DataTypes.INTEGER },
     year: { type: DataTypes.INTEGER }, 
-});
+},{timestamps:false});
 
  export default EditionModel;

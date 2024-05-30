@@ -1,6 +1,6 @@
 import {CategoryModel} from "../models/Relations.js"
 import Category from "../models/CategoryModel.js";
-import ProjectModel from "../models/ProjectsModel.js";
+import ProjectModel from "../models/ProjectModel.js";
 
 import  sequelize  from "../database/db.js";
 

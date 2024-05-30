@@ -69,7 +69,35 @@ const isDateEqualOrAfter = (specificDate) => {
   return now >= targetDate;
 };
 
+// const getTitle = (pathname) => {
+//   switch (pathname) {
+//     case '/Admin':
+//       return 'Tablero';
+//     case '/Admin/historico':
+//       return 'Historico';
+//     case '/Admin/usuarios':
+//       return 'Usuarios';
+//     case '/Admin/proyectos':
+//       return 'Proyectos';
+//     case '/Admin/anuncios':
+//       return 'Anuncios';
+//     case '/Admin/perfil':
+//       return 'Perfil';
+//     default:
+//       return 'Your Default Title';
+//   }
+// };
+
+
 function App() {
+  // const location = useLocation(); // Get current location
+  // const [pageTitle, setPageTitle] = useState('');
+
+  // useEffect(() => {
+  //   // Update the page title whenever the location changes
+  //   setPageTitle(getTitle(location.pathname));
+  // }, [location.pathname]);
+
   const [currentDate, setCurrentDate] = useState(getCurrentDate());
   const [isTargetDateReached, setIsTargetDateReached] = useState(false);
   let constancia;
@@ -130,10 +158,9 @@ function App() {
               <Route path="/Admin/historico" element={<Historical />} />
               <Route path="/Admin/usuarios" element={<Users />} />
               <Route path="/Admin/usuarios/jueces/:projectId" element={<Judges />} />
-              <Route path="/Admin/usuarios/:userId" element={<EditUserPage />} />
+              <Route path="/Admin/usuarios" element={<EditUserPage />} />
               <Route path="/Admin/proyectos" element={<Projects />} />
-              <Route path="/Admin/proyectos/:projectId" element={<ProjectPage setPageTitle={"Proyectos"} />} />
-              <Route path="/Admin/proyecto/:id" element={<ProjectPage setPageTitle={"Proyectos"} />} />
+              <Route path="/Admin/proyectos/:projectId" element={<ProjectPage />} />
               <Route path="/Admin/anuncios" element={<Announces/>}/>
               <Route path="/Admin/areas" element={<Areas/>}/>
               <Route path='/Admin/areas/nuevo' element={<CreateAreaPage/>}/>
@@ -159,7 +186,6 @@ function App() {
       </div>
     </>
   );
-
 }
 
 

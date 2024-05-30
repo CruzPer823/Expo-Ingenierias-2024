@@ -1,7 +1,6 @@
 import React from 'react';
 import './ProjectCard.css';
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
-import { mockProjects } from '../../MockData/MockData';
 import { Link } from 'react-router-dom';
 
 function ProjectCard({ project }) {
@@ -14,7 +13,7 @@ function ProjectCard({ project }) {
         <div className={`project-card-status ${statusClassName}`}>
           <StatusIcon /> {/* Render dynamic icon */}
         </div>
-        <img src={img} className="card-img-top" alt="Project Image" />
+        <img src={`${process.env.PUBLIC_URL}/${img}`} className="card-img-top" alt="Project Image" />
         <div className="card-body project-card-content">
           <h5 className="card-title">{title}</h5>
           <div className="category-container">
@@ -22,7 +21,7 @@ function ProjectCard({ project }) {
               <span key={index} className="badge">{category}</span>
             ))}
           </div>
-          <Link to={`/proyectos/${id}`} className="btn btn-primary custom-primaty-btn btnPrin">Abrir</Link>
+          <Link to={`/Admin/proyectos/${id}`} className="btn btn-primary custom-primaty-btn btnPrin">Abrir</Link>
         </div>
       </div>
     );

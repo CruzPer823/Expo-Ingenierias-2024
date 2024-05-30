@@ -52,36 +52,36 @@ function ToggleBarStudent({SectionName}) {
             <div className='container'>
               <div className='row m-2'>
                 <div className ='col-md-auto '>
-                  <Link to='/' onClick={() => { handleClose();}} class="bi bi-bar-chart docu-icon2"></Link>
-                  <Link to='/' className ="TextoValid2" onClick={() => { handleClose(); }}>Tablero</Link> 
+                  <Link to='/Admin' onClick={() => { handleClose();}} class="bi bi-bar-chart docu-icon2"></Link>
+                  <Link to='/Admin' className ="TextoValid2" onClick={() => { handleClose(); }}>Tablero</Link> 
                 </div>  
               </div>
 
               <div className='row m-2'>
                 <div className ='col-md-auto '>
-                  <Link to ='/historico'onClick={() => { handleClose(); }} class="bi bi-book-fill docu-icon2"></Link>
-                  <Link to='/historico' className ="TextoValid2" onClick={() => { handleClose(); }}>Histórico</Link> 
+                  <Link to ='/Admin/historico'onClick={() => { handleClose(); }} class="bi bi-book-fill docu-icon2"></Link>
+                  <Link to='/Admin/historico' className ="TextoValid2" onClick={() => { handleClose(); }}>Histórico</Link> 
                 </div>  
               </div>
 
               <div className='row m-2'>
                 <div className ='col-md-auto '>
-                  <Link to='/usuarios' onClick={() => { handleClose(); }} class="bi bi-people-fill docu-icon2"></Link>
-                  <Link to='/usuarios' className ="TextoValid2" onClick={() => { handleClose();  }}>Usuarios</Link> 
+                  <Link to='/Admin/usuarios' onClick={() => { handleClose(); }} class="bi bi-people-fill docu-icon2"></Link>
+                  <Link to='/Admin/usuarios' className ="TextoValid2" onClick={() => { handleClose();  }}>Usuarios</Link> 
                 </div>  
               </div>
 
               <div className='row m-2'>
                 <div className ='col-md-auto '>
-                  <Link to='/proyectos' onClick={() => { handleClose();}} class="bi bi-boxes docu-icon2"></Link>
-                  <Link to='/proyectos' className ="TextoValid2" onClick={() => { handleClose();}}>Proyectos</Link> 
+                  <Link to='/Admin/proyectos' onClick={() => { handleClose();}} class="bi bi-boxes docu-icon2"></Link>
+                  <Link to='/Admin/proyectos' className ="TextoValid2" onClick={() => { handleClose();}}>Proyectos</Link> 
                 </div>  
               </div>
 
               <div className='row m-2'>
                 <div className ='col-md-auto '>
-                  <Link to='/proyectos' onClick={() => { handleClose();}} class="bi bi-megaphone-fill docu-icon2"></Link>
-                  <Link to='/anuncios' className ="TextoValid2" onClick={() => { handleClose();}}>Anuncios</Link> 
+                  <Link to='/Admin/anuncios' onClick={() => { handleClose();}} class="bi bi-megaphone-fill docu-icon2"></Link>
+                  <Link to='/Admin/anuncios' className ="TextoValid2" onClick={() => { handleClose();}}>Anuncios</Link> 
                 </div>  
               </div>
 
@@ -94,22 +94,22 @@ function ToggleBarStudent({SectionName}) {
 
               <div className='row m-2'>
                 <div className ='col-md-auto '>
-                  <Link to='/areas' onClick={() => { handleClose();}} class="bi bi-lightbulb-fill docu-icon2"></Link>
-                  <Link to='/areas' className ="TextoValid2" onClick={() => { handleClose();}}>Áreas</Link> 
+                  <Link to='/Admin/areas' onClick={() => { handleClose();}} class="bi bi-lightbulb-fill docu-icon2"></Link>
+                  <Link to='/Admin/areas' className ="TextoValid2" onClick={() => { handleClose();}}>Áreas</Link> 
                 </div>  
               </div>
 
               <div className='row m-2'>
                 <div className ='col-md-auto '>
-                  <Link to='/categorias' onClick={() => { handleClose();}} class="bi bi-gear-fill docu-icon2"></Link>
-                  <Link to='/categorias' className ="TextoValid2" onClick={() => { handleClose();}}>Categorias</Link> 
+                  <Link to='/Admin/categorias' onClick={() => { handleClose();}} class="bi bi-gear-fill docu-icon2"></Link>
+                  <Link to='/Admin/categorias' className ="TextoValid2" onClick={() => { handleClose();}}>Categorias</Link> 
                 </div>  
               </div>
 
               <div className='row m-2'>
                 <div className ='col-md-auto '>
                   <Link to='/rubrica' onClick={() => { handleClose();}} class="bi bi-pass-fill docu-icon2"></Link>
-                  <Link to='/rubrica' className ="TextoValid2" onClick={() => { handleClose();}}>Rúbrica</Link> 
+                  <Link to='/Admin/rubrica' className ="TextoValid2" onClick={() => { handleClose();}}>Rúbrica</Link> 
                 </div>  
               </div>
 

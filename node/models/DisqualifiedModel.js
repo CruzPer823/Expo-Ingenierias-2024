@@ -25,7 +25,7 @@ const DisqualifiedModel = db.define('project_disqualified', {
         allowNull: true
     }
 }, {
-    timestamps: true,
+    timestamps: false,
     tableName: 'project_disqualified', // Ensure the correct table name
 });
 

@@ -6,7 +6,7 @@ import { DataTypes } from "sequelize";
 
 const ProjectModel = db.define('projects', {
     id: { 
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         autoIncrement: true,
         primaryKey: true
     },
@@ -21,8 +21,10 @@ const ProjectModel = db.define('projects', {
     id_area: { type: DataTypes.INTEGER},
     id_category: { type: DataTypes.INTEGER},
     id_lider: { type: DataTypes.STRING},
-    id_responsable: { type: DataTypes.STRING}
+    id_responsable: { type: DataTypes.STRING},
+    finalGrade: {type: DataTypes.FLOAT},
 
-});
+},
+{timestamps:false});
 
  export default ProjectModel;
