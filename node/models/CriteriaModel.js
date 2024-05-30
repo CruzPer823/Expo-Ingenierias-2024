@@ -14,17 +14,7 @@ const CriteriaModel = sequelize.define('criterias', {
   weight: {
     type: DataTypes.INTEGER, 
     allowNull: true,
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: DataTypes.NOW,
-  },
-  updatedAt: {
-    type: DataTypes.DATE, 
-    allowNull: false,
-    defaultValue: DataTypes.NOW,
-  },
-});
+  }},
+{timestamps:true});
 
 export default CriteriaModel;

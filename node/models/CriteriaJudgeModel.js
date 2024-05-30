@@ -2,7 +2,7 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../database/db.js';
 
-const CriteriaJudge = sequelize.define('criteria_judges', {
+const CriteriaJudgeModel = sequelize.define('criteria_judges', {
   id_person: {
     type: DataTypes.STRING(50),
     allowNull: false,
@@ -12,6 +12,10 @@ const CriteriaJudge = sequelize.define('criteria_judges', {
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,  // Parte de la clave compuesta
+    references: {
+        model: 'criterias',
+        key: 'id'
+    }
   },
   grade: {
     type: DataTypes.INTEGER,
@@ -21,23 +25,19 @@ const CriteriaJudge = sequelize.define('criteria_judges', {
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,  // Parte de la clave compuesta
+    references: {
+        model: 'projects',
+        key: 'id'
+    }
   },
   Comentario: {
     type: DataTypes.TEXT,
     allowNull: true,
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: DataTypes.NOW,
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: DataTypes.NOW,
-  },
+  }
 }, {
-  timestamps: false,
+  timestamps: true,
+}, {
+    tableName: 'criteria_judges'
 });
 
-export default CriteriaJudge;
+export default CriteriaJudgeModel;
