@@ -40,7 +40,7 @@ function Datos({name,email,type,id}){
     );
 }
 
-export default function Perfil(){
+export default function PerfilJuez(){
     const [person, setPerson] = useState({
         id: "",
         name: "",

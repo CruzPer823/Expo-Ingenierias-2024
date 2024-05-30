@@ -1,4 +1,4 @@
-import {EditionModel,ProjectModel,StudentModel,PersonModel,CriteriaModel,CommentModel, CategoryModel, AreaModel, TeamModel} from "../models/Relations.js";
+import {EditionModel,ProjectModel,StudentModel,PersonModel,CriteriaModel,CommentsModel, CategoryModel, AreaModel, TeamModel} from "../models/Relations.js";
 import ExcelJS from 'exceljs';
 import path from 'path';
 

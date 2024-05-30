@@ -1,13 +1,12 @@
 // controllers/commentController.js
 import {ProjectModel,PersonModel,CommentsModel} from "../models/Relations.js"
-import Comment from '../models/CommentModel.js';
 
 // Crear un nuevo comentario
 async function createCommentJudge(req, res) {
   const { id_person, id_project, comment } = req.body;
 
   try {
-    const newComment = await Comment.create({
+    const newComment = await CommentsModel.create({
       id_person,
       id_project,
       comment,
@@ -22,7 +21,7 @@ async function createCommentJudge(req, res) {
 // Obtener todos los comentarios
 async function fetchAllComments(req, res) {
   try {
-    const comments = await Comment.findAll();
+    const comments = await CommentsModel.findAll();
     res.status(200).json(comments);
   } catch (error) {
     console.error('Error al obtener los comentarios:', error);
@@ -35,7 +34,7 @@ async function fetchCommentByPersonAndProject(req, res) {
   const { id_person, id_project } = req.params;
 
   try {
-    const comment = await Comment.findOne({
+    const comment = await CommentsModel.findOne({
       where: {
         id_person,
         id_project
@@ -57,7 +56,7 @@ async function fetchCommentByPersonAndProject(req, res) {
 async function fetchCommentsByProject(req, res) {
   const { id_project } = req.params;
   try {
-    const comments = await Comment.findAll({
+    const comments = await CommentsModel.findAll({
       where: {
         id_project
       }
@@ -105,4 +104,4 @@ export const createComment = async (req, res) => {
     }
 };
 
-export { fetchAllComments, createComment, fetchCommentByPersonAndProject, fetchCommentsByProject,createCommentJudge };
+export { fetchAllComments, fetchCommentByPersonAndProject, fetchCommentsByProject,createCommentJudge };

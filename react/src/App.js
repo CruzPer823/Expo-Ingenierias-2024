@@ -48,17 +48,13 @@ import AdminRubrica from './Pages/Admin/AdminRubrica';
 // Judge
 import Juez from './Pages/Juez/Juez'; // Mis Proyectos
 import Proyectos from './Pages/Juez/Proyectos'; // Catalogo Proyectos
-import ProjResumeCont from './Pages/Juez/ProjectResumenContent';
+import ProjResumeContJudge from './Pages/Juez/ProjectResumenContent';
 import GeneralProjectResume from './Pages/Juez/GeneralProjectResume';
 import Rubrica from './Pages/Juez/Rubrica';
 import Anuncios from './Pages/Juez/Announ';
 import DetailedAnnoun from './Pages/Juez/DetailedAnnoun';
-import Perfil from './Pages/Juez/Profile';
-// Judge
-import Juez from './Pages/Juez/Juez';
-import ProjResumeContJudge from './Pages/Juez/ProjectResumenContent';
-import Rubrica from './Pages/Juez/Rubrica';
-import Announces from './Pages/Admin/Announces';
+import PerfilJuez from './Pages/Juez/Profile';
+// Auth0
 import Callback from './auth0/callback.js';
 import ProtectedRoute from './auth0/protect.js';
 
@@ -158,7 +154,7 @@ function App() {
               <Route path="/Juez/Anuncios/:idpersona/DetailAnnoun/:anuncioId" element={<DetailedAnnoun />} />
               <Route path="/Juez/:idpersona/Calificar/:projectId" element={<Rubrica />} />
               <Route path="/Juez/:idpersona/ProyectoJuez/:projectId" element={<ProjResumeContJudge />} />
-              <Route path="/Juez/Perfil/:idpersona" element={<Perfil />} />
+              <Route path="/Juez/Perfil/:idpersona" element={<PerfilJuez />} />
           </Routes>
       </div>
     </>

@@ -6,8 +6,7 @@ import { DataTypes } from "sequelize";
 
 const ProjectModel = db.define('projects', {
     id: { 
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
+        type: DataTypes.STRING,
         primaryKey: true
     },
     title: { type: DataTypes.STRING },

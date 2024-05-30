@@ -80,7 +80,7 @@ try {
 
 
 
-cron.schedule('*/20 * * * * *', function() { console.log('Running a task every 20 seconds'); main();});
+// cron.schedule('*/20 * * * * *', function() { console.log('Running a task every 20 seconds'); main();});
 
 
 
