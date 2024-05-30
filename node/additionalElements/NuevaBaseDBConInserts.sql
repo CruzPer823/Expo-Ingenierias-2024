@@ -341,7 +341,7 @@ Insert into ADMIN."materials_projects" ("id_project","id_material","amount","cre
 
 Insert into ADMIN."asessor_projects" ("id_person","id_project","createdAt","updatedAt") values ('auth0|6654bd87f4306b7b1fa38ae0','ABC10',to_date('28-MAY-24','DD-MON-RR'),to_date('28-MAY-24','DD-MON-RR'));
 
-
+COMMIT;
 --DROP ALL THE TABLES
 drop table DBTOOLS$EXECUTION_HISTORY cascade constraints;
 drop table "maps" cascade constraints;
