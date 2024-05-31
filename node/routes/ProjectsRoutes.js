@@ -6,7 +6,7 @@ const router = express.Router();
 //Obtener todos los proyectos
 router.get('/', getAllProjects);
 //Obtener un solo proyecto por su id
-router.get('/resume/:id', getProjectAdmin);
+router.get('/resumen/:id', getProjectAdmin);
 
 // Get the count of reviewed project for the dashboard doughnnut chard
 router.get('/getProjectStatusDoughnut/ChartData', getProjectStatusData);

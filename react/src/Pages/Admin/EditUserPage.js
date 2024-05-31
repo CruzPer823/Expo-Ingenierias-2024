@@ -44,7 +44,7 @@ function EditUserPage() {
         .then(response => {
             if (response.ok) {
                 alert('User updated successfully!');
-                navigate('/usuarios'); // Redirect to home or users list page
+                navigate('/Admin/usuarios'); // Redirect to home or users list page
             } else {
                 alert('Failed to update user.');
             }
