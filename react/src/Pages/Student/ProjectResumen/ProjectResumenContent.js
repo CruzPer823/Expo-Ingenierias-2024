@@ -17,7 +17,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 
 
-const URL = 'http://localhost:8000/projects/resume/';
+const URL = 'http://localhost:8000/projects/resume/student/';
 
 function RubricaCalf({Calf1, Calf2, Calf3, Calf4, Calf5, Rubri1, Rubri2, Rubri3, Rubri4, Rubri5, IsLoaded}) {
   return (
@@ -672,7 +672,7 @@ export default function ProjResumeCont(){
   const [IsLoaded, setIsLoaded] = useState(false);
 
   const [project, setProject] = useState({
-    id_project: 0,
+    id_project: "",
     title: "",
     description: "",
     linkVideo: "",
@@ -712,6 +712,7 @@ export default function ProjResumeCont(){
     fetch(URL+id_project)
       .then((res) => res.json())
       .then((data) => {
+        console.log(data)
         setProject(data);
         setIsLoaded(true); // Cambiamos IsLoaded a true cuando los datos están cargados
       })

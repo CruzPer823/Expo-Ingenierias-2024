@@ -50,7 +50,7 @@ async function saveUsersToDatabase(users) {
 
     if (isStudent) {
       const matricula = username;
-      const studentNew = { id: user_id, name: firstName, lastName: lastName1, enrollment: matricula };
+      const studentNew = { id: user_id, name: firstName, lastName: lastName1, enrollment: matricula, isActive: 1 };
 
       const [foundUser, created] = await StudentModel.findOrCreate({
         where: { enrollment: studentNew.enrollment },
@@ -72,6 +72,7 @@ async function saveUsersToDatabase(users) {
             name: foundUser.name,
             lastName: foundUser.lastName,
             enrollment: foundUser.enrollment,
+            isActive: foundUser.isActive
           });
     
 
@@ -91,7 +92,7 @@ async function saveUsersToDatabase(users) {
     }
     
     else {
-      const personNew = { id: user_id, name: firstName, lastName: lastName1, email };
+      const personNew = { id: user_id, name: firstName, lastName: lastName1, email, idJudge: 0, ISACTIVE: 1};
 
       console.log(personNew);
 
@@ -111,6 +112,8 @@ async function saveUsersToDatabase(users) {
               name: foundUser.name,
               lastName: foundUser.lastName,
               email: foundUser.email,
+              isJudge: foundUser.isJudge,
+              ISACTIVE: foundUser.ISACTIVE,
             });
 
             await CommentsModel.update(

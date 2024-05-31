@@ -295,14 +295,18 @@ Insert into ADMIN."persons" ("id","name","lastName","email","createdAt","updated
 Insert into ADMIN."persons" ("id","name","lastName","email","createdAt","updatedAt") values ('aromerog@tec.mx','Alba','Romero','aromerog@tec.mx',to_date('27-MAY-24','DD-MON-RR'),to_date('27-MAY-24','DD-MON-RR'));
 Insert into ADMIN."persons" ("id","name","lastName","email","createdAt","updatedAt") values ('auth0|6654bd87f4306b7b1fa38ae0','Daniel','Perez','danperez@tec.mx',to_date('28-MAY-24','DD-MON-RR'),to_date('28-MAY-24','DD-MON-RR'));
 
-Insert into ADMIN."areas" ("id","name","description","createdAt","updatedAt") values (21,'Cyber','Area relacionada',null,null);
-Insert into ADMIN."areas" ("id","name","description","createdAt","updatedAt") values (1,'Nano',' rea relacionada con...',to_date('03-MAY-24','DD-MON-RR'),to_date('03-MAY-24','DD-MON-RR'));
-Insert into ADMIN."areas" ("id","name","description","createdAt","updatedAt") values (2,'Nexus',' rea relacionada con...',to_date('03-MAY-24','DD-MON-RR'),to_date('03-MAY-24','DD-MON-RR'));
-Insert into ADMIN."areas" ("id","name","description","createdAt","updatedAt") values (3,'Bio',' rea relacionada con...',to_date('03-MAY-24','DD-MON-RR'),to_date('03-MAY-24','DD-MON-RR'));
+Insert into ADMIN."areas" ("name","description","createdAt","updatedAt") values ('Cyber','Area relacionada',null,null);
+Insert into ADMIN."areas" ("name","description","createdAt","updatedAt") values ('Nano',' rea relacionada con...',to_date('03-MAY-24','DD-MON-RR'),to_date('03-MAY-24','DD-MON-RR'));
+Insert into ADMIN."areas" ("name","description","createdAt","updatedAt") values ('Nexus',' rea relacionada con...',to_date('03-MAY-24','DD-MON-RR'),to_date('03-MAY-24','DD-MON-RR'));
+Insert into ADMIN."areas" ("name","description","createdAt","updatedAt") values ('Bio',' rea relacionada con...',to_date('03-MAY-24','DD-MON-RR'),to_date('03-MAY-24','DD-MON-RR'));
 
-Insert into ADMIN."categories" ("id","title","description","createdAt","updatedAt") values (1,'Concepto','Categor a relacionada con...',to_date('03-MAY-24','DD-MON-RR'),to_date('03-MAY-24','DD-MON-RR'));
-Insert into ADMIN."categories" ("id","title","description","createdAt","updatedAt") values (2,'Prototipo','Categor a relacionada con...',to_date('03-MAY-24','DD-MON-RR'),to_date('03-MAY-24','DD-MON-RR'));
-Insert into ADMIN."categories" ("id","title","description","createdAt","updatedAt") values (3,'Prototipo finalizado','Categor a relacionada con...',to_date('03-MAY-24','DD-MON-RR'),to_date('03-MAY-24','DD-MON-RR'));
+Insert into ADMIN."categories" ("title","description","createdAt","updatedAt") values ('Concepto','Categor a relacionada con...',to_date('03-MAY-24','DD-MON-RR'),to_date('03-MAY-24','DD-MON-RR'));
+Insert into ADMIN."categories" ("title","description","createdAt","updatedAt") values ('Prototipo','Categor a relacionada con...',to_date('03-MAY-24','DD-MON-RR'),to_date('03-MAY-24','DD-MON-RR'));
+Insert into ADMIN."categories" ("title","description","createdAt","updatedAt") values ('Prototipo finalizado','Categor a relacionada con...',to_date('03-MAY-24','DD-MON-RR'),to_date('03-MAY-24','DD-MON-RR'));
+
+Insert into ADMIN."editions" ("period","year","createdAt","updatedAt") values ('Primavera',2023,to_date('03-MAY-24','DD-MON-RR'),to_date('03-MAY-24','DD-MON-RR'));
+Insert into ADMIN."editions" ("period","year","createdAt","updatedAt") values ('Oto�o',2024,to_date('03-MAY-24','DD-MON-RR'),to_date('03-MAY-24','DD-MON-RR'));
+
 
 Insert into ADMIN."projects" ("id", "title", "description", "statusGeneral", "statusPoster", "statusVideo", "linkPoster", "linkVideo", "finalGrade", "id_edition", "id_area", "id_category", "id_lider", "id_responsable") values ('ABC10','title','descripcion','en revision','en revision','en revision','linkPoster','nuevofdsgsadgsdgasg',0,1,1,1,'auth0|66465772cddc69d8a11bcff9','auth0|6653d38ae957844eac7c9f99');
 
@@ -312,16 +316,16 @@ Insert into ADMIN."teams" ("name","createdAt","updatedAt","id_leader","id_projec
 Insert into ADMIN."teams" ("name","createdAt","updatedAt","id_leader","id_project") values ('Proyecto de prueba 2',to_date('28-MAY-24','DD-MON-RR'),to_date('28-MAY-24','DD-MON-RR'),'auth0|6646cd3c4d1c357206d9c385','ABC10');
 
 
-Insert into ADMIN."team_members" ("id_team","id_member","createdAt","updatedAt") values (5,'auth0|66539b1ce539b35aea94e74d',to_date('29-MAY-24','DD-MON-RR'),to_date('29-MAY-24','DD-MON-RR'));
-Insert into ADMIN."team_members" ("id_team","id_member","createdAt","updatedAt") values (5,'auth0|66548dc83a478dce1bb57afb',to_date('28-MAY-24','DD-MON-RR'),to_date('28-MAY-24','DD-MON-RR'));
-Insert into ADMIN."team_members" ("id_team","id_member","createdAt","updatedAt") values (5,'auth0|66465772cddc69d8a11bcff9',to_date('28-MAY-24','DD-MON-RR'),to_date('28-MAY-24','DD-MON-RR'));
-Insert into ADMIN."team_members" ("id_team","id_member","createdAt","updatedAt") values (5,'auth0|66539b1ce539b35aea94e74d',to_date('28-MAY-24','DD-MON-RR'),to_date('28-MAY-24','DD-MON-RR'));
-Insert into ADMIN."team_members" ("id_team","id_member","createdAt","updatedAt") values (5,'auth0|66465772cddc69d8a11bcff9',to_date('28-MAY-24','DD-MON-RR'),to_date('28-MAY-24','DD-MON-RR'));
-Insert into ADMIN."team_members" ("id_team","id_member","createdAt","updatedAt") values (6,'auth0|66548dc83a478dce1bb57afb',to_date('28-MAY-24','DD-MON-RR'),to_date('28-MAY-24','DD-MON-RR'));
-Insert into ADMIN."team_members" ("id_team","id_member","createdAt","updatedAt") values (6,'auth0|66548dc83a478dce1bb57afb',to_date('28-MAY-24','DD-MON-RR'),to_date('28-MAY-24','DD-MON-RR'));
-Insert into ADMIN."team_members" ("id_team","id_member","createdAt","updatedAt") values (6,'auth0|6654224574b4f6b24c120e5d',to_date('28-MAY-24','DD-MON-RR'),to_date('28-MAY-24','DD-MON-RR'));
-Insert into ADMIN."team_members" ("id_team","id_member","createdAt","updatedAt") values (6,'auth0|6654224574b4f6b24c120e5d',to_date('28-MAY-24','DD-MON-RR'),to_date('28-MAY-24','DD-MON-RR'));
-Insert into ADMIN."team_members" ("id_team","id_member","createdAt","updatedAt") values (6,'auth0|6654224574b4f6b24c120e5d',to_date('28-MAY-24','DD-MON-RR'),to_date('28-MAY-24','DD-MON-RR'));
+Insert into ADMIN."team_members" ("id_team","id_member","createdAt","updatedAt") values (1,'auth0|66539b1ce539b35aea94e74d',to_date('29-MAY-24','DD-MON-RR'),to_date('29-MAY-24','DD-MON-RR'));
+Insert into ADMIN."team_members" ("id_team","id_member","createdAt","updatedAt") values (1,'auth0|66548dc83a478dce1bb57afb',to_date('28-MAY-24','DD-MON-RR'),to_date('28-MAY-24','DD-MON-RR'));
+Insert into ADMIN."team_members" ("id_team","id_member","createdAt","updatedAt") values (1,'auth0|66465772cddc69d8a11bcff9',to_date('28-MAY-24','DD-MON-RR'),to_date('28-MAY-24','DD-MON-RR'));
+Insert into ADMIN."team_members" ("id_team","id_member","createdAt","updatedAt") values (1,'auth0|66539b1ce539b35aea94e74d',to_date('28-MAY-24','DD-MON-RR'),to_date('28-MAY-24','DD-MON-RR'));
+Insert into ADMIN."team_members" ("id_team","id_member","createdAt","updatedAt") values (1,'auth0|66465772cddc69d8a11bcff9',to_date('28-MAY-24','DD-MON-RR'),to_date('28-MAY-24','DD-MON-RR'));
+Insert into ADMIN."team_members" ("id_team","id_member","createdAt","updatedAt") values (2,'auth0|66548dc83a478dce1bb57afb',to_date('28-MAY-24','DD-MON-RR'),to_date('28-MAY-24','DD-MON-RR'));
+Insert into ADMIN."team_members" ("id_team","id_member","createdAt","updatedAt") values (2,'auth0|66548dc83a478dce1bb57afb',to_date('28-MAY-24','DD-MON-RR'),to_date('28-MAY-24','DD-MON-RR'));
+Insert into ADMIN."team_members" ("id_team","id_member","createdAt","updatedAt") values (2,'auth0|6654224574b4f6b24c120e5d',to_date('28-MAY-24','DD-MON-RR'),to_date('28-MAY-24','DD-MON-RR'));
+Insert into ADMIN."team_members" ("id_team","id_member","createdAt","updatedAt") values (2,'auth0|6654224574b4f6b24c120e5d',to_date('28-MAY-24','DD-MON-RR'),to_date('28-MAY-24','DD-MON-RR'));
+Insert into ADMIN."team_members" ("id_team","id_member","createdAt","updatedAt") values (2,'auth0|6654224574b4f6b24c120e5d',to_date('28-MAY-24','DD-MON-RR'),to_date('28-MAY-24','DD-MON-RR'));
 
 Insert into ADMIN."materials" ("name","createdAt","updatedAt") values ('contacto',null,null);
 Insert into ADMIN."materials" ("name","createdAt","updatedAt") values ('mampara',null,null);
@@ -337,7 +341,29 @@ Insert into ADMIN."materials_projects" ("id_project","id_material","amount","cre
 
 Insert into ADMIN."asessor_projects" ("id_person","id_project","createdAt","updatedAt") values ('auth0|6654bd87f4306b7b1fa38ae0','ABC10',to_date('28-MAY-24','DD-MON-RR'),to_date('28-MAY-24','DD-MON-RR'));
 
+Insert into ADMIN."announcements" ("title","description","audience","multimedia","createdAt","updatedAt") values ('Aguila roja','descripcion del anuncio','students','imagen.jpg',to_date('17-MAY-24','DD-MON-RR'),to_date('17-MAY-24','DD-MON-RR'));
+Insert into ADMIN."announcements" ("title","description","audience","multimedia","createdAt","updatedAt") values ('Barco Blanco','descripcion del anuncio','students','imagen.jpg',to_date('17-MAY-24','DD-MON-RR'),to_date('17-MAY-24','DD-MON-RR'));
+Insert into ADMIN."announcements" ("title","description","audience","multimedia","createdAt","updatedAt") values ('Coche rapido','descripcion del anuncio','students','imagen.jpg',to_date('17-MAY-24','DD-MON-RR'),to_date('17-MAY-24','DD-MON-RR'));
+Insert into ADMIN."announcements" ("title","description","audience","multimedia","createdAt","updatedAt") values ('Avion Morada','descripcion del anuncio','students','imagen.jpg',to_date('17-MAY-24','DD-MON-RR'),to_date('17-MAY-24','DD-MON-RR'));
+Insert into ADMIN."announcements" ("title","description","audience","multimedia","createdAt","updatedAt") values ('nuevo anuncio','descripcion del anuncio','students','imagen.jpg',to_date('20-MAY-24','DD-MON-RR'),to_date('20-MAY-24','DD-MON-RR'));
+Insert into ADMIN."announcements" ("title","description","audience","multimedia","createdAt","updatedAt") values ('nuevo anuncio','descripcion del anuncio','students','imagen.jpg',to_date('20-MAY-24','DD-MON-RR'),to_date('20-MAY-24','DD-MON-RR'));
+Insert into ADMIN."announcements" ("title","description","audience","multimedia","createdAt","updatedAt") values ('nuevo anuncio','descripcion del anuncio','students','imagen.jpg',to_date('20-MAY-24','DD-MON-RR'),to_date('20-MAY-24','DD-MON-RR'));
+Insert into ADMIN."announcements" ("title","description","audience","multimedia","createdAt","updatedAt") values ('nuevo anuncio','descripcion del anuncio','students','imagen.jpg',to_date('20-MAY-24','DD-MON-RR'),to_date('20-MAY-24','DD-MON-RR'));
 
+Insert into ADMIN."criterias" ("description","weight","createdAt","updatedAt") values ('rubrica 1',20,null,null);
+Insert into ADMIN."criterias" ("description","weight","createdAt","updatedAt") values ('rubrica 2',20,null,null);
+Insert into ADMIN."criterias" ("description","weight","createdAt","updatedAt") values ('rubrica 3',20,null,null);
+Insert into ADMIN."criterias" ("description","weight","createdAt","updatedAt") values ('rubrica 4',20,null,null);
+Insert into ADMIN."criterias" ("description","weight","createdAt","updatedAt") values ('rubrica 5',20,null,null);
+
+DELETE FROM "criterias" WHERE "id" = 5;
+
+
+Insert into ADMIN."admins" ("id","name","lastName","email","password","createdAt","updatedAt") values (1,'gerry','deustua','a01736455','password',null,null);
+
+
+
+COMMIT;
 --DROP ALL THE TABLES
 drop table DBTOOLS$EXECUTION_HISTORY cascade constraints;
 drop table "maps" cascade constraints;
