@@ -7,6 +7,8 @@ import { updateArea,createArea,getAllAreas,deleteArea,getAresById,inhabilitateAr
 import { getAreaJudge, getAllJudges } from '../controllers/PersonController.js';
 import { getAllProjects, getProjectJudges, removeProjectJudge, assignProjectJudge, getProjectMaterialChecklistItems } from '../controllers/ProjectController.js';
 
+import { getAllCriteria, getCriteria, updateCriteria } from '../controllers/CriteriaController.js';
+
 const router = express.Router()
 // Rutas de anuncios
 router.get('/Announces/',getAllAnnounces);
@@ -40,5 +42,10 @@ router.get('/projects/:projectId/material-checklist', getProjectMaterialChecklis
 router.delete('/remove/projects/:projectId/judges/:judgeId', removeProjectJudge) // query string (?projectId=<project.id>&judgeId=<person.id>)
 router.post('/assignProjectJudge', assignProjectJudge);
 
+
+// Criteria Routes
+router.get('/getCriterias', getAllCriteria)
+router.get('/getCriteria/:criteriaId', getCriteria)
+router.put('/updateCriteria/:criteriaId', updateCriteria)
 
 export default router;
