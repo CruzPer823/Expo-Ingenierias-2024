@@ -25,7 +25,7 @@
     "mysql2": "^3.9.4",
     "node-cron": "^3.0.3",
     "node-gyp": "^10.1.0",
-    "nodemon": "^3.1.0",
+    "nodemon": "^3.1.2",
     "oracle": "^0.4.1",
     "oracledb": "^6.4.0",
     "sequelize": "^6.37.3",
