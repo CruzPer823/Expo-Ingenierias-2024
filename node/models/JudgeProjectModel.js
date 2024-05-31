@@ -1,15 +1,15 @@
 // models/judgeProject.js
 import { DataTypes } from 'sequelize';
-import  sequelize  from '../database/db.js';
+import  db  from '../database/db.js';
 
-const JudgeProject = sequelize.define('judge_projects', {
+const JudgeProjectModel = db.define('judge_projects', {
   id_person: {
     type: DataTypes.STRING(50),
     allowNull: false,
     primaryKey: true
   },
   id_project: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING(15),
     allowNull: false,
     primaryKey: true
   }
@@ -19,4 +19,4 @@ const JudgeProject = sequelize.define('judge_projects', {
   updatedAt: 'updatedAt'
 });
 
-export default JudgeProject;
+export default JudgeProjectModel;

@@ -16,7 +16,7 @@ const Rubrica = () => {
   useEffect(() => {
     const fetchCriteria = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/criterias');
+        const response = await fetch('http://localhost:8000/Juez/fetchCriterias');
         const data = await response.json();
         setCriteria(data);
         setSelectedCriteria(Array(data.length).fill(0));
@@ -74,7 +74,7 @@ const Rubrica = () => {
       try {
         // Enviamos los datos de la rúbrica
         for (const criterionData of criteriaData) {
-          const response = await fetch('http://localhost:8000/api/criteria_judges', {
+          const response = await fetch('http://localhost:8000/Juez/createCriteriaJudge', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -87,7 +87,7 @@ const Rubrica = () => {
         }
 
         // Enviamos el comentario adicional
-        const response = await fetch('http://localhost:8000/api/comments', {
+        const response = await fetch('http://localhost:8000/Juez/createComment', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

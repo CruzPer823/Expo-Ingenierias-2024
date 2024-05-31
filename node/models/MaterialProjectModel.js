@@ -7,7 +7,7 @@ import { DataTypes } from "sequelize";
 // Definir el modelo para la tabla auxiliar
 const MaterialProjectModel = db.define('materials_projects', {
     id_project: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
         primaryKey: true,
         references: {

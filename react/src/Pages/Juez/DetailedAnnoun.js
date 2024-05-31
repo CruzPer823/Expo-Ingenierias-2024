@@ -93,7 +93,7 @@ export default function DetailedAnnounCont() {
     const [isLoading, setIsLoading] = useState(true);
   
     useEffect(() => {
-      fetch(`http://localhost:8000/api/announs/${anuncioId}`)
+      fetch(`http://localhost:8000/Juez/getAnnoun/${anuncioId}`)
         .then((res) => res.json())
         .then((data) => {
           setAnnounDet(data);

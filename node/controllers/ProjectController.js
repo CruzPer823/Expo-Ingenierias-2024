@@ -1,6 +1,5 @@
 import db from "../database/db.js";
 import {ProjectModel, PersonModel, JudgeProjectModel, AsessorProjectModel, StudentModel, AdminModel, TeamModel, MaterialModel, MaterialProjectModel, CategoryModel, AreaModel, EditionModel, DisqualifiedModel, CommentsModel, CriteriaModel, CriteriaJudgeModel, TeamMemberModel} from "../models/Relations.js"
-import Project from "../models/ProjectModel.js";
 import { Sequelize } from 'sequelize';  // Import Sequelize
 //** Métodos para el CRUD **/
 
@@ -925,36 +924,6 @@ export const getMaterialChecklistItems = async (req, res) => {
         res.status(500).json({ error: "Internal server error while fetching checklist items." });
     }
 };
-
-// Función para obtener todos los proyectos ordenados de manera ascendente por id
-export const fetchAllProjects = async () => {
-  try {
-    const projects = await Project.findAll({
-      order: [
-        ['id', 'ASC'] // Orden ascendente por la columna 'id'
-      ]
-    });
-    return projects;
-  } catch (error) {
-    console.error('Error al obtener los proyectos:', error);
-    throw error;
-  }
-}
-
-// Función para obtener un proyecto por su ID
-export const fetchProjectById = async (projectId) => {
-  try {
-    const project = await Project.findByPk(projectId); // Utilizamos findByPk para buscar por primary key
-    if (!project) {
-      throw new Error(`Proyecto con id ${projectId} no encontrado`);
-    }
-    return project;
-  } catch (error) {
-    console.error(`Error al obtener el proyecto con id ${projectId}:`, error);
-    throw error;
-  }
-}
-
 
 //Mostrar y actualizar materiales adicionales
 async function getMaterialsByProyectID(id) {

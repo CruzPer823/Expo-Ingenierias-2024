@@ -13,11 +13,11 @@ function PageJuez() {
 
   useEffect(() => {
     // Realizar la llamada al servidor para obtener los proyectos asignados al juez
-    fetch(`http://localhost:8000/api/judgeProjects/${idpersona}`)
+    fetch(`http://localhost:8000/Juez/fetchJudgeProject/${idpersona}`)
       .then(response => response.json())
       .then(projectIds => {
         // Realizar la segunda llamada al servidor para obtener todos los proyectos
-        fetch('http://localhost:8000/api/projects')
+        fetch('http://localhost:8000/Juez/fetchProjects')
           .then(response => response.json())
           .then(allProjects => {
             // Filtrar proyectos con los IDs obtenidos del primer fetch
@@ -41,10 +41,11 @@ function PageJuez() {
 
   return (
     <>
-      <NavigationBar NameSection={"Proyectos"} />
+      <NavigationBar NameSection={"Catalogo de Proyectos"} />
       <div className="container-fluid">
         <div className="centered-content">
-          <input
+          {/*
+            <input
             placeholder="Buscar proyecto por nombre"
             type="text"
             name="text"
@@ -52,6 +53,7 @@ function PageJuez() {
             value={filterText}
             onChange={handleChange}
           />
+        */}
         </div>
         <div className="proyectos">
           {loading ? (

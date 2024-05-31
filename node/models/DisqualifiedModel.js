@@ -3,7 +3,7 @@ import { DataTypes } from 'sequelize';
 
 const DisqualifiedModel = db.define('project_disqualified', {
     id_project: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
         primaryKey: true,
         references: {

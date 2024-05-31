@@ -97,7 +97,7 @@ export default function AnnounCont() {
     const {idpersona,anuncioid} = useParams
   
     useEffect(() => {
-      fetch('http://localhost:8000/api/announs')
+      fetch('http://localhost:8000/Juez/getAnnouns')
         .then((res) => res.json())
         .then((data) => {
           setAllAnnouncements(data);
@@ -132,4 +132,3 @@ export default function AnnounCont() {
       </>
     );
   }
-  
