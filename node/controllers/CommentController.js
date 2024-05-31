@@ -82,6 +82,9 @@ export const createComment = async (req, res) => {
         const project = await ProjectModel.findByPk(id_project);
         const person = await PersonModel.findByPk(id_person);
 
+        console.log('person:', id_person)
+        console.log('project:', id_project)
+        console.log('comment:', comment)
         if (!project) {
             return res.status(404).json({ message: 'Project not found' });
         }
@@ -100,7 +103,7 @@ export const createComment = async (req, res) => {
         res.status(201).json(newComment);
     } catch (error) {
         console.error('Error creating comment:', error);
-        res.status(500).json({ message: 'Server error' });
+        res.status(500).json({ message: error.message });
     }
 };
 
