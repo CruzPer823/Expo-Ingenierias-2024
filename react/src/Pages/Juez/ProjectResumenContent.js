@@ -260,12 +260,12 @@ export default function ProjResumeCont() {
   const [professorInfo, setProfessorInfo] = useState(null);
   const [commentStatus, setCommentStatus] = useState("No Calificado");
   const [criterias, setCriterias] = useState([]);
-  const [grades, setGrades] = useState([0, 0, 0, 0, 0]);
-  const [comments, setComments] = useState(["", "", "", "", ""]);
+  const [grades, setGrades] = useState([]);
+  const [comments, setComments] = useState([]);
   const [judgeComments, setJudgeComments] = useState([]);
-  const [loading, setLoading] = useState(true);  // Estado de carga
-  const [members, setMembers] = useState([]);  // Variable para almacenar los id_member
-  const [memberNames, setMemberNames] = useState([]);  // Variable para almacenar los nombres de los miembros
+  const [loading, setLoading] = useState(true);
+  const [members, setMembers] = useState([]);
+  const [memberNames, setMemberNames] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -273,8 +273,7 @@ export default function ProjResumeCont() {
         // Obtener los criterios de la rúbrica desde la API
         const criteriasResponse = await fetch('http://localhost:8000/Juez/fetchCriterias');
         const criteriasData = await criteriasResponse.json();
-        const firstFiveCriterias = criteriasData.slice(0, 5);
-        setCriterias(firstFiveCriterias);
+        setCriterias(criteriasData);
 
         // Obtener la información del proyecto
         const projectResponse = await fetch(`http://localhost:8000/Juez/fetchProject/${projectId}`);
@@ -320,7 +319,7 @@ export default function ProjResumeCont() {
           return { grade: criterionData.grade, comment: criterionData.Comentario || "No disponible" };
         };
 
-        const results = await Promise.all([2, 3, 4, 5, 6].map(criterionId => fetchGradeAndComment(criterionId)));
+        const results = await Promise.all(criteriasData.map(criterion => fetchGradeAndComment(criterion.id)));
         const grades = results.map(result => result.grade);
         const comments = results.map(result => result.comment);
         setGrades(grades);
@@ -366,13 +365,13 @@ export default function ProjResumeCont() {
         <div className='container-fluid'>
           <div className='row justify-content-between d-flex align-items-center'>
             {loading ? (
-              <div style={{display:"flex",justifyContent:"center"}}>
-              <Loader />  
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <Loader />
               </div>
             ) : (
               <>
                 {studentInfo && professorInfo && (
-                  <InfoProj lead={`${studentInfo.name} ${studentInfo.lastName}`} profLead={`${professorInfo.name} ${professorInfo.lastName}`} memeber={memberNames.join(', ')}/>
+                  <InfoProj lead={`${studentInfo.name} ${studentInfo.lastName}`} profLead={`${professorInfo.name} ${professorInfo.lastName}`} memeber={memberNames.join(', ')} />
                 )}
                 {projectInfo && (
                   <ProjResume
@@ -403,7 +402,7 @@ export default function ProjResumeCont() {
                           comments={comments}
                         />
                         <FinalCalf finalCalf={grades.reduce((a, b) => a + b, 0)} />
-                        <Multimedia Video= {projectInfo.linkVideo} Poster= {projectInfo.linkPoster}/>
+                        <Multimedia Video={projectInfo.linkVideo} Poster={projectInfo.linkPoster} />
                       </div>
                     </div>
                   </div>
