@@ -1,9 +1,9 @@
-import CriteriaJudge from '../models/CriteriaJudgeModel.js';
+import CriteriaJudgeModel from '../models/CriteriaJudgeModel.js';
 
 // Función para obtener todos los criterios de jueces ordenados de manera ascendente por id_person
 async function fetchAllCriteriaJudges(req, res) {
   try {
-    const criteriaJudges = await CriteriaJudge.findAll({
+    const criteriaJudges = await CriteriaJudgeModel.findAll({
       order: [['id_person', 'ASC']]
     });
     res.json(criteriaJudges);
@@ -16,7 +16,7 @@ async function fetchAllCriteriaJudges(req, res) {
 // Función para crear un nuevo criterio de juez
 async function createCriteriaJudge(req, res) {
   try {
-    const criteriaJudge = await CriteriaJudge.create(req.body);
+    const criteriaJudge = await CriteriaJudgeModel.create(req.body);
     res.status(201).json(criteriaJudge);
   } catch (error) {
     console.error('Error al crear el criterio de juez:', error);
@@ -38,7 +38,7 @@ async function fetchCriteriaGrade(req, res) {
   }
 
   try {
-    const criteriaJudge = await CriteriaJudge.findOne({
+    const criteriaJudge = await CriteriaJudgeModel.findOne({
       where: {
         id_criteria,
         id_person,

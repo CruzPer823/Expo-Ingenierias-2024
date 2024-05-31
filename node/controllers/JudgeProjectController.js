@@ -1,11 +1,11 @@
-import JudgeProject from '../models/JudgeProjectModel.js';
+import JudgeProjectModel from '../models/JudgeProjectModel.js';
 
 // Crear un nuevo registro de relación entre juez y proyecto
 async function createJudgeProject(req, res) {
   const { id_person, id_project } = req.body;
 
   try {
-    const newJudgeProject = await JudgeProject.create({
+    const newJudgeProject = await JudgeProjectModel.create({
       id_person,
       id_project
     });
@@ -19,7 +19,7 @@ async function createJudgeProject(req, res) {
 // Obtener todos los registros de relación entre juez y proyecto
 async function fetchAllJudgeProjects(req, res) {
   try {
-    const judgeProjects = await JudgeProject.findAll();
+    const judgeProjects = await JudgeProjectModel.findAll();
     res.status(200).json(judgeProjects);
   } catch (error) {
     console.error('Error al obtener las relaciones juez-proyecto:', error);
@@ -32,7 +32,7 @@ async function fetchJudgeProjectsByPersonId(req, res) {
     const id_persona = req.params.idpersona;
   
     try {
-      const judgeProjects = await JudgeProject.findAll({
+      const judgeProjects = await JudgeProjectModel.findAll({
         attributes: ['id_project'], // Solo recuperar los IDs de los proyectos
         where: { id_person: id_persona }
       });

@@ -12,32 +12,36 @@ const CriteriaJudgeModel = db.define('criteria_judges', {
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,  // Parte de la clave compuesta
-    references: {
-        model: 'criterias',
-        key: 'id'
-    }
   },
   grade: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
   id_project: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(15),
     allowNull: false,
     primaryKey: true,  // Parte de la clave compuesta
-    references: {
-        model: 'projects',
-        key: 'id'
-    }
   },
   Comentario: {
     type: DataTypes.TEXT,
     allowNull: true,
-  }
+  },
+  id_admin: {
+    type: DataTypes.STRING(50),
+    allowNull: true
+  },
+  createdAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: DataTypes.NOW,
+  },
+  updatedAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: DataTypes.NOW,
+  },
 }, {
-  timestamps: true,
-}, {
-    tableName: 'criteria_judges'
+  timestamps: false,
 });
 
 export default CriteriaJudgeModel;

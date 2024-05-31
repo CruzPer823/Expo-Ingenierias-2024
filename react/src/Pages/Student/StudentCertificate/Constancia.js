@@ -156,7 +156,7 @@ export default function ProjSelection({ ConstCheck }) {
                                         student_name={item.student.name + " " + item.student.lastName}
                                         project={item.title}
                                     />
-                                    {item.team.students.map((student, index) => (
+                                    {item.team.members.map((student, index) => (
                                         <CardCalif
                                             key={student.id} // Asegúrate de usar una key única
                                             categoria={"Concepto"}

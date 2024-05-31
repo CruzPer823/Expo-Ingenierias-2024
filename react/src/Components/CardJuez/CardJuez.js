@@ -16,7 +16,7 @@ function CardCalif({ projectId, title, nivelDesarrollo, description, categoria, 
   useEffect(() => {
     const fetchCommentStatus = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/api/comments/${idpersona}/${projectId}`);
+        const response = await fetch(`http://localhost:8000/Juez/fetchComment/${idpersona}/${projectId}`);
         if (response.ok) {
           setStatus('Calificado');
         } else {
@@ -86,11 +86,11 @@ export function Cardlist() {
 
   useEffect(() => {
     // Realizar la llamada al servidor para obtener los proyectos asignados al juez
-    fetch(`http://localhost:8000/api/judgeProjects/${idpersona}`)
+    fetch(`http://localhost:8000/Juez/fetchJudgeProject/${idpersona}`)
       .then(response => response.json())
       .then(projectIds => {
         // Realizar la segunda llamada al servidor para obtener todos los proyectos
-        fetch('http://localhost:8000/api/projects')
+        fetch('http://localhost:8000/Juez/fetchProjects')
           .then(response => response.json())
           .then(allProjects => {
             // Filtrar proyectos con los IDs obtenidos del primer fetch
@@ -102,7 +102,7 @@ export function Cardlist() {
       .catch(error => console.error('Error al obtener los proyectos asignados al juez:', error));
 
     // Realizar la llamada al servidor para obtener las categorías
-    fetch('http://localhost:8000/api/categories')
+    fetch('http://localhost:8000/Juez/getCategories')
       .then(response => response.json())
       .then(data => {
         // Organizar las categorías en un objeto por id para facilitar la búsqueda
@@ -115,7 +115,7 @@ export function Cardlist() {
       .catch(error => console.error('Error al obtener las categorías:', error));
 
     // Realizar la llamada al servidor para obtener las áreas
-    fetch('http://localhost:8000/api/areas')
+    fetch('http://localhost:8000/Juez/getAreas')
       .then(response => response.json())
       .then(data => {
         // Organizar las áreas en un objeto por id para facilitar la búsqueda

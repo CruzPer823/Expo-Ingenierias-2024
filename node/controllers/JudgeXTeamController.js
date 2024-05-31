@@ -1,5 +1,5 @@
 // Importar el modelo Team
-import TeamModel from '../models/TeamModel.js';
+import TeamModel from '../models/JudgeXTeamModel.js';
 
 // Función para obtener todos los equipos
 async function fetchAllTeams(req, res) {

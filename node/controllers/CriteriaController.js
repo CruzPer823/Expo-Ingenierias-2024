@@ -1,8 +1,8 @@
-import Criteria from '../models/CriteriaModel.js';
+import CriteriaModel from '../models/CriteriaModel.js';
 
 async function fetchAllCriterias(req, res) {
   try {
-    const criterias = await Criteria.findAll({
+    const criterias = await CriteriaModel.findAll({
       order: [['id', 'ASC']]  // Ordenar por ID ascendente
     });
     res.json(criterias);

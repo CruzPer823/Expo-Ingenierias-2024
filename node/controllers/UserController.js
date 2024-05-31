@@ -1,6 +1,6 @@
 // controllers/UserController.js
 import { PersonModel, StudentModel, AdminModel } from "../models/UserModel.js";
-import  sequelize  from "../database/db.js";
+import  db  from "../database/db.js";
 import ProjectModel from "../models/ProjectModel.js";
 
 export const getUsers = async (req, res) => {
@@ -223,7 +223,7 @@ export const toggleUserActiveStatus = async (req, res) => {
 //         }
 
 //         // Start a transaction
-//         transaction = await sequelize.transaction();
+//         transaction = await db.transaction();
 
 //         // Create a new record with the updated id
 //         const newPerson = await PersonModel.create({
@@ -268,7 +268,7 @@ export const toggleUserActiveStatus = async (req, res) => {
 //         }
 
 //         // Start a transaction
-//         transaction = await sequelize.transaction();
+//         transaction = await db.transaction();
 
 //         // Create a new record with the updated id
 //         const newStudent = await StudentModel.create({

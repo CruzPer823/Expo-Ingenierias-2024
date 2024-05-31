@@ -1,6 +1,5 @@
 import db from "../database/db.js";
-import {ProjectModel, PersonModel, JudgeProjectModel, AsessorProjectModel, StudentModel, AdminModel, TeamModel, MaterialModel, MaterialProjectModel, CategoryModel, AreaModel, EditionModel, DisqualifiedModel, CommentModel, CriteriaModel, CriteriaJudgeModel, TeamMemberModel} from "../models/Relations.js"
-import Project from "../models/ProjectModel.js";
+import {ProjectModel, PersonModel, JudgeProjectModel, AsessorProjectModel, StudentModel, AdminModel, TeamModel, MaterialModel, MaterialProjectModel, CategoryModel, AreaModel, EditionModel, DisqualifiedModel, CommentsModel, CriteriaModel, CriteriaJudgeModel, TeamMemberModel} from "../models/Relations.js"
 import { Sequelize } from 'sequelize';  // Import Sequelize
 //** Métodos para el CRUD **/
 
@@ -301,7 +300,7 @@ export const getAllProjectsByAreas = async (req, res) => {
                         include: [
                             {
                                 model: StudentModel,
-                                through: 'team_members'
+                                as: 'members'
                             }
                         ]
                     }
@@ -326,12 +325,12 @@ export const getProject = async (req, res) => {
                 { model: PersonModel,
                     as: 'Lider',
                 },
-                { model: StudentModel },
+                { model: StudentModel},
                 { model: TeamModel,
                     include: [
                         {
                             model: StudentModel,
-                            through: 'team_members'
+                            as: 'members'
                         }
                     ]
                 },
@@ -576,10 +575,10 @@ async function registerProject (req, res){
                 enrollment: member.enrollment,
                 isActive: 1
             })
-            await team.addStudent(student);
+            await team.addMember(student);
         }
         else{
-            await team.addStudent(existingStudent);
+            await team.addMember(existingStudent);
         }
         
         contadorStudent++;
@@ -1090,7 +1089,7 @@ export const getProjectCertificate = async (req, res) => {
                         include: [
                             {
                                 model: StudentModel,
-                                through: 'team_members'
+                                as: 'members'
                             }
                         ]
                     }

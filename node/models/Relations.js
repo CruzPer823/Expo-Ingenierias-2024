@@ -23,8 +23,8 @@ import TeamMemberModel from "./TeamMemberModel.js";
 TeamModel.belongsTo(ProjectModel, { foreignKey: 'id_project', as: 'project' });
 ProjectModel.hasOne(TeamModel, {foreignKey: 'id_project'});
 
-StudentModel.hasMany(ProjectModel, { foreignKey: 'id_lider', as: 'projects' });
-ProjectModel.belongsTo(StudentModel, { foreignKey: 'id_lider', as: 'leader' });
+StudentModel.hasMany(ProjectModel, { foreignKey: 'id_lider'});
+ProjectModel.belongsTo(StudentModel, { foreignKey: 'id_lider'});
 
 PersonModel.hasMany(ProjectModel, {foreignKey: 'id_responsable', as: 'ProyectosLiderados'});
 ProjectModel.belongsTo(PersonModel, { foreignKey: 'id_responsable', as: 'Lider' });
