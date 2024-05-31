@@ -23,8 +23,42 @@ const ProjectModel = db.define('projects', {
     id_lider: { type: DataTypes.STRING},
     id_responsable: { type: DataTypes.STRING},
     finalGrade: {type: DataTypes.FLOAT},
+    prefix: { 
+        type: DataTypes.VIRTUAL 
+    }
 
-},
-{timestamps:false});
+    },
+    {timestamps:false,
+        hooks: {
+            beforeCreate: async (project) => {
+                const prefix = project.prefix || 'DEFAULT_'; // Usar un prefijo por defecto si no se proporciona
+    
+                const maxId = await ProjectModel.max('id', {
+                    where: {
+                        id: {
+                            [db.Sequelize.Op.like]: `${prefix}%`
+                        }
+                    },
+                    raw: true
+                });
+    
+                let nextIdNumber = 1;
+                if (maxId) {
+                    const currentMaxNumber = parseInt(maxId.replace(prefix, ''), 10);
+                    if (!isNaN(currentMaxNumber)) {
+                        nextIdNumber = currentMaxNumber + 1;
+                    }
+                }
+    
+                project.id = `${prefix}${nextIdNumber}`;
+            }
+        }
+
+
+    },
+
+
+
+);
 
  export default ProjectModel;

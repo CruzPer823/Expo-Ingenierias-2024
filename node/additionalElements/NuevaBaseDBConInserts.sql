@@ -356,6 +356,8 @@ Insert into ADMIN."criterias" ("description","weight","createdAt","updatedAt") v
 Insert into ADMIN."criterias" ("description","weight","createdAt","updatedAt") values ('rubrica 4',20,null,null);
 Insert into ADMIN."criterias" ("description","weight","createdAt","updatedAt") values ('rubrica 5',20,null,null);
 
+DELETE FROM "criterias" WHERE "id" = 5;
+
 
 Insert into ADMIN."admins" ("id","name","lastName","email","password","createdAt","updatedAt") values (1,'gerry','deustua','a01736455','password',null,null);
 

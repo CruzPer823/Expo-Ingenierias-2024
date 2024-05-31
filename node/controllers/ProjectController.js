@@ -1,5 +1,5 @@
 import db from "../database/db.js";
-import {ProjectModel, PersonModel, JudgeProjectModel, AsessorProjectModel, StudentModel, AdminModel, TeamModel, MaterialModel, MaterialProjectModel, CategoryModel, AreaModel, EditionModel, DisqualifiedModel, CommentsModel, CriteriaModel, CriteriaJudgeModel} from "../models/Relations.js"
+import {ProjectModel, PersonModel, JudgeProjectModel, AsessorProjectModel, StudentModel, AdminModel, TeamModel, MaterialModel, MaterialProjectModel, CategoryModel, AreaModel, EditionModel, DisqualifiedModel, CommentsModel, CriteriaModel, CriteriaJudgeModel, TeamMemberModel} from "../models/Relations.js"
 import Project from "../models/ProjectModel.js";
 import { Sequelize } from 'sequelize';  // Import Sequelize
 //** Métodos para el CRUD **/
@@ -13,18 +13,24 @@ const transformProjectData = async (project) => {
     const area = await AreaModel.findByPk(project.id_area);
     const edition = await EditionModel.findByPk(project.id_edition);
 
-    // Retrieve all team members for the project, excluding the leader
-    const members = await StudentModel.findAll({
-        include: [{
-            model: TeamModel,
-            where: { id_project: project.id }
-        }]
+    // Retrieve the team for the project
+    const team = await TeamModel.findOne({
+        where: { id_project: project.id },
+        include: [
+            { 
+                model: StudentModel,
+                as: 'leader'
+            },
+            { 
+                model: StudentModel,
+                as: 'members',
+                through: { attributes: [] } // exclude join table attributes
+            }
+        ]
     });
 
-    // Filter out the leader from the members list
-    const transformedMembers = members
-        .filter(member => member.id !== project.id_lider)
-        .map(member => member.id);
+    // Extract member names from the team
+    const memberNames = team.members.map(member => member.name);
 
     // Determine if project is reviewed
     const isReviewed = project.statusGeneral === "revisado";
@@ -65,13 +71,14 @@ const transformProjectData = async (project) => {
         categories: [category.title, area.name], 
         id_area: project.id_area,
         leader: leader.name,
-        members: transformedMembers,
+        members: memberNames,
         teachers: teacherNames, // Assuming one responsible person
         edition: edition.id, 
         score: 0, // Add score to the ProjectModel 
         isDisqualified: isDisqualified
     };
 };
+
 
 
 // Mostrar todos los registros
@@ -84,6 +91,23 @@ export const getAllProjectsChart = async (req, res) => {
         );
 
         res.json(transformedProjects);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+//mostrarProyectoAdmin
+export const getProjectAdmin = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const project = await ProjectModel.findByPk(id);
+
+        if (!project) {
+            return res.status(404).json({ message: 'Project not found' });
+        }
+
+        const transformedProject = await transformProjectData(project);
+        res.json(transformedProject);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -276,7 +300,7 @@ export const getAllProjectsByAreas = async (req, res) => {
                         include: [
                             {
                                 model: StudentModel,
-                                through: 'team_members'
+                                as: 'members'
                             }
                         ]
                     }
@@ -289,22 +313,6 @@ export const getAllProjectsByAreas = async (req, res) => {
         res.json( {message: error.message} )
     }
 }
-//mostrarProyectoAdmin
-export const getProjectAdmin = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const project = await ProjectModel.findByPk(id);
-
-        if (!project) {
-            return res.status(404).json({ message: 'Project not found' });
-        }
-
-        const transformedProject = await transformProjectData(project);
-        res.json(transformedProject);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};
 
 //Mostrar un proyecto
 export const getProject = async (req, res) => {
@@ -317,12 +325,12 @@ export const getProject = async (req, res) => {
                 { model: PersonModel,
                     as: 'Lider',
                 },
-                { model: StudentModel },
+                { model: StudentModel},
                 { model: TeamModel,
                     include: [
                         {
                             model: StudentModel,
-                            through: 'team_members'
+                            as: 'members'
                         }
                     ]
                 },
@@ -473,7 +481,7 @@ async function registerProject (req, res){
     const { id_student, title, description, linkVideo, linkPoster, area, category, materials, members, teachers } = req.body;
     console.log(id_student + " " + title + " " , description + " " + linkVideo + " " + linkPoster +  " " + area + " " + category + " " + materials);  
 
-    var codigo = title.substring(0,5) + description.substring(0,5) + area + category;
+    //var codigo = title.substring(0,5) + description.substring(0,5) + area + category;
 
     var contadorProfe = 0;
 
@@ -489,7 +497,9 @@ async function registerProject (req, res){
                     id: teacher.email,
                     name: teacher.name,
                     lastName: teacher.lastName,
-                    email: teacher.email
+                    email: teacher.email,
+                    isJudge: 0,
+                    ISACTIVE: 1
                 });
                 if (contadorProfe === 0){
                     id_profesorAsesor = person.id;
@@ -512,6 +522,9 @@ async function registerProject (req, res){
 
     // Guardar la persona en la base de datos o realizar alguna acción necesaria
     }
+    let nombreArea = await AreaModel.findOne({where: {id: area}});
+    let nombreCategoria = await CategoryModel.findOne({where: {id: category}});
+    let prefix = nombreArea["name"].substring(0,3) + nombreCategoria["title"].substring(0,3)
 
     const project = await ProjectModel.create({
         title,
@@ -526,9 +539,11 @@ async function registerProject (req, res){
         id_category: category,
         id_responsable: id_profesorAsesor,
         id_lider: id_student,
+        prefix: prefix
     });
 
     const projectId = project.id
+    console.log(projectId)
 
         // Añadir los profesores al proyecto
     console.log(teacherIds);
@@ -545,7 +560,7 @@ async function registerProject (req, res){
         id_leader: id_student,
         id_project: projectId
     });
-
+    console.log("paso del equipo")
     // Para cada miembro, crear un objeto Student y guardarlo en la base de datos
     var contadorStudent = 0
     for (const member of members) {
@@ -557,7 +572,8 @@ async function registerProject (req, res){
                 id: member.enrollment,
                 name: member.name,
                 lastName: member.lastName,
-                enrollment: member.enrollment
+                enrollment: member.enrollment,
+                isActive: 1
             })
             await team.addStudent(student);
         }
@@ -610,7 +626,7 @@ export const handleRegister = async(req, res) => {
         try {
             await registerProject(req, res);
         } catch (error) {
-            res.status(500).json({ error: 'Hubo un error al procesar los datos.' });
+            res.status(500).json({ error: error.message });
         }
     } else {
         // Manejar otros métodos HTTP si es necesario
@@ -746,6 +762,17 @@ async function deleteProjectByID(id_project) {
     const transaction = await db.transaction();
     try {
         console.log(`Iniciando eliminación del proyecto con id: ${id_project}`);
+
+        const idTeam = await TeamModel.findOne({
+            where: { id_project },
+            transaction
+        });
+
+        const teamMembersDeleteCount = await TeamMemberModel.destroy({
+            where: { id_team: idTeam.id},
+            transaction
+        });
+        console.log(`Integrantes eliminados: ${teamMembersDeleteCount}`);
 
         // Eliminar equipos relacionados
         const teamDeleteCount = await TeamModel.destroy({
@@ -1022,7 +1049,7 @@ export const getProjectCertificate = async (req, res) => {
                         include: [
                             {
                                 model: StudentModel,
-                                through: 'team_members'
+                                as: 'members'
                             }
                         ]
                     }
