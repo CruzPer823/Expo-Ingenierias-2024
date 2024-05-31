@@ -36,15 +36,15 @@ function CardCalif() {
         lastName: "",
         email: "",
     })
-    const {id_user} = useParams();
+    const { isAuthenticated, isLoading, error, user } = useAuth0();
     useEffect(() => {
         //nuevodescr120T
-        //http://localhost:8000/projects/responsable/${user.sub}
-        fetch(`http://localhost:8000/person/resume/auth0|6653d38ae957844eac7c9f99`)
+        //http://localhost:8000/projects/responsable/auth0|6653d38ae957844eac7c9f99
+        fetch(`http://localhost:8000/person/resume/${user.sub}`)
           .then((res) => res.json())
           .then((data)=>setUser_bs(data))
         
-        },[id_user])
+        })
       const doc = new jsPDF();
       const handleOnClick = async () => {
         doc.setFontSize(22);

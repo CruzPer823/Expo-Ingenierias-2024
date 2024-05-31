@@ -5,6 +5,8 @@ import Menu from '../../../Components/Togglebar/togglebar.js';
 import React, { useState,useEffect,useRef} from "react";
 import { useParams } from "react-router-dom";
 import './TeacherProfile.css';
+import { useAuth0 } from '@auth0/auth0-react';
+
 
 
 function Datos({name,email,type,id}){
@@ -40,21 +42,22 @@ function Datos({name,email,type,id}){
     );
 }
 export default function Perfil(){
-    const [user, setUser] = useState({
+    const [user_b, setUser] = useState({
         id: "",
         name: "",
         lastName: "",
         email: "",
     })
-    const {id_user} = useParams();
+    const { isAuthenticated, isLoading, error, user } = useAuth0();
     useEffect(() => {
+        
         //nuevodescr120T
         //http://localhost:8000/projects/responsable/${user.sub}
-        fetch(`http://localhost:8000/person/resume/${id_user}`)
+        fetch(`http://localhost:8000/person/resume/${user.sub}`)
           .then((res) => res.json())
           .then((data)=>setUser(data))
         
-        },[id_user])
+        })
     return(
         <>
         <Menu />
@@ -67,7 +70,7 @@ export default function Perfil(){
                     <h1>Perfil</h1>
                 </div>
             </div>
-            <Datos name={user.name+' '+user.lastName} type={"Profesor"}  email={user.email}/>
+            <Datos name={user_b.name+' '+user_b.lastName} type={"Profesor"}  email={user.email}/>
             
         </div>
         </>

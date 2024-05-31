@@ -68,7 +68,7 @@ function ToggleBar({SectionName}) {
         <div className='row'>
           <div className='col'>
           <center><i className='bi bi-person-circle docu-icon2'>
-            </i><Link to='/perfil-profesor/auth0|6653d38ae957844eac7c9f99' className='Titulo-toggle'> Rosa Paredes</Link></center>
+            </i><Link to='/perfil-profesor' className='Titulo-toggle'> Rosa Paredes</Link></center>
           </div>
         </div>
       </div>
@@ -84,8 +84,8 @@ function ToggleBar({SectionName}) {
   
                 <div className='row m-2'>
                   <div className ='col-md-auto '>
-                    <Link to='/constancia-profesor/auth0|6653d38ae957844eac7c9f99' onClick={() => { handleClose(); }} class="bi bi-trophy-fill docu-icon2"></Link>
-                    <Link to='/constancia-profesor/auth0|6653d38ae957844eac7c9f99' className ="TextoValid2" onClick={() => { handleClose();  }}>Constancia</Link> 
+                    <Link to='/constancia-profesor' onClick={() => { handleClose(); }} class="bi bi-trophy-fill docu-icon2"></Link>
+                    <Link to='/constancia-profesor' className ="TextoValid2" onClick={() => { handleClose();  }}>Constancia</Link> 
                   </div>  
                 </div>
   

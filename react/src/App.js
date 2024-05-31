@@ -135,8 +135,8 @@ function App() {
               <Route path="/Registro-usuario" element={<ProtectedRoute requiredRole="teacher"><FormUser /></ProtectedRoute>} />
               <Route path="/Registro-inicio" element={<ProtectedRoute requiredRole="teacher"><UserRegisterCont /></ProtectedRoute>} />
               <Route path="/anuncios-profesor" element={<ProtectedRoute requiredRole="teacher"><AnunciosTeacher /></ProtectedRoute>} />
-              <Route path="/constancia-profesor/:id_user" element={<ProtectedRoute requiredRole="teacher"><ConstanciaTeacher ConstCheck={"True"} /></ProtectedRoute>} />
-              <Route path="/perfil-profesor/:id_user" element={<ProtectedRoute requiredRole="teacher"><Perfil /></ProtectedRoute>} />
+              <Route path="/constancia-profesor" element={<ProtectedRoute requiredRole="teacher"><ConstanciaTeacher ConstCheck={"True"} /></ProtectedRoute>} />
+              <Route path="/perfil-profesor" element={<ProtectedRoute requiredRole="teacher"><Perfil /></ProtectedRoute>} />
               <Route path="/announ-teacher/:id_announ" element={<ProtectedRoute requiredRole="teacher"><TeacherAnoDet /></ProtectedRoute>} />
 
               {/*Student Routes */}
