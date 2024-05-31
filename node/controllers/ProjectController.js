@@ -283,7 +283,7 @@ export const getAllProjectsByAreas = async (req, res) => {
                         include: [
                             {
                                 model: StudentModel,
-                                through: 'team_members'
+                                as: 'members'
                             }
                         ]
                     }
@@ -324,12 +324,12 @@ export const getProject = async (req, res) => {
                 { model: PersonModel,
                     as: 'Lider',
                 },
-                { model: StudentModel },
+                { model: StudentModel},
                 { model: TeamModel,
                     include: [
                         {
                             model: StudentModel,
-                            through: 'team_members'
+                            as: 'members'
                         }
                     ]
                 },
@@ -1048,7 +1048,7 @@ export const getProjectCertificate = async (req, res) => {
                         include: [
                             {
                                 model: StudentModel,
-                                through: 'team_members'
+                                as: 'members'
                             }
                         ]
                     }

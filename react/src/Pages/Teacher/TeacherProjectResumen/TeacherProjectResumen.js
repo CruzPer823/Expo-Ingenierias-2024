@@ -241,7 +241,7 @@ export default function ProjResumeCont() {
               <div className='row'>
                   <div className="col-md-1"></div>
                   <ProjResume type={project.category.title} area={project.area.name} title={project.title} IsLoaded={IsLoaded}></ProjResume>
-                  <InfoProj lead={project.student.name + " " + project.student.lastName} members={project.team.students} IsLoaded={IsLoaded} status={project.statusGeneral}></InfoProj>
+                  <InfoProj lead={project.student.name + " " + project.student.lastName} members={project.team.members} IsLoaded={IsLoaded} status={project.statusGeneral}></InfoProj>
                   <div className="col-md-1"></div>
               </div>
 

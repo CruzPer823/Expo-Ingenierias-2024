@@ -320,7 +320,7 @@ export default function Actual() {
                         <div className='col'>
                             <div className="d-flex flex-nowrap">
                                 {nanoProjects.map((item,index) => (
-                                    <CardProj CategoCheck={item.category.title} Title={item.title} Description={item.description} Student={item.student} Members={item.team.students}  Teacher={item.Lider} Assesors={item.Asesores}/>
+                                    <CardProj CategoCheck={item.category.title} Title={item.title} Description={item.description} Student={item.student} Members={item.team.members}  Teacher={item.Lider} Assesors={item.Asesores}/>
                                 ))}
                             </div>                  
                         </div>
@@ -342,7 +342,7 @@ export default function Actual() {
                         <div className='col'>
                             <div className="d-flex flex-nowrap">
                                 {nexusProjects.map((item,index) => (
-                                    <CardProj CategoCheck={item.category.title} Title={item.title} Description={item.description} Student={item.student} Members={item.team.students} Teacher={item.Lider} Assesors={item.Asesores}/>
+                                    <CardProj CategoCheck={item.category.title} Title={item.title} Description={item.description} Student={item.student} Members={item.team.members} Teacher={item.Lider} Assesors={item.Asesores}/>
                                 ))}
                             </div>                  
                         </div>
@@ -364,7 +364,7 @@ export default function Actual() {
                         <div className='col'>
                             <div className="d-flex flex-nowrap">
                                 {bioProjects.map((item,index) => (
-                                    <CardProj CategoCheck={item.category.title} Title={item.title} Description={item.description} Student={item.student}  Members={item.team.students}  Teacher={item.Lider} Assesors={item.Asesores}/>
+                                    <CardProj CategoCheck={item.category.title} Title={item.title} Description={item.description} Student={item.student}  Members={item.team.members}  Teacher={item.Lider} Assesors={item.Asesores}/>
                                 ))}
                             </div>                  
                         </div>
@@ -386,7 +386,7 @@ export default function Actual() {
                         <div className='col'>
                             <div className="d-flex flex-nowrap">
                                 {cyberProjects.map((item,index) => (
-                                    <CardProj CategoCheck={item.category.title} Title={item.title} Description={item.description} Student={item.student} Members={item.team.students}  Teacher={item.Lider} Assesors={item.Asesores} />
+                                    <CardProj CategoCheck={item.category.title} Title={item.title} Description={item.description} Student={item.student} Members={item.team.members}  Teacher={item.Lider} Assesors={item.Asesores} />
                                 ))}
                             </div>                  
                         </div>
