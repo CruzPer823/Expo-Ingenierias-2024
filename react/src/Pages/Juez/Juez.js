@@ -15,10 +15,10 @@ function PageJuez() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/judgeProjects/${idpersona}`)
+    fetch(`http://localhost:8000/Juez/fetchJudgeProject/${idpersona}`)
       .then(response => response.json())
       .then(projectIds => {
-        fetch('http://localhost:8000/api/projects')
+        fetch('http://localhost:8000/Juez/fetchProjects')
           .then(response => response.json())
           .then(allProjects => {
             const filteredProjects = allProjects.filter(project => projectIds.includes(project.id));
@@ -35,7 +35,7 @@ function PageJuez() {
         setLoading(false);
       });
 
-    fetch('http://localhost:8000/api/categories')
+    fetch('http://localhost:8000/Juez/getCategories')
       .then(response => response.json())
       .then(data => {
         const categoryMap = {};
@@ -46,7 +46,7 @@ function PageJuez() {
       })
       .catch(error => console.error('Error al obtener las categorías:', error));
 
-    fetch('http://localhost:8000/api/areas')
+    fetch('http://localhost:8000/Juez/getAreas')
       .then(response => response.json())
       .then(data => {
         const areaMap = {};
@@ -69,7 +69,7 @@ const filteredProjects = projects.filter(project =>
 
   return (
     <>
-      <NavigationBar NameSection={"Proyectos"} />
+      <NavigationBar NameSection={"Mis Proyectos"} />
       <div className="container-fluid">
         {loading ? (
           <div style={{display:"flex",justifyContent:"center"}}>

@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
-import sequelize from '../database/db.js';
+import db from '../database/db.js';
 
-const CriteriaModel = sequelize.define('criterias', {
+const CriteriaModel = db.define('criterias', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,

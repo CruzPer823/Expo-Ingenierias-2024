@@ -4,7 +4,7 @@ import db from "../database/db.js";
 // Importar sequelize y DataTypes
 import { DataTypes } from "sequelize";
 
-const CommentsModel = db.define('comments', {
+const CommentModel = db.define('comments', {
     id_person: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -31,4 +31,4 @@ const CommentsModel = db.define('comments', {
     tableName: 'comments'
 });
 
-export default CommentsModel;
+export default CommentModel;

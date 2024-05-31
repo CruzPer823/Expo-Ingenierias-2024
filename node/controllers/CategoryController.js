@@ -1,8 +1,7 @@
 import {CategoryModel} from "../models/Relations.js"
-import Category from "../models/CategoryModel.js";
 import ProjectModel from "../models/ProjectModel.js";
 
-import  sequelize  from "../database/db.js";
+import  db  from "../database/db.js";
 
 async function  inhabilitateCategory(req,res) {
   const {id}=req.params;
@@ -59,7 +58,7 @@ async function getCategoryProjectData(req, res) {
         }],
         attributes: [
           'title',
-          [sequelize.fn('COUNT', sequelize.col('projects.id')), 'projectCount']
+          [db.fn('COUNT', db.col('projects.id')), 'projectCount']
         ],
         group: ['categories.id', 'categories.title']
       });

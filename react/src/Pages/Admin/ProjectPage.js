@@ -9,16 +9,50 @@ import AssignJudge from '../../Components/AssignJudge/AssignJudge';
 import ProjectScore from '../../Components/ProjectScore/ProjectScore';
 import ProjectMembers from '../../Components/ProjectMembers/ProjectMembers';
 import NavigationBar from '../../Components/NavigationBar/Admin/NavigationBar';
+import Checklist from '../../Components/Checklist/Checklist';
 import CustomModal from '../../Components/CustomModal/CustomModal';
+
+const useFetchData = (url, isChecklist = false) => {
+  const [data, setData] = useState(isChecklist ? [] : { labels: [], data: [] });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    axios.get(url)
+      .then(response => {
+        const responseData = response.data;
+        if (isChecklist) {
+          setData(responseData);
+        } else {
+          setData({
+            labels: responseData.labels,
+            data: responseData.data
+          });
+        }
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error(`Error fetching data from ${url}:`, error);
+        setError('Error fetching data');
+        setLoading(false);
+      });
+  }, [url, isChecklist]);
+
+  return { data, loading, error };
+};
 
 function ProjectPage() {
   const { projectId } = useParams();
   const [project, setProject] = useState(null);
+  const [allProjects, setAllProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
-  const adminId = 'Auth013'; // Replace this with the actual admin ID from your authentication logic
+  const adminId = '66539b1ce539b35aea94e74d'; // Replace this with the actual admin ID from your authentication logic
+
+  const checklistApiUrl = `http://localhost:8000/Admin/projects/${projectId}/material-checklist`;
+  const { data: checklistData } = useFetchData(checklistApiUrl, true);
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -34,6 +68,19 @@ function ProjectPage() {
 
     fetchProject();
   }, [projectId]);
+
+  useEffect(() => {
+    const fetchAllProjects = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/Admin/projects/');
+        setAllProjects(response.data);
+      } catch (err) {
+        console.error("Error fetching all projects:", err.message);
+      }
+    };
+
+    fetchAllProjects();
+  }, []);
 
   const handleDescalify = () => {
     setShowModal(true);
@@ -99,9 +146,10 @@ function ProjectPage() {
           <div className="col-lg-6">
             <Widget title={"Equipo"} centered={true} content={<ProjectMembers project={project} />} />
           </div>
-          {/* <div className="col-lg-3">
-            <Widget title={"Calificación"} centered={true} content={<ProjectScore score={project.score} isDisqualified={project.isDisqualified} allProjects={mockProjects} />} />
-          </div> */}
+          <div className="col-lg-3">
+            <Widget title={"Calificación"} centered={true} content={<ProjectScore score={project.score} isDisqualified={project.isDisqualified} allProjects={allProjects} />} />
+            <Widget title={"Material Solicitado"} content={<Checklist initialItems={checklistData} />} />
+          </div>
         </div>
 
         <div className="row mb-3">

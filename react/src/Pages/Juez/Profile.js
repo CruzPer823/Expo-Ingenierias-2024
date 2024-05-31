@@ -49,7 +49,7 @@ export default function PerfilJuez(){
     })
     const {idpersona} = useParams();
     useEffect(() => {
-        fetch(`http://localhost:8000/api/persons/${idpersona}`)
+        fetch(`http://localhost:8000/Juez/fetchPerson/${idpersona}`)
           .then((res) => res.json())
           .then((data)=>setPerson(data));
         
