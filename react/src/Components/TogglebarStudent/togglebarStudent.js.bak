@@ -48,9 +48,6 @@ function ToggleBarStudent({SectionName}) {
     });
 
     const { id_student } = useParams();
-
-    const [notifications, setNotifications] = useState([]);
-    const [unreadCount, setUnreadCount] = useState(9);
   
     useEffect(() => {
       //fetch(URL+id_student)
@@ -120,13 +117,13 @@ function ToggleBarStudent({SectionName}) {
               </div>
 
               <div className='row m-2'>
-                <div className ='col-md-auto d-flex align-items-center'>
+                <div className ='col-md-auto '>
                   <Link to='/anuncio-estudiante' onClick={() => { handleClose();}} class="bi bi-megaphone-fill docu-icon2"></Link>
-                  <Link to='/anuncio-estudiante' className ="TextoValid2" onClick={() => { handleClose();}}>Anuncios {unreadCount > 0 && (<span className="notification-badge">{unreadCount}</span>)}</Link> 
+                  <Link to='/anuncio-estudiante' className ="TextoValid2" onClick={() => { handleClose();}}>Anuncios</Link> 
                 </div>  
               </div>
 
-              <div className='row m-2'> 
+              <div className='row m-2'>
                 <div className ='col-md-auto '>
                   <Link to='/mapa' onClick={() => { handleClose(); }} class="bi bi-map-fill docu-icon2"></Link>
                   <Link to='/mapa' className ="TextoValid2" onClick={() => { handleClose();}}>Mapa</Link> 
