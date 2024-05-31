@@ -575,10 +575,10 @@ async function registerProject (req, res){
                 enrollment: member.enrollment,
                 isActive: 1
             })
-            await team.addStudent(student);
+            await team.addMember(student);
         }
         else{
-            await team.addStudent(existingStudent);
+            await team.addMember(existingStudent);
         }
         
         contadorStudent++;
