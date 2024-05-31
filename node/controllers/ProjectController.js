@@ -1,5 +1,5 @@
 import db from "../database/db.js";
-import {ProjectModel, PersonModel, JudgeProjectModel, AsessorProjectModel, StudentModel, AdminModel, TeamModel, MaterialModel, MaterialProjectModel, CategoryModel, AreaModel, EditionModel, DisqualifiedModel, CommentsModel, CriteriaModel, CriteriaJudgeModel, TeamMemberModel} from "../models/Relations.js"
+import {ProjectModel, PersonModel, JudgeProjectModel, AsessorProjectModel, StudentModel, AdminModel, TeamModel, MaterialModel, MaterialProjectModel, CategoryModel, AreaModel, EditionModel, DisqualifiedModel, CommentModel, CriteriaModel, CriteriaJudgeModel, TeamMemberModel} from "../models/Relations.js"
 import { Sequelize } from 'sequelize';  // Import Sequelize
 //** Métodos para el CRUD **/
 
