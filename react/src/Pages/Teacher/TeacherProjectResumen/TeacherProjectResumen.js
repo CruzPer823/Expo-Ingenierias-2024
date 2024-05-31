@@ -178,7 +178,7 @@ export default function ProjResumeCont() {
 
   const handleComment = async () => {
       try {
-          await axios.post(`http://localhost:8000/comments/responsable/${id_person}/${id_project}`, {
+          await axios.post(`http://localhost:8000/comments/teacher/${id_person}/${id_project}`, {
               id_person,
               id_project,
               comment
