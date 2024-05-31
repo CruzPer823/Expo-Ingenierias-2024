@@ -222,17 +222,10 @@
 
   color: #0C356A;
   font-weight: bolder;
-  font-size: 80px;
+  font-size: 90px;
 
-  margin-top: 300px !important;
+  margin-top: 30px;
 
-}
-
-.ContFinalRes{
-  border-radius: 5px;
-  width: 275px;
-
-  margin-top: 50px;
 }
 
 .Resultado{
@@ -388,20 +381,5 @@
 }
 
 .contenedortituloparaquesepuedahcaergrande::-webkit-scrollbar {
-  width: 5px;
-}
-
-.contenedortituloparaquesepuedahcaergrande::-webkit-scrollbar-track {
-  border-radius: 5px;
-  background: #ffffff;
-  
-}
-
-.contenedortituloparaquesepuedahcaergrande::-webkit-scrollbar-thumb {
-  background: #9d9d9de6;
-  border-radius: 5px; 
-}
-
-.contenedortituloparaquesepuedahcaergrande::-webkit-scrollbar-thumb:hover {
-  background: #000000; 
+  display: none;
 }

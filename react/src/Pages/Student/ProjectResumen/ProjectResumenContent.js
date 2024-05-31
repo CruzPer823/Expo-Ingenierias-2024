@@ -219,7 +219,7 @@ function ProjResume({ type, area, descr, title, IsLoaded }) {
               <div className="row ">
                 <div className="col-xxl-5 proj-sub text-start TesteoSlider" >
                   <p className='text-break' onClick={toggleShowFullText}>
-                    {showFullText ? descr : truncatedText(descr, 250)}
+                    {showFullText ? descr : truncatedText(descr, 283)}
                   </p>
                 </div>
                 <div className="col-xxl-7 proj-tit text-end text-wrap contenedortituloparaquesepuedahcaergrande"><p className='text-break'>{title}</p></div>
@@ -644,9 +644,9 @@ function FinalCalf({finalCalf, IsLoaded}){
     <>
       <div className='col-xxl-3 h-50'>
         <h1 className ="Titulo text-break">Calificación final</h1>
-          <div className ='container-fluid p-1 centered-FinalRescontainer '>
-            <div className ="row pb-3 align-items-center">
-              <div className ='col-md-auto ContFinalRes text-center p-3'>
+          <div className ='container-fluid '>
+            <div className ="row align-items-center">
+              <div className ='col-md-12'>
                 {!IsLoaded && (
                   <Spinner animation="border" size="xs" className='BolitaDeCargaCalFin' />
                 )}

@@ -2,7 +2,7 @@ import './materiales.css';
 import Button from 'react-bootstrap/esm/Button.js';
 import { Link } from 'react-router-dom';
 import Badge from '../ProjectSelection/Badge';
-import '../ProjectSelection/Juez.css';
+import '../ProjectSelection/ProjSelectionJuez.css';
 import '../ProjectSelection/Badge.css';
 import '../ProjectSelection/ProjSelection.css';
 import StudentToggle from '../../../Components/TogglebarStudent/togglebarStudent.js';
