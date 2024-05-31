@@ -158,7 +158,7 @@ function App() {
               <Route path="/Admin/historico" element={<Historical />} />
               <Route path="/Admin/usuarios" element={<Users />} />
               <Route path="/Admin/usuarios/jueces/:projectId" element={<Judges />} />
-              <Route path="/Admin/usuarios" element={<EditUserPage />} />
+              <Route path="/Admin/usuarios/:userId" element={<EditUserPage />} />
               <Route path="/Admin/proyectos" element={<Projects />} />
               <Route path="/Admin/proyectos/:projectId" element={<ProjectPage />} />
               <Route path="/Admin/anuncios" element={<Announces/>}/>

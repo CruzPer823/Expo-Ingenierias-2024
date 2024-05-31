@@ -20,13 +20,11 @@ import AsessorProjectModel from './AsessorProjectModel.js';
 import JudgeProjectModel from "./JudgeProjectModel.js";
 import TeamMemberModel from "./TeamMemberModel.js";
 
-
-TeamModel.belongsTo(ProjectModel, {foreignKey: 'id_project'});
+TeamModel.belongsTo(ProjectModel, { foreignKey: 'id_project', as: 'project' });
 ProjectModel.hasOne(TeamModel, {foreignKey: 'id_project'});
 
-
-StudentModel.hasMany(ProjectModel, {foreignKey: 'id_lider'});
-ProjectModel.belongsTo(StudentModel, { foreignKey: 'id_lider' });
+StudentModel.hasMany(ProjectModel, { foreignKey: 'id_lider', as: 'projects' });
+ProjectModel.belongsTo(StudentModel, { foreignKey: 'id_lider', as: 'leader' });
 
 PersonModel.hasMany(ProjectModel, {foreignKey: 'id_responsable', as: 'ProyectosLiderados'});
 ProjectModel.belongsTo(PersonModel, { foreignKey: 'id_responsable', as: 'Lider' });
@@ -103,16 +101,16 @@ ProjectModel.belongsToMany(PersonModel, {
 
 // Definición de la relación desde StudentModel a TeamModel
 StudentModel.belongsToMany(TeamModel, {
-        through: 'team_members', // Nombre de tu tabla intermedia
+        through: TeamMemberModel, // Nombre de tu tabla intermedia
         foreignKey: 'id_member', // Nombre de la columna en team_members que referencia estudiantes
-        otherKey: 'id_team'
+        as: 'teams'
 
 });
 
 TeamModel.belongsToMany(StudentModel, {
-        through: 'team_members', // Nombre de tu tabla intermedia
+        through: TeamMemberModel, // Nombre de tu tabla intermedia
         foreignKey: 'id_team',   // Nombre de la columna en team_members que referencia equipos
-        otherKey: 'id_member'
+        as: 'members'
 });
 
       
@@ -136,7 +134,12 @@ MaterialModel.hasMany(MaterialProjectModel, { foreignKey: 'id_material' });
 MaterialProjectModel.belongsTo(MaterialModel, { foreignKey: 'id_material' });
 
 StudentModel.hasMany(TeamModel, {foreignKey: 'id_leader'});
-TeamModel.belongsTo(StudentModel, {foreignKey: 'id_leader'});
+TeamModel.belongsTo(StudentModel, { foreignKey: 'id_leader', as: 'leader' });
+
+// Team Members
+TeamMemberModel.belongsTo(TeamModel, { foreignKey: 'id_team' });
+TeamMemberModel.belongsTo(StudentModel, { foreignKey: 'id_member' });
+
 
 //Mapa
 

@@ -13,18 +13,24 @@ const transformProjectData = async (project) => {
     const area = await AreaModel.findByPk(project.id_area);
     const edition = await EditionModel.findByPk(project.id_edition);
 
-    // Retrieve all team members for the project, excluding the leader
-    const members = await StudentModel.findAll({
-        include: [{
-            model: TeamModel,
-            where: { id_project: project.id }
-        }]
+    // Retrieve the team for the project
+    const team = await TeamModel.findOne({
+        where: { id_project: project.id },
+        include: [
+            { 
+                model: StudentModel,
+                as: 'leader'
+            },
+            { 
+                model: StudentModel,
+                as: 'members',
+                through: { attributes: [] } // exclude join table attributes
+            }
+        ]
     });
 
-    // Filter out the leader from the members list
-    const transformedMembers = members
-        .filter(member => member.id !== project.id_lider)
-        .map(member => member.id);
+    // Extract member names from the team
+    const memberNames = team.members.map(member => member.name);
 
     // Determine if project is reviewed
     const isReviewed = project.statusGeneral === "revisado";
@@ -65,13 +71,14 @@ const transformProjectData = async (project) => {
         categories: [category.title, area.name], 
         id_area: project.id_area,
         leader: leader.name,
-        members: transformedMembers,
+        members: memberNames,
         teachers: teacherNames, // Assuming one responsible person
         edition: edition.id, 
         score: 0, // Add score to the ProjectModel 
         isDisqualified: isDisqualified
     };
 };
+
 
 
 // Mostrar todos los registros
