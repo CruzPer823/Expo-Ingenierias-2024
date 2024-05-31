@@ -275,6 +275,8 @@ CREATE TABLE "judge_projects" (
 CREATE TABLE "areas_persons" (
   "id_person" VARCHAR(50),
   "id_area" INT,
+  "createdAt" DATE,
+  "updatedAt" DATE,
   CONSTRAINT "FK_persons_areas.id_person"
     FOREIGN KEY ("id_person")
       REFERENCES "persons"("id"),

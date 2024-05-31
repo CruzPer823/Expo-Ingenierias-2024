@@ -358,7 +358,7 @@ export const getProject = async (req, res) => {
 
         for(const criteriaJudge of project.criteria_judges){
 
-            const comentarioGeneral = await CommentsModel.findOne({
+            const comentarioGeneral = await CommentModel.findOne({
                 where: { id_project: req.params.id, id_person: criteriaJudge.id_person }
             });
 
@@ -418,7 +418,7 @@ export const getProject = async (req, res) => {
         
 
         // Obtener todos los comentarios asociados al proyecto
-        const comments = await CommentsModel.findAll({
+        const comments = await CommentModel.findAll({
             where: { id_person: project.Lider.id, id_project: req.params.id, },
             order: [['createdAt', 'DESC']]
         });
