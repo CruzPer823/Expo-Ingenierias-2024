@@ -11,7 +11,14 @@ const TeamModel = db.define('teams', {
     },
     name: { type: DataTypes.STRING },
     id_leader: { type: DataTypes.STRING },
-    id_project: { type: DataTypes.INTEGER }
+    id_project: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        references: {
+            model: 'projects',
+            key: 'id'
+        }
+    }
 },{
     timestamps:false
 });
