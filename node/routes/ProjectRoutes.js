@@ -1,6 +1,6 @@
 import express from 'express';
 import { deleteProject, disqualifyProject, getAllProjects, getProject, handleRegister, handleEdition, handleResumen, 
-    getProjectsByResponsable, getProjectStatusData, getMaterialChecklistItems,getProjectAdmin, getAllProjectsByAreas, updateProject, getProjectCertificate, handleMaterials
+    getProjectsByResponsable, getProjectStatusData, getMaterialChecklistItems,getProjectAdmin, getAllProjectsByAreas,updateProject, getProjectCertificate, handleMaterials
 } from '../controllers/ProjectController.js'
 
 const router = express.Router();
@@ -13,7 +13,7 @@ router.get('/catalogue', getAllProjectsByAreas );
 
 router.get('/resume/student/:id', getProject);
 //Obtener un solo proyecto por su id
-router.get('/resume/:id', getProjectAdmin);
+router.get('/resumen/:id', getProjectAdmin);
 
 router.delete('/delete/:id', deleteProject);
 
