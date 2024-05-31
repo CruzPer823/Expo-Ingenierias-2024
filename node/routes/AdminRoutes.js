@@ -5,7 +5,7 @@ import { updateCategory,getCategoryProjectData,createCategory,getAllCategories,g
 import { updateArea,createArea,getAllAreas,deleteArea,getAresById,inhabilitateArea } from '../controllers/AreasControllers.js';
 
 import { getAreaJudge, getAllJudges } from '../controllers/PersonController.js';
-import { getProjectJudges, removeProjectJudge, assignProjectJudge } from '../controllers/ProjectController.js';
+import { getAllProjects, getProjectJudges, removeProjectJudge, assignProjectJudge, getProjectMaterialChecklistItems } from '../controllers/ProjectController.js';
 
 const router = express.Router()
 // Rutas de anuncios
@@ -34,7 +34,9 @@ router.get('/getJudges/:areaId', getAreaJudge); // query string (?projectId=<pro
 router.get('/getAllJudges', getAllJudges); // query string (?projectId=<project.id>)
 
 // Projects Routes
+router.get('/projects',getAllProjects)
 router.get('/getProjectJudges', getProjectJudges); // query string (?projectId=<project.id>)
+router.get('/projects/:projectId/material-checklist', getProjectMaterialChecklistItems)
 router.delete('/remove/projects/:projectId/judges/:judgeId', removeProjectJudge) // query string (?projectId=<project.id>&judgeId=<person.id>)
 router.post('/assignProjectJudge', assignProjectJudge);
 

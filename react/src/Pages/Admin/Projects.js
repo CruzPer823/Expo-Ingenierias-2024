@@ -8,7 +8,7 @@ import Loader from '../../Components/Loader/Loader';
 import '../../Components/ProjectCard/ProjectCard.css';
 
 const URI = 'http://localhost:8000/Ediciones/';
-const PROJECTS_API = 'http://localhost:8000/projects/';
+const PROJECTS_API = 'http://localhost:8000/Admin/projects/';
 
 function Projects() {
     const [projects, setProjects] = useState([]);
