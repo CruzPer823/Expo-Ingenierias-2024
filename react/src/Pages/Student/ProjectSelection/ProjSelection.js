@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import Badge from './Badge';
-import './Juez.css';
+import './ProjSelectionJuez.css';
 import './Badge.css';
 import './ProjSelection.css';
 import StudentToggle from '../../../Components/TogglebarStudent/togglebarStudent.js';
@@ -113,8 +113,8 @@ function CardCalif({ projects, isLoading }) {
                         <div className="imag algoimagFinish"></div>
                     )}
                     <div className="text">
-                        <p className="h3">{truncateText(item.title, 50)}</p>
-                        <p className="p">{truncateText(item.description, 175)}</p>
+                        <p className="TituloProjSELCARD text-wrap mb-0">{truncateText(item.title, 55)}</p>
+                        <p className="TextoTarjeta">{truncateText(item.description, 160)}</p>
                         <div className="badge-container w-100">
                             <Badge data={item.area.name} className="badgeselect d-flex text-wrap" />
                             <Badge data={item.id} className="badgeselect d-flex" />
@@ -188,7 +188,7 @@ export default function ProjSelection() {
     return (
         <>
             <StudentToggle NameSection={"Mis proyectos"} />
-            <div className='container-fluid'>
+            <div className='container-fluid '>
                 {isLoading && (
                     <div className='col-12 mt-5 d-flex align-items-center justify-content-center'>
                         <div className="semicircle">
