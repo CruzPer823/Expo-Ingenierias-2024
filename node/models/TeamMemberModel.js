@@ -9,20 +9,12 @@ const TeamMemberModel = db.define('team_members', {
     id_team: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        primaryKey: true,
-        references: {
-            model: 'teams',
-            key: 'id'
-        }
+        primaryKey: true
     },
     id_member: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
-        primaryKey: true,
-        references: {
-            model: 'students',
-            key: 'id'
-        }
+        primaryKey: true
     }
 }, {
     timestamps:false,

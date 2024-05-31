@@ -7,7 +7,7 @@ function UserRow({ user, onDelete, onRoleChange }) {
 
     const handleEditClick = () => {
         // Redirect to EditUserPage and pass the userId as a URL parameter
-        navigate(`/usuarios/${user.id}`);
+        navigate(`/Admin/usuarios/${user.id}`);
     };
 
     return (

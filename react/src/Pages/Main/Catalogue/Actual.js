@@ -430,7 +430,7 @@ export default function Actual() {
                         {tieneInformacion(bioProjects) && (
                             <div className="d-flex flex-nowrap">
                                 {bioProjects.map((item,index) => (
-                                    <CardProj CategoCheck={item.category.title} Title={item.title} Description={item.description} Student={item.student}  Members={item.team.students}  Teacher={item.Lider} Assesors={item.Asesores}/>
+                                    <CardProj CategoCheck={item.category.title} Title={item.title} Description={item.description} Student={item.student}  Members={item.team.members}  Teacher={item.Lider} Assesors={item.Asesores}/>
                                 ))}
                             </div>  
                         )}
@@ -471,7 +471,7 @@ export default function Actual() {
                             {tieneInformacion(cyberProjects) && (
                             <div className="d-flex flex-nowrap">
                                 {cyberProjects.map((item,index) => (
-                                    <CardProj CategoCheck={item.category.title} Title={item.title} Description={item.description} Student={item.student} Members={item.team.students}  Teacher={item.Lider} Assesors={item.Asesores} />
+                                    <CardProj CategoCheck={item.category.title} Title={item.title} Description={item.description} Student={item.student} Members={item.team.members}  Teacher={item.Lider} Assesors={item.Asesores} />
                                 ))}
                             </div>  
                             )}                

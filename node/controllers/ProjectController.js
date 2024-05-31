@@ -13,18 +13,24 @@ const transformProjectData = async (project) => {
     const area = await AreaModel.findByPk(project.id_area);
     const edition = await EditionModel.findByPk(project.id_edition);
 
-    // Retrieve all team members for the project, excluding the leader
-    const members = await StudentModel.findAll({
-        include: [{
-            model: TeamModel,
-            where: { id_project: project.id }
-        }]
+    // Retrieve the team for the project
+    const team = await TeamModel.findOne({
+        where: { id_project: project.id },
+        include: [
+            { 
+                model: StudentModel,
+                as: 'leader'
+            },
+            { 
+                model: StudentModel,
+                as: 'members',
+                through: { attributes: [] } // exclude join table attributes
+            }
+        ]
     });
 
-    // Filter out the leader from the members list
-    const transformedMembers = members
-        .filter(member => member.id !== project.id_lider)
-        .map(member => member.id);
+    // Extract member names from the team
+    const memberNames = team.members.map(member => member.name);
 
     // Determine if project is reviewed
     const isReviewed = project.statusGeneral === "revisado";
@@ -65,13 +71,14 @@ const transformProjectData = async (project) => {
         categories: [category.title, area.name], 
         id_area: project.id_area,
         leader: leader.name,
-        members: transformedMembers,
+        members: memberNames,
         teachers: teacherNames, // Assuming one responsible person
         edition: edition.id, 
         score: 0, // Add score to the ProjectModel 
         isDisqualified: isDisqualified
     };
 };
+
 
 
 // Mostrar todos los registros
@@ -84,6 +91,23 @@ export const getAllProjectsChart = async (req, res) => {
         );
 
         res.json(transformedProjects);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+//mostrarProyectoAdmin
+export const getProjectAdmin = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const project = await ProjectModel.findByPk(id);
+
+        if (!project) {
+            return res.status(404).json({ message: 'Project not found' });
+        }
+
+        const transformedProject = await transformProjectData(project);
+        res.json(transformedProject);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -276,7 +300,7 @@ export const getAllProjectsByAreas = async (req, res) => {
                         include: [
                             {
                                 model: StudentModel,
-                                through: 'team_members'
+                                as: 'members'
                             }
                         ]
                     }
@@ -289,22 +313,6 @@ export const getAllProjectsByAreas = async (req, res) => {
         res.json( {message: error.message} )
     }
 }
-//mostrarProyectoAdmin
-export const getProjectAdmin = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const project = await ProjectModel.findByPk(id);
-
-        if (!project) {
-            return res.status(404).json({ message: 'Project not found' });
-        }
-
-        const transformedProject = await transformProjectData(project);
-        res.json(transformedProject);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};
 
 //Mostrar un proyecto
 export const getProject = async (req, res) => {
@@ -317,12 +325,12 @@ export const getProject = async (req, res) => {
                 { model: PersonModel,
                     as: 'Lider',
                 },
-                { model: StudentModel },
+                { model: StudentModel},
                 { model: TeamModel,
                     include: [
                         {
                             model: StudentModel,
-                            through: 'team_members'
+                            as: 'members'
                         }
                     ]
                 },
@@ -567,10 +575,10 @@ async function registerProject (req, res){
                 enrollment: member.enrollment,
                 isActive: 1
             })
-            await team.addStudent(student);
+            await team.addMember(student);
         }
         else{
-            await team.addStudent(existingStudent);
+            await team.addMember(existingStudent);
         }
         
         contadorStudent++;
@@ -1041,7 +1049,7 @@ export const getProjectCertificate = async (req, res) => {
                         include: [
                             {
                                 model: StudentModel,
-                                through: 'team_members'
+                                as: 'members'
                             }
                         ]
                     }
