@@ -15,7 +15,7 @@ const CommentsModel = db.define('comments', {
         }
     },
     id_project: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
         primaryKey: true,
         references: {

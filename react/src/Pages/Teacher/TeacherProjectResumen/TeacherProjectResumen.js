@@ -161,7 +161,7 @@ export default function ProjResumeCont() {
     const fetchData = async () => {
       setIsLoaded(false);
       try {
-        const res = await fetch(`http://localhost:8000/projects/resume/${id_project}`);
+        const res = await fetch(`http://localhost:8000/projects/resume/student/${id_project}`);
         const data = await res.json();
         setProject(data);
         setComment(data?.comment?.comment || ''); // Usa el operador de encadenamiento opcional y un valor predeterminado.
