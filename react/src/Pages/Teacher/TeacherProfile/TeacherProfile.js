@@ -5,7 +5,19 @@ import Menu from '../../../Components/Togglebar/togglebar.js';
 import React, { useState,useEffect,useRef} from "react";
 import { useParams } from "react-router-dom";
 import axios from 'axios';
+import axios from 'axios';
 import './TeacherProfile.css';
+import { useNavigate } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
+import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import ToggleButton from 'react-bootstrap/ToggleButton';
+import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
+import Usure from '../../../Components/BotonConfirmacion/ConfBot';
+
+
+
 import { useNavigate } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import Form from 'react-bootstrap/Form';
@@ -53,11 +65,18 @@ function Datos({name,email,type,id}){
 }
 export default function Perfil(){
     const [user_b, setUser] = useState({
+    const [user_b, setUser] = useState({
         id: "",
         name: "",
         lastName: "",
         email: "",
     })
+    const [areas,setArea] = useState([{}]);
+    const [secArea, setSecArea] = useState(1);
+    const [areaperson, setAreaPerson] = useState([]);
+    const {user} = useAuth0();
+    const [validated, setValidated] = useState(false);
+    const navigate = useNavigate();
     const [areas,setArea] = useState([{}]);
     const [secArea, setSecArea] = useState(1);
     const [areaperson, setAreaPerson] = useState([]);

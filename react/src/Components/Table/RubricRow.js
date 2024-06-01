@@ -7,7 +7,7 @@ function RubricRow({ criteria }) {
 
     const handleEditClick = () => {
         // Redirect to EditCriteriaPage and pass the criteriaId as a URL parameter
-        navigate(`/rubrica/${criteria.id}`);
+        navigate(`/Admin/rubrica/criterio/${criteria.id}`);
     };
 
     return (
