@@ -32,6 +32,7 @@ export default function Usure({ Path, className, Texto, MensajeTitle, BotonA, Bo
         
     };
 
+    
     return (
         <>
             <Button variant="primary" onClick={handleShow} className={className}>
