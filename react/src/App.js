@@ -160,13 +160,13 @@ function App() {
               <Route path='/Admin/rubrica/criterio/:criteriaId' element={<EditCriteriaPage />}/>
 
               {/* Judge Routes */}
-              <Route path="/Juez/:idpersona" element={<Juez />} />
-              <Route path="/Juez/General/:idpersona" element={<Proyectos />} />
-              <Route path="/Juez/General/:idpersona/Proyectos/:projectId" element={<GeneralProjectResume />} />
+              <Route path="/Juez/:idpersona" element={<ProtectedRoute requiredRole="teacher"><Juez /></ProtectedRoute>} />
+              <Route path="/Juez/General/:idpersona" element={<ProtectedRoute requiredRole="teacher"><Proyectos /></ProtectedRoute>} />
+              <Route path="/Juez/General/:idpersona/Proyectos/:projectId" element={<ProtectedRoute requiredRole="teacher"><GeneralProjectResume /></ProtectedRoute>} />
               <Route path="/Juez/Anuncios/:idpersona" element={<Anuncios />} />
               <Route path="/Juez/Anuncios/:idpersona/DetailAnnoun/:anuncioId" element={<DetailedAnnoun />} />
-              <Route path="/Juez/:idpersona/Calificar/:projectId" element={<Rubrica />} />
-              <Route path="/Juez/:idpersona/ProyectoJuez/:projectId" element={<ProjResumeContJudge />} />
+              <Route path="/Juez/:idpersona/Calificar/:projectId" element={<ProtectedRoute requiredRole="teacher"><Rubrica /></ProtectedRoute>} />
+              <Route path="/Juez/:idpersona/ProyectoJuez/:projectId" element={<ProtectedRoute requiredRole="teacher"><ProjResumeContJudge /></ProtectedRoute>} />
               <Route path="/Juez/Perfil/:idpersona" element={<PerfilJuez />} />
           </Routes>
       </div>

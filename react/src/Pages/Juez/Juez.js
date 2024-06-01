@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import NavigationBar from '../../Components/NavigationBar/Judge/NavigationBar';
 import { Cardlist } from '../../Components/CardJuez/CardJuez';
 import Loader from '../../Components/Loader/Loader';
+import ToggleBar from '../../Components/Togglebar/togglebar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.min.css';
 
@@ -69,7 +69,7 @@ const filteredProjects = projects.filter(project =>
 
   return (
     <>
-      <NavigationBar NameSection={"Mis Proyectos"} />
+      <ToggleBar />
       <div className="container-fluid">
         {loading ? (
           <div style={{display:"flex",justifyContent:"center"}}>
