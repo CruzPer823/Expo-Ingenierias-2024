@@ -44,7 +44,7 @@ function CardCalif() {
           .then((res) => res.json())
           .then((data)=>setUser_bs(data))
         
-        })
+        },[user.sub])
       const doc = new jsPDF();
       const handleOnClick = async () => {
         doc.setFontSize(22);

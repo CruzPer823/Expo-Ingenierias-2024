@@ -28,7 +28,7 @@ import CriteriaJudgeRoutes from './routes/CriteriaJudgeRoutes.js';
 import JudgeProjectRoutes from './routes/JudgeProjectRoutes.js';
 import TeamRoutes from './routes/TeamRoutes.js';
 import TeamMemberRoutes from './routes/TeamMemberRoutes.js';
-
+import AreaPersonRoutes from './routes/AreaPersonRoutes.js'
 import main from './middleware/authConfig.js'
 
 const app = express()
@@ -49,6 +49,8 @@ app.use('/Admin',  AdminRoutes);
 app.use('/Ediciones',EditionRoutes);
 app.use('/person',  PersonRoutes);
 app.use('/comments',CommentRoutes);
+app.use('/areas',AreaRoutes);
+app.use('/areaperson',AreaPersonRoutes);
 
 // JUDGE ROUTES
 // app.use('/api', CriteriaRoutes);
