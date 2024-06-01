@@ -18,7 +18,6 @@ import Usure from '../../../Components/BotonConfirmacion/ConfBot';
 
 
 
-
 function Datos({name,email,type,id}){
 
     return(
@@ -57,7 +56,7 @@ export default function Perfil(){
         name: "",
         lastName: "",
         email: "",
-    })
+    });
     const [areas,setArea] = useState([{}]);
     const [secArea, setSecArea] = useState(1);
     const [areaperson, setAreaPerson] = useState([]);
