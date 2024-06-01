@@ -111,16 +111,14 @@
   display: flex;
 }
 .cardProf {
+
   box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
   width: 307px;
   height: 360px;
 
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
-}
 
-.cardsirveporfa{
-  --bs-card-border-radius: 16px;
 }
 
 
