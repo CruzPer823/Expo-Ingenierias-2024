@@ -1,4 +1,3 @@
-import '../../Student/ProjectSelection/ProjSelectionJuez.css';
 import '../../Student/ProjectSelection/Badge.css';
 import { jsPDF } from "jspdf";
 import { useAuth0 } from '@auth0/auth0-react';
