@@ -171,6 +171,8 @@ export default function ProjSelection() {
     const [projects, setProjects] = useState([]);
     const { id_student } = useParams();
 
+    const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 768);
+
     useEffect(() => {
         setIsLoading(true);
         fetch(URL + user.sub)
@@ -183,6 +185,13 @@ export default function ProjSelection() {
                 console.error("Error fetching projects:", error);
                 setIsLoading(false);
             });
+        const handleResize = () => {
+            setIsLargeScreen(window.innerWidth > 768);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+
     }, [id_student, user.sub]);
 
     return (
@@ -242,18 +251,34 @@ export default function ProjSelection() {
                 {!isLoading && tieneInformacion(projects) && (
                     <>
                         <div className='container-fluid'>
-                            <div className='row'>
-                                <div className='col-2 mt-2 p-3'>
-                                    <Link to={'/registro-proyecto'} className='bi bi-plus-square-fill NuevoRegister'></Link>
+                            {isLargeScreen ? (
+                                <div className='row'>
+                                    <div className='col-2 mt-2 p-3'>
+                                        <Link to={'/registro-proyecto'} className='bi bi-plus-square-fill NuevoRegister'></Link>
+                                    </div>
+                                    <div className='col-10 '>
+                                        <center>
+                                            <h1 className='TituloProjSEL p-3 mt-4 text-center TitleSelectContainerVF'>
+                                                Proyectos en los que participas
+                                            </h1>
+                                        </center>
+                                    </div>
                                 </div>
-                                <div className='col-10 mt-2 pt-3 ps-3 pe-3'>
-                                    <center>
-                                        <h1 className='TituloProjSEL p-3 text-center TitleSelectContainerVF'>
-                                            Proyectos en los que participas
-                                        </h1>
-                                    </center>
-                                </div>
-                            </div>
+                            ) : (
+                                <>
+                                    <div className='row'>
+                                        <div className='col-12 '>
+                                            <center>
+                                                <h1 className='TituloProjSEL p-3 text-center TitleSelectContainerVF'>
+                                                    Proyectos en los que participas
+                                                </h1>
+                                            </center>
+                                        </div>
+                                    </div>                   
+                                </>
+
+                            )}
+
                         </div>
                         <div className='row d-flex flex-col justify-content-evenly'>
                             <CardCalif projects={projects} isLoading={isLoading} />

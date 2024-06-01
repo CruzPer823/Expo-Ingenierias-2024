@@ -19,28 +19,6 @@
   --bs-card-border-radius: 16px !important;
 }
 
-.btn23 {
-  width: 100%;
-  min-height: 6.5vh;
-  
-  margin-top: 0.10rem;
-  margin-bottom: 0.5rem;
-  font-size: 1.1em;
-  font-weight: bold;
-  cursor: pointer;
-  background-color: #0C356A !important;
-  color: #fff;
-  border: none;
-  border-radius: 10px;
-  transition: all 0.4s;
-  
-  /* Aplicar flexbox para centrar texto verticalmente */
-  display: flex;
-  justify-content: center; /* Centrar horizontalmente */
-  align-items: center; /* Centrar verticalmente */
-  text-decoration: none;
-}
-
 .btn23:hover {
 
   background-color: #0d6efd !important;
@@ -144,4 +122,40 @@
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
 
+}
+
+@media (max-width: 768px) {
+  .btn23 {
+    width: 100%;
+    min-height: 6.5vh;
+    
+    margin-top: 0.10rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: red !important;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    transition: all 0.4s;
+    
+    /* Aplicar flexbox para centrar texto verticalmente */
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    text-decoration: none;
+  }
+
+  .cardSelect {
+    width: 100%;
+    height: 69vh !important;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 15px 15px 30px #bebebe,
+                -15px -15px 30px #ffffff;
+    transition: 0.2s ease-in-out;
+    margin: 0.5vw;
+    margin-bottom: 6vh;
+  }
 }
