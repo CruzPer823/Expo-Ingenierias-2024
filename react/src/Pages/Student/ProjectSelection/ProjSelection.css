@@ -38,6 +38,8 @@
 
     width: 75%;
 
+    font-weight: bold;
+
 }
 
 .BotonRegistrar{
@@ -238,5 +240,17 @@
     .NuevoRegister:hover::after {
         opacity: 1;
         transform: translateX(0);
+    }
+
+    .NoProjContainer{
+        background-color: #ffffff;
+        border-radius: 5px;
+    
+        width: 90%;
+
+        font-size: 28px;
+
+        font-weight: normal  !important;
+    
     }
 }

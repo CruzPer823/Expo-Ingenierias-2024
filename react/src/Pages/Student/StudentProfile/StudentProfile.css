@@ -21,3 +21,25 @@
 .perfil span{
     font-size: 20px;
 }
+
+.QuitarH h1{
+    margin-top: 0 !important;
+}
+
+@media (max-width: 768px) {
+
+    .perfil h3{
+        font-weight: bold;
+        color: #0C356A;
+        text-align: start;
+    }
+
+    .cont-principal{
+        background-color: white;
+        width: 75% !important;
+        height: 530px !important;
+        height: auto;
+        border-radius: 30px;
+    }
+
+}

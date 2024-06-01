@@ -232,7 +232,7 @@ export default function ProjSelection() {
                             <center>
                                 <div className='row p-3 m-3 NoProjContainer'>
                                     <div className='col p-3'>
-                                        <p className='mb-0 fw-bold'>
+                                        <p className='mb-0'>
                                             Parece ser que aun no te encuentras registrado en ningun proyecto, puedes registrar un proyecto y así ser lider equipo o esperar a que el lider de tu equipo registre el proyecto.
                                         </p>
                                     </div>

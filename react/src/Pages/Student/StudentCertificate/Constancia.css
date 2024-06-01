@@ -104,4 +104,13 @@
         margin-top: 0;
         
     }
+
+    .cardconst{
+        --bs-card-border-radius: 16px;
+
+        height: 73vh !important;
+        width: 83vw !important;
+
+    }
+
   }

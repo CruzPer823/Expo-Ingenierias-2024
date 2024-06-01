@@ -126,7 +126,7 @@ export default function ProjSelection({ ConstCheck }) {
                         <center>
                             <div className='row p-3 m-3 NoProjContainer'>
                                 <div className='col p-3'>
-                                    <p className='mb-0 fw-bold'>Aún no puedes visualizar o descargar las constancias que hayas adquirido durante el evento. Espera a que acabe el evento y vuelve a esta pestaña para descargar tus constancias.</p>
+                                    <p className='mb-0'>Aún no puedes visualizar o descargar las constancias que hayas adquirido durante el evento. Espera a que acabe el evento y vuelve a esta pestaña para descargar tus constancias.</p>
                                 </div>
                             </div>
                         </center>
@@ -140,7 +140,7 @@ export default function ProjSelection({ ConstCheck }) {
                                 <center>
                                     <div className='row p-3 m-3 NoProjContainer'>
                                         <div className='col p-3'>
-                                            <p className='mb-0 fw-bold'>Aún no puedes visualizar o descargar las constancias que hayas adquirido durante el evento. Espera a que acabe el evento y vuelve a esta pestaña para descargar tus constancias.</p>
+                                            <p className='mb-0'>Aún no puedes visualizar o descargar las constancias que hayas adquirido durante el evento. Espera a que acabe el evento y vuelve a esta pestaña para descargar tus constancias.</p>
                                         </div>
                                     </div>
                                 </center>
