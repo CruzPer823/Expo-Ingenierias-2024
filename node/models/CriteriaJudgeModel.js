@@ -1,8 +1,8 @@
 // models/criteria_judges.js
 import { DataTypes } from 'sequelize';
-import sequelize from '../database/db.js';
+import db from '../database/db.js';
 
-const CriteriaJudgeModel = sequelize.define('criteria_judges', {
+const CriteriaJudgeModel = db.define('criteria_judges', {
   id_person: {
     type: DataTypes.STRING(50),
     allowNull: false,
@@ -22,7 +22,7 @@ const CriteriaJudgeModel = sequelize.define('criteria_judges', {
     allowNull: false,
   },
   id_project: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     allowNull: false,
     primaryKey: true,  // Parte de la clave compuesta
     references: {

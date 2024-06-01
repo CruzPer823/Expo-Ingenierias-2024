@@ -87,3 +87,21 @@
   padding: 1vh;
 
 }
+
+.textmain{
+
+  padding-left: 10px;
+  align-self: center;
+  color: #ffffff;
+  text-decoration: none !important;
+
+}
+
+.textmain:hover{
+
+  padding-left: 10px;
+  align-self: center;
+  color: #406eaa;
+  text-decoration: none !important;
+
+}

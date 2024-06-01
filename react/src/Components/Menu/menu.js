@@ -62,10 +62,10 @@ export default function Menu() {
         <div className='row'>
           <div className='col-md'>
             <nav className='navbar navbar-expand-lg fixed-top' id="NavBar">
-            <div className ="ToggleButtonMain">
+            <Link to={"/"} className ="ToggleButtonMain textmain">
               <img className="ExpoIngLog2Main" src ={logo} alt=""></img>
-              <span className="textm no-select"><strong>ExpoIngenierias</strong></span>
-            </div>
+              <span className="textmain no-select"><strong>ExpoIngenierias</strong></span>
+            </Link>
   
               <div className={`collapse navbar-collapse justify-content-end`} id="navbarNav">
                 <ul className="nav navbar-nav">

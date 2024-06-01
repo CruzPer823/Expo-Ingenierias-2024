@@ -1,7 +1,7 @@
 import axios from "axios";
 import config from '../config.js';
 import db from "../database/db.js"
-import { StudentModel, PersonModel, TeamMemberModel, CommentsModel, AsessorProjectModel, ProjectModel } from "../models/Relations.js"; // Asegúrate de importar PersonModel
+import { StudentModel, PersonModel, TeamMemberModel, CommentModel, AsessorProjectModel, ProjectModel } from "../models/Relations.js"; // Asegúrate de importar PersonModel
 
 async function getAuth0Token() {
   console.log(config.AUTH0_CLIENT_ID + " "+  config.AUTH0_DOMAIN + " " +config.AUTH0_CLIENT_SECRET)
@@ -116,7 +116,7 @@ async function saveUsersToDatabase(users) {
               ISACTIVE: foundUser.ISACTIVE,
             });
 
-            await CommentsModel.update(
+            await CommentModel.update(
               {id_person: personNew.id},
               {where: {id_person: foundUser.id}}
             );

@@ -9,11 +9,16 @@ import { useNavigate } from 'react-router-dom';
 export default function Usure({ Path, className, Texto, MensajeTitle, BotonA, BotonB, onConfirm, recharge=false }) {
     const navigate = useNavigate()
     const [show, setShow] = useState(false);
+    const [isConfirming, setIsConfirming] = useState(false);
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        setShow(false);
+        setIsConfirming(false);
+    };
     const handleShow = () => setShow(true);
 
     const handleConfirm = async () => {
+        setIsConfirming(true);
         await onConfirm(); // Esperar a que se complete la función onConfirm
 
         // Después de confirmar los cambios, redirigir a la ruta especificada en Path
@@ -27,6 +32,7 @@ export default function Usure({ Path, className, Texto, MensajeTitle, BotonA, Bo
         
     };
 
+    
     return (
         <>
             <Button variant="primary" onClick={handleShow} className={className}>
@@ -44,10 +50,10 @@ export default function Usure({ Path, className, Texto, MensajeTitle, BotonA, Bo
                     <Modal.Title>{MensajeTitle}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className='centered-container h-100 d-flex justify-content-evenly'>
-                    <Button className='ButtonContinue' variant="secondary" onClick={handleClose}>
+                    <Button className='ButtonContinue' variant="secondary" onClick={handleClose} disabled={isConfirming}>
                         {BotonA}
                     </Button>
-                    <Button className='fw-bold ' variant="secondary" onClick={handleConfirm}>
+                    <Button className='fw-bold ' variant="secondary" onClick={handleConfirm} disabled={isConfirming}>  
                         {BotonB}
                     </Button>
                 </Modal.Body>

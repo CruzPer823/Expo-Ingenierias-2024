@@ -1,10 +1,10 @@
 // Importar el modelo Team
-import Team from '../models/TeamModel.js';
+import TeamModel from '../models/TeamModel.js';
 
 // Función para obtener todos los equipos
 async function fetchAllTeams(req, res) {
   try {
-    const teams = await Team.findAll();
+    const teams = await TeamModel.findAll();
     res.json(teams);
   } catch (error) {
     console.error('Error fetching all teams:', error);
@@ -16,7 +16,7 @@ async function fetchAllTeams(req, res) {
 async function fetchTeamById(req, res) {
   const { id } = req.params;
   try {
-    const team = await Team.findByPk(id);
+    const team = await TeamModel.findByPk(id);
     if (!team) {
       res.status(404).json({ error: 'Team not found.' });
     } else {
@@ -32,7 +32,7 @@ async function fetchTeamById(req, res) {
 async function fetchTeamsByLeaderId(req, res) {
   const { id_leader } = req.params;
   try {
-    const teams = await Team.findAll({
+    const teams = await TeamModel.findAll({
       where: {
         id_leader
       }

@@ -198,7 +198,7 @@ function CardProj({ CategoCheck, Title, Description, Student,Members,Teacher, As
           return text;
         }
         return text.slice(0, limit) + '...';
-      };
+    };
     
     
     return (
@@ -246,6 +246,26 @@ function CardProj({ CategoCheck, Title, Description, Student,Members,Teacher, As
 
     </div>  
     );
+}
+
+function tieneInformacion(variable) {
+    if (variable === null || variable === undefined || Object.keys(variable).length === 0 ) {
+        return false;
+    }
+    
+    if (typeof variable === 'string' && variable.trim() === '') {
+        return false;
+    }
+    
+    if (Array.isArray(variable) && variable.length === 0) {
+        return false;
+    }
+    
+    if (typeof variable === 'number' && isNaN(variable)) {
+        return false;
+    }
+    
+    return true;
 }
 
 export default function Actual() {
@@ -318,11 +338,26 @@ export default function Actual() {
 
                     <div className='row scroll-container'>
                         <div className='col'>
-                            <div className="d-flex flex-nowrap">
-                                {nanoProjects.map((item,index) => (
-                                    <CardProj CategoCheck={item.category.title} Title={item.title} Description={item.description} Student={item.student} Members={item.team.members}  Teacher={item.Lider} Assesors={item.Asesores}/>
-                                ))}
-                            </div>                  
+                            {!tieneInformacion(nanoProjects) && (
+                                <div className="container pb-1">
+                                    <div className='row '>
+                                        <div className='col-12 d-flex align-items-center justify-content-center'>
+                                            <i className='bi bi-binoculars-fill IconoNohyProjectsProfe'></i>
+                                        </div>
+                                        <div className='col-12 d-flex align-items-center justify-content-center'>
+                                            <h3 className='ColorNohayProyectoprofe'>Parece ser que aun no hay proyectos</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+                            {tieneInformacion(nanoProjects) && (
+                                <div className="d-flex flex-nowrap">
+                                    {nanoProjects.map((item,index) => (
+                                        <CardProj CategoCheck={item.category.title} Title={item.title} Description={item.description} Student={item.student} Members={item.team.members}  Teacher={item.Lider} Assesors={item.Asesores}/>
+                                    ))}
+                                </div> 
+                            )}                 
                         </div>
                     </div>
                 </div>
@@ -340,11 +375,27 @@ export default function Actual() {
 
                     <div className='row scroll-container'>
                         <div className='col'>
-                            <div className="d-flex flex-nowrap">
-                                {nexusProjects.map((item,index) => (
-                                    <CardProj CategoCheck={item.category.title} Title={item.title} Description={item.description} Student={item.student} Members={item.team.members} Teacher={item.Lider} Assesors={item.Asesores}/>
-                                ))}
-                            </div>                  
+                            {!tieneInformacion(nexusProjects) && (
+                                <div className="container pb-1">
+                                    <div className='row '>
+                                        <div className='col-12 d-flex align-items-center justify-content-center'>
+                                            <i className='bi bi-binoculars-fill IconoNohyProjectsProfe'></i>
+                                        </div>
+                                        <div className='col-12 d-flex align-items-center justify-content-center'>
+                                            <h3 className='ColorNohayProyectoprofe'>Parece ser que aun no hay proyectos</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+                            {tieneInformacion(nexusProjects) && (
+                                <div className="d-flex flex-nowrap">
+                                    {nexusProjects.map((item,index) => (
+                                        <CardProj CategoCheck={item.category.title} Title={item.title} Description={item.description} Student={item.student} Members={item.team.members} Teacher={item.Lider} Assesors={item.Asesores}/>
+                                    ))}
+                                </div> 
+                            )}                               
+               
                         </div>
                     </div>
                 </div>
@@ -362,11 +413,30 @@ export default function Actual() {
 
                     <div className='row scroll-container'>
                         <div className='col'>
+
+                        {!tieneInformacion(bioProjects) && (
+                                <div className="container pb-1">
+                                    <div className='row '>
+                                        <div className='col-12 d-flex align-items-center justify-content-center'>
+                                            <i className='bi bi-binoculars-fill IconoNohyProjectsProfe'></i>
+                                        </div>
+                                        <div className='col-12 d-flex align-items-center justify-content-center'>
+                                            <h3 className='ColorNohayProyectoprofe'>Parece ser que aun no hay proyectos</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+                        {tieneInformacion(bioProjects) && (
                             <div className="d-flex flex-nowrap">
                                 {bioProjects.map((item,index) => (
                                     <CardProj CategoCheck={item.category.title} Title={item.title} Description={item.description} Student={item.student}  Members={item.team.members}  Teacher={item.Lider} Assesors={item.Asesores}/>
                                 ))}
-                            </div>                  
+                            </div>  
+                        )}
+
+                            
+                
                         </div>
                     </div>
                 </div>
@@ -384,11 +454,27 @@ export default function Actual() {
 
                     <div className='row scroll-container'>
                         <div className='col'>
+
+                        {!tieneInformacion(cyberProjects) && (
+                                <div className="container pb-1">
+                                    <div className='row '>
+                                        <div className='col-12 d-flex align-items-center justify-content-center'>
+                                            <i className='bi bi-binoculars-fill IconoNohyProjectsProfe'></i>
+                                        </div>
+                                        <div className='col-12 d-flex align-items-center justify-content-center'>
+                                            <h3 className='ColorNohayProyectoprofe'>Parece ser que aun no hay proyectos</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+                            {tieneInformacion(cyberProjects) && (
                             <div className="d-flex flex-nowrap">
                                 {cyberProjects.map((item,index) => (
                                     <CardProj CategoCheck={item.category.title} Title={item.title} Description={item.description} Student={item.student} Members={item.team.members}  Teacher={item.Lider} Assesors={item.Asesores} />
                                 ))}
-                            </div>                  
+                            </div>  
+                            )}                
                         </div>
                     </div>
                 </div>

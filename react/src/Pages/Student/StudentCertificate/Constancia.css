@@ -78,8 +78,7 @@
 
 .ConstanciaCardPhoto {
     background-image: url('../../../img/Constancia1.png');
-    width: 331px;
-    height: 315px;
+
     background-position: center;
     background-size: cover;
   
@@ -88,4 +87,30 @@
     display: flex;
     align-items: top;
     justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .TitleSelectContainer{
+
+        background-color: #ffffff;
+        border-radius: 5px;
+    
+        width: 100%;
+        
+    }
+
+    .TitleSelectContainer h1{
+
+        margin-top: 0;
+        
+    }
+
+    .cardconst{
+        --bs-card-border-radius: 16px;
+
+        height: 73vh !important;
+        width: 83vw !important;
+
+    }
+
   }

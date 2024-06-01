@@ -1,4 +1,4 @@
-import '../ProjectSelection/Juez.css';
+import '../ProjectSelection/ProjSelectionJuez.css';
 import '../ProjectSelection/Badge.css';
 import { jsPDF } from "jspdf";
 import { useAuth0 } from '@auth0/auth0-react';
@@ -54,7 +54,7 @@ function CardCalif({ student_name, project }) {
     return (
         <div className='col-auto p-3'>
             <div className="card cardconst mb-1 me-0">
-                <div className="imag ConstanciaCardPhoto"></div>
+                <div className="imagConstancias ConstanciaCardPhoto"></div>
                 <div className="text constanciastextsirveporfa">
                     <center><span className='fw-bolder'>Esta constancia es válida para:</span></center>
                     <center><p>{student_name}</p></center>
@@ -126,7 +126,7 @@ export default function ProjSelection({ ConstCheck }) {
                         <center>
                             <div className='row p-3 m-3 NoProjContainer'>
                                 <div className='col p-3'>
-                                    <p className='mb-0 fw-bold'>Aún no puedes visualizar o descargar las constancias que hayas adquirido durante el evento. Espera a que acabe el evento y vuelve a esta pestaña para descargar tus constancias.</p>
+                                    <p className='mb-0'>Aún no puedes visualizar o descargar las constancias que hayas adquirido durante el evento. Espera a que acabe el evento y vuelve a esta pestaña para descargar tus constancias.</p>
                                 </div>
                             </div>
                         </center>
@@ -140,7 +140,7 @@ export default function ProjSelection({ ConstCheck }) {
                                 <center>
                                     <div className='row p-3 m-3 NoProjContainer'>
                                         <div className='col p-3'>
-                                            <p className='mb-0 fw-bold'>Aún no puedes visualizar o descargar las constancias que hayas adquirido durante el evento. Espera a que acabe el evento y vuelve a esta pestaña para descargar tus constancias.</p>
+                                            <p className='mb-0'>Aún no puedes visualizar o descargar las constancias que hayas adquirido durante el evento. Espera a que acabe el evento y vuelve a esta pestaña para descargar tus constancias.</p>
                                         </div>
                                     </div>
                                 </center>
@@ -152,14 +152,12 @@ export default function ProjSelection({ ConstCheck }) {
                                 <div className='row d-flex flex-col justify-content-evenly' key={item.id_project}>
                                     <CardCalif
                                         key={item.student.id}
-                                        categoria={"Concept"}
                                         student_name={item.student.name + " " + item.student.lastName}
                                         project={item.title}
                                     />
                                     {item.team.members.map((student, index) => (
                                         <CardCalif
                                             key={student.id} // Asegúrate de usar una key única
-                                            categoria={"Concepto"}
                                             student_name={student.name + " " + student.lastName}
                                             project={item.title}
                                         />

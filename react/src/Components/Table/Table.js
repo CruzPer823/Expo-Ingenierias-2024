@@ -4,8 +4,9 @@ import axios from 'axios'; // Import Axios if you're using it
 import "./Table.css";
 import UserRow from './UserRow';
 import JudgeRow from './JudgeRow';
+import RubricRow from './RubricRow';
 
-function Table({ data, searchQuery = "", selectedRole = "", judgeTable = false }) {
+function Table({ data, searchQuery = "", selectedRole = "", judgeTable = false, rubricTable = false }) {
     const [tableData, setTableData] = useState(data);
 
     // Filter data based on search query and selected role
@@ -77,10 +78,10 @@ function Table({ data, searchQuery = "", selectedRole = "", judgeTable = false }
                         roles: updatedUser.roles // Assuming updatedUser is the modified user object
                     })
                     .then(response => {
-                        console.log("Roles exitosamente actualizados:", response.data);
+                        console.log("Roles updated successfully:", response.data);
                     })
                     .catch(error => {
-                        console.error("Error al actualizar los roles:", error);
+                        console.error("Error updating roles:", error);
                     });
                 }
             } else {
@@ -116,12 +117,18 @@ function Table({ data, searchQuery = "", selectedRole = "", judgeTable = false }
     return (
         <div className="table-container">
             <table className="table">
-                <thead>
+            <thead>
                     <tr>
                         {/* Headers */}
                         {judgeTable ? (
                             <>
                                 <th className="text-center">Jueces</th>
+                                <th className="text-center">Administrar</th>
+                            </>
+                        ) : rubricTable ? (
+                            <>
+                                <th className="text-center">Criterios</th>
+                                <th className="text-center">Ponderación</th>
                                 <th className="text-center">Administrar</th>
                             </>
                         ) : (
@@ -131,7 +138,6 @@ function Table({ data, searchQuery = "", selectedRole = "", judgeTable = false }
                                 <th className="text-center">Administrar</th>
                             </>
                         )}
-                        {/* Add more headers as needed */}
                     </tr>
                 </thead>
                 <tbody>
@@ -141,6 +147,13 @@ function Table({ data, searchQuery = "", selectedRole = "", judgeTable = false }
                             <JudgeRow 
                                 key={user.id} 
                                 user={user} 
+                            />
+                        ))
+                    ) : rubricTable ? (
+                        tableData.map((criteria) => (
+                            <RubricRow 
+                                key={criteria.id} 
+                                criteria={criteria} 
                             />
                         ))
                     ) : (

@@ -1,7 +1,11 @@
+// BASE Import
 import './App.css';
 import './Page.css';
-import {Routes, Route} from 'react-router-dom'
+//import {Routes, Route} from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import React, { useState,useEffect} from "react";
+
+// Main
 import ProjResumeCont from './Pages/Teacher/TeacherProjectResumen/TeacherProjectResumen.js';
 import Hometeacher from './Pages/Teacher/TeacherHome/TeacherHome.js';
 import Main from './Pages/Main/MainPage/main.js';
@@ -25,7 +29,8 @@ import ProjSelection from './Pages/Student/ProjectSelection/ProjSelection.js';
 import ProjectEdition from './Pages/Student/ProjectEdition/ProjEdition.js';
 import StudentAnnounDet from './Pages/Student/Announcement/DetailedAnnoun.js'
 import StudentProfile from './Pages/Student/StudentProfile/StudentProfile.js';
-import { BrowserRouter as useLocation } from 'react-router-dom';
+//import { BrowserRouter as useLocation } from 'react-router-dom';
+
 // Admin
 import Dashboard from './Pages/Admin/Dashboard';
 import Historical from './Pages/Admin/Historical';
@@ -54,6 +59,7 @@ import Rubrica from './Pages/Juez/Rubrica';
 import Anuncios from './Pages/Juez/Announ';
 import DetailedAnnoun from './Pages/Juez/DetailedAnnoun';
 import PerfilJuez from './Pages/Juez/Profile';
+
 // Auth0
 import Callback from './auth0/callback.js';
 import ProtectedRoute from './auth0/protect.js';
@@ -68,26 +74,6 @@ const isDateEqualOrAfter = (specificDate) => {
   const targetDate = new Date(specificDate);
   return now >= targetDate;
 };
-
-// const getTitle = (pathname) => {
-//   switch (pathname) {
-//     case '/Admin':
-//       return 'Tablero';
-//     case '/Admin/historico':
-//       return 'Historico';
-//     case '/Admin/usuarios':
-//       return 'Usuarios';
-//     case '/Admin/proyectos':
-//       return 'Proyectos';
-//     case '/Admin/anuncios':
-//       return 'Anuncios';
-//     case '/Admin/perfil':
-//       return 'Perfil';
-//     default:
-//       return 'Your Default Title';
-//   }
-// };
-
 
 function App() {
   // const location = useLocation(); // Get current location
@@ -152,8 +138,7 @@ function App() {
               <Route path='/student-profile/' element={<ProtectedRoute requiredRole="student"><StudentProfile /></ProtectedRoute>} />
               <Route path="/Callback" element={<Callback />} />
 
-                {/* Admin Routes */}
-
+              {/* Admin Routes */}
               <Route path="/Admin" element={<Dashboard />} />
               <Route path="/Admin/historico" element={<Historical />} />
               <Route path="/Admin/usuarios" element={<Users />} />
@@ -173,24 +158,37 @@ function App() {
               <Route path="/Admin/rubrica" element={<AdminRubrica />}/>
 
               {/* Judge Routes */}
-
-              {/* <Route path="/Juez/:idpersona" element={<Juez />} />
+              <Route path="/Juez/:idpersona" element={<Juez />} />
               <Route path="/Juez/General/:idpersona" element={<Proyectos />} />
               <Route path="/Juez/General/:idpersona/Proyectos/:projectId" element={<GeneralProjectResume />} />
               <Route path="/Juez/Anuncios/:idpersona" element={<Anuncios />} />
               <Route path="/Juez/Anuncios/:idpersona/DetailAnnoun/:anuncioId" element={<DetailedAnnoun />} />
               <Route path="/Juez/:idpersona/Calificar/:projectId" element={<Rubrica />} />
               <Route path="/Juez/:idpersona/ProyectoJuez/:projectId" element={<ProjResumeContJudge />} />
-              <Route path="/Juez/Perfil/:idpersona" element={<PerfilJuez />} /> */}
+              <Route path="/Juez/Perfil/:idpersona" element={<PerfilJuez />} />
           </Routes>
       </div>
     </>
   );
 }
 
-
-
-
-
+// const getTitle = (pathname) => {
+//   switch (pathname) {
+//     case '/Admin':
+//       return 'Tablero';
+//     case '/Admin/historico':
+//       return 'Historico';
+//     case '/Admin/usuarios':
+//       return 'Usuarios';
+//     case '/Admin/proyectos':
+//       return 'Proyectos';
+//     case '/Admin/anuncios':
+//       return 'Anuncios';
+//     case '/Admin/perfil':
+//       return 'Perfil';
+//     default:
+//       return 'Your Default Title';
+//   }
+// };
 
 export default App;

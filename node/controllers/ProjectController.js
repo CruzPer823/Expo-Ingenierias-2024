@@ -1,6 +1,5 @@
 import db from "../database/db.js";
-import {ProjectModel, PersonModel, JudgeProjectModel, AsessorProjectModel, StudentModel, AdminModel, TeamModel, MaterialModel, MaterialProjectModel, CategoryModel, AreaModel, EditionModel, DisqualifiedModel, CommentsModel, CriteriaModel, CriteriaJudgeModel, TeamMemberModel} from "../models/Relations.js"
-import Project from "../models/ProjectModel.js";
+import {ProjectModel, PersonModel, JudgeProjectModel, AsessorProjectModel, StudentModel, AdminModel, TeamModel, MaterialModel, MaterialProjectModel, CategoryModel, AreaModel, EditionModel, DisqualifiedModel, CommentModel, CriteriaModel, CriteriaJudgeModel, TeamMemberModel} from "../models/Relations.js"
 import { Sequelize } from 'sequelize';  // Import Sequelize
 //** Métodos para el CRUD **/
 
@@ -69,12 +68,13 @@ const transformProjectData = async (project) => {
         video: project.linkVideo,
         description: project.description,
         categories: [category.title, area.name], 
+        id_category: project.id_category,
         id_area: project.id_area,
         leader: leader.name,
         members: memberNames,
         teachers: teacherNames, // Assuming one responsible person
         edition: edition.id, 
-        score: 0, // Add score to the ProjectModel 
+        score: project.finalGrade, 
         isDisqualified: isDisqualified
     };
 };
@@ -358,7 +358,7 @@ export const getProject = async (req, res) => {
 
         for(const criteriaJudge of project.criteria_judges){
 
-            const comentarioGeneral = await CommentsModel.findOne({
+            const comentarioGeneral = await CommentModel.findOne({
                 where: { id_project: req.params.id, id_person: criteriaJudge.id_person }
             });
 
@@ -418,7 +418,7 @@ export const getProject = async (req, res) => {
         
 
         // Obtener todos los comentarios asociados al proyecto
-        const comments = await CommentsModel.findAll({
+        const comments = await CommentModel.findAll({
             where: { id_person: project.Lider.id, id_project: req.params.id, },
             order: [['createdAt', 'DESC']]
         });
@@ -575,10 +575,10 @@ async function registerProject (req, res){
                 enrollment: member.enrollment,
                 isActive: 1
             })
-            await team.addStudent(student);
+            await team.addMember(student);
         }
         else{
-            await team.addStudent(existingStudent);
+            await team.addMember(existingStudent);
         }
         
         contadorStudent++;
@@ -925,6 +925,46 @@ export const getMaterialChecklistItems = async (req, res) => {
         res.status(500).json({ error: "Internal server error while fetching checklist items." });
     }
 };
+
+
+export const getProjectMaterialChecklistItems = async (req, res) => {
+    try {
+        const projectId = req.params.projectId;
+
+        // Fetch all materials
+        const materials = await MaterialModel.findAll();
+
+        // Fetch the total amounts for each material for the specific project
+        const totalAmounts = await MaterialProjectModel.findAll({
+            attributes: [
+                'id_material',
+                [Sequelize.fn('SUM', Sequelize.col('amount')), 'totalAmount']
+            ],
+            where: {
+                id_project: projectId
+            },
+            group: ['id_material']
+        });
+
+        // Convert the totals to a lookup object
+        const totalAmountsLookup = totalAmounts.reduce((acc, item) => {
+            acc[item.id_material] = item.dataValues.totalAmount;
+            return acc;
+        }, {});
+
+        // Format materials into checklist items
+        const checklistItems = materials.map(material => ({
+            id: material.id,
+            text: `${material.name} (${totalAmountsLookup[material.id] || 0})`, // Name with total amount in brackets
+        }));
+
+        res.json(checklistItems);
+    } catch (error) {
+        console.error("Error fetching checklist items:", error);
+        res.status(500).json({ error: "Internal server error while fetching checklist items." });
+    }
+};
+
 
 // Función para obtener todos los proyectos ordenados de manera ascendente por id
 export const fetchAllProjects = async () => {

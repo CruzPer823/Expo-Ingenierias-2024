@@ -7,7 +7,7 @@ import { DataTypes } from "sequelize";
 // Definir el modelo para la tabla auxiliar
 const AsessorProjectModel = db.define('asessor_projects', {
     id_person: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
         primaryKey: true,
         references: {
@@ -16,7 +16,7 @@ const AsessorProjectModel = db.define('asessor_projects', {
         }
     },
     id_project: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
         primaryKey: true,
         references: {

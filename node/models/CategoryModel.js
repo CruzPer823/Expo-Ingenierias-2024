@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
-import sequelize from '../database/db.js';
+import db from '../database/db.js';
 
-const CategoryModel = sequelize.define('categories', {
+const CategoryModel = db.define('categories', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,

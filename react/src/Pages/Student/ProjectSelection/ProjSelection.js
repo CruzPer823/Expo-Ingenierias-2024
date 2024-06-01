@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import Badge from './Badge';
-import './Juez.css';
+import './ProjSelectionJuez.css';
 import './Badge.css';
 import './ProjSelection.css';
 import StudentToggle from '../../../Components/TogglebarStudent/togglebarStudent.js';
@@ -113,8 +113,8 @@ function CardCalif({ projects, isLoading }) {
                         <div className="imag algoimagFinish"></div>
                     )}
                     <div className="text">
-                        <p className="h3">{truncateText(item.title, 50)}</p>
-                        <p className="p">{truncateText(item.description, 175)}</p>
+                        <p className="TituloProjSELCARD text-wrap mb-0">{truncateText(item.title, 55)}</p>
+                        <p className="TextoTarjeta">{truncateText(item.description, 160)}</p>
                         <div className="badge-container w-100">
                             <Badge data={item.area.name} className="badgeselect d-flex text-wrap" />
                             <Badge data={item.id} className="badgeselect d-flex" />
@@ -171,6 +171,8 @@ export default function ProjSelection() {
     const [projects, setProjects] = useState([]);
     const { id_student } = useParams();
 
+    const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 768);
+
     useEffect(() => {
         setIsLoading(true);
         fetch(URL + user.sub)
@@ -183,12 +185,19 @@ export default function ProjSelection() {
                 console.error("Error fetching projects:", error);
                 setIsLoading(false);
             });
+        const handleResize = () => {
+            setIsLargeScreen(window.innerWidth > 768);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+
     }, [id_student, user.sub]);
 
     return (
         <>
             <StudentToggle NameSection={"Mis proyectos"} />
-            <div className='container-fluid'>
+            <div className='container-fluid '>
                 {isLoading && (
                     <div className='col-12 mt-5 d-flex align-items-center justify-content-center'>
                         <div className="semicircle">
@@ -223,7 +232,7 @@ export default function ProjSelection() {
                             <center>
                                 <div className='row p-3 m-3 NoProjContainer'>
                                     <div className='col p-3'>
-                                        <p className='mb-0 fw-bold'>
+                                        <p className='mb-0'>
                                             Parece ser que aun no te encuentras registrado en ningun proyecto, puedes registrar un proyecto y así ser lider equipo o esperar a que el lider de tu equipo registre el proyecto.
                                         </p>
                                     </div>
@@ -242,18 +251,34 @@ export default function ProjSelection() {
                 {!isLoading && tieneInformacion(projects) && (
                     <>
                         <div className='container-fluid'>
-                            <div className='row'>
-                                <div className='col-2 mt-2 p-3'>
-                                    <Link to={'/registro-proyecto'} className='bi bi-plus-square-fill NuevoRegister'></Link>
+                            {isLargeScreen ? (
+                                <div className='row'>
+                                    <div className='col-2 mt-2 p-3'>
+                                        <Link to={'/registro-proyecto'} className='bi bi-plus-square-fill NuevoRegister'></Link>
+                                    </div>
+                                    <div className='col-10 '>
+                                        <center>
+                                            <h1 className='TituloProjSEL p-3 mt-4 text-center TitleSelectContainerVF'>
+                                                Proyectos en los que participas
+                                            </h1>
+                                        </center>
+                                    </div>
                                 </div>
-                                <div className='col-10 mt-2 pt-3 ps-3 pe-3'>
-                                    <center>
-                                        <h1 className='TituloProjSEL p-3 text-center TitleSelectContainerVF'>
-                                            Proyectos en los que participas
-                                        </h1>
-                                    </center>
-                                </div>
-                            </div>
+                            ) : (
+                                <>
+                                    <div className='row'>
+                                        <div className='col-12 '>
+                                            <center>
+                                                <h1 className='TituloProjSEL p-3 text-center TitleSelectContainerVF'>
+                                                    Proyectos en los que participas
+                                                </h1>
+                                            </center>
+                                        </div>
+                                    </div>                   
+                                </>
+
+                            )}
+
                         </div>
                         <div className='row d-flex flex-col justify-content-evenly'>
                             <CardCalif projects={projects} isLoading={isLoading} />
