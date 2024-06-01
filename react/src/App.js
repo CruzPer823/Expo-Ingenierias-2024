@@ -49,6 +49,7 @@ import CreateCategoryPage from './Pages/Admin/CreateCategory';
 import CreateAnnouncePage from './Pages/Admin/CreateAnnounce';
 import Announces from './Pages/Admin/Announces';
 import AdminRubrica from './Pages/Admin/AdminRubrica';
+import EditCriteriaPage from './Pages/Admin/EditCriteriaPage.js';
 
 // Judge
 import Juez from './Pages/Juez/Juez'; // Mis Proyectos
@@ -155,7 +156,8 @@ function App() {
               <Route path='/Admin/Categorias/:categoriaId' element={<EditCategoryPage/>}/>
               <Route path='/Admin/anuncios/:anunciosId' element={<EditAnnouncePage/>}/>
               <Route path='/Admin/anuncios/nuevo' element={<CreateAnnouncePage/>}/>
-              <Route path="/Admin/rubrica" element={<AdminRubrica />}/>
+              <Route path='/Admin/rubrica' element={<AdminRubrica />}/>
+              <Route path='/Admin/rubrica/criterio/:criteriaId' element={<EditCriteriaPage />}/>
 
               {/* Judge Routes */}
               <Route path="/Juez/:idpersona" element={<Juez />} />
