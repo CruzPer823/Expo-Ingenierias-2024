@@ -55,7 +55,7 @@ export const  inhabilitateArea = async(req,res)=>{
     try{
         let area = await AreaModel.findByPk(id);
         if(area){
-            area.IsActive = area.IsActive===0?1:0;
+            area.isActive = area.isActive===1?0:0;
         }else{
             return res.status(404).json({ error: 'User not found' });
         }

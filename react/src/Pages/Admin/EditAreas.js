@@ -44,7 +44,7 @@ function EditAreaPage() {
         .then(response => {
             if (response.ok) {
                 alert('Area correctamente actualizada!');
-                navigate('/areas'); // Redirect to home or users list page
+                navigate('/Admin/areas'); // Redirect to home or users list page
             } else {
                 alert('Fallo al actualizar el área.');
             }
@@ -56,9 +56,14 @@ function EditAreaPage() {
     };
 
     if (loading) {
-        return <div style={{display:'flex', justifyContent:'center'}}>
-        <Loader/>
-        </div>;
+        return (
+        <>
+            <NavigationBar NameSection={"Editar Área"}/>
+            <div style={{display:'flex', justifyContent:'center'}}>
+            <Loader/>
+            </div>
+        </>
+        );
     }
 
     return (
@@ -72,14 +77,14 @@ function EditAreaPage() {
                                 <ContentCard title="Modificar Área" content={  
                                     <>
                                         <TextInput
-                                            label="name"
+                                            label="Nombre"
                                             name="name"
                                             value={area.name}
                                             onChange={handleChange}
                                             required
                                         />
                                         <TextInput
-                                            label="description"
+                                            label="Descripción"
                                             name="description"
                                             value={area.description}
                                             onChange={handleChange}

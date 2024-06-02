@@ -126,10 +126,10 @@ const Rubrica = () => {
               {criteria.map((criterion, index) => (
                 <div className="criterion" key={index}>
                   <h3>{criterion.description}</h3>
-                  <p>Calificación: {selectedCriteria[index]}</p>
+                  <p className='rubro'>Calificación: {selectedCriteria[index]}</p>
 
                   <div className="PB-range-slider-div">
-                    <p>0 (Deficiente)</p>
+                    <p className='rubro'>0 (Deficiente)</p>
                     <input
                       type="range"
                       min="0"
@@ -139,7 +139,7 @@ const Rubrica = () => {
                       onChange={(e) => handleSliderChange(index, parseInt(e.target.value))}
                       id={`myRange${index}`}
                     />
-                    <p>5 (Excelente)</p>
+                    <p className='rubro'>5 (Excelente)</p>
                   </div>
                   <textarea
                     placeholder={`Comentarios adicionales sobre ${criterion.description}`}
@@ -155,7 +155,7 @@ const Rubrica = () => {
                 value={additionalComment}
                 onChange={(e) => handleAdditionalCommentChange(e.target.value)}
               />
-              {showErrorMessage && additionalComment.trim().length < 100 && <p className="error-message">Por favor, ingresa un comentario adicional con al menos 100 caracteres.</p>}
+              {showErrorMessage && additionalComment.trim().length < 100 && <p className="error-message ">Por favor, ingresa un comentario adicional con al menos 100 caracteres.</p>}
               
               <div className="buttons-container2">
 
