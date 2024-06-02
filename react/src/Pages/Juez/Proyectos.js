@@ -4,6 +4,7 @@ import NavigationBar from '../../Components/NavigationBar/Judge/NavigationBar';
 import Loader from '../../Components/Loader/Loader';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.min.css';
+import ToggleBar from '../../Components/Togglebar/togglebar';
 import { Cardlist } from '../../Components/CardJuez/CardGeneral'; // Importa el componente Cardlist desde el nuevo archivo de General
 
 function PageJuez() {
@@ -41,7 +42,7 @@ function PageJuez() {
 
   return (
     <>
-      <NavigationBar NameSection={"Catalogo de Proyectos"} />
+      <ToggleBar />
       <div className="container-fluid">
         <div className="centered-content">
           {/*

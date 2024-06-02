@@ -67,9 +67,9 @@ function InfoProj({lead, profLead,members, IsLoaded}){
 
     <div className='col-md-3 '>
 
-      <div className="Info m-2 p-4">
+      <div className="Info m-2 p-4 ClaseParaeliminarH">
 
-        <h1 className ="Titulo text-wrap ps-0">Información del proyecto</h1>
+        <h1 className ="Titulo text-wrap">Información del proyecto</h1>
 
         <div className ='container-fluid p-1'>
           <div className ="row pb-1"> 
@@ -274,9 +274,20 @@ function hasData(variable) {
 }
 
 function ProjVal({finalRes, postVal, vidVal,id_project}){
+
+  const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLargeScreen(window.innerWidth > 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   return(
     <div className='col-md-3'>
-      <div className="Info2 m-2 p-4">
+      <div className="Info2 m-2 p-4 ClaseParaeliminarH">
 
         <h1 className ="Titulo text-wrap ps-0">Validación de documentos</h1>
 
@@ -365,19 +376,32 @@ function ProjVal({finalRes, postVal, vidVal,id_project}){
 
               {finalRes === "rechazado" &&(
                 <>
-                    <div className ='col-md-auto'>
-                      <span className ="RechazadoCont">
-                        <i className='bi bi-x-circle'> Rechazado</i>
-                      </span>
-                    </div>
+                  {isLargeScreen ? (
+                    <>
+                      <div className ='col-md-auto'>
+                        <span className ="RechazadoCont">
+                          <i className='bi bi-x-circle'> Rechazado</i>
+                        </span>
+                      </div>
 
-                  <div className='row mt-4'>
-                    <div className='col'><center>
-                      <Link to={'/EditProject/'+id_project} className='TextoEdit'>Editar tu proyecto</Link>
-                    </center></div>  
-                  </div>                
+                      <div className='row mt-4'>
+                        <div className='col'><center>
+                          <Link to={'/EditProject/'+id_project} className='TextoEdit'>Editar tu proyecto</Link>
+                        </center></div>  
+                      </div> 
+                    </>
+                  ) : (
+                    <>
+                      <div className ='col-md-12'>
+                        <span className ="RechazadoCont">
+                          <i className='bi bi-x-circle'> Rechazado</i>
+                        </span>
+
+                        <Link to={'/EditProject/'+id_project} className='TextoEdit ms-3'>Editar tu proyecto</Link>
+                      </div>
+                    </>
+                  )}               
                 </>
-
               )}
 
               {finalRes === "en revision" &&(
@@ -526,7 +550,7 @@ function CommentCont({role, comment,IsLoaded}){
       {role === 'Profesor' && (   
         <>
           {!IsLoaded && (
-            <div className ="col-xxl-3 h-50">
+            <div className ="col-xxl-3 h-50 ClaseParaeliminarH">
               <h1 className ="Titulo ps-0">Comentarios del {role}</h1>
               <div className ='container-fluid p-1'>
                 <div className ="row pb-3 align-items-center">
@@ -549,7 +573,7 @@ function CommentCont({role, comment,IsLoaded}){
           )}
 
           {IsLoaded && (
-            <div className ="col-xxl-3 h-50">
+            <div className ="col-xxl-3 h-50 ClaseParaeliminarH">
               <h1 className ="Titulo ps-0">Comentarios del {role}</h1>
               <div className ='container-fluid p-1'>
                 <div className ="row pb-3 align-items-center">
@@ -576,7 +600,7 @@ function CommentCont({role, comment,IsLoaded}){
           {IsLoaded && (
             <>
               {tieneInformacion(comment) && (
-                <div className ="col-xxl-3 SilderCont">
+                <div className ="col-xxl-3 SilderCont ClaseParaeliminarH">
                   <h1 className ="Titulo ps-0">Comentarios de {role}</h1>
                   {Object.keys(comment).map(key => (
                     <div key={key}>
@@ -595,7 +619,7 @@ function CommentCont({role, comment,IsLoaded}){
               )}
 
               {!tieneInformacion(comment) && (
-                <div className ="col-xxl-3">
+                <div className ="col-xxl-3 ClaseParaeliminarH">
                   <h1 className ="Titulo ps-0">Comentarios de {role}</h1>
                   <div className='container mt-4 ContNoComment'>
                     <center> <div className='row'>
@@ -627,7 +651,7 @@ function CommentCont({role, comment,IsLoaded}){
 
 function Rubrica({Calf11, Calf21, Calf31, Calf41, Calf51, Rubri11, Rubri21, Rubri31, Rubri41, Rubri51, IsLoaded}){
   return(
-    <div className ="col-xxl-3 h-75">
+    <div className ="col-xxl-3 h-75 ClaseParaeliminarH">
       <h1 className ="Titulo ps-0">Desgloce de rubrica</h1>
 
       <div className ='container-fluid p-1 mb-3'>
@@ -642,7 +666,7 @@ function Rubrica({Calf11, Calf21, Calf31, Calf41, Calf51, Rubri11, Rubri21, Rubr
 function FinalCalf({finalCalf, IsLoaded}){
   return(
     <>
-      <div className='col-xxl-3 h-50'>
+      <div className='col-xxl-3 h-50 ClaseParaeliminarH'>
         <h1 className ="Titulo text-break">Calificación final</h1>
           <div className ='container-fluid '>
             <div className ="row align-items-center">
@@ -706,6 +730,7 @@ export default function ProjResumeCont(){
     return project.criterias.find(criteria => criteria.id === id);
   };
   
+  const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 768);
 
   useEffect(() => {
 
@@ -720,6 +745,13 @@ export default function ProjResumeCont(){
         console.error('Error fetching data:', error);
         setIsLoaded(true); // En caso de error, también cambiamos IsLoaded a true para evitar bucles infinitos de carga
       });
+
+      const handleResize = () => {
+        setIsLargeScreen(window.innerWidth > 768);
+      };
+  
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
   }, [id_project]);
 
   return(
@@ -728,9 +760,20 @@ export default function ProjResumeCont(){
     <div className='container-fluid centered-container mt-3 '>
       <div className='container-fluid'>
         <div className='row justify-content-between d-flex align-items-center'>
-          <InfoProj IsLoaded={IsLoaded} lead={project.student.name + " " + project.student.lastName} profLead={project.Lider.name + " " + project.Lider.lastName} members={project.team.members}></InfoProj>
-          <ProjResume IsLoaded={IsLoaded} type={project.category.title} area={project.area.name} descr={project.description} title={project.title}></ProjResume>
-          <ProjVal postVal={project.statusPoster} vidVal={project.statusVideo} finalRes={project.statusGeneral} id_project={id_project}></ProjVal>
+        {isLargeScreen ? (
+          <>
+            <InfoProj IsLoaded={IsLoaded} lead={project.student.name + " " + project.student.lastName} profLead={project.Lider.name + " " + project.Lider.lastName} members={project.team.members}></InfoProj>
+            <ProjResume IsLoaded={IsLoaded} type={project.category.title} area={project.area.name} descr={project.description} title={project.title}></ProjResume>
+            <ProjVal postVal={project.statusPoster} vidVal={project.statusVideo} finalRes={project.statusGeneral} id_project={id_project}></ProjVal>
+          </>
+        ) : (
+          <>
+            <ProjResume IsLoaded={IsLoaded} type={project.category.title} area={project.area.name} descr={project.description} title={project.title}></ProjResume>
+            <ProjVal postVal={project.statusPoster} vidVal={project.statusVideo} finalRes={project.statusGeneral} id_project={id_project}></ProjVal>
+            <InfoProj IsLoaded={IsLoaded} lead={project.student.name + " " + project.student.lastName} profLead={project.Lider.name + " " + project.Lider.lastName} members={project.team.members}></InfoProj>
+          </>
+        )}
+
         </div>
   
         <div className='row m-2 justify-content-between d-flex align-items-center w-100 mb-4'>

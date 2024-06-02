@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.min.css';
 import { useParams } from 'react-router-dom';
-import NavigationBar from '../../Components/NavigationBar/Judge/NavigationBar';
+import ToggleBar from '../../Components/Togglebar/togglebar';
 import Accordion from 'react-bootstrap/Accordion';
 import { Link } from 'react-router-dom';
 import './Page.css';
@@ -360,7 +360,7 @@ export default function ProjResumeCont() {
 
   return (
     <>
-      <NavigationBar NameSection={"Proyecto"} />
+      <ToggleBar />
       <div className='container-fluid centered-container mt-3 '>
         <div className='container-fluid'>
           <div className='row justify-content-between d-flex align-items-center'>
