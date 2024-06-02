@@ -4,6 +4,9 @@ import Placeholder from 'react-bootstrap/Placeholder';
 import { Link } from 'react-router-dom';
 import StudentToggle from '../../../Components/TogglebarStudent/togglebarStudent.js';
 import './Announ.css';
+import axios from 'axios';
+
+import { useAuth0 } from '@auth0/auth0-react';
 
 const URL = 'http://localhost:8000/announ/';
 
@@ -35,6 +38,9 @@ function AnnounInfo({ announ, isLoading }) {
 
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 768);
 
+
+  const {  user } = useAuth0();
+
   useEffect(() => {
     const handleResize = () => {
       setIsLargeScreen(window.innerWidth > 768);
@@ -43,6 +49,21 @@ function AnnounInfo({ announ, isLoading }) {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+
+  const handleAnnounceClick = async () => {
+    try {
+      await axios.post(URL+'readAnnounce', {
+        id_student: user.sub,
+        id_announce: announ.id
+      });
+    } catch (error) {
+      console.error('Error marking announce as read', error);
+    }
+  };
+
+
+
 
   return (
     <>
@@ -69,7 +90,7 @@ function AnnounInfo({ announ, isLoading }) {
         </>
       ) : (
         <>
-        <Link to={'/announ-estudiante/'+announ.id} className='row m-3 p-2 AnnounInfoContainer d-flex align-items-center'>
+        <Link to={'/announ-estudiante/'+announ.id} className='row m-3 p-2 AnnounInfoContainer d-flex align-items-center' onClick={handleAnnounceClick}>
         {isLargeScreen ? (
           <>
             <div className='col-3 d-flex align-items-center'>
@@ -98,6 +119,7 @@ function AnnounInfo({ announ, isLoading }) {
           </>
         )}
         </Link>
+        
         </>
       )}
     </>

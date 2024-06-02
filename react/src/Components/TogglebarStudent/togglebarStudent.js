@@ -14,6 +14,8 @@ import { useParams } from "react-router-dom";
 
 const URL = 'http://localhost:8000/students/'
 
+const URLAnnoun = 'http://localhost:8000/announ/countReadAnnouncements/'
+
 
 const LogoutButton = () => {
   const { logout } = useAuth0();
@@ -49,8 +51,7 @@ function ToggleBarStudent({SectionName}) {
 
     const { id_student } = useParams();
 
-    const [notifications, setNotifications] = useState([]);
-    const [unreadCount, setUnreadCount] = useState(9);
+    const [unreadCount, setUnreadCount] = useState(0);
   
     const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 768);
     
@@ -66,7 +67,19 @@ function ToggleBarStudent({SectionName}) {
         });
 
     }, [id_student]);
-  
+
+    useEffect(() => {
+      //fetch(URL+id_student)
+      fetch(URLAnnoun + user.sub)
+        .then((res) => res.json())
+        .then((data) => {
+          setUnreadCount(data.countsAnnoun);
+        })
+        .catch((error) => {
+          console.error('Error fetching data:', error);
+        });
+    }, []);
+
     
   
     return (
