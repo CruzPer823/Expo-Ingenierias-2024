@@ -4,8 +4,8 @@ import 'bootstrap-icons/font/bootstrap-icons.min.css';
 
 import logo from '../../img/logo.svg';
 import logo2 from '../../img/logo2.svg';
+import React, { useState,useEffect} from "react";
 
-import { useState } from 'react';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Link} from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -30,10 +30,40 @@ const LogoutButton = () => {
 
 function ToggleBar({SectionName}) {
   const [show, setShow] = useState(false);
-
+  const [user_b, setUser] = useState({
+    id: "",
+    name: "",
+    lastName: "",
+    email: "",
+})
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  
+  const { isAuthenticated, isLoading, error, user } = useAuth0();
+  useEffect(() => {
+    // Verificación inicial
+    if (!user || !user.sub) {
+        return;
+    }
+
+    async function fetchData() {
+        try {
+            const response = await fetch(`http://localhost:8000/person/resume/${user.sub}`);
+            
+            // Verificación de que la respuesta es correcta
+            if (!response.ok) {
+                throw new Error(`Network response was not ok: ${response.statusText}`);
+            }
+            
+            const userResponse = await response.json();
+            setUser(userResponse);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
+    fetchData();
+}, [user]); // Dependencias del useEffect
+
 
   return (
     <>
@@ -68,7 +98,7 @@ function ToggleBar({SectionName}) {
         <div className='row'>
           <div className='col'>
           <center><i className='bi bi-person-circle docu-icon2'>
-            </i><Link to='/perfil-profesor/auth0|6653d38ae957844eac7c9f99' className='Titulo-toggle'> Rosa Paredes</Link></center>
+            </i><Link to='/perfil-profesor' className='Titulo-toggle'>{user_b.name+' '+user_b.lastName}</Link></center>
           </div>
         </div>
       </div>
@@ -78,14 +108,28 @@ function ToggleBar({SectionName}) {
                 <div className='row m-2'>
                   <div className ='col-md-auto '>
                     <Link to='/principal-profesor' onClick={() => { handleClose();  }} class="bi bi-book-fill docu-icon2"></Link>
-                    <Link to='/principal-profesor' className ="TextoValid2" onClick={() => { handleClose(); }}>Resumen</Link> 
+                    <Link to='/principal-profesor' className ="TextoValid2" onClick={() => { handleClose(); }}>Autorizar proyectos</Link> 
                   </div>  
                 </div>
-  
+
                 <div className='row m-2'>
+                <div className ='col-md-auto '>
+                  <Link to={`/Juez/${user.sub}`} onClick={() => { handleClose();}} class="bi bi-boxes docu-icon2"></Link>
+                  <Link to={`/Juez/${user.sub}`} className ="TextoValid2" onClick={() => { handleClose(); }}>Calificar proyectos</Link> 
+                </div>  
+              </div>
+
+              <div className='row m-2'>
+                <div className ='col-md-auto '>
+                  <Link to={`/Juez/General/${user.sub}`} onClick={() => { handleClose();}} class="bi bi-boxes docu-icon2"></Link>
+                  <Link to={`/Juez/General/${user.sub}`} className ="TextoValid2" onClick={() => { handleClose(); }}>Todos los proyectos</Link> 
+                </div>  
+              </div>
+
+              <div className='row m-2'>
                   <div className ='col-md-auto '>
-                    <Link to='/constancia-profesor/auth0|6653d38ae957844eac7c9f99' onClick={() => { handleClose(); }} class="bi bi-trophy-fill docu-icon2"></Link>
-                    <Link to='/constancia-profesor/auth0|6653d38ae957844eac7c9f99' className ="TextoValid2" onClick={() => { handleClose();  }}>Constancia</Link> 
+                    <Link to='/constancia-profesor' onClick={() => { handleClose(); }} class="bi bi-trophy-fill docu-icon2"></Link>
+                    <Link to='/constancia-profesor' className ="TextoValid2" onClick={() => { handleClose();  }}>Constancia</Link> 
                   </div>  
                 </div>
   

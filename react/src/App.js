@@ -49,6 +49,7 @@ import CreateCategoryPage from './Pages/Admin/CreateCategory';
 import CreateAnnouncePage from './Pages/Admin/CreateAnnounce';
 import Announces from './Pages/Admin/Announces';
 import AdminRubrica from './Pages/Admin/AdminRubrica';
+import EditCriteriaPage from './Pages/Admin/EditCriteriaPage.js';
 
 // Judge
 import Juez from './Pages/Juez/Juez'; // Mis Proyectos
@@ -121,8 +122,8 @@ function App() {
               <Route path="/Registro-usuario" element={<ProtectedRoute requiredRole="teacher"><FormUser /></ProtectedRoute>} />
               <Route path="/Registro-inicio" element={<ProtectedRoute requiredRole="teacher"><UserRegisterCont /></ProtectedRoute>} />
               <Route path="/anuncios-profesor" element={<ProtectedRoute requiredRole="teacher"><AnunciosTeacher /></ProtectedRoute>} />
-              <Route path="/constancia-profesor/:id_user" element={<ProtectedRoute requiredRole="teacher"><ConstanciaTeacher ConstCheck={"True"} /></ProtectedRoute>} />
-              <Route path="/perfil-profesor/:id_user" element={<ProtectedRoute requiredRole="teacher"><Perfil /></ProtectedRoute>} />
+              <Route path="/constancia-profesor" element={<ProtectedRoute requiredRole="teacher"><ConstanciaTeacher ConstCheck={"True"} /></ProtectedRoute>} />
+              <Route path="/perfil-profesor" element={<ProtectedRoute requiredRole="teacher"><Perfil /></ProtectedRoute>} />
               <Route path="/announ-teacher/:id_announ" element={<ProtectedRoute requiredRole="teacher"><TeacherAnoDet /></ProtectedRoute>} />
 
               {/*Student Routes */}
@@ -155,16 +156,17 @@ function App() {
               <Route path='/Admin/Categorias/:categoriaId' element={<EditCategoryPage/>}/>
               <Route path='/Admin/anuncios/:anunciosId' element={<EditAnnouncePage/>}/>
               <Route path='/Admin/anuncios/nuevo' element={<CreateAnnouncePage/>}/>
-              <Route path="/Admin/rubrica" element={<AdminRubrica />}/>
+              <Route path='/Admin/rubrica' element={<AdminRubrica />}/>
+              <Route path='/Admin/rubrica/criterio/:criteriaId' element={<EditCriteriaPage />}/>
 
               {/* Judge Routes */}
-              <Route path="/Juez/:idpersona" element={<Juez />} />
-              <Route path="/Juez/General/:idpersona" element={<Proyectos />} />
-              <Route path="/Juez/General/:idpersona/Proyectos/:projectId" element={<GeneralProjectResume />} />
+              <Route path="/Juez/:idpersona" element={<ProtectedRoute requiredRole="teacher"><Juez /></ProtectedRoute>} />
+              <Route path="/Juez/General/:idpersona" element={<ProtectedRoute requiredRole="teacher"><Proyectos /></ProtectedRoute>} />
+              <Route path="/Juez/General/:idpersona/Proyectos/:projectId" element={<ProtectedRoute requiredRole="teacher"><GeneralProjectResume /></ProtectedRoute>} />
               <Route path="/Juez/Anuncios/:idpersona" element={<Anuncios />} />
               <Route path="/Juez/Anuncios/:idpersona/DetailAnnoun/:anuncioId" element={<DetailedAnnoun />} />
-              <Route path="/Juez/:idpersona/Calificar/:projectId" element={<Rubrica />} />
-              <Route path="/Juez/:idpersona/ProyectoJuez/:projectId" element={<ProjResumeContJudge />} />
+              <Route path="/Juez/:idpersona/Calificar/:projectId" element={<ProtectedRoute requiredRole="teacher"><Rubrica /></ProtectedRoute>} />
+              <Route path="/Juez/:idpersona/ProyectoJuez/:projectId" element={<ProtectedRoute requiredRole="teacher"><ProjResumeContJudge /></ProtectedRoute>} />
               <Route path="/Juez/Perfil/:idpersona" element={<PerfilJuez />} />
           </Routes>
       </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import './Rubrica.css';
-import NavigationBar from '../../Components/NavigationBar/Judge/NavigationBar';
+import ToggleBar from '../../Components/Togglebar/togglebar';
 import Loader from '../../Components/Loader/Loader';
 
 const Rubrica = () => {
@@ -113,7 +113,7 @@ const Rubrica = () => {
 
   return (
     <>
-      <NavigationBar NameSection={"Rúbrica"} />
+      <ToggleBar />
       <div className="container">
         {loading ? (
           <div style={{display:"flex",justifyContent:"center"}}>

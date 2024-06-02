@@ -47,6 +47,7 @@
 .InputFormat{
 
     background-color: rgb(225, 225, 225);
+
   
 }
 
@@ -86,3 +87,28 @@
     font-weight: bold;
     font-size: 25px;
 }
+
+.ContenedorForm{
+
+    width: 50%;
+
+}
+
+@media (max-width: 768px) {
+
+    .ContenedorForm{
+
+        width: 85%;
+    
+    }
+
+    .InputFormat{
+
+        background-color: rgb(225, 225, 225);
+
+        margin: 5px;
+    
+      
+    }
+
+  }

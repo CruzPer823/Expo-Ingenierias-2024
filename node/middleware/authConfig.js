@@ -116,7 +116,7 @@ async function saveUsersToDatabase(users) {
               ISACTIVE: foundUser.ISACTIVE,
             });
 
-            await CommentsModel.update(
+            await CommentModel.update(
               {id_person: personNew.id},
               {where: {id_person: foundUser.id}}
             );

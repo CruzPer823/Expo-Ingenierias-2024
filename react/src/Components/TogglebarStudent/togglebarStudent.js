@@ -48,7 +48,12 @@ function ToggleBarStudent({SectionName}) {
     });
 
     const { id_student } = useParams();
+
+    const [notifications, setNotifications] = useState([]);
+    const [unreadCount, setUnreadCount] = useState(9);
   
+    const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 768);
+    
     useEffect(() => {
       //fetch(URL+id_student)
       fetch(URL+user.sub)
@@ -59,6 +64,7 @@ function ToggleBarStudent({SectionName}) {
         .catch((error) => {
           console.error('Error fetching data:', error);
         });
+
     }, [id_student]);
   
     
@@ -117,13 +123,13 @@ function ToggleBarStudent({SectionName}) {
               </div>
 
               <div className='row m-2'>
-                <div className ='col-md-auto '>
+                <div className ='col-md-auto d-flex align-items-center'>
                   <Link to='/anuncio-estudiante' onClick={() => { handleClose();}} class="bi bi-megaphone-fill docu-icon2"></Link>
-                  <Link to='/anuncio-estudiante' className ="TextoValid2" onClick={() => { handleClose();}}>Anuncios</Link> 
+                  <Link to='/anuncio-estudiante' className ="TextoValid2" onClick={() => { handleClose();}}>Anuncios {unreadCount > 0 && (<span className="notification-badge">{unreadCount}</span>)}</Link> 
                 </div>  
               </div>
 
-              <div className='row m-2'>
+              <div className='row m-2'> 
                 <div className ='col-md-auto '>
                   <Link to='/mapa' onClick={() => { handleClose(); }} class="bi bi-map-fill docu-icon2"></Link>
                   <Link to='/mapa' className ="TextoValid2" onClick={() => { handleClose();}}>Mapa</Link> 
@@ -147,6 +153,18 @@ function ToggleBarStudent({SectionName}) {
   }
 
 export default function Menu({NameSection}){
+
+  const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLargeScreen(window.innerWidth > 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <>
   <div className ="container-fluid">
@@ -169,10 +187,19 @@ export default function Menu({NameSection}){
 <nav className='fixed-top'>
 <div className ="container-fluid">
   <div className="row " id = "NavBar">
-    <div className="col-5">
-      <ToggleBarStudent SectionName={NameSection} />
-    </div>
- 
+
+    {isLargeScreen ? (
+      <div className="col-5">
+        <ToggleBarStudent SectionName={NameSection} />
+      </div>
+    ) : (
+      <>
+        <div className="col-12">
+          <ToggleBarStudent SectionName={NameSection} />
+        </div>                    
+      </>
+
+  )} 
   </div>
 </div>
 </nav>

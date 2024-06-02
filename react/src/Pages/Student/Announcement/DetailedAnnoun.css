@@ -65,3 +65,46 @@
     border-radius: 5px;
 
 }
+
+@media (max-width: 768px) {
+
+    .ContainerAnnounBut{
+        background-color: #0C356A;
+    
+        font-weight: bold;
+    
+        padding: 30px;
+    
+        width: 100% !important;
+    
+        border-radius: 5px;
+        --bs-gutter-x: 0;
+    }
+    
+    
+    .ContainerAnnounBut:hover{
+        background-color: #0b5ed7;
+    
+        font-weight: bold;
+    
+        padding: 30px;
+    
+        width: 100% !important;
+    
+        border-radius: 5px;
+        --bs-gutter-x: 0;
+    }
+
+    .SubjectCont{
+        background-color: #e6e6e6;
+        border-radius: 5px;
+
+    
+    }
+
+    .claseparaellargodelafecha{
+
+        width: 25% !important;
+
+    }
+}

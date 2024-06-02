@@ -1,4 +1,4 @@
-import Menu from '../../../components/Togglebar/togglebar.js';
+import Menu from '../../../Components/Togglebar/togglebar';
 import './TeacherCertificate.css';
 
 import Button from 'react-bootstrap/Button';

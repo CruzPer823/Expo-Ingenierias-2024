@@ -169,6 +169,7 @@ CriteriaJudgeModel.belongsTo(PersonModel,{foreignKey:'id_person'});
 ProjectModel.hasMany(CriteriaJudgeModel,{foreignKey:'id_project'});
 CriteriaJudgeModel.belongsTo(ProjectModel,{foreignKey: 'id_project'});
 
+
 export {
         AreaModel,
         AreaPersonModel,
