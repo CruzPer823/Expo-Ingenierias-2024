@@ -15,7 +15,7 @@ export default function AddCard({name}){
 
     const handleEditClick = () => {
         // Redirect to EditUserPage and pass the userId as a URL parameter
-        navigate(`/${name}/nuevo`);
+        navigate(`/Admin/${name}/nuevo`);
     };
     return (
         <div className='tarj'>

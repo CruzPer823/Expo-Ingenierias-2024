@@ -14,12 +14,12 @@ function RubricRow({ criteria }) {
         <>
             <tr key={criteria.id}>
                 {/* First column */}
-                <td className="text-center">
+                <td className="text-center" style={{fontWeight:700}}>
                     {criteria.description}
                 </td>
             
                 {/* Second column - criteria weight */}
-                <td className="text-center">
+                <td className="text-center" style={{fontWeight:400}}>
                     {criteria.weight}
                 </td>
 
