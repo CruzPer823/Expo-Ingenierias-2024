@@ -14,42 +14,8 @@ import Row from 'react-bootstrap/Row';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import Usure from '../../../Components/BotonConfirmacion/ConfBot';
+import { Button } from 'react-bootstrap';
 
-
-
-
-function Datos({name,email,type,id}){
-
-    return(
-        <>
-            <div className='row p-2'>
-                <div className='col-6 col-md-6'>
-                <h3>Nombre: </h3>
-                </div>
-                <div className='col-6 col-md-6'>
-                    <span className='text-break'>{name}</span>
-                </div>
-            </div>
-            <div className='row p-2'>
-                <div className='col-6 col-md-6'>
-                <h3>Correo: </h3>
-                </div>
-                <div className='col-6 col-md-6'>
-                    <span className='text-break'>{email}</span>
-                </div>
-            </div>
-
-            <div className='row p-2'>
-                <div className='col-6 col-md-6'>
-                <h3>Usuario: </h3>
-                </div>
-                <div className='col-6 col-md-6 mb-4'>
-                    <span>{type}</span>
-                </div>
-            </div>
-            </>
-    );
-}
 export default function Perfil(){
     const [user_b, setUser] = useState({
         id: "",
@@ -58,8 +24,10 @@ export default function Perfil(){
         email: "",
     });
     const [areas,setArea] = useState([{}]);
-    const [secArea, setSecArea] = useState(1);
+    const [secAreas, setSecAreas] = useState([]);
     const [areaperson, setAreaPerson] = useState([]);
+    const [nombre, setNombre] = useState('');
+    const [apellido, setApellido] = useState('');
     const {user} = useAuth0();
     const [validated, setValidated] = useState(false);
     const navigate = useNavigate();
@@ -70,16 +38,11 @@ export default function Perfil(){
                   const [userResponse, areasResponse, areaperResponse] = await Promise.all([
                       fetch(`http://localhost:8000/person/resume/${user.sub}`).then(res => res.json()),
                       fetch(`http://localhost:8000/areas/allareas`).then(res => res.json()),
-                      fetch(`http://localhost:8000/areaperson/getArea/${user.sub}`).then(res => res.json().catch(error => {
-                          if (error.response && error.response.status === 404 && error.response.data.error === 'No area found for this person') {
-                              return null;
-                          }
-                          throw error;
-                      }))
                   ]);
                   setUser(userResponse);
                   setArea(areasResponse);
-                  setAreaPerson(areaperResponse);
+                  setNombre(userResponse.name);  // Inicializa el estado del nombre
+                  setApellido(userResponse.lastName);
               } catch (error) {
                   console.error('Error fetching data:', error);
               }
@@ -89,35 +52,50 @@ export default function Perfil(){
       }
   }, [user]);// Dependencias del useEffect
       //console.log(areaperson);
-      const id_person = user.sub;
-      const id_area = secArea;
       const handleSubmit = async (event) => {
         if (event) {
             event.preventDefault();
         }
-  
+    
         const form = event ? event.target : null;
         if (form && form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
         } else {
             try {
-                await axios.post(`http://localhost:8000/areaperson/register`, {    
+              const id_person = user.sub;
+              await axios.put(`http://localhost:8000/person/update/${id_person}`, {
+                  name: nombre,
+                  lastName: apellido,
+              });
+                await axios.put(`http://localhost:8000/areaperson/update`, {
                     id_person,
-                    id_area
+                    areas: secAreas.map(id_area => parseInt(id_area, 10)) // Convertir id_area a número si es necesario
                 });
-                navigate('/principal-profesor');
+                navigate("/perfil-profesor");
             } catch (error) {
                 console.error('Full error object:', error);
                 const errorMessage = error.response ? error.response.data.message : error.message || 'Error desconocido';
                 throw new Error(`An error has occurred: ${errorMessage}`);
             }
-            
         }
         setValidated(true);
     };
-    const tieneInformacion = (areaperson) => {
-      return areaperson && areaperson.area_name;
+    
+    const handleToggleChange = (selectedId) => {
+      // Verifica si el ID ya está en el array
+      const index = secAreas.indexOf(selectedId);
+  
+      if (index === -1) {
+          // Si el ID no está en el array, agrégalo
+          setSecAreas([...secAreas, selectedId]);
+      } else {
+          // Si el ID ya está en el array, quítalo
+          const updatedAreas = secAreas.filter(id => id !== selectedId);
+          setSecAreas(updatedAreas);
+      }
   };
   
         return (
@@ -132,7 +110,31 @@ export default function Perfil(){
                     <h1>Perfil</h1>
                   </div>
                 </div>
-                <Datos name={`${user_b.name} ${user_b.lastName}`} type={"Profesor"} email={user.email} />
+                <Form noValidate validated={validated} className='row p-2' onSubmit={handleSubmit}>
+                <div className='row p-2'>
+                <div className='col-6 col-md-6'>
+                <h3>Nombre: </h3>
+                </div>
+                <div className='col-6 col-md-6'>
+                    <Form.Control as="textarea" rows="1"  value={nombre} className='text-break' onChange={(e) => setNombre(e.target.value)}/>
+                </div>
+            </div>
+            <div className='row p-2'>
+                <div className='col-6 col-md-6'>
+                <h3>Apellido: </h3>
+                </div>
+                <div className='col-6 col-md-6'>
+                    <Form.Control as="textarea" rows="1"  value={apellido} className='text-break' onChange={(e) => setApellido(e.target.value)}/>
+                </div>
+            </div>
+            <div className='row p-2'>
+                <div className='col-6 col-md-6'>
+                <h3>Correo: </h3>
+                </div>
+                <div className='col-6 col-md-6'>
+                    <span className='text-break'>{user.email}</span>
+                </div>
+            </div>
                 <div className='row p-2'>
                   <div className='col-md-12'>
                     <center>
@@ -140,42 +142,40 @@ export default function Perfil(){
                     </center>
                   </div>
                 </div>
-                <Form noValidate validated={validated} className='row p-2' onSubmit={handleSubmit}>
                   <Row className="mb-3">
                     <Form.Group as={Col} md="12" controlId="validationArea">
                       <div className='container-fluid'>
                         <div className='row'>
                           <div className='col'>
-                            <ToggleButtonGroup type="radio" name="options" defaultValue={1} className='d-flex justify-content-between w-100'>
-                              {areas.map(area => (
-                                <ToggleButton 
-                                  key={area.id} // Añadir una clave única para cada elemento
-                                  id={"tbg-radio" + area.id} 
-                                  value={area.id} 
-                                  onChange={(e) => setSecArea(e.currentTarget.value)} // Asegurarse de usar el valor correcto del evento
-                                  className='ButtonMaterials w-100'
-                                >
-                                  {area.name}
-                                </ToggleButton>
-                              ))}
-                            </ToggleButtonGroup>
+                          <ToggleButtonGroup
+                            type="checkbox"
+                            value={secAreas}
+                            className='d-flex justify-content-between w-100'
+                        >
+                            {areas.map(area => (
+                                <ToggleButton
+                                key={area.id}
+                                id={"tbg-check-" + area.id}
+                                value={area.id}
+                                className='ButtonMaterials w-100'
+                                onChange={() => handleToggleChange(area.id)}
+                            >
+                                {area.name}
+                            </ToggleButton>
+                            
+                            ))}
+                        </ToggleButtonGroup>
                           </div>
                         </div>
                       </div>
                     </Form.Group>
                   </Row>
                   <Row className="mb-3">
-                  <Form.Group as={Col} md="12" controlId="validationArea">
                     <center>
-                  <Usure Path={'/principal-profesor'} className={"custom-btn"} Texto={"Guardar"}
-                              MensajeTitle={'¿Estás seguro que quieres confirmar la selección de area?'}
-                              BotonA={'Cancelar'}
-                              BotonB={'Aceptar'}
-                              onConfirm={handleSubmit} />
-                              </center>
-                      </Form.Group>
+                    <Button type="submit" className='custom-btn-edit'>Guardar</Button>
+                    </center>
                   </Row>
-                </Form>
+                  </Form>
               </div>
             </>
           );

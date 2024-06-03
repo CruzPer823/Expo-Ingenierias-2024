@@ -53,4 +53,36 @@ export const getAreaPerson = async (req, res) => {
         res.status(500).json({ error: 'An error occurred while fetching the area person' });
     }
 };
+export const updateAreaPerson = async (req, res) => {
+    const { id_person, areas } = req.body;
+
+    if (!id_person || !Array.isArray(areas)) {
+        return res.status(400).json({ error: 'id_person and areas are required, and areas should be an array' });
+    }
+
+    try {
+        // Eliminar todas las relaciones actuales de areas_persons para el id_person
+        await AreaPersonModel.destroy({
+            where: { id_person }
+        });
+
+        // Agregar las nuevas relaciones de areas_persons
+        const newEntries = await Promise.all(areas.map(async (id_area) => {
+            return await AreaPersonModel.create({
+                id_person,
+                id_area
+            });
+        }));
+
+        // Devolver la información de las nuevas áreas asociadas
+        res.status(200).json({
+            id_person: id_person,
+            areas: newEntries.map(entry => entry.id_area)
+        });
+    } catch (error) {
+        console.error('Error updating area person:', error);
+        res.status(500).json({ error: 'An error occurred while updating the area person' });
+    }
+};
+
 

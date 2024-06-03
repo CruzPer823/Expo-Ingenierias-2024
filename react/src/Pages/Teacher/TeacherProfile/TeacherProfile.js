@@ -33,17 +33,9 @@ function SimpleModal() {
       if (user && user.sub) {
           async function fetchData() {
               try {
-                  const [areasResponse, areaperResponse] = await Promise.all([
-                      fetch(`http://localhost:8000/areas/allareas`).then(res => res.json()),
-                      fetch(`http://localhost:8000/areaperson/getArea/${user.sub}`).then(res => res.json().catch(error => {
-                          if (error.response && error.response.status === 404 && error.response.data.error === 'No area found for this person') {
-                              return null;
-                          }
-                          throw error;
-                      }))
-                  ]);
-                  setArea(areasResponse);
-                  setAreaPerson(areaperResponse);
+                  fetch(`http://localhost:8000/areas/allareas`)
+                  .then(res => res.json())
+                  .then((data)=>{setArea(data)})
               } catch (error) {
                   console.error('Error fetching data:', error);
               }
@@ -201,7 +193,10 @@ export default function Perfil(){
         lastName: "",
         email: "",
     });
-    const [areaperson, setAreaPerson] = useState([]);
+    const [areaperson, setAreaPerson] = useState({
+      id_person:"",
+      areas:[]
+});
     const {user} = useAuth0();
     const navigate = useNavigate();
     useEffect(() => {
