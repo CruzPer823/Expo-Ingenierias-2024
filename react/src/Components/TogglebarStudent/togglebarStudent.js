@@ -123,7 +123,7 @@ function ToggleBarStudent({SectionName}) {
             <div className='container'>
               <div className='row m-2'>
                 <div className ='col-md-auto '>
-                  <Link to='/principal-estudiante' onClick={() => { handleClose();}} class="bi bi-boxes docu-icon2"></Link>
+                  <Link to='/principal-estudiante' onClick={() => { handleClose();}} class="bi bi-book-fill docu-icon2"></Link>
                   <Link to='/principal-estudiante' className ="TextoValid2" onClick={() => { handleClose(); }}>Mis Proyectos</Link> 
                 </div>  
               </div>
