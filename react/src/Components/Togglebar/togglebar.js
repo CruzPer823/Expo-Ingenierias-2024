@@ -39,6 +39,8 @@ function ToggleBar({SectionName}) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const { isAuthenticated, isLoading, error, user } = useAuth0();
+
+  const [unreadCount, setUnreadCount] = useState(9);
   useEffect(() => {
     // Verificación inicial
     if (!user || !user.sub) {
@@ -134,9 +136,9 @@ function ToggleBar({SectionName}) {
                 </div>
   
                 <div className='row m-2'>
-                  <div className ='col-md-auto '>
+                  <div className ='col-md-auto d-flex align-items-center'>
                     <Link to='/anuncios-profesors' onClick={() => { handleClose(); }} class="bi bi-megaphone-fill docu-icon2"></Link>
-                    <Link to='/anuncios-profesor' className ="TextoValid2" onClick={() => { handleClose(); }}>Anuncios</Link> 
+                    <Link to='/anuncios-profesor' className ="TextoValid2" onClick={() => { handleClose(); }}>Anuncios {unreadCount > 0 && (<span className="notification-badge">{unreadCount}</span>)}</Link> 
                   </div>  
                 </div>
 
