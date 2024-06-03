@@ -30,7 +30,7 @@ function CreateCategoryPage() {
             setLoading(false); // Termina el estado de carga
             if (response.ok) {
                 alert('Categoría creada correctamente!');
-                navigate('/categorias'); // Redirige a la lista de áreas
+                navigate('/Admin/categorias'); // Redirige a la lista de áreas
             } else {
                 alert('Fallo al crear la categoría.');
             }

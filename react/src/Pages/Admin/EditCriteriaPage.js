@@ -5,6 +5,7 @@ import axios from 'axios';
 import NavigationBar from '../../Components/NavigationBar/Admin/NavigationBar';
 import ContentCard from '../../Components/ContentCard/ContentCard';
 import TextInput from '../../Components/TextInput/TextInput';
+import Popup from '../../Components/Popup/Popup';
 
 function EditCriteriaPage() {
     const { criteriaId } = useParams(); // Retrieve the criteriaId from the URL parameters
@@ -52,7 +53,8 @@ function EditCriteriaPage() {
             window.alert("Criteria updated successfully");
             navigate('/Admin/rubrica'); // Navigate to the desired page after the alert
         } catch (err) {
-            window.alert(`Error updating criteria`);
+            
+            setError(err.response.data.message);
             navigate('/Admin/rubrica'); // Navigate to the desired page after the alert
         }
     };
@@ -72,14 +74,14 @@ function EditCriteriaPage() {
                                 content={
                                     <>
                                         <TextInput
-                                            label="Description"
+                                            label="Descripción"
                                             name="description"
                                             value={criteria.description}
                                             onChange={handleChange}
                                             required
                                         />
                                         <TextInput
-                                            label="Weight"
+                                            label="Peso"
                                             name="weight"
                                             value={criteria.weight}
                                             onChange={handleChange}
@@ -88,6 +90,8 @@ function EditCriteriaPage() {
                                     </>
                                 } 
                             />
+
+                            {error && <Popup content={error}/>}
                             <div className="d-flex justify-content-center mt-3">
                                 <button type="submit" className="btn btn-primary custom-primaty-btn">
                                     Actualizar Criterio
