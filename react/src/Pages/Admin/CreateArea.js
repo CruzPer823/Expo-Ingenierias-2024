@@ -30,7 +30,7 @@ function CreateAreaPage() {
             setLoading(false); // Termina el estado de carga
             if (response.ok) {
                 alert('Área creada correctamente!');
-                navigate('/areas'); // Redirige a la lista de áreas
+                navigate('/Admin/areas'); // Redirige a la lista de áreas
             } else {
                 alert('Fallo al crear el área.');
             }

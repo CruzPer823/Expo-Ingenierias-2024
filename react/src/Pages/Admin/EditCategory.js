@@ -44,7 +44,7 @@ function EditCategoryPage() {
         .then(response => {
             if (response.ok) {
                 alert('Categoria correctamente actualizada!');
-                navigate('/categorias'); // Redirect to home or users list page
+                navigate('/Admin/categorias'); // Redirect to home or users list page
             } else {
                 alert('Fallo al actualizar el área.');
             }
@@ -56,9 +56,13 @@ function EditCategoryPage() {
     };
 
     if (loading) {
-        return <div style={{display:'flex', justifyContent:'center'}}>
+        return (
+        <>
+        <NavigationBar NameSection={"Modificar Categoría"}/>
+        <div style={{display:'flex', justifyContent:'center'}}>
         <Loader/>
-        </div>;
+        </div>
+        </>);
     }
 
     return (
@@ -72,14 +76,14 @@ function EditCategoryPage() {
                                 <ContentCard title="Modificar Categoría" content={  
                                     <>
                                         <TextInput
-                                            label="name"
+                                            label="Titulo"
                                             name="title"
                                             value={categoria.title}
                                             onChange={handleChange}
                                             required
                                         />
                                         <TextInput
-                                            label="description"
+                                            label="Descripción"
                                             name="description"
                                             value={categoria.description}
                                             onChange={handleChange}

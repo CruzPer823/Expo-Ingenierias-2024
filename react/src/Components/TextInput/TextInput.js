@@ -17,8 +17,10 @@ function TextInput({ label, name, value, onChange, required = false }) {
         setInputHeight(`${inputRef.current.scrollHeight}px`);
       } else {
         setInputWidth(`${width}px`);
-        setInputHeight('auto');
+        setInputHeight('40px');
       }
+      inputRef.current.style.height = 'auto'; // Reset the height to auto
+    inputRef.current.style.height = `${inputRef.current.scrollHeight}px`; 
     }
   }, [value]);
 

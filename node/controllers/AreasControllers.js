@@ -30,7 +30,8 @@ export const createArea = async(req,res)=>{
         return res.status(400).json({error: 'Todos los campos requeridos no estan presentes'});
     }
     try{
-        const newArea=await AreaModel.create({name,description});
+        const isActive=1;
+        const newArea=await AreaModel.create({name,description,isActive});
         console.log("Nueva area: ",newArea.toJSON());
         res.status(201).json({newArea});
     }catch(error){
