@@ -28,3 +28,29 @@
     font-weight: bold;
     
 }
+.custom-btn-edit{
+        border-radius: 5px; 
+        background-color: #0C356A; 
+        color: #fff; 
+        padding: 10px 20px; 
+        font-weight: bold;
+        font-size: 20px;
+        border: none; 
+        cursor: pointer; 
+        height: 50px;
+        width: 200px;
+        text-decoration: none;
+        text-align: center;
+}
+.ButtonContinue{
+
+    background-color: #0C356A;
+    border-color: #0C356A;
+    font-weight: bold;
+}
+.ButtonContinue:hover{
+
+    background-color: #0b5ed7;
+    border-color: #0b5ed7;
+    font-weight: bold;
+}

@@ -26,32 +26,31 @@ export const getAreaPerson = async (req, res) => {
     }
 
     try {
-        // Buscar la relación en la tabla areas_persons
-        const areaPerson = await AreaPersonModel.findOne({
+        // Buscar todas las relaciones en la tabla areas_persons que tengan el mismo id_person
+        const areaPersons = await AreaPersonModel.findAll({
             where: { id_person }
         });
 
-        if (!areaPerson) {
-            return res.status(404).json({ error: 'No area found for this person' });
+        if (!areaPersons || areaPersons.length === 0) {
+            return res.status(404).json({ error: 'No areas found for this person' });
         }
 
-        // Obtener el nombre del área asociada
-        const area = await AreaModel.findByPk(areaPerson.id_area, {
-            attributes: ['name'] // Seleccionar solo el nombre del área
-        });
+        // Obtener los nombres de las áreas asociadas
+        const areaNames = await Promise.all(areaPersons.map(async (areaPerson) => {
+            const area = await AreaModel.findByPk(areaPerson.id_area, {
+                attributes: ['name']
+            });
+            return area.name;
+        }));
 
-        if (!area) {
-            return res.status(404).json({ error: 'Area not found' });
-        }
-
-        // Devolver la información del área asociada
+        // Devolver la información de las áreas asociadas
         res.status(200).json({
-            id_person: areaPerson.id_person,
-            id_area: areaPerson.id_area,
-            area_name: area.name
+            id_person: id_person,
+            areas: areaNames
         });
     } catch (error) {
         console.error('Error fetching area person:', error);
         res.status(500).json({ error: 'An error occurred while fetching the area person' });
     }
 };
+
