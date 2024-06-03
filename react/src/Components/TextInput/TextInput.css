@@ -11,13 +11,16 @@
     min-width: 100px; /* Adjust this value to your preference */
   }
   
-  .text-input-field {
+  .text-input-fieldd {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
     margin-left: 10px;
     transition: border-color 0.3s, box-shadow 0.3s;
-    width: auto;
+    font:inherit;
+    resize: none; /* Prevent manual resizing by user */
+  overflow: hidden;
+  box-sizing: border-box;
   }
   
   .text-input-field:focus {

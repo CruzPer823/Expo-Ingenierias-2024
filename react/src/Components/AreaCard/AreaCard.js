@@ -8,7 +8,7 @@ import './AreaCard.css';
 import imagen from './Areas.png';
 import AddCard from '../AddCard/AddCard';
 function Areacard({data}){
-    const {id,name,description,IsActive} = data;
+    const {id,name,description,isActive} = data;
     const truncateString = (str, num) => {
         if (str.length <= num) {
             return str;
@@ -26,9 +26,8 @@ function Areacard({data}){
 
     const handleEditClick = () => {
         // Redirect to EditUserPage and pass the userId as a URL parameter
-        navigate(`/Areas/${id}`);
+        navigate(`/Admin/areas/${id}`);
     };
-    if (IsActive){
     return (
         <div className='tar'>
             <img src={imagen} className="card-img-top areasImg" alt="Project Image"/>
@@ -40,9 +39,6 @@ function Areacard({data}){
             </div>
         </div>
     );
-  }else{
-    return ;
-  }
 }
 
 export default function AreasCardList({data}){
@@ -53,9 +49,10 @@ export default function AreasCardList({data}){
           <AddCard name="areas"/>
           </div>
         {areasInfo.map(area => (
+          area.isActive===1?
           <div key={area.id} className='tarjeta'>
             <Areacard data={area} />
-          </div>
+          </div>:null
         ))}
       </div>
   );
