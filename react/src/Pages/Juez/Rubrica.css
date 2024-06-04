@@ -63,6 +63,12 @@
 .PB-range-slidervalue {
   font-weight: 600;
 }
+.rubro {
+  margin: 0;
+  font-size: 16px; /* Tamaño de fuente más grande */
+  font-weight: bold; /* Fuente en negrita */
+}
+
 
 .criterion {
     display: flex;

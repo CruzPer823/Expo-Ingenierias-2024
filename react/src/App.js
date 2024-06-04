@@ -18,6 +18,7 @@ import UserRegisterCont from './Pages/Main/RegisterContent/RegisterContent.js'
 import AnunciosTeacher from './Pages/Teacher/TeacherAdvertisements/TeacherAdvertisements.js';
 import ConstanciaTeacher from './Pages/Teacher/TeacherCertificate/TeacherConstancia.js';
 import Perfil from './Pages/Teacher/TeacherProfile/TeacherProfile.js';
+import EditPerfilTeacher from './Pages/Teacher/TeacherProfile/TeacherEditProfile.js'
 import TeacherAnoDet from './Pages/Teacher/TeacherAdvertisements/DetailedAnnoun.js'
 import ProjectRegister from './Pages/Student/ProjectRegister/ProjResgister.js';
 import ProjectResumen from './Pages/Student/ProjectResumen/ProjectResumenContent.js';
@@ -125,6 +126,7 @@ function App() {
               <Route path="/constancia-profesor" element={<ProtectedRoute requiredRole="teacher"><ConstanciaTeacher ConstCheck={"True"} /></ProtectedRoute>} />
               <Route path="/perfil-profesor" element={<ProtectedRoute requiredRole="teacher"><Perfil /></ProtectedRoute>} />
               <Route path="/announ-teacher/:id_announ" element={<ProtectedRoute requiredRole="teacher"><TeacherAnoDet /></ProtectedRoute>} />
+              <Route path="/editar-perfil-profesor" element={<ProtectedRoute requiredRole="teacher"><EditPerfilTeacher /></ProtectedRoute>} />
 
               {/*Student Routes */}
               <Route path='/announ-estudiante/:id_announ' element={<ProtectedRoute requiredRole="student"><StudentAnnounDet /></ProtectedRoute>} />

@@ -72,11 +72,11 @@ export const updateCriteria = async (req, res) => {
         res.json({ message: "Criteria updated successfully", criteria });
       } else {
         // Return 400 if the total weight exceeds 100
-        res.status(400).json({ message: "Total weight cannot exceed 100" });
+        res.status(400).json({ message: "La suma de pesos no puede ser mayor a 100" });
       }
     } else {
       // Return 404 if criteria not found
-      res.status(404).json({ message: "Criteria not found" });
+      res.status(404).json({ message: "No se encontraron criterios" });
     }
   } catch (error) {
     // Return 500 for any other errors

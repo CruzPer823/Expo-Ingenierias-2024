@@ -11,6 +11,6 @@ const AreaModel = db.define('areas', {
     name: { type: DataTypes.STRING },
     description: { type: DataTypes.STRING }, 
     isActive: {type: DataTypes.NUMBER}
-},{timestamps:false});
+},{timestamps:true});
 
 export default AreaModel;
