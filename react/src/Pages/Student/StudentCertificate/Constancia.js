@@ -42,7 +42,7 @@ function CardCalif({ student_name, project }) {
         const img1 = new Image();
         img1.src = firma;
         img.onload = function () {
-            doc.addImage(img, 'PNG', 70, 10, 70, 50); // x, y, width, height
+            doc.addImage(img, 'PNG', 60, 10, 90, 50); // x, y, width, height
             doc.addImage(img1, 'JPG', 20, 220, 30, 30);
             doc.save(`${student_name}-certificate.pdf`);
         }
@@ -85,12 +85,30 @@ function tieneInformacion(variable) {
     return true;
 }
 
-export default function ProjSelection({ ConstCheck }) {
+export default function ProjSelection() {
     const [projects, setProjects] = useState([]); // Estado inicial como un arreglo vacío
 
     const { user } = useAuth0();
     const id_student = user.sub;
+  const [ConstCheck, setConstCheck] = useState("False");
 
+  const target = new Date(2024, 3, 1); // 1 de septiembre de 2024 (el mes 8 corresponde a septiembre)
+  const target1 = new Date(2024,5,1);
+  useEffect(() => {
+    const checkDate = () => {
+      const now = new Date();
+      if (now >= target) {
+        setConstCheck("True");
+      }
+      if (projects.length === 1 && projects[0].statusGeneral === "rechazado" && now >= target1) {
+        setConstCheck("False");
+      }
+    };
+
+    const intervalId = setInterval(checkDate, 1000); // Verifica cada segundo
+
+    return () => clearInterval(intervalId); // Limpia el intervalo cuando el componente se desmonte
+  }, [projects, target1,target]);
     useEffect(() => {
         fetch(URL + id_student)
             .then((res) => res.json())
@@ -106,8 +124,9 @@ export default function ProjSelection({ ConstCheck }) {
                 setProjects([]); // En caso de error, establece un arreglo vacío
             });
     }, [id_student]);
+    
 
-    console.log(projects);
+
 
     return (
         <>

@@ -141,9 +141,9 @@ function SimpleModal() {
                 
                 <Modal.Body className='centered-container h-100 d-flex justify-content-evenly'>
                     <Button variant="secondary" className='ButtonContinue' onClick={handleClose}>
-                        Close
+                        Cerrar
                     </Button>
-                    <Button variant="primary" type="submit" className='fw-bold ' onClick={handleClose}>
+                    <Button variant="primary" type="submit" disabled={secAreas.length === 0} className='fw-bold ' onClick={handleClose}>
                         Guardar
                     </Button>
                 </Modal.Body>
