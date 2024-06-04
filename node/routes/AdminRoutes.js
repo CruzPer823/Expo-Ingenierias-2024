@@ -1,4 +1,5 @@
 import express from 'express'
+import { getAdmin } from '../controllers/AdminController.js';
 import { createAnnounce, updateAnnounce,deleteAnnounce,getAllAnnounces,getAnnounce } from '../controllers/AnnounceAdminController.js'
 import { updateCategory,getCategoryProjectData,createCategory,getAllCategories,getCategoryById,inhabilitateCategory } from '../controllers/CategoryController.js';
 
@@ -11,6 +12,8 @@ import { getAllCriteria, getCriteria, updateCriteria } from '../controllers/Crit
 
 const router = express.Router()
 // Rutas de anuncios
+router.get('/getAdmin/:adminId',getAdmin);
+
 router.get('/Announces/',getAllAnnounces);
 router.get('/Announces/:id',getAnnounce);
 router.post('/Announce/create',createAnnounce);
