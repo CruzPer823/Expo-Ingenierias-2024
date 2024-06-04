@@ -1,0 +1,44 @@
+.cont-principal{
+    background-color: white;
+    width: 70% !important;
+    height: auto;
+    border-radius: 30px;
+}
+.perfil h1{
+    font-weight: bold;
+    color: #0C356A;
+    text-align: center;
+}
+.icon-p{
+    font-size: 100px;
+    text-align: center;
+}
+.perfil h3{
+    font-weight: bold;
+    color: #0C356A;
+    text-align: end;
+}
+.perfil span{
+    font-size: 20px;
+}
+.ButtonMaterials{  
+
+    background-color: #0C356A;
+    border-color: #0C356A;
+    font-weight: bold;
+    
+}
+.custom-btn-edit{
+    border-radius: 5px; 
+    background-color: #0C356A; 
+    color: #fff; 
+    padding: 10px 20px; 
+    font-weight: bold;
+    font-size: 20px;
+    border: none; 
+    cursor: pointer; 
+    height: 50px;
+    width: 200px;
+    text-decoration: none;
+    text-align: center;
+}
