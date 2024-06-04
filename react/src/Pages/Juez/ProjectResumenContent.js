@@ -1,13 +1,14 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.min.css';
 import { useParams } from 'react-router-dom';
-import NavigationBar from '../../Components/NavigationBar/Judge/NavigationBar';
+import ToggleBar from '../../Components/Togglebar/togglebar';
 import Accordion from 'react-bootstrap/Accordion';
 import { Link } from 'react-router-dom';
 import './Page.css';
 import './Resume.css';
 import React, { useState, useEffect } from 'react';
 import Loader from '../../Components/Loader/Loader';
+import { useAuth0 } from '@auth0/auth0-react';
 
 function RubricaCalf({ criterias, grades, comments }) {
   return (
@@ -103,9 +104,9 @@ function ProjVal({ commentStatus }) {
           {commentStatus === "Calificado" ? (
             <Link className="btn6" disabled>Proyecto Calificado</Link>
           ) : (
-            <Link to={`/Juez/${params.idpersona}/Calificar/${params.projectId}`} className="btn4">CALIFICAR PROYECTO</Link>
+            <Link to={`/Juez/Calificar/${params.projectId}`} className="btn4">CALIFICAR PROYECTO</Link>
           )}
-          <Link to={`/Juez/${params.idpersona}`} className="btn5">Regresar a Mis Proyectos</Link>
+          <Link to={`/Juez`} className="btn5">Regresar a Mis Proyectos</Link>
         </div>
       </div>
     </div>
@@ -252,7 +253,7 @@ function Multimedia({ Video, Poster }) {
 // Componente ProjResumeCont
 
 export default function ProjResumeCont() {
-  const { idpersona, projectId } = useParams();
+  const { projectId } = useParams();
   const [projectInfo, setProjectInfo] = useState(null);
   const [categories, setCategories] = useState({});
   const [areas, setAreas] = useState({});
@@ -266,6 +267,7 @@ export default function ProjResumeCont() {
   const [loading, setLoading] = useState(true);
   const [members, setMembers] = useState([]);
   const [memberNames, setMemberNames] = useState([]);
+  const { isAuthenticated, isLoading, error, user } = useAuth0();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -305,7 +307,7 @@ export default function ProjResumeCont() {
           setStudentInfo(studentData);
         }
         // Verificar si hay comentarios para este proyecto
-        const commentsResponse = await fetch(`http://localhost:8000/Juez/fetchComment/${idpersona}/${projectId}`);
+        const commentsResponse = await fetch(`http://localhost:8000/Juez/fetchComment/${user.sub}/${projectId}`);
         if (commentsResponse.ok) {
           setCommentStatus("Calificado");
         } else {
@@ -314,7 +316,7 @@ export default function ProjResumeCont() {
 
         // Realizar fetch para cada criterio
         const fetchGradeAndComment = async (criterionId) => {
-          const criterionResponse = await fetch(`http://localhost:8000/Juez/fetchGrade/${criterionId}/${idpersona}/${projectId}`);
+          const criterionResponse = await fetch(`http://localhost:8000/Juez/fetchGrade/${criterionId}/${user.sub}/${projectId}`);
           const criterionData = await criterionResponse.json();
           return { grade: criterionData.grade, comment: criterionData.Comentario || "No disponible" };
         };
@@ -356,11 +358,11 @@ export default function ProjResumeCont() {
     };
 
     fetchData();
-  }, [projectId, idpersona]);
+  }, [projectId, user]);
 
   return (
     <>
-      <NavigationBar NameSection={"Proyecto"} />
+      <ToggleBar />
       <div className='container-fluid centered-container mt-3 '>
         <div className='container-fluid'>
           <div className='row justify-content-between d-flex align-items-center'>

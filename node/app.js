@@ -37,7 +37,7 @@ import JudgeXStudentRoutes from './routes/JudgeXStudentRoutes.js';
 import JudgeXPersonRoutes from './routes/JudgeXPersonRoutes.js';
 import JudgeXTeamRoutes from './routes/JudgeXTeamRoutes.js';
 import TeamMemberRoutes from './routes/TeamMemberRoutes.js';
-
+import AreaPersonRoutes from './routes/AreaPersonRoutes.js'
 import main from './middleware/authConfig.js'
 
 const app = express()
@@ -59,6 +59,8 @@ app.use('/announ', AnnounRoutes);
 app.use('/Ediciones',EditionRoutes);
 app.use('/person',  PersonRoutes);
 app.use('/comments',CommentRoutes);
+app.use('/areas',AreaRoutes);
+app.use('/areaperson',AreaPersonRoutes);
 
 // JUDGE ROUTES
 app.use('/Juez', JudgeRoutes)

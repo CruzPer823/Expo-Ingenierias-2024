@@ -5,29 +5,66 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-const URL = 'http://localhost:8000/announ/';
+const URL = 'http://localhost:8000/announ/detailed/';
 
 function AnnounTitle({ TituloDetailed, Fecha, isLoaded }) {
+
+  const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLargeScreen(window.innerWidth > 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   return (
     <>
       {isLoaded ? (
         <>
-          <div className="col-10 p-3">
-            <i className="bi bi-envelope-fill AnnounIcon"></i>
-            <span className="TituloAnnoun">{TituloDetailed}</span>
-          </div>
-          <div className="col-2">
-            <div className="container-fluid">
-              <div className="row SubjectCont p-4">
-                <div className="col-2">
-                  <span className="Subtitulo text-wrap">Fecha: </span>
-                </div>
-                <div>
-                  <span className="text-wrap">{Fecha && Fecha.substring(0, 10)}</span>
+          {isLargeScreen ? (
+            <>
+              <div className="col-10 p-3">
+                <i className="bi bi-envelope-fill AnnounIcon"></i>
+                <span className="TituloAnnoun">{TituloDetailed}</span>
+              </div>
+              <div className="col-2">
+                <div className="container-fluid">
+                  <div className="row SubjectCont p-4">
+                    <div className="col-2">
+                      <span className="Subtitulo text-wrap">Fecha: </span>
+                    </div>
+                    <div>
+                      <span className="text-wrap">{Fecha && Fecha.substring(0, 10)}</span>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
+            </>
+          ) : (
+            <>
+              <div className="row-2">
+                <div className="container-fluid">
+                  <div className="row SubjectCont p-2">
+                    <div className="col-12">
+                      <span className="Subtitulo text-wrap">Fecha: </span>
+                      <span className="text-wrap claseparaellargodelafecha">{Fecha && Fecha.substring(0, 10)}</span>
+                    </div>
+                      
+                    
+                  </div>
+                </div>
+              </div>
+
+              <div className="row-10 p-3">
+                <i className="bi bi-envelope-fill AnnounIcon"></i>
+                <span className="TituloAnnoun">{TituloDetailed}</span>
+              </div>
+            </>
+          )}
+
+
         </>
       ) : (
         <>

@@ -276,3 +276,26 @@
   height: 265px;
 
 }
+
+@media (max-width: 768px) {
+  .BGResumeTeacher{
+    background-image: url("../../../img/CardResumeConcept.png");
+  
+    background-size: cover; 
+    background-position: center;
+    border-radius: 5px;
+    height: auto;
+  }
+
+  .EliminarHMrgin{
+    margin-top: 0 !important;
+  }
+
+  .InfologoNuevoHeig{
+    height: 750px;
+  }
+
+  .InfologoComment{
+    height: 250px;
+  }
+}

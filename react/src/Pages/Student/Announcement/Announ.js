@@ -4,6 +4,9 @@ import Placeholder from 'react-bootstrap/Placeholder';
 import { Link } from 'react-router-dom';
 import StudentToggle from '../../../Components/TogglebarStudent/togglebarStudent.js';
 import './Announ.css';
+import axios from 'axios';
+
+import { useAuth0 } from '@auth0/auth0-react';
 
 const URL = 'http://localhost:8000/announ/';
 
@@ -33,6 +36,35 @@ function AnnounInfo({ announ, isLoading }) {
     return text.slice(0, limit) + '...';
   };
 
+  const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 768);
+
+
+  const {  user } = useAuth0();
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLargeScreen(window.innerWidth > 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+
+  const handleAnnounceClick = async () => {
+    try {
+      await axios.post(URL+'readAnnounceStudent', {
+        id_student: user.sub,
+        id_announce: announ.id
+      });
+    } catch (error) {
+      console.error('Error marking announce as read', error);
+    }
+  };
+
+
+
+
   return (
     <>
       {isLoading ? (
@@ -58,18 +90,36 @@ function AnnounInfo({ announ, isLoading }) {
         </>
       ) : (
         <>
-        <Link to={'/announ-estudiante/'+announ.id} className='row m-3 p-2 AnnounInfoContainer d-flex align-items-center'>
-          <div className='col-3 d-flex align-items-center'>
-            <i className='bi bi-envelope-fill AnnounIcon'></i>
-            <span className='Titulo'> {announ.title}</span>
-          </div>
-          <div className='col-7 d-flex align-items-center'>
-            <span className='TextoAnnoun'>{truncatedText(announ.description, 100)}</span>
-          </div>
-          <div className='col-2 text-end'>
-            <span className='Subtitulo text-wrap'>{announ.createdAt && announ.createdAt.substring(0, 10)}</span>
-          </div>
+        <Link to={'/announ-estudiante/'+announ.id} className='row m-3 p-2 AnnounInfoContainer d-flex align-items-center' onClick={handleAnnounceClick}>
+        {isLargeScreen ? (
+          <>
+            <div className='col-3 d-flex align-items-center'>
+              <i className='bi bi-envelope-fill AnnounIcon'></i>
+              <span className='Titulo'> {announ.title}</span>
+            </div>
+            <div className='col-7 d-flex align-items-center'>
+              <span className='TextoAnnoun'>{truncatedText(announ.description, 100)}</span>
+            </div>
+            <div className='col-2 text-end'>
+              <span className='Subtitulo text-wrap'>{announ.createdAt && announ.createdAt.substring(0, 10)}</span>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className='row-3 d-flex align-items-center'>
+              <i className='bi bi-envelope-fill AnnounIcon'></i>
+              <span className='Titulo'> {announ.title}</span>
+            </div>
+            <div className='row-7 d-flex align-items-center'>
+              <span className='TextoAnnoun'>{truncatedText(announ.description, 100)}</span>
+            </div>
+            <div className='row-2 text-end'>
+              <span className='Subtitulo text-wrap'>{announ.createdAt && announ.createdAt.substring(0, 10)}</span>
+            </div>
+          </>
+        )}
         </Link>
+        
         </>
       )}
     </>
@@ -96,7 +146,7 @@ export default function AnnounCont() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch(URL)
+    fetch(URL+'students')
       .then((res) => res.json())
       .then((data) => {
         setAllAnnouncements(data);

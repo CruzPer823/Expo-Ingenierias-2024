@@ -1,6 +1,6 @@
-.cont-principal{
+.cont-principal-profile-profe{
     background-color: white;
-    width: 70% !important;
+    width: 45% !important;
     height: auto;
     border-radius: 30px;
 }
@@ -20,4 +20,59 @@
 }
 .perfil span{
     font-size: 20px;
+}
+.ButtonMaterials{  
+
+    background-color: #0C356A;
+    border-color: #0C356A;
+    font-weight: bold;
+    
+}
+.custom-btn-edit{
+        border-radius: 5px; 
+        background-color: #0C356A; 
+        color: #fff; 
+        padding: 10px 20px; 
+        font-weight: bold;
+        font-size: 20px;
+        border: none; 
+        cursor: pointer; 
+        height: 50px;
+        width: 200px;
+        text-decoration: none;
+        text-align: center;
+}
+.ButtonContinue{
+
+    background-color: #0C356A;
+    border-color: #0C356A;
+    font-weight: bold;
+}
+.ButtonContinue:hover{
+
+    background-color: #0b5ed7;
+    border-color: #0b5ed7;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+
+    .perfil h3{
+        font-weight: bold;
+        color: #0C356A;
+        text-align: start !important;
+    }
+
+    .cont-principal-profile-profe{
+        background-color: white;
+        width: 85% !important;
+        height: auto;
+        border-radius: 30px;
+    }
+
+    .textSizeForProfile h1{
+
+        font-size: 30px !important;
+    }
+
 }

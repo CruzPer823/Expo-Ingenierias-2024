@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 import Form from 'react-bootstrap/Form';
 import Placeholder from 'react-bootstrap/Placeholder';
 import { Link } from 'react-router-dom';
 
 import './TeacherAdvertisements.css'
 import Menu from '../../../Components/Togglebar/togglebar.js';
+import axios from 'axios';
 
+const URL = 'http://localhost:8000/announ/';
 
 function AnnounSearch({ handleSearch }) {
   const handleChange = (e) => {
@@ -33,6 +36,31 @@ function AnnounInfo({ announ, isLoading }) {
     return text.slice(0, limit) + '...';
   };
 
+  const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLargeScreen(window.innerWidth > 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const {  user } = useAuth0();
+
+  
+  const handleAnnounceClick = async () => {
+    try {
+      await axios.post(URL+'readAnnouncePerson', {
+        id_person: user.sub,
+        id_announce: announ.id
+      });
+    } catch (error) {
+      console.error('Error marking announce as read', error);
+    }
+  };
+
   return (
     <>
       {isLoading ? (
@@ -58,17 +86,34 @@ function AnnounInfo({ announ, isLoading }) {
         </>
       ) : (
         <>
-        <Link to={`/announ-teacher/${announ.id}`} className='row m-3 p-2 AnnounInfoContainer d-flex align-items-center'>
-          <div className='col-3 d-flex align-items-center'>
-            <i className='bi bi-envelope-fill AnnounIcon'></i>
-            <span className='Titulo'> {announ.title}</span>
-          </div>
-          <div className='col-7 d-flex align-items-center'>
-            <span className='TextoAnnoun'>{truncatedText(announ.description, 100)}</span>
-          </div>
-          <div className='col-2 text-end'>
-            <span className='Subtitulo text-wrap'>{announ.createdAt && announ.createdAt.substring(0, 10)}</span>
-          </div>
+        <Link to={`/announ-teacher/${announ.id}`} className='row m-3 p-2 AnnounInfoContainer d-flex align-items-center' onClick={handleAnnounceClick}>
+        {isLargeScreen ? (
+          <>
+            <div className='col-3 d-flex align-items-center'>
+              <i className='bi bi-envelope-fill AnnounIcon'></i>
+              <span className='Titulo'> {announ.title}</span>
+            </div>
+            <div className='col-7 d-flex align-items-center'>
+              <span className='TextoAnnoun'>{truncatedText(announ.description, 100)}</span>
+            </div>
+            <div className='col-2 text-end'>
+              <span className='Subtitulo text-wrap'>{announ.createdAt && announ.createdAt.substring(0, 10)}</span>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className='row-3 d-flex align-items-center'>
+              <i className='bi bi-envelope-fill AnnounIcon'></i>
+              <span className='Titulo'> {announ.title}</span>
+            </div>
+            <div className='row-7 d-flex align-items-center'>
+              <span className='TextoAnnoun'>{truncatedText(announ.description, 100)}</span>
+            </div>
+            <div className='row-2 text-end'>
+              <span className='Subtitulo text-wrap'>{announ.createdAt && announ.createdAt.substring(0, 10)}</span>
+            </div>
+          </>
+        )}
         </Link>
         </>
       )}
@@ -96,7 +141,7 @@ export default function AnnounCont() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:8000/announ/')
+    fetch(URL+'person')
       .then((res) => res.json())
       .then((data) => {
         setAllAnnouncements(data);
@@ -121,11 +166,11 @@ export default function AnnounCont() {
         <Menu NameSecProf={"Anuncios"}></Menu>
         <div className='container-fluid mt-3 p-3'>
           <div className='row p-3 ContainerAnnoun'>
-            <AnnounSearch handleSearch={handleSearch} />
+            <AnnounSearch handleSearch={handleSearch} isLoading={isLoading} />
           </div>
   
           <div className='row p-3 mt-4 ContainerAnnoun'>
-            <AnnounInfoCont announcements={filteredAnnouncements} />
+            <AnnounInfoCont announcements={filteredAnnouncements} isLoading={isLoading} />
           </div>
         </div>
       </>

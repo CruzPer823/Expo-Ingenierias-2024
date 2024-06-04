@@ -1,4 +1,3 @@
-import '../../Student/ProjectSelection/ProjSelectionJuez.css';
 import '../../Student/ProjectSelection/Badge.css';
 import { jsPDF } from "jspdf";
 import { useAuth0 } from '@auth0/auth0-react';
@@ -29,22 +28,7 @@ function tieneInformacion(variable) {
     return true;
 }
 
-function CardCalif() {
-    const [user_bs, setUser_bs] = useState({
-        id: "",
-        name: "",
-        lastName: "",
-        email: "",
-    })
-    const {id_user} = useParams();
-    useEffect(() => {
-        //nuevodescr120T
-        //http://localhost:8000/projects/responsable/${user.sub}
-        fetch(`http://localhost:8000/person/resume/auth0|6653d38ae957844eac7c9f99`)
-          .then((res) => res.json())
-          .then((data)=>setUser_bs(data))
-        
-        },[id_user])
+function CardCalif({name, namecomplete}) {
       const doc = new jsPDF();
       const handleOnClick = async () => {
         doc.setFontSize(22);
@@ -55,7 +39,7 @@ function CardCalif() {
         doc.text(`Se otorga el presente certificado a`, 20, 80);
         doc.setFontSize(20);
         doc.setFont('times', 'bold');
-        doc.text(user_bs.name, 20, 95);
+        doc.text(namecomplete, 20, 95);
         doc.setFontSize(14);
         doc.setFont('times', 'normal');
         doc.text(`por su destacada participación y valioso aporte como Profesor Encargado en el`, 20, 110);
@@ -73,9 +57,9 @@ function CardCalif() {
         const img1 = new Image();
         img1.src = firma;
         img.onload = function() {
-            doc.addImage(img, 'PNG', 70, 10, 70, 50); // x, y, width, height
+            doc.addImage(img, 'PNG', 60, 10, 90, 50); // x, y, width, height
             doc.addImage(img1,'JPG',20,220,30,30);
-            doc.save(`${user_bs.name}-certificate.pdf`);
+            doc.save(`${name}-certificate.pdf`);
         }
         img.onerror = function() {
             console.error('Error loading image');
@@ -87,41 +71,65 @@ function CardCalif() {
 
     return (
         <>
-            {!tieneInformacion(user_bs) && (
-                <div className='container-fluid p-3'>
-                    <center>
-                        <div className='row p-3 m-3 NoProjContainer'>
-                            <div className='col p-3'>
-                                <p className='mb-0 fw-bold'>Aún no puedes visualizar o descargar las constancias que hayas adquirido durante el evento. Espera a que acabe el evento y vuelve a esta pestaña para descargar tus constancias.</p>
-                            </div>
-                        </div>
-                    </center>
-                </div>        
-            )}
+  
+      
 
-            {tieneInformacion(user_bs) && (
                 <div className='col-auto p-3'>
 
                     <div className="card cardconst mb-1 me-0">
-                        <div className="imag ConstanciaCardPhoto">
+                        <div className="imagConstancias ConstanciaCardPhoto">
                                     
                         </div>
 
                         <div className="text constanciastextsirveporfa">
                             <center><span className='fw-bolder'>Esta constancia es valida para:</span></center>
-                            <center><p>{user_bs.name + " " +user_bs.lastName}</p></center>
+                            <center><p>{namecomplete}</p></center>
                             <button className="btn23" onClick={handleOnClick}>Descargar Constancia</button>    
                         </div>
                     </div>
                 </div>        
-            )}                          
+                      
         </>
     );
   }
   
 
 
-export default function ProjSelection({ConstCheck}){
+export default function ProjSelection(){
+    const [ConstCheck, setConstCheck] = useState(true);
+    const [user_bs, setUser_bs] = useState({
+        id: "",
+        name: "",
+        lastName: "",
+        email: "",
+    })
+    const [projects,setProjects] = useState([]);
+    const { user } = useAuth0();
+    useEffect(() => {
+        if (user && user.sub) {
+            async function fetchData() {
+                try {
+                    const [projectsResponse, userResponse] = await Promise.all([
+                        fetch(`http://localhost:8000/projects/responsable/${user.sub}`).then(res => res.json()),
+                        fetch(`http://localhost:8000/person/resume/${user.sub}`).then(res => res.json())
+                    ]);
+                    setProjects(projectsResponse);
+                    setUser_bs(userResponse);
+                } catch (error) {
+                    console.error('Error fetching data:', error);
+                    // Manejar el error aquí si es necesario
+                }
+            }
+            fetchData();
+        }
+    }, [user]);
+    
+    useEffect(() => {
+        let hasRevision = projects.some(project => project.statusGeneral === "en revision");
+        setConstCheck(!hasRevision);
+    }, [projects]);
+    
+    
     return(
 
         <>
@@ -136,7 +144,7 @@ export default function ProjSelection({ConstCheck}){
 
             <div className='container-fluid'>
 
-                {ConstCheck === "False" && (
+                {!ConstCheck && (
                     <>
                         <div className='container-fluid  p-3'>
                             <center>
@@ -152,12 +160,12 @@ export default function ProjSelection({ConstCheck}){
 
                 )}
 
-                {ConstCheck === "True" && (
-
+                {ConstCheck && (
+                    <>
                     <div className='row d-flex flex-col justify-content-evenly'>
-                        <CardCalif/>
+                    <CardCalif name={user_bs.name} namecomplete={user_bs.name + ' ' + user_bs.lastName} />
                     </div>       
-
+                    </>
                 )}
             </div>        
         </>

@@ -32,7 +32,7 @@ function CategoriesCard({data}){
 
     const handleEditClick = () => {
       // Redirect to EditUserPage and pass the userId as a URL parameter
-      navigate(`/categorias/${id}`);
+      navigate(`/Admin/Categorias/${id}`);
   };
 
     const imagen = (title)=>{
@@ -47,7 +47,6 @@ function CategoriesCard({data}){
           return imagenLoco;
         }
     };
-    if(isActive){
     return (
         <div className='tar'>
             <img src={imagen(`${title}`)} className="card-img-top catImg" alt="Project Image"/>
@@ -59,9 +58,6 @@ function CategoriesCard({data}){
             </div>
         </div>
     );
-  }else{
-    return;
-  }
 }
 
 export default function CategoriesCardList({data}){
@@ -72,9 +68,10 @@ export default function CategoriesCardList({data}){
           <AddCard name="categorias"/>
           </div>
         {categoriesInfo.map(categories => (
+          categories.isActive === 1?
           <div key={categories.id} className='tarjeta'>
             <CategoriesCard data={categories} />
-          </div>
+          </div>:null
         ))}
       </div>
   );

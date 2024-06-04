@@ -1,4 +1,5 @@
-import AnnounModel from '../models/AnnounModel.js'
+
+import {AnnounModel, StudentModel, AnnounceReadStudentModel, PersonModel, AnnounceReadPersonModel} from "../models/Relations.js";
 
 export const getAllAnnouns = async (req, res) => {
     try {
@@ -31,3 +32,120 @@ export const getAnnoun = async (req, res) => {
         res.status(500).json({ message: 'Hubo un error al obtener el proyecto.' });
     }
 }
+
+export const getAllAnnounsStudents = async (req, res) => {
+    try {
+        const announs = await AnnounModel.findAll({
+            where: {audience: 'students'},
+            order: [
+                ['id','DESC'] // Orden ascendente por id
+            ]
+        });
+        res.json(announs)
+    } catch (error) {
+        res.json( {message: error.message} )
+    }
+}
+
+export const getAllAnnounsPerson = async (req, res) => {
+    try {
+        const announs = await AnnounModel.findAll({
+            where: {audience: 'teachers'},
+            order: [
+                ['id','DESC'] // Orden ascendente por id
+            ]
+        });
+        res.json(announs)
+    } catch (error) {
+        res.json( {message: error.message} )
+    }
+}
+
+
+//Create Announ read student
+export const createReadAnnounStudents = async (req, res) => {
+   
+    try {
+        const student = await StudentModel.findByPk(req.body.id_student);
+        const announce = await AnnounModel.findByPk(req.body.id_announce);
+        if (student && announce) {
+             console.log('pasa por aqui')
+          const result = await student.addAnnouncement(announce); // Sequelize se encargará de actualizar la tabla intermedia
+          console.log(result)
+          res.status(200).json({ message: 'Announcement marked as read' });
+        } else {
+          res.status(404).json({ message: 'Student or Announcement not found' });
+        }
+      } catch (error) {
+        res.status(500).json({ message: 'Server error', error });
+      }
+}
+
+
+export const countReadAnnouncementsStudents = async (req, res) => {
+    try {
+
+
+
+        const { id_student } = req.params; // Suponiendo que estás pasando el ID del estudiante como parámetro en la URL
+
+        const allAnnoun = await AnnounModel.count(
+            {where: {audience: 'students'}}
+        );
+
+        // Realiza la consulta de conteo
+        const countRead = await AnnounceReadStudentModel.count({
+            where: { id_student }
+        });
+
+        let countsAnnoun = allAnnoun - countRead;
+
+        res.status(200).json({ countsAnnoun });
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ message: 'Server error', error });
+    }
+};
+
+
+//Create announ read teacher
+export const createReadAnnounPerson = async (req, res) => {
+   
+    try {
+        const person = await PersonModel.findByPk(req.body.id_person);
+        const announce = await AnnounModel.findByPk(req.body.id_announce);
+        if (person && announce) {
+             console.log('pasa por aqui')
+          const result = await person.addAnnouncement(announce); // Sequelize se encargará de actualizar la tabla intermedia
+          console.log(result)
+          res.status(200).json({ message: 'Announcement marked as read' });
+        } else {
+          res.status(404).json({ message: 'Person or Announcement not found' });
+        }
+      } catch (error) {
+        res.status(500).json({ message: 'Server error', error });
+      }
+}
+
+export const countReadAnnouncementsPerson = async (req, res) => {
+    try {
+
+        const { id_person } = req.params; // Suponiendo que estás pasando el ID del estudiante como parámetro en la URL
+
+        const allAnnoun = await AnnounModel.count(
+            {where: {audience: 'teachers'}}
+        );
+
+        // Realiza la consulta de conteo
+        const countRead = await AnnounceReadPersonModel.count({
+            where: { id_person }
+        });
+
+        let countsAnnoun = allAnnoun - countRead;
+
+        res.status(200).json({ countsAnnoun });
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ message: 'Server error', error });
+    }
+};

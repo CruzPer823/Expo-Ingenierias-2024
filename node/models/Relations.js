@@ -19,6 +19,9 @@ import AreaPersonModel from "./AreaPersonModel.js";
 import AsessorProjectModel from './AsessorProjectModel.js'; 
 import JudgeProjectModel from "./JudgeProjectModel.js";
 import TeamMemberModel from "./TeamMemberModel.js";
+import AnnounModel from "./AnnounModel.js";
+import AnnounceReadStudentModel from "./AnnounceReadStudentModel.js";
+import AnnounceReadPersonModel from "./AnnounceReadPersonModel.js";
 
 TeamModel.belongsTo(ProjectModel, { foreignKey: 'id_project', as: 'project' });
 ProjectModel.hasOne(TeamModel, {foreignKey: 'id_project'});
@@ -169,6 +172,31 @@ CriteriaJudgeModel.belongsTo(PersonModel,{foreignKey:'id_person'});
 ProjectModel.hasMany(CriteriaJudgeModel,{foreignKey:'id_project'});
 CriteriaJudgeModel.belongsTo(ProjectModel,{foreignKey: 'id_project'});
 
+//Anuncios leidos
+
+StudentModel.belongsToMany(AnnounModel,{
+        through: 'announ_read_student',
+        foreignKey: 'id_student'
+});
+
+AnnounModel.belongsToMany(StudentModel,{
+        through: 'announ_read_student',
+        foreignKey: 'id_announce'
+});
+
+PersonModel.belongsToMany(AnnounModel,{
+        through: 'announ_read_person',
+        foreignKey: 'id_person'
+});
+
+AnnounModel.belongsToMany(PersonModel,{
+        through: 'announ_read_person',
+        foreignKey: 'id_announce'
+});
+
+
+
+
 export {
         AreaModel,
         AreaPersonModel,
@@ -190,5 +218,8 @@ export {
         DisqualifiedModel,
         AsessorProjectModel,
         JudgeProjectModel,
-        TeamMemberModel
+        TeamMemberModel,
+        AnnounModel,
+        AnnounceReadStudentModel,
+        AnnounceReadPersonModel
 };

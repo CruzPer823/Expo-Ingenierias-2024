@@ -4,17 +4,19 @@ import db from "../database/db.js";
 import { DataTypes } from "sequelize";
 
 const AreaPersonModel = db.define('areas_persons', {
-    id_area: { 
-        type: DataTypes.INTEGER,
+    id_person: { 
+        type: DataTypes.STRING,
+        primaryKey: true,
         references: {
-            model: 'areas',
+            model: 'persons',
             key: 'id'
         }
     },
-    id_person: { 
-        type: DataTypes.STRING,
+    id_area: { 
+        type: DataTypes.INTEGER,
+        primaryKey: true,
         references: {
-            model: 'persons',
+            model: 'areas',
             key: 'id'
         }
     }

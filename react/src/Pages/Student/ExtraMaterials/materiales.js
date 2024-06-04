@@ -122,7 +122,7 @@ export default function ProjSelection({ ProjCheck }) {
                         <div className='container-fluid centered-containerProjSelc'>
                             <div className='row m-4 p-3 TitleSelectContainer'>
                                 <div className='col '>
-                                    <h1 className='TituloProjSEL text-center'>Hacer solicitud de material extra</h1>
+                                    <h1 className='TituloProjSEL text-center'>Actualizar lista de materiales extra</h1>
                                 </div>
                             </div>
                         </div>
@@ -141,7 +141,7 @@ export default function ProjSelection({ ProjCheck }) {
                     <>
                         <div className='container-fluid'>
                             <div className='row'>
-                                <div className='col-12 mt-2 pt-3 ps-3 pe-3'>
+                                <div className='col-12 mt-2 pt-3 claseParatitulomatextra ps-3 pe-3'>
                                     <center><h1 className='TituloProjSEL p-3 text-center TitleSelectContainerVFascara'>Actualizar lista de materiales extra</h1></center>
                                 </div>
                             </div>

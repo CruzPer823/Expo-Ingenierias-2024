@@ -7,26 +7,62 @@ import { useState, useEffect } from "react";
 import Menu from '../../../Components/Togglebar/togglebar.js';
 
 function AnnounTitle({ TituloDetailed, Fecha, isLoaded }) {
+
+  const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLargeScreen(window.innerWidth > 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
     return (
       <>
         {!isLoaded ? (
           <>
-            <div className="col-10 p-3">
-              <i className="bi bi-envelope-fill AnnounIcon"></i>
-              <span className="TituloAnnoun">{TituloDetailed}</span>
-            </div>
-            <div className="col-2">
-              <div className="container-fluid">
-                <div className="row SubjectCont p-4">
-                  <div className="col-2">
-                    <span className="Subtitulo text-wrap">Fecha: </span>
-                  </div>
-                  <div>
-                    <span className="text-wrap">{Fecha && Fecha.substring(0, 10)}</span>
+{isLargeScreen ? (
+            <>
+              <div className="col-10 p-3">
+                <i className="bi bi-envelope-fill AnnounIcon"></i>
+                <span className="TituloAnnoun">{TituloDetailed}</span>
+              </div>
+              <div className="col-2">
+                <div className="container-fluid">
+                  <div className="row SubjectCont p-4">
+                    <div className="col-2">
+                      <span className="Subtitulo text-wrap">Fecha: </span>
+                    </div>
+                    <div>
+                      <span className="text-wrap">{Fecha && Fecha.substring(0, 10)}</span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </>
+          ) : (
+            <>
+              <div className="row-2">
+                <div className="container-fluid">
+                  <div className="row SubjectCont p-2">
+                    <div className="col-12">
+                      <span className="Subtitulo text-wrap">Fecha: </span>
+                      <span className="text-wrap claseparaellargodelafecha">{Fecha && Fecha.substring(0, 10)}</span>
+                    </div>
+                      
+                    
+                  </div>
+                </div>
+              </div>
+
+              <div className="row-10 p-3">
+                <i className="bi bi-envelope-fill AnnounIcon"></i>
+                <span className="TituloAnnoun">{TituloDetailed}</span>
+              </div>
+            </>
+          )}
           </>
         ) : (
           <>
@@ -95,7 +131,7 @@ function AnnounTitle({ TituloDetailed, Fecha, isLoaded }) {
     console.log(id_announ);
   
     useEffect(() => {
-      fetch('http://localhost:8000/announ/' + id_announ)
+      fetch('http://localhost:8000/announ/detailed/' + id_announ)
         .then((res) => res.json())
         .then((data) => {
           setAnnounDet(data);

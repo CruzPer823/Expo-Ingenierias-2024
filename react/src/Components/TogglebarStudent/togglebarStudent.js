@@ -14,6 +14,8 @@ import { useParams } from "react-router-dom";
 
 const URL = 'http://localhost:8000/students/'
 
+const URLAnnoun = 'http://localhost:8000/announ/countReadAnnouncementsStudent/'
+
 
 const LogoutButton = () => {
   const { logout } = useAuth0();
@@ -49,9 +51,10 @@ function ToggleBarStudent({SectionName}) {
 
     const { id_student } = useParams();
 
-    const [notifications, setNotifications] = useState([]);
-    const [unreadCount, setUnreadCount] = useState(9);
+    const [unreadCount, setUnreadCount] = useState(0);
   
+    const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 768);
+    
     useEffect(() => {
       //fetch(URL+id_student)
       fetch(URL+user.sub)
@@ -62,8 +65,21 @@ function ToggleBarStudent({SectionName}) {
         .catch((error) => {
           console.error('Error fetching data:', error);
         });
+
     }, [id_student]);
-  
+    
+    useEffect(() => {
+      //fetch(URL+id_student)
+      fetch(URLAnnoun + user.sub)
+        .then((res) => res.json())
+        .then((data) => {
+          setUnreadCount(data.countsAnnoun);
+        })
+        .catch((error) => {
+          console.error('Error fetching data:', error);
+        });
+    }, []);
+
     
   
     return (
@@ -107,7 +123,7 @@ function ToggleBarStudent({SectionName}) {
             <div className='container'>
               <div className='row m-2'>
                 <div className ='col-md-auto '>
-                  <Link to='/principal-estudiante' onClick={() => { handleClose();}} class="bi bi-boxes docu-icon2"></Link>
+                  <Link to='/principal-estudiante' onClick={() => { handleClose();}} class="bi bi-book-fill docu-icon2"></Link>
                   <Link to='/principal-estudiante' className ="TextoValid2" onClick={() => { handleClose(); }}>Mis Proyectos</Link> 
                 </div>  
               </div>
@@ -150,6 +166,18 @@ function ToggleBarStudent({SectionName}) {
   }
 
 export default function Menu({NameSection}){
+
+  const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLargeScreen(window.innerWidth > 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <>
   <div className ="container-fluid">
@@ -172,10 +200,19 @@ export default function Menu({NameSection}){
 <nav className='fixed-top'>
 <div className ="container-fluid">
   <div className="row " id = "NavBar">
-    <div className="col-5">
-      <ToggleBarStudent SectionName={NameSection} />
-    </div>
- 
+
+    {isLargeScreen ? (
+      <div className="col-5">
+        <ToggleBarStudent SectionName={NameSection} />
+      </div>
+    ) : (
+      <>
+        <div className="col-12">
+          <ToggleBarStudent SectionName={NameSection} />
+        </div>                    
+      </>
+
+  )} 
   </div>
 </div>
 </nav>

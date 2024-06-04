@@ -23,7 +23,7 @@ export default function ProjRegisterCont(){
     return (
         <>
         <ToggleBarStudent NameSection={"Edición de proyecto"} />
-        <div className='container w-50 mt-4 mb-4 bg-white'>
+        <div className='container w-50 mt-4 mb-4 bg-white ContenedorForm'>
             <div className='row p-2'>
                 <div className='col p-4'>
                     <FormExample />

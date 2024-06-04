@@ -18,6 +18,7 @@ import UserRegisterCont from './Pages/Main/RegisterContent/RegisterContent.js'
 import AnunciosTeacher from './Pages/Teacher/TeacherAdvertisements/TeacherAdvertisements.js';
 import ConstanciaTeacher from './Pages/Teacher/TeacherCertificate/TeacherConstancia.js';
 import Perfil from './Pages/Teacher/TeacherProfile/TeacherProfile.js';
+import EditPerfilTeacher from './Pages/Teacher/TeacherProfile/TeacherEditProfile.js'
 import TeacherAnoDet from './Pages/Teacher/TeacherAdvertisements/DetailedAnnoun.js'
 import ProjectRegister from './Pages/Student/ProjectRegister/ProjResgister.js';
 import ProjectResumen from './Pages/Student/ProjectResumen/ProjectResumenContent.js';
@@ -29,6 +30,7 @@ import ProjSelection from './Pages/Student/ProjectSelection/ProjSelection.js';
 import ProjectEdition from './Pages/Student/ProjectEdition/ProjEdition.js';
 import StudentAnnounDet from './Pages/Student/Announcement/DetailedAnnoun.js'
 import StudentProfile from './Pages/Student/StudentProfile/StudentProfile.js';
+import EditPerfilStudent from './Pages/Student/StudentProfile/StudentEditProfile.js'
 //import { BrowserRouter as useLocation } from 'react-router-dom';
 
 // Admin
@@ -57,24 +59,15 @@ import Proyectos from './Pages/Juez/Proyectos'; // Catalogo Proyectos
 import ProjResumeContJudge from './Pages/Juez/ProjectResumenContent';
 import GeneralProjectResume from './Pages/Juez/GeneralProjectResume';
 import Rubrica from './Pages/Juez/Rubrica';
-import Anuncios from './Pages/Juez/Announ';
-import DetailedAnnoun from './Pages/Juez/DetailedAnnoun';
-import PerfilJuez from './Pages/Juez/Profile';
+//import Anuncios from './Pages/Juez/Announ';
+//import DetailedAnnoun from './Pages/Juez/DetailedAnnoun';
+//import PerfilJuez from './Pages/Juez/Profile';
 
 // Auth0
 import Callback from './auth0/callback.js';
 import ProtectedRoute from './auth0/protect.js';
 
-const getCurrentDate = () => {
-  const now = new Date();
-  const options = { day: 'numeric', month: 'long' }; // Opciones para formatear la fecha
-  return now.toLocaleDateString('es-ES', options);
-};
-const isDateEqualOrAfter = (specificDate) => {
-  const now = new Date();
-  const targetDate = new Date(specificDate);
-  return now >= targetDate;
-};
+
 
 function App() {
   // const location = useLocation(); // Get current location
@@ -85,26 +78,7 @@ function App() {
   //   setPageTitle(getTitle(location.pathname));
   // }, [location.pathname]);
 
-  const [currentDate, setCurrentDate] = useState(getCurrentDate());
-  const [isTargetDateReached, setIsTargetDateReached] = useState(false);
-  let constancia;
-
-
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setIsTargetDateReached(isDateEqualOrAfter('2024-05-25'));
-    }, 1000);
-
-    return () => clearInterval(intervalId);
-  }, []);
-
-  if(isTargetDateReached == true){
-    constancia = "True";
-  }
-  else{
-    constancia = "False";
-  }
+  
   
   return (
     <>
@@ -122,21 +96,23 @@ function App() {
               <Route path="/Registro-usuario" element={<ProtectedRoute requiredRole="teacher"><FormUser /></ProtectedRoute>} />
               <Route path="/Registro-inicio" element={<ProtectedRoute requiredRole="teacher"><UserRegisterCont /></ProtectedRoute>} />
               <Route path="/anuncios-profesor" element={<ProtectedRoute requiredRole="teacher"><AnunciosTeacher /></ProtectedRoute>} />
-              <Route path="/constancia-profesor/:id_user" element={<ProtectedRoute requiredRole="teacher"><ConstanciaTeacher ConstCheck={"True"} /></ProtectedRoute>} />
-              <Route path="/perfil-profesor/:id_user" element={<ProtectedRoute requiredRole="teacher"><Perfil /></ProtectedRoute>} />
+              <Route path="/constancia-profesor" element={<ProtectedRoute requiredRole="teacher"><ConstanciaTeacher/></ProtectedRoute>} />
+              <Route path="/perfil-profesor" element={<ProtectedRoute requiredRole="teacher"><Perfil /></ProtectedRoute>} />
               <Route path="/announ-teacher/:id_announ" element={<ProtectedRoute requiredRole="teacher"><TeacherAnoDet /></ProtectedRoute>} />
+              <Route path="/editar-perfil-profesor" element={<ProtectedRoute requiredRole="teacher"><EditPerfilTeacher /></ProtectedRoute>} />
 
               {/*Student Routes */}
               <Route path='/announ-estudiante/:id_announ' element={<ProtectedRoute requiredRole="student"><StudentAnnounDet /></ProtectedRoute>} />
               <Route path="/registro-proyecto" element={<ProtectedRoute requiredRole="student"><ProjectRegister /></ProtectedRoute>} />
               <Route path="/resumen-proyecto-estudiante/:id_project" element={<ProtectedRoute requiredRole="student"><ProjectResumen /></ProtectedRoute>} />
               <Route path="/anuncio-estudiante" element={<ProtectedRoute requiredRole="student"><AnunciosStudent /></ProtectedRoute>} />
-              <Route path="/constancia-estudiante" element={<ProtectedRoute requiredRole="student"><StudentCertificate ConstCheck={constancia} /></ProtectedRoute>} />
+              <Route path="/constancia-estudiante" element={<ProtectedRoute requiredRole="student"><StudentCertificate/></ProtectedRoute>} />
               <Route path="/extramaterial/:id_project" element={<ProtectedRoute requiredRole="student"><MaterialExtra ProjCheck={"True"}/></ProtectedRoute>} />
               <Route path="/mapa" element={<ProtectedRoute requiredRole="student"><StudentMap /></ProtectedRoute>} />
               <Route path="/principal-estudiante" element={<ProtectedRoute requiredRole="student"><ProjSelection/></ProtectedRoute>} />
               <Route path='/EditProject/:id_project' element={<ProtectedRoute requiredRole="student"><ProjectEdition /></ProtectedRoute>} />
               <Route path='/student-profile/' element={<ProtectedRoute requiredRole="student"><StudentProfile /></ProtectedRoute>} />
+              <Route path='/editar-perfil-estudiante' element={<ProtectedRoute requiredRole="student"><EditPerfilStudent /></ProtectedRoute>} />
               <Route path="/Callback" element={<Callback />} />
 
               {/* Admin Routes */}
@@ -160,14 +136,14 @@ function App() {
               <Route path='/Admin/rubrica/criterio/:criteriaId' element={<EditCriteriaPage />}/>
 
               {/* Judge Routes */}
-              <Route path="/Juez/:idpersona" element={<Juez />} />
-              <Route path="/Juez/General/:idpersona" element={<Proyectos />} />
-              <Route path="/Juez/General/:idpersona/Proyectos/:projectId" element={<GeneralProjectResume />} />
-              <Route path="/Juez/Anuncios/:idpersona" element={<Anuncios />} />
-              <Route path="/Juez/Anuncios/:idpersona/DetailAnnoun/:anuncioId" element={<DetailedAnnoun />} />
-              <Route path="/Juez/:idpersona/Calificar/:projectId" element={<Rubrica />} />
-              <Route path="/Juez/:idpersona/ProyectoJuez/:projectId" element={<ProjResumeContJudge />} />
-              <Route path="/Juez/Perfil/:idpersona" element={<PerfilJuez />} />
+              <Route path="/Juez" element={<ProtectedRoute requiredRole="teacher"><Juez /></ProtectedRoute>} />
+              <Route path="/Juez/General" element={<ProtectedRoute requiredRole="teacher"><Proyectos /></ProtectedRoute>} />
+              <Route path="/Juez/General/Proyecto/:projectId" element={<ProtectedRoute requiredRole="teacher"><GeneralProjectResume /></ProtectedRoute>} />
+              {/*<Route path="/Juez/Anuncios/:idpersona" element={<Anuncios />} />*/}
+              {/*<Route path="/Juez/Anuncios/:idpersona/DetailAnnoun/:anuncioId" element={<DetailedAnnoun />} />*/}
+              <Route path="/Juez/Calificar/:projectId" element={<ProtectedRoute requiredRole="teacher"><Rubrica /></ProtectedRoute>} />
+              <Route path="/Juez/ProyectoJuez/:projectId" element={<ProtectedRoute requiredRole="teacher"><ProjResumeContJudge /></ProtectedRoute>} />
+              {/*<Route path="/Juez/Perfil/:idpersona" element={<PerfilJuez />} />*/}
           </Routes>
       </div>
     </>

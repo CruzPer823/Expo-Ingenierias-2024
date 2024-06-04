@@ -1,11 +1,12 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.min.css';
 import { Link, useParams } from 'react-router-dom';
-import NavigationBar from '../../Components/NavigationBar/Judge/NavigationBar';
+import ToggleBar from '../../Components/Togglebar/togglebar';
 import './Page.css';
 import './Resume.css';
 import React, { useState, useEffect } from 'react';
 import Loader from '../../Components/Loader/Loader';
+import { useAuth0 } from '@auth0/auth0-react';
 
 function InfoProj({ lead, profLead, memeber }) {
   return (
@@ -72,7 +73,7 @@ function ProjVal() {
     <div className='col-md-3'>
       <div className="Info2 m-2 p-4">
         <div className="row pb-3 mt-3">
-          <Link to={`/Juez/General/${params.idpersona}`} className="btn5">Regresar al Catalogo</Link>
+          <Link to={`/Juez/General`} className="btn5">Regresar al Catalogo</Link>
         </div>
       </div>
     </div>
@@ -186,7 +187,7 @@ function Multimedia({ Video, Poster }) {
 // Componente ProjResumeCont
 
 export default function ProjResumeCont() {
-  const { idpersona, projectId } = useParams();
+  const { projectId } = useParams();
   const [projectInfo, setProjectInfo] = useState(null);
   const [categories, setCategories] = useState({});
   const [areas, setAreas] = useState({});
@@ -198,6 +199,7 @@ export default function ProjResumeCont() {
   const [loading, setLoading] = useState(true);  // Estado de carga
   const [members, setMembers] = useState([]);  // Variable para almacenar los id_member
   const [memberNames, setMemberNames] = useState([]);  // Variable para almacenar los nombres de los miembros
+  const { isAuthenticated, isLoading, error, user } = useAuth0();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -232,7 +234,7 @@ export default function ProjResumeCont() {
           setStudentInfo(studentData);
         }
         // Verificar si hay comentarios para este proyecto
-        const commentsResponse = await fetch(`http://localhost:8000/Juez/fetchComment/${idpersona}/${projectId}`);
+        const commentsResponse = await fetch(`http://localhost:8000/Juez/fetchComment/${user.sub}/${projectId}`);
         if (commentsResponse.ok) {
           setCommentStatus("Calificado");
         } else {
@@ -270,11 +272,11 @@ export default function ProjResumeCont() {
     };
 
     fetchData();
-  }, [projectId, idpersona]);
+  }, [projectId, user]);
 
   return (
     <>
-      <NavigationBar NameSection={"Proyecto"} />
+      <ToggleBar />
       <div className='container-fluid centered-container mt-3 '>
         <div className='container-fluid'>
           <div className='row justify-content-between d-flex align-items-center'>
