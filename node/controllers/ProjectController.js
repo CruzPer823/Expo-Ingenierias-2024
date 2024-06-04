@@ -166,6 +166,33 @@ export const disqualifyProject = async (req, res) => {
 };
 
 // Get all judges assigned to a project
+// export const getProjectJudges = async (req, res) => {
+//     const { projectId } = req.query; // Assume the project ID is provided as a query string
+
+//     try {
+//         // Retrieve the project to ensure it exists
+//         const project = await ProjectModel.findByPk(projectId);
+
+//         if (!project) {
+//             return res.status(404).json({ message: 'Project not found' });
+//         }
+
+//         // Retrieve all person IDs related to the project
+//         const judgeEntries = await JudgeProjectModel.findAll({
+//             where: { id_project: project.id },
+//             attributes: ['id_person']
+//         });
+
+//         // Extract the person IDs from the assessorEntries
+//         const judgesIds = judgeEntries.map(entry => entry.id_person);
+
+
+//         res.json(judgesIds);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// };
+
 export const getProjectJudges = async (req, res) => {
     const { projectId } = req.query; // Assume the project ID is provided as a query string
 
@@ -183,15 +210,29 @@ export const getProjectJudges = async (req, res) => {
             attributes: ['id_person']
         });
 
-        // Extract the person IDs from the assessorEntries
+        // Extract the person IDs from the judgeEntries
         const judgesIds = judgeEntries.map(entry => entry.id_person);
 
+        // Retrieve all the information of the judges
+        const judges = await PersonModel.findAll({
+            where: { id: judgesIds }
+            // You can add attributes if you want to select specific fields from PersonsModel
+        });
 
-        res.json(judgesIds);
+        // Format the judges data
+        const formattedJudges = judges.map(judge => ({
+            id: judge.id,
+            name: judge.name,
+            lastName: judge.lastName,
+            profileImg: "user.png"
+        }));
+
+        res.json(formattedJudges);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
+
 
 
 // Remove a judge from a project

@@ -5,6 +5,7 @@ import { Button } from 'react-bootstrap';
 import Loader from '../../Components/Loader/Loader';
 import Widget from '../../Components/Widget/Widget';
 import VideoCard from '../../Components/VideoCard/VideoCard';
+import CustomCarousel from '../../Components/CustomCarousel/CustomCarousel';
 import AssignJudge from '../../Components/AssignJudge/AssignJudge';
 import ProjectScore from '../../Components/ProjectScore/ProjectScore';
 import ProjectMembers from '../../Components/ProjectMembers/ProjectMembers';
@@ -119,7 +120,7 @@ function ProjectPage() {
       <NavigationBar NameSection={project.title}/>
       <div className="container-fluid mt-3">
         <div className="row">
-          {/* Your existing code for displaying project information */}
+          
 
           <div className="col-lg-6">
             <Widget title={"Póster"} centered={true} content={<img style={{height:"625px"}} src={`${process.env.PUBLIC_URL}/${project.poster}`} alt="Project Image" />} />
@@ -135,13 +136,23 @@ function ProjectPage() {
             </div>
           </div>
         </div>
-        {/* Your existing code for displaying project information */}
+        
 
         <div className="row">
 
-          <div className="col-lg-3">
-            <Widget title={"Asignar Jueces"} centered={true} content={<AssignJudge area={project.id_area} project={project.id}/>} />
-          </div>
+        <div className="col-lg-3">
+          <Widget
+            title="Asignar Jueces"
+            centered={true}
+            content={
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <CustomCarousel projectId={projectId} />
+                <AssignJudge area={project.id_area} project={project.id} />
+                </div>
+            }
+          />
+        </div>
+
 
           <div className="col-lg-6">
             <Widget title={"Equipo"} centered={true} content={<ProjectMembers project={project} />} />

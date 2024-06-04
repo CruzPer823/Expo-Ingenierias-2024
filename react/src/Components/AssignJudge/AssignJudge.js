@@ -6,61 +6,50 @@ import "./AssignJudge.css";
 
 const AssignJudge = ({ area, project }) => {
   const [judges, setJudges] = useState([]);
-  const [randomJudge, setRandomJudge] = useState(null);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [alert, setAlert] = useState({ type: '', message: '', visible: false });
 
-  const fetchJudges = async () => {
+  const handleAssignJudgeClick = async () => {
     try {
+      // Fetch judges
       const response = await axios.get(`http://localhost:8000/Admin/getJudges/${area}?projectId=${project}`);
       if (response.data.length === 0) {
-        setErrorMessage("No se encontraron jueces disponibles");
         setJudges([]);
-        setRandomJudge(null);
+        setAlert({ type: 'danger', message: 'No se encontraron jueces disponibles', visible: true });
       } else {
         setJudges(response.data);
-        setErrorMessage("");
-        getRandomJudge(response.data);
+        // Select judge with lowest projectCount
+        const sortedJudges = response.data.sort((a, b) => a.projectCount - b.projectCount);
+        const selectedJudge = sortedJudges[0];
+
+        // Check if the selected judge's projectCount is 5 or higher
+        if (selectedJudge.projectCount >= 5) {
+          setAlert({ type: 'danger', message: 'No se encontraron jueces disponibles', visible: true });
+        } else {
+          // Assign the selected judge
+          await axios.post(`http://localhost:8000/Admin/assignProjectJudge`, {
+            judgeId: selectedJudge.id,
+            projectId: project
+          });
+          setAlert({ type: 'success', message: 'Juez asignado de forma exitosa!', visible: true });
+          // <------------- Refresh the page --------->
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000); // delay to allow the user to see the success message
+        }
       }
     } catch (error) {
-      console.error("Error fetching judges:", error);
-      setErrorMessage("Error fetching judges");
-      setJudges([]);
-      setRandomJudge(null);
+      console.error('Error fetching or assigning judge:', error);
+      setAlert({ type: 'danger', message: 'Error assigning judge. Please try again.', visible: true });
     }
-  };
-
-  const getRandomJudge = (judgesList) => {
-    if (judgesList && judgesList.length > 0) {
-      const newRandomJudge = judgesList[Math.floor(Math.random() * judgesList.length)];
-      setRandomJudge(newRandomJudge);
-    }
-  };
-
-  const handleAssignJudgeClick = () => {
-    fetchJudges();
   };
 
   return (
     <div className="judge-container">
-      {errorMessage ? (
-        <p className="error-message">{errorMessage}</p>
-      ) : randomJudge ? (
-        <div className="judge-info">
-          <h3>{randomJudge.name}</h3>
-          <img
-            src={`/${randomJudge.profileImg}`}
-            alt={randomJudge.name}
-            className="judge-image"
-          />
-        </div>
-      ) : (
-        <p className="not-assign-judge">No hay un juez asignado</p>
-      )}
+      {alert.visible && <div className={`alert alert-${alert.type}`}>{alert.message}</div>}
       <div className="assign-judge-button-container">
         <button className="btn btn-primary custom-primary-btn" onClick={handleAssignJudgeClick}>
           Automatico
         </button>
-
         <Link to={`/Admin/usuarios/jueces/${project}`} className="btn btn-primary">
           Manual
         </Link>

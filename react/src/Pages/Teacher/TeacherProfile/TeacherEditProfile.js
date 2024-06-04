@@ -70,10 +70,11 @@ export default function Perfil(){
                   name: nombre,
                   lastName: apellido,
               });
+              if(secAreas.length > 0){
                 await axios.put(`http://localhost:8000/areaperson/update`, {
                     id_person,
                     areas: secAreas.map(id_area => parseInt(id_area, 10)) // Convertir id_area a número si es necesario
-                });
+                });}
                 navigate("/perfil-profesor");
             } catch (error) {
                 console.error('Full error object:', error);

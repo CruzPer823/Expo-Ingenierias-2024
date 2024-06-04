@@ -36,14 +36,33 @@ function JudgeRow({ user }) {
         });
     };
 
+    // useEffect(() => {
+    //     if (projectId) {
+    //         axios.get(`http://localhost:8000/Admin/getProjectJudges`, {
+    //             params: { projectId }
+    //         })
+    //         .then(response => {
+    //             // Assuming response.data contains the list of judge IDs as strings
+    //             const judgeIds = response.data;
+    //             if (judgeIds.includes(user.id)) {
+    //                 setAssigned(true);
+    //             }
+    //         })
+    //         .catch(error => {
+    //             console.error('There was an error fetching the project judges:', error);
+    //         });
+    //     }
+    // }, [projectId, user.id]);
+
     useEffect(() => {
         if (projectId) {
             axios.get(`http://localhost:8000/Admin/getProjectJudges`, {
                 params: { projectId }
             })
             .then(response => {
-                // Assuming response.data contains the list of judge IDs as strings
-                const judgeIds = response.data;
+                // Assuming response.data contains the list of judge objects
+                const judges = response.data;
+                const judgeIds = judges.map(judge => judge.id); // Extracting judge IDs from the list of judges
                 if (judgeIds.includes(user.id)) {
                     setAssigned(true);
                 }
@@ -53,6 +72,7 @@ function JudgeRow({ user }) {
             });
         }
     }, [projectId, user.id]);
+    
 
     return (
         <>

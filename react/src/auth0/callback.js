@@ -18,6 +18,7 @@ function Callback() {
       return null; 
     }
 
+    
     //Verificar si es admin o no
     //Auht0 genera un id, en ese id va user.sub()
     //auth0|66539b1ce539b35aea94e74d
@@ -25,6 +26,7 @@ function Callback() {
 
     if (!isLoading && isAuthenticated && user) {
       const username = user.email.split('@')[0];
+
       const isStudent = /^[aA]\d{8}$/.test(username);
 
       if (isStudent) {

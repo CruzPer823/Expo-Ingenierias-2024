@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'; // Import useParams
 import axios from 'axios'; // Import axios
+
+import Loader from '../../Components/Loader/Loader';
 import Table from '../../Components/Table/Table';
 import NavigationBar from '../../Components/NavigationBar/Admin/NavigationBar';
 
@@ -26,8 +28,15 @@ function Judges() {
     }, [projectId]); // Add projectId to dependency array
 
     if (loading) {
-        return <div>Loading...</div>;
-    }
+        return (
+        <>
+          <NavigationBar NameSection={"Proyecto"} />
+          <div style={{display:'flex', justifyContent:'center'}}>
+          <Loader/>
+          </div>
+          </>
+        );
+      }
 
     if (error) {
         return <div>Error: {error}</div>;

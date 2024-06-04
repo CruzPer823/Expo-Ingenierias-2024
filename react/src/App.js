@@ -67,16 +67,7 @@ import Rubrica from './Pages/Juez/Rubrica';
 import Callback from './auth0/callback.js';
 import ProtectedRoute from './auth0/protect.js';
 
-const getCurrentDate = () => {
-  const now = new Date();
-  const options = { day: 'numeric', month: 'long' }; // Opciones para formatear la fecha
-  return now.toLocaleDateString('es-ES', options);
-};
-const isDateEqualOrAfter = (specificDate) => {
-  const now = new Date();
-  const targetDate = new Date(specificDate);
-  return now >= targetDate;
-};
+
 
 function App() {
   // const location = useLocation(); // Get current location
@@ -87,26 +78,7 @@ function App() {
   //   setPageTitle(getTitle(location.pathname));
   // }, [location.pathname]);
 
-  const [currentDate, setCurrentDate] = useState(getCurrentDate());
-  const [isTargetDateReached, setIsTargetDateReached] = useState(false);
-  let constancia;
-
-
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setIsTargetDateReached(isDateEqualOrAfter('2024-05-25'));
-    }, 1000);
-
-    return () => clearInterval(intervalId);
-  }, []);
-
-  if(isTargetDateReached == true){
-    constancia = "True";
-  }
-  else{
-    constancia = "False";
-  }
+  
   
   return (
     <>
@@ -124,7 +96,7 @@ function App() {
               <Route path="/Registro-usuario" element={<ProtectedRoute requiredRole="teacher"><FormUser /></ProtectedRoute>} />
               <Route path="/Registro-inicio" element={<ProtectedRoute requiredRole="teacher"><UserRegisterCont /></ProtectedRoute>} />
               <Route path="/anuncios-profesor" element={<ProtectedRoute requiredRole="teacher"><AnunciosTeacher /></ProtectedRoute>} />
-              <Route path="/constancia-profesor" element={<ProtectedRoute requiredRole="teacher"><ConstanciaTeacher ConstCheck={"True"} /></ProtectedRoute>} />
+              <Route path="/constancia-profesor" element={<ProtectedRoute requiredRole="teacher"><ConstanciaTeacher/></ProtectedRoute>} />
               <Route path="/perfil-profesor" element={<ProtectedRoute requiredRole="teacher"><Perfil /></ProtectedRoute>} />
               <Route path="/announ-teacher/:id_announ" element={<ProtectedRoute requiredRole="teacher"><TeacherAnoDet /></ProtectedRoute>} />
               <Route path="/editar-perfil-profesor" element={<ProtectedRoute requiredRole="teacher"><EditPerfilTeacher /></ProtectedRoute>} />
@@ -134,7 +106,7 @@ function App() {
               <Route path="/registro-proyecto" element={<ProtectedRoute requiredRole="student"><ProjectRegister /></ProtectedRoute>} />
               <Route path="/resumen-proyecto-estudiante/:id_project" element={<ProtectedRoute requiredRole="student"><ProjectResumen /></ProtectedRoute>} />
               <Route path="/anuncio-estudiante" element={<ProtectedRoute requiredRole="student"><AnunciosStudent /></ProtectedRoute>} />
-              <Route path="/constancia-estudiante" element={<ProtectedRoute requiredRole="student"><StudentCertificate ConstCheck={constancia} /></ProtectedRoute>} />
+              <Route path="/constancia-estudiante" element={<ProtectedRoute requiredRole="student"><StudentCertificate/></ProtectedRoute>} />
               <Route path="/extramaterial/:id_project" element={<ProtectedRoute requiredRole="student"><MaterialExtra ProjCheck={"True"}/></ProtectedRoute>} />
               <Route path="/mapa" element={<ProtectedRoute requiredRole="student"><StudentMap /></ProtectedRoute>} />
               <Route path="/principal-estudiante" element={<ProtectedRoute requiredRole="student"><ProjSelection/></ProtectedRoute>} />
