@@ -146,7 +146,7 @@ export default function AnnounCont() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch(URL)
+    fetch(URL+'students')
       .then((res) => res.json())
       .then((data) => {
         setAllAnnouncements(data);

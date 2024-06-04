@@ -1,5 +1,5 @@
 import express from 'express'
-import { getAllAnnouns, getAnnoun, createReadAnnounStudents, countReadAnnouncementsStudents,createReadAnnounPerson, countReadAnnouncementsPerson } from '../controllers/AnnounController.js'
+import { getAllAnnouns, getAnnoun, createReadAnnounStudents, countReadAnnouncementsStudents,createReadAnnounPerson, countReadAnnouncementsPerson, getAllAnnounsStudents, getAllAnnounsPerson } from '../controllers/AnnounController.js'
 
 const router = express.Router()
 
@@ -9,7 +9,12 @@ router.get('/announs/:id', getAnnoun);
 
 router.get('/', getAllAnnouns);
 
-router.get('/:id', getAnnoun);
+router.get('/detailed/:id', getAnnoun);
+
+
+router.get('/students', getAllAnnounsStudents);
+router.get('/person', getAllAnnounsPerson);
+
 
 router.post('/readAnnounceStudent', createReadAnnounStudents)
 

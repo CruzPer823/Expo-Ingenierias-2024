@@ -95,7 +95,7 @@ function AnnounTitle({ TituloDetailed, Fecha, isLoaded }) {
     console.log(id_announ);
   
     useEffect(() => {
-      fetch('http://localhost:8000/announ/' + id_announ)
+      fetch('http://localhost:8000/announ/detailed/' + id_announ)
         .then((res) => res.json())
         .then((data) => {
           setAnnounDet(data);

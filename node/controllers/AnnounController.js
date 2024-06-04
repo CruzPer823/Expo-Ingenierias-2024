@@ -33,6 +33,34 @@ export const getAnnoun = async (req, res) => {
     }
 }
 
+export const getAllAnnounsStudents = async (req, res) => {
+    try {
+        const announs = await AnnounModel.findAll({
+            where: {audience: 'students'},
+            order: [
+                ['id','DESC'] // Orden ascendente por id
+            ]
+        });
+        res.json(announs)
+    } catch (error) {
+        res.json( {message: error.message} )
+    }
+}
+
+export const getAllAnnounsPerson = async (req, res) => {
+    try {
+        const announs = await AnnounModel.findAll({
+            where: {audience: 'teachers'},
+            order: [
+                ['id','DESC'] // Orden ascendente por id
+            ]
+        });
+        res.json(announs)
+    } catch (error) {
+        res.json( {message: error.message} )
+    }
+}
+
 
 //Create Announ read student
 export const createReadAnnounStudents = async (req, res) => {
@@ -61,7 +89,9 @@ export const countReadAnnouncementsStudents = async (req, res) => {
 
         const { id_student } = req.params; // Suponiendo que estás pasando el ID del estudiante como parámetro en la URL
 
-        const allAnnoun = await AnnounModel.count();
+        const allAnnoun = await AnnounModel.count(
+            {where: {audience: 'students'}}
+        );
 
         // Realiza la consulta de conteo
         const countRead = await AnnounceReadStudentModel.count({
@@ -102,7 +132,9 @@ export const countReadAnnouncementsPerson = async (req, res) => {
 
         const { id_person } = req.params; // Suponiendo que estás pasando el ID del estudiante como parámetro en la URL
 
-        const allAnnoun = await AnnounModel.count();
+        const allAnnoun = await AnnounModel.count(
+            {where: {audience: 'teachers'}}
+        );
 
         // Realiza la consulta de conteo
         const countRead = await AnnounceReadPersonModel.count({
