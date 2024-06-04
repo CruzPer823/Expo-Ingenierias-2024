@@ -8,6 +8,8 @@ import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import Modal from 'react-bootstrap/Modal';
 import './ProjRegister.css';
 
+import Placeholder from 'react-bootstrap/Placeholder';
+
 import { useAuth0 } from '@auth0/auth0-react';
 
 import { Link } from 'react-router-dom';
@@ -121,27 +123,93 @@ return (
   );
 }
 
+function tieneInformacion(variable) {
+  if (variable === null || variable === undefined || Object.keys(variable).length === 0) {
+      return false;
+  }
+
+  if (typeof variable === 'string' && variable.trim() === '') {
+      return false;
+  }
+
+  if (Array.isArray(variable) && variable.length === 0) {
+      return false;
+  }
+
+  if (typeof variable === 'number' && isNaN(variable)) {
+      return false;
+  }
+
+  return true;
+}
+
 function AreaButtons({setArea, areas}) {
   return (
-    <ToggleButtonGroup type="radio" name="options" defaultValue={1} className='d-flex  align-items-center justify-content-between w-100'>
-      {areas.map(area => (
-          <ToggleButton id={"tbg-radio" + area.id} value={area.id} onChange={(e)=> setArea(e.target.value)} className='ButtonMaterials w-100'>
-                {area.name}
-          </ToggleButton>
-      ))}
-    </ToggleButtonGroup>
+    <>
+    {!tieneInformacion(areas) ? (
+      <>
+        <ToggleButtonGroup type="radio" name="options" defaultValue={1} className='d-flex  align-items-center justify-content-between w-100'>
+    
+              <ToggleButton className='ButtonMaterials w-100'>
+                    <Placeholder animation="glow" className="w-100 mb-1"><Placeholder xs={9} bg="Dark" size="lg" /></Placeholder>
+              </ToggleButton>
+                            <ToggleButton className='ButtonMaterials w-100'>
+                    <Placeholder animation="glow" className="w-100 mb-1"><Placeholder xs={9} bg="Dark" size="lg" /></Placeholder>
+              </ToggleButton>
+                            <ToggleButton className='ButtonMaterials w-100'>
+                    <Placeholder animation="glow" className="w-100 mb-1"><Placeholder xs={9} bg="Dark" size="lg" /></Placeholder>
+              </ToggleButton>
+    
+        </ToggleButtonGroup>  
+      </>
+    ) : (
+      <>
+        <ToggleButtonGroup type="radio" name="options" defaultValue={1} className='d-flex  align-items-center justify-content-between w-100'>
+          {areas.map(area => (
+              <ToggleButton id={"tbg-radio" + area.id} value={area.id} onChange={(e)=> setArea(e.target.value)} className='ButtonMaterials w-100'>
+                    {area.name}
+              </ToggleButton>
+          ))}
+        </ToggleButtonGroup>  
+      </>
+    )}  
+    </>
+
   );
 }
 
 function CategoryButtons({setCategory, categories}) {
   return (
-    <ToggleButtonGroup type="radio" name="options1" defaultValue={1} className='d-flex justify-content-between w-100'>
-      {categories.map(category => (
-        <ToggleButton id={"tbg-radio-"+ category.id + ".1"} value={category.id} onChange={(e)=> setCategory(e.target.value)}  className='ButtonMaterials w-100'>
-          {category.title}
-        </ToggleButton>
-      ))}
-    </ToggleButtonGroup>
+    <>
+    {!tieneInformacion(categories) ? (
+      <>
+        <ToggleButtonGroup type="radio" name="options" defaultValue={1} className='d-flex  align-items-center justify-content-between w-100'>
+            
+            <ToggleButton className='ButtonMaterials w-100'>
+                  <Placeholder animation="glow" className="w-100 mb-1"><Placeholder xs={9} bg="Dark" size="lg" /></Placeholder>
+            </ToggleButton>
+                          <ToggleButton className='ButtonMaterials w-100'>
+                  <Placeholder animation="glow" className="w-100 mb-1"><Placeholder xs={9} bg="Dark" size="lg" /></Placeholder>
+            </ToggleButton>
+                          <ToggleButton className='ButtonMaterials w-100'>
+                  <Placeholder animation="glow" className="w-100 mb-1"><Placeholder xs={9} bg="Dark" size="lg" /></Placeholder>
+            </ToggleButton>
+
+        </ToggleButtonGroup> 
+      </>
+    ) : (
+      <>
+        <ToggleButtonGroup type="radio" name="options1" defaultValue={1} className='d-flex justify-content-between w-100'>
+          {categories.map(category => (
+            <ToggleButton id={"tbg-radio-"+ category.id + ".1"} value={category.id} onChange={(e)=> setCategory(e.target.value)}  className='ButtonMaterials w-100'>
+              {category.title}
+            </ToggleButton>
+          ))}
+        </ToggleButtonGroup>      
+      </>
+    )}
+    </>
+
   );
 }
 
