@@ -53,7 +53,7 @@ function AnnounInfo({ announ, isLoading }) {
 
   const handleAnnounceClick = async () => {
     try {
-      await axios.post(URL+'readAnnounce', {
+      await axios.post(URL+'readAnnounceStudent', {
         id_student: user.sub,
         id_announce: announ.id
       });

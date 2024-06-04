@@ -1,5 +1,5 @@
 import express from 'express'
-import { getAllAnnouns, getAnnoun, createReadAnnoun, countReadAnnouncements } from '../controllers/AnnounController.js'
+import { getAllAnnouns, getAnnoun, createReadAnnounStudents, countReadAnnouncementsStudents,createReadAnnounPerson, countReadAnnouncementsPerson } from '../controllers/AnnounController.js'
 
 const router = express.Router()
 
@@ -11,8 +11,13 @@ router.get('/', getAllAnnouns);
 
 router.get('/:id', getAnnoun);
 
-router.post('/readAnnounce', createReadAnnoun)
+router.post('/readAnnounceStudent', createReadAnnounStudents)
 
-router.get('/countReadAnnouncements/:id_student', countReadAnnouncements)
+router.get('/countReadAnnouncementsStudent/:id_student', countReadAnnouncementsStudents)
+
+
+router.post('/readAnnouncePerson', createReadAnnounPerson)
+
+router.get('/countReadAnnouncementsPerson/:id_person', countReadAnnouncementsPerson)
 
 export default router;

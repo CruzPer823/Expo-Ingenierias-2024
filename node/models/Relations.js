@@ -183,6 +183,17 @@ AnnounModel.belongsToMany(StudentModel,{
         foreignKey: 'id_announce'
 });
 
+PersonModel.belongsToMany(AnnounModel,{
+        through: 'announ_read_person',
+        foreignKey: 'id_person'
+});
+
+AnnounModel.belongsToMany(PersonModel,{
+        through: 'announ_read_person',
+        foreignKey: 'id_announce'
+});
+
+
 
 
 export {

@@ -14,7 +14,7 @@ import { useParams } from "react-router-dom";
 
 const URL = 'http://localhost:8000/students/'
 
-const URLAnnoun = 'http://localhost:8000/announ/countReadAnnouncements/'
+const URLAnnoun = 'http://localhost:8000/announ/countReadAnnouncementsStudent/'
 
 
 const LogoutButton = () => {
