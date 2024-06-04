@@ -167,11 +167,11 @@ export default function AnnounCont() {
         <Menu NameSecProf={"Anuncios"}></Menu>
         <div className='container-fluid mt-3 p-3'>
           <div className='row p-3 ContainerAnnoun'>
-            <AnnounSearch handleSearch={handleSearch} />
+            <AnnounSearch handleSearch={handleSearch} isLoading={isLoading} />
           </div>
   
           <div className='row p-3 mt-4 ContainerAnnoun'>
-            <AnnounInfoCont announcements={filteredAnnouncements} />
+            <AnnounInfoCont announcements={filteredAnnouncements} isLoading={isLoading} />
           </div>
         </div>
       </>
