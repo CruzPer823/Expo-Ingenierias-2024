@@ -67,7 +67,7 @@ function ToggleBarStudent({SectionName}) {
         });
 
     }, [id_student]);
-
+    
     useEffect(() => {
       //fetch(URL+id_student)
       fetch(URLAnnoun + user.sub)

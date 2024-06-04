@@ -5,7 +5,11 @@ import { Link } from 'react-router-dom';
 
 import './TeacherAdvertisements.css'
 import Menu from '../../../Components/Togglebar/togglebar.js';
+import axios from 'axios';
 
+const URL = 'http://localhost:8000/announ/';
+
+import { useAuth0 } from '@auth0/auth0-react';
 
 function AnnounSearch({ handleSearch }) {
   const handleChange = (e) => {
@@ -33,6 +37,20 @@ function AnnounInfo({ announ, isLoading }) {
     return text.slice(0, limit) + '...';
   };
 
+  const {  user } = useAuth0();
+
+  
+  const handleAnnounceClick = async () => {
+    try {
+      await axios.post(URL+'readAnnouncePerson', {
+        id_person: user.sub,
+        id_announce: announ.id
+      });
+    } catch (error) {
+      console.error('Error marking announce as read', error);
+    }
+  };
+
   return (
     <>
       {isLoading ? (
@@ -58,7 +76,7 @@ function AnnounInfo({ announ, isLoading }) {
         </>
       ) : (
         <>
-        <Link to={`/announ-teacher/${announ.id}`} className='row m-3 p-2 AnnounInfoContainer d-flex align-items-center'>
+        <Link to={`/announ-teacher/${announ.id}`} className='row m-3 p-2 AnnounInfoContainer d-flex align-items-center' onClick={handleAnnounceClick}>
           <div className='col-3 d-flex align-items-center'>
             <i className='bi bi-envelope-fill AnnounIcon'></i>
             <span className='Titulo'> {announ.title}</span>
@@ -96,7 +114,7 @@ export default function AnnounCont() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:8000/announ/')
+    fetch(URL)
       .then((res) => res.json())
       .then((data) => {
         setAllAnnouncements(data);

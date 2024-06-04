@@ -11,6 +11,8 @@ import { Link} from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 
 
+const URLAnnoun = 'http://localhost:8000/announ/countReadAnnouncementsPerson/'
+
 const LogoutButton = () => {
   const { logout } = useAuth0();
 
@@ -38,9 +40,10 @@ function ToggleBar({SectionName}) {
 })
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
   const { isAuthenticated, isLoading, error, user } = useAuth0();
 
-  const [unreadCount, setUnreadCount] = useState(9);
+  const [unreadCount, setUnreadCount] = useState(0);
   useEffect(() => {
     // Verificación inicial
     if (!user || !user.sub) {
@@ -65,6 +68,18 @@ function ToggleBar({SectionName}) {
 
     fetchData();
 }, [user]); // Dependencias del useEffect
+
+
+  useEffect(() => {
+    fetch(URLAnnoun + user.sub)
+      .then((res) => res.json())
+      .then((data) => {
+        setUnreadCount(data.countsAnnoun);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
 
 
   return (

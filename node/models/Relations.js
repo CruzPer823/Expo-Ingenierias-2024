@@ -21,6 +21,7 @@ import JudgeProjectModel from "./JudgeProjectModel.js";
 import TeamMemberModel from "./TeamMemberModel.js";
 import AnnounModel from "./AnnounModel.js";
 import AnnounceReadStudentModel from "./AnnounceReadStudentModel.js";
+import AnnounceReadPersonModel from "./AnnounceReadPersonModel.js";
 
 TeamModel.belongsTo(ProjectModel, { foreignKey: 'id_project', as: 'project' });
 ProjectModel.hasOne(TeamModel, {foreignKey: 'id_project'});
@@ -219,5 +220,6 @@ export {
         JudgeProjectModel,
         TeamMemberModel,
         AnnounModel,
-        AnnounceReadStudentModel
+        AnnounceReadStudentModel,
+        AnnounceReadPersonModel
 };

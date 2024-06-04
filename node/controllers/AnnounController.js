@@ -1,5 +1,5 @@
 
-import {AnnounModel, StudentModel, AnnounceReadStudentModel, PersonModel} from "../models/Relations.js";
+import {AnnounModel, StudentModel, AnnounceReadStudentModel, PersonModel, AnnounceReadPersonModel} from "../models/Relations.js";
 
 export const getAllAnnouns = async (req, res) => {
     try {
@@ -100,15 +100,13 @@ export const createReadAnnounPerson = async (req, res) => {
 export const countReadAnnouncementsPerson = async (req, res) => {
     try {
 
-
-
         const { id_person } = req.params; // Suponiendo que estás pasando el ID del estudiante como parámetro en la URL
 
         const allAnnoun = await AnnounModel.count();
 
         // Realiza la consulta de conteo
-        const countRead = await AnnounceReadStudentModel.count({
-            where: { id_student }
+        const countRead = await AnnounceReadPersonModel.count({
+            where: { id_person }
         });
 
         let countsAnnoun = allAnnoun - countRead;
