@@ -102,7 +102,7 @@ function CardCalif() {
                 <div className='col-auto p-3'>
 
                     <div className="card cardconst mb-1 me-0">
-                        <div className="imag ConstanciaCardPhoto">
+                        <div className="imagConstancias ConstanciaCardPhoto">
                                     
                         </div>
 

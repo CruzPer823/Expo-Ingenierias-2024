@@ -263,3 +263,50 @@
 .ColorNohayProyectoprofe{
   color: #aeaeae;
 }
+
+@media (max-width: 768px) {
+  .BGResume-profesor{
+    background-color: #0C356A;
+    background-size: cover; 
+    background-position: center;
+    border-radius: 5px;
+    height:430px;
+  }
+
+  .prof-titulo-h1{
+    font-size: 45px;
+    color: #fff;
+    margin-top: 0 !important;
+  }
+
+  .prof-titulo-h3-2{
+    font-size: 48px;
+    background-color: #406eaa;
+    padding: 5px;
+  
+    border-radius: 15px;
+  }
+
+  .EliminarHMrgin{
+    margin-top: 0 !important;
+  }
+
+  .cardProf {
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+    width: 295px;
+    height: 400px;
+  
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+  }
+
+  .AnchoImagenCkase{
+
+      width: 100%;
+
+  }
+
+  .MarginPhone{
+    margin-top: 15px;
+  }
+}

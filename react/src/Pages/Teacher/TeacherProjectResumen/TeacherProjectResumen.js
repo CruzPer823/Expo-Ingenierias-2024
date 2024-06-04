@@ -33,7 +33,7 @@ function InfoProj({ lead, members, status, IsLoaded }) {
     return (
         <div className='col-md-3'>
             <div className="Info m-4 p-4">
-                <h1 className="Titulo text-break">Información del proyecto</h1>
+                <h1 className="Titulo text-break EliminarHMrgin">Información del proyecto</h1>
                 <div className='container-fluid p-1'>
                     <div className="row pb-3">
                         <div className='col-md-auto pe-0'>
@@ -108,10 +108,10 @@ function ProjResume({ type, area, title, IsLoaded }) {
             ) : (
                 <div className="container-fluid BGResumeTeacher w-100" style={{ backgroundImage: `url(${imagenes[type]})` }}>
                     <div className="row p-2 BGBar">
-                        <div className="col proj-sub-bold text-start"><span className='gemelo'>Tipo de proyecto: {type}</span></div>
-                        <div className="col proj-sub-bold text-end"><span className='gemelo'>{area}</span></div>
+                        <div className="col-auto proj-sub-bold text-start"><span className='gemelo'>Tipo de proyecto: {type}</span></div>
+                        <div className="col-auto proj-sub-bold text-end"><span className='gemelo'>{area}</span></div>
                     </div>
-                    <div className='me-4 ms-4 mb-4 pb-3 pe-3 ps-3 mt-4'>
+                    <div className='me-4 ms-4 mb-1 pb-3 pe-3 ps-3 mt-4'>
                         <div className="container-fluid">
                             <div className="row">
                                 <div className="col-xxl-12 proj-tit wrap"><span className='text-break'>{title}</span></div>
@@ -249,7 +249,7 @@ export default function ProjResumeCont() {
                   <div className='row m-2 align-items-center'>
                       <div className="col-md-1"></div>
                       <div className='col-12 col-md-10'>
-                          <div className="Infologo m-auto p-4">
+                          <div className="Infologo InfologoNuevoHeig m-auto p-4">
                               <div className='row'>
                                   <div className='col-12 col-md-8'>
                                       <div className="row d-flex">
@@ -333,11 +333,11 @@ export default function ProjResumeCont() {
                   <div className='row m-2 justify-content-between'>
                       <div className="col-md-1"></div>
                       <div className='col-12 col-md-10'>
-                          <div className="Infologo m-auto p-4">
+                          <div className="Infologo InfologoComment m-auto p-4">
                               <div className='container-fluid'>
                                   <div className='row align-items-center'>
                                       <div className="col-md-12">
-                                          <h1 className="Titulo text-break">Comentarios del profesor </h1>
+                                          <h1 className="Titulo text-break EliminarHMrgin">Comentarios del profesor </h1>
                                           <div className='container-fluid p-1'>
                                               <Form.Control as="textarea" rows="5" id="comentarioProfe" value={comment} onChange={(e) => setComment(e.target.value)} />
                                           </div>

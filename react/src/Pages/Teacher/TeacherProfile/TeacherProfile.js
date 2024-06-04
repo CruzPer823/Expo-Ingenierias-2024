@@ -199,6 +199,7 @@ export default function Perfil(){
 });
     const {user} = useAuth0();
     const navigate = useNavigate();
+    const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 768);    
     useEffect(() => {
       if (user && user.sub) {
           async function fetchData() {
@@ -221,6 +222,13 @@ export default function Perfil(){
 
           fetchData();
       }
+
+      const handleResize = () => {
+        setIsLargeScreen(window.innerWidth > 768);
+      };
+  
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
   }, [user]);// Dependencias del useEffect
   const tieneInformacion = (areaperson) => {
     return Array.isArray(areaperson) && areaperson.length > 0;
@@ -231,12 +239,12 @@ export default function Perfil(){
         return (
             <>
               <Menu />
-              <div className='container-fluid m-5 perfil cont-principal mx-auto'>
+              <div className='container-fluid m-5 perfil cont-principal-profile-profe mx-auto'>
                 <div className='row p-2'>
                   <i className="bi bi-person-circle icon-p"></i>
                 </div>
                 <div className='row p-2'>
-                  <div className='col-md-12'>
+                  <div className='col-md-12 QuitarH textSizeForProfile'>
                     <h1>Perfil</h1>
                   </div>
                 </div>
@@ -265,14 +273,31 @@ export default function Perfil(){
 
            )}
 
-                <div className='row p-2'>
-                    <div className='col-12 col-md-6 mb-4 d-flex justify-content-end'>
-                      <Link to='/editar-perfil-profesor' className='custom-btn-edit'>Editar Perfil</Link>
+            {isLargeScreen ? (
+                <>
+                    <div className='row p-2'>
+                        <div className='col-12 col-md-6 mb-4 d-flex justify-content-end'>
+                        <Link to='/editar-perfil-profesor' className='custom-btn-edit'>Editar Perfil</Link>
+                        </div>
+                        <div className='col-12 col-md-6 mb-4 d-flex justify-content-start'>
+                            <SimpleModal />
+                        </div>
                     </div>
-                <div className='col-12 col-md-6 mb-4 d-flex justify-content-start'>
-                    <SimpleModal />
-                </div>
-                </div>
+                </>
+            ) : (
+                <>
+                    <div className='row p-1'>
+                        <div className='col-12 d-flex justify-content-center'>
+                            <Link to='/editar-perfil-profesor' className='custom-btn-edit'>Editar Perfil</Link>
+                        </div>
+                    </div>
+                    <div className='row p-1'>
+                        <div className='col-12 mb-2 d-flex justify-content-center'>
+                            <SimpleModal />
+                        </div>
+                    </div>
+                </>
+            )}
 
               </div>
             </>
