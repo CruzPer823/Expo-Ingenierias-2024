@@ -138,7 +138,7 @@ function Resumeteacher({ Total, revisados, faltantes, progreso, IsLoaded }) {
     return (
         <div className='col-md-3'>
             <div className="Info m-4 p-4">
-                <h1 className="Titulo text-break">Control de revisión</h1>
+                <h1 className="Titulo text-break EliminarHMrgin">Control de revisión</h1>
                 <div className='container-fluid p-1'>
                     <div className="row pb-3">
                         <div className='col-md-auto pe-0'>
@@ -285,26 +285,26 @@ export default function Hometeacher() {
             <ToggleBar NameSecProf={"Inicio"} />
             <div className='container-fluid centered-container'>
                 <div className='container-fluid'>
-                    <div className='row d-flex justify-content-between'>
+                    <div className='row d-flex justify-content-center'>
                         <div className="col-md-1"></div>
                         <ProjResume IsLoaded={IsLoaded} horas={timer} profesor={"Sarai Santiago"}></ProjResume>
                         <Resumeteacher IsLoaded={IsLoaded} Total={projects.length} revisados={rev.length} faltantes={falt.length} progreso={porcentaje + '%'}></Resumeteacher>
                         <div className="col-md-1"></div>
-                        <div className='row d-flex justify-content-between align-items-center'>
+                        <div className='row d-flex MarginPhone justify-content-between align-items-center'>
                             <div className="col-md-1"></div>
                             <div className="col-md-10 ">
-                                <div className='container-fluid' id="imgfondo">
+                                <div className='container-fluid AnchoImagenCkase' id="imgfondo">
                                     <h3 className="Titulo ps-3 pb-0 pt-3 mb-0">Proyectos Que faltan de revisar</h3>
                                     <HorizontalSlider data={falt} IsLoaded={IsLoaded} />
                                 </div>
                             </div>
                             <div className="col-md-1"></div>
                         </div>
-                        <div className='row d-flex justify-content-between align-items-center'>
+                        <div className='row d-flex MarginPhone justify-content-between align-items-center'>
                             <div className="col-md-1"></div>
                             <div className="col-md-10 ">
-                                <div className='container-fluid mb-3' id="imgfondo">
-                                    <h3 className="Titulo ps-3 pb-0 mb-0">Proyectos Revisados</h3>
+                                <div className='container-fluid mb-3 AnchoImagenCkase' id="imgfondo">
+                                    <h3 className="Titulo pt-3 ps-3 pb-0 mb-0">Proyectos Revisados</h3>
                                     <HorizontalSlider data={rev} IsLoaded={IsLoaded} />
                                 </div>
                             </div>

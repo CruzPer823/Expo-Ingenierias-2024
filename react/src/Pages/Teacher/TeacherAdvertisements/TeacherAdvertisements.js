@@ -33,6 +33,17 @@ function AnnounInfo({ announ, isLoading }) {
     return text.slice(0, limit) + '...';
   };
 
+  const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLargeScreen(window.innerWidth > 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <>
       {isLoading ? (
@@ -59,16 +70,33 @@ function AnnounInfo({ announ, isLoading }) {
       ) : (
         <>
         <Link to={`/announ-teacher/${announ.id}`} className='row m-3 p-2 AnnounInfoContainer d-flex align-items-center'>
-          <div className='col-3 d-flex align-items-center'>
-            <i className='bi bi-envelope-fill AnnounIcon'></i>
-            <span className='Titulo'> {announ.title}</span>
-          </div>
-          <div className='col-7 d-flex align-items-center'>
-            <span className='TextoAnnoun'>{truncatedText(announ.description, 100)}</span>
-          </div>
-          <div className='col-2 text-end'>
-            <span className='Subtitulo text-wrap'>{announ.createdAt && announ.createdAt.substring(0, 10)}</span>
-          </div>
+        {isLargeScreen ? (
+          <>
+            <div className='col-3 d-flex align-items-center'>
+              <i className='bi bi-envelope-fill AnnounIcon'></i>
+              <span className='Titulo'> {announ.title}</span>
+            </div>
+            <div className='col-7 d-flex align-items-center'>
+              <span className='TextoAnnoun'>{truncatedText(announ.description, 100)}</span>
+            </div>
+            <div className='col-2 text-end'>
+              <span className='Subtitulo text-wrap'>{announ.createdAt && announ.createdAt.substring(0, 10)}</span>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className='row-3 d-flex align-items-center'>
+              <i className='bi bi-envelope-fill AnnounIcon'></i>
+              <span className='Titulo'> {announ.title}</span>
+            </div>
+            <div className='row-7 d-flex align-items-center'>
+              <span className='TextoAnnoun'>{truncatedText(announ.description, 100)}</span>
+            </div>
+            <div className='row-2 text-end'>
+              <span className='Subtitulo text-wrap'>{announ.createdAt && announ.createdAt.substring(0, 10)}</span>
+            </div>
+          </>
+        )}
         </Link>
         </>
       )}

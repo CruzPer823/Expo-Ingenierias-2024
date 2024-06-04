@@ -1,6 +1,6 @@
-.cont-principal{
+.cont-principal-perfil-estudiante{
     background-color: white;
-    width: 70% !important;
+    width: 45% !important;
     height: auto;
     border-radius: 30px;
 }
@@ -31,13 +31,13 @@
     .perfil h3{
         font-weight: bold;
         color: #0C356A;
-        text-align: start;
+        text-align: start !important;
     }
 
-    .cont-principal{
+    .cont-principal-perfil-estudiante{
         background-color: white;
-        width: 75% !important;
-        height: 530px !important;
+        width: 85% !important;
+        height: 555px !important;
         height: auto;
         border-radius: 30px;
     }
