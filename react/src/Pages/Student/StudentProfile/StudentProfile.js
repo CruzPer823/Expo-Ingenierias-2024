@@ -4,7 +4,7 @@ import Placeholder from 'react-bootstrap/Placeholder';
 
 import Menu from '../../../Components/TogglebarStudent/togglebarStudent.js';
 import './StudentProfile.css';
-
+import { Link} from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 
@@ -63,6 +63,12 @@ function Datos({name,email,type,id,IsLoaded}){
                                     <span>{type}</span>
                                 </div>
                             </div>
+                            <div className='row p-2'>
+                            <div className='col-12 col-md-12 mb-4 d-flex justify-content-center'>
+                                <Link to='/editar-perfil-estudiante' className='custom-btn-edit'>Editar Perfil</Link>
+                            </div>
+                        </div>
+
                         </>
                     ) : (
                         <>
@@ -126,6 +132,7 @@ function Datos({name,email,type,id,IsLoaded}){
                                     </div>                                    
                                 </div>
                             </div>
+                            
                         </>
                     )}
                 </>
@@ -173,6 +180,7 @@ function Datos({name,email,type,id,IsLoaded}){
                             </Placeholder>
                         </div>
                     </div>
+    
                 </>
             )}
 

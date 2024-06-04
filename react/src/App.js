@@ -30,6 +30,7 @@ import ProjSelection from './Pages/Student/ProjectSelection/ProjSelection.js';
 import ProjectEdition from './Pages/Student/ProjectEdition/ProjEdition.js';
 import StudentAnnounDet from './Pages/Student/Announcement/DetailedAnnoun.js'
 import StudentProfile from './Pages/Student/StudentProfile/StudentProfile.js';
+import EditPerfilStudent from './Pages/Student/StudentProfile/StudentEditProfile.js'
 //import { BrowserRouter as useLocation } from 'react-router-dom';
 
 // Admin
@@ -139,6 +140,7 @@ function App() {
               <Route path="/principal-estudiante" element={<ProtectedRoute requiredRole="student"><ProjSelection/></ProtectedRoute>} />
               <Route path='/EditProject/:id_project' element={<ProtectedRoute requiredRole="student"><ProjectEdition /></ProtectedRoute>} />
               <Route path='/student-profile/' element={<ProtectedRoute requiredRole="student"><StudentProfile /></ProtectedRoute>} />
+              <Route path='/editar-perfil-estudiante' element={<ProtectedRoute requiredRole="student"><EditPerfilStudent /></ProtectedRoute>} />
               <Route path="/Callback" element={<Callback />} />
 
               {/* Admin Routes */}

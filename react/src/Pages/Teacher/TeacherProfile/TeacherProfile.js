@@ -97,7 +97,7 @@ function SimpleModal() {
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Modal Heading</Modal.Title>
+                    <Modal.Title>Agregar Areas</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                 <div className='row p-2'>
