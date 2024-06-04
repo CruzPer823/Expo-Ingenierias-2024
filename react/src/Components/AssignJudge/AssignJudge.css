@@ -1,32 +1,34 @@
-.judge-container {
+/* .judge-container {
   text-align: center;
-}
+  margin-top: 10px;
+} */
 
-.judge-info {
+/* .judge-info {
   margin-bottom: 20px;
   color: gray;
-}
+} */
 
-.judge-image {
-  width: 200px; /* Adjust image size as needed */
-}
+/* .judge-image {
+  width: 200px; 
+} */
 
 .assign-button {
   display: block;
   margin: 0 auto;
 }
 
-.not-assign-judge {
+/* .not-assign-judge {
   color: gray;
   margin-bottom: 10px;
-}
+} */
 
-.error-message {
-  color: red; /* You can customize the color as needed */
+/* .error-message {
+  color: red; 
   margin-bottom: 10px;
-}
+} */
 
 .assign-judge-button-container {
   display: flex;
   gap: 10px; /* Adjust the gap as needed */
+  margin-top: 10px;
 }

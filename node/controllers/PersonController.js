@@ -1,6 +1,6 @@
 //importamos el Modelo
-import {ProjectModel, PersonModel, AreaModel, AreaPersonModel, AsessorProjectModel} from "../models/Relations.js"
-
+import {ProjectModel, PersonModel, AreaModel, AreaPersonModel, AsessorProjectModel, JudgeProjectModel} from "../models/Relations.js"
+import { Sequelize } from 'sequelize';
 
 //** Métodos para el CRUD **/
 
@@ -28,31 +28,51 @@ export const getAreaJudge = async (req, res) => {
         // Extract the person IDs from the assessorEntries
         const relatedPersonIds = assessorEntries.map(entry => entry.id_person);
 
-        // Find all judges for the given area
-        const judges = await PersonModel.findAll({
-            include: [{
-                model: AreaModel,
-                through: {
-                    model: AreaPersonModel,
-                    attributes: []
-                },
-                where: { id: areaId }
-            }],
-            where: { isJudge: 1 }
-        });
+        // Retrieve all person IDs already assigned to the project as judges
+    const assignedJudges = await JudgeProjectModel.findAll({
+        where: { id_project: project.id },
+        attributes: ['id_person']
+      });
+  
+      // Extract the person IDs from the assignedJudges
+      const assignedJudgeIds = assignedJudges.map(entry => entry.id_person);
+  
+      // Combine relatedPersonIds and assignedJudgeIds to exclude both from the list of judges
+      const excludedPersonIds = [...new Set([...relatedPersonIds, ...assignedJudgeIds])];
+  
+      // Find all judges for the given area
+      const judges = await PersonModel.findAll({
+        include: [{
+          model: AreaModel,
+          through: {
+            model: AreaPersonModel,
+            attributes: []
+          },
+          where: { id: areaId }
+        }],
+        where: { isJudge: 1 }
+      });
 
         if (judges.length === 0) {
             return res.status(404).json({ message: 'No judges found for the given area' });
         }
 
         // Filter out the project responsible and those related to the project from the list of judges
-        const filteredJudges = judges.filter(judge => judge.id !== id_responsable && !relatedPersonIds.includes(judge.id));
+    const filteredJudges = judges.filter(judge => judge.id !== id_responsable && !excludedPersonIds.includes(judge.id));
+
+        // Get the project counts for each judge
+        const judgeCounts = await getAllJudgeCounts();
+        const judgeCountsMap = judgeCounts.reduce((map, obj) => {
+            map[obj.id_person] = obj.dataValues.count;
+            return map;
+        }, {});
 
         // Map the judges to the desired format
         const formattedJudges = filteredJudges.map(judge => ({
             id: judge.id,
             name: judge.name,
             lastName: judge.lastName,
+            projectCount: judgeCountsMap[judge.id] || 0,
             profileImg: "user.png"
         }));
 
@@ -61,6 +81,25 @@ export const getAreaJudge = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+// Project Judge count - Reusable service function (Part of the judge assignment algorithm)
+
+const getAllJudgeCounts = async () => {
+    try {
+      const counts = await JudgeProjectModel.findAll({
+        attributes: [
+          'id_person',
+          [Sequelize.fn('COUNT', Sequelize.col('id_person')), 'count']
+        ],
+        group: ['id_person']
+      });
+      return counts;
+    } catch (error) {
+      console.error('Error counting judge appearances:', error);
+      throw error;
+    }
+};
+
 
 // Get all available judges excluding the project responsible and those already related to the project
 export const getAllJudges = async (req, res) => {

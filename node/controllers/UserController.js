@@ -65,7 +65,7 @@ export const getUsers = async (req, res) => {
 // New function to update user details
 export const updateUser = async (req, res) => {
   const { id } = req.params;
-  const { name, email, enrollment } = req.body;
+  const { name, lastName, email, enrollment } = req.body;
 
   try {
     // Find the user in the Person, Student, or Admin models
@@ -82,11 +82,8 @@ export const updateUser = async (req, res) => {
     }
 
     // Update the user's information
-    if (name) {
-      const [firstName, lastName] = name.split(' ');
-      user.name = firstName || user.name;
-      user.lastName = lastName || user.lastName;
-    }
+    user.name = name || user.name;
+    user.lastName = lastName || user.lastName;
     if (user.enrollment) { // Check if user is a student and enrollment is provided
       user.enrollment = enrollment;
     } else if (email) { // Update email for non-student users
@@ -124,7 +121,9 @@ export const getUserById = async (req, res) => {
 
     let userData = {
       id: user.id,
-      name: `${user.name} ${user.lastName}`,
+      // name: `${user.name} ${user.lastName}`,
+      name: user.name,
+      lastName: user.lastName
     };
 
     // Check if the user is a student and include enrollment if so

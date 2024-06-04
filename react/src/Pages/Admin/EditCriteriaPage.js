@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+import Loader from '../../Components/Loader/Loader';
 import NavigationBar from '../../Components/NavigationBar/Admin/NavigationBar';
 import ContentCard from '../../Components/ContentCard/ContentCard';
 import TextInput from '../../Components/TextInput/TextInput';
@@ -49,15 +50,24 @@ function EditCriteriaPage() {
                     'Content-Type': 'application/json'
                 }
             });
-            window.alert("Criteria updated successfully");
+            window.alert("Criterio actualizado de forma exitosa!");
             navigate('/Admin/rubrica'); // Navigate to the desired page after the alert
         } catch (err) {
-            window.alert(`Error updating criteria`);
+            window.alert(`No se pudo actualizar el criterio :(`);
             navigate('/Admin/rubrica'); // Navigate to the desired page after the alert
         }
     };
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) {
+        return (
+        <>
+          <NavigationBar NameSection={"Proyecto"} />
+          <div style={{display:'flex', justifyContent:'center'}}>
+          <Loader/>
+          </div>
+          </>
+        );
+      }
     if (error) return <p>Error: {error}</p>;
 
     return (
@@ -72,14 +82,14 @@ function EditCriteriaPage() {
                                 content={
                                     <>
                                         <TextInput
-                                            label="Description"
+                                            label="Descripción"
                                             name="description"
                                             value={criteria.description}
                                             onChange={handleChange}
                                             required
                                         />
                                         <TextInput
-                                            label="Weight"
+                                            label="Valor(%)"
                                             name="weight"
                                             value={criteria.weight}
                                             onChange={handleChange}
