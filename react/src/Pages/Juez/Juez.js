@@ -1,21 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+//import { useParams } from 'react-router-dom';
 import { Cardlist } from '../../Components/CardJuez/CardJuez';
 import Loader from '../../Components/Loader/Loader';
 import ToggleBar from '../../Components/Togglebar/togglebar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.min.css';
+import { useAuth0 } from '@auth0/auth0-react';
 
 function PageJuez() {
-  const { idpersona } = useParams();
+  //const { idpersona } = useParams();
   const [filterText, setFilterText] = useState("");
   const [projects, setProjects] = useState([]);
   const [categories, setCategories] = useState({});
   const [areas, setAreas] = useState({});
   const [loading, setLoading] = useState(true);
+  const { isAuthenticated, isLoading, error, user } = useAuth0();
 
   useEffect(() => {
-    fetch(`http://localhost:8000/Juez/fetchJudgeProject/${idpersona}`)
+    fetch(`http://localhost:8000/Juez/fetchJudgeProject/${user.sub}`)
       .then(response => response.json())
       .then(projectIds => {
         fetch('http://localhost:8000/Juez/fetchProjects')
@@ -56,7 +58,7 @@ function PageJuez() {
         setAreas(areaMap);
       })
       .catch(error => console.error('Error al obtener las áreas:', error));
-  }, [idpersona]);
+  }, [user]);
 
   function handleChange(e) {
   const searchText = e.target.value.toLowerCase();

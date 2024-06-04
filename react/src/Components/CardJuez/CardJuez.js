@@ -5,13 +5,14 @@ import 'bootstrap-icons/font/bootstrap-icons.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './Juez.css';
 import Badge from '../Badge/Badge.js';
+import { useAuth0 } from '@auth0/auth0-react';
 
 function CardCalif({ projectId, title, nivelDesarrollo, description, categoria, idpersona }) {
   const [status, setStatus] = useState('No calificado');
   const badgeClassName = status === 'No calificado' ? 'badge2' : 'badge3';
   const btnClassName = status === 'No calificado' ? 'btncalif' : 'btncalifdisable';
   const btnText = status === 'No calificado' ? 'Calificar' : 'Calificado';
-  const calificarLink = status === 'No calificado' ? `/Juez/${idpersona}/Calificar/${projectId}` : null;
+  const calificarLink = status === 'No calificado' ? `/Juez/Calificar/${projectId}` : null;
 
   useEffect(() => {
     const fetchCommentStatus = async () => {
@@ -66,7 +67,7 @@ function CardCalif({ projectId, title, nivelDesarrollo, description, categoria, 
           <Badge data={status} className={badgeClassName} />
         </div>
 
-        <Link to={`/Juez/${idpersona}/ProyectoJuez/${projectId}`} className="btn23">Ver Proyecto</Link>
+        <Link to={`/Juez/ProyectoJuez/${projectId}`} className="btn23">Ver Proyecto</Link>
 
         {calificarLink ? (
           <Link to={calificarLink} className={btnClassName}>{btnText}</Link>
@@ -82,11 +83,12 @@ export function Cardlist() {
   const [projects, setProjects] = useState([]);
   const [categories, setCategories] = useState({});
   const [areas, setAreas] = useState({});
-  const { idpersona } = useParams();
+  //const { idpersona } = useParams();
+  const { isAuthenticated, isLoading, error, user } = useAuth0();
 
   useEffect(() => {
     // Realizar la llamada al servidor para obtener los proyectos asignados al juez
-    fetch(`http://localhost:8000/Juez/fetchJudgeProject/${idpersona}`)
+    fetch(`http://localhost:8000/Juez/fetchJudgeProject/${user.sub}`)
       .then(response => response.json())
       .then(projectIds => {
         // Realizar la segunda llamada al servidor para obtener todos los proyectos
@@ -126,7 +128,7 @@ export function Cardlist() {
         setAreas(areaMap);
       })
       .catch(error => console.error('Error al obtener las áreas:', error));
-  }, [idpersona]);
+  }, [user]);
 
   return (
     <>
@@ -137,7 +139,7 @@ export function Cardlist() {
           description={project.description}
           categoria={areas[project.id_area]}
           nivelDesarrollo={categories[project.id_category]}
-          idpersona={idpersona}
+          idpersona={user.sub}
           key={project.id}
         />
       )}

@@ -116,15 +116,15 @@ function ToggleBar({SectionName}) {
 
                 <div className='row m-2'>
                 <div className ='col-md-auto '>
-                  <Link to={`/Juez/${user.sub}`} onClick={() => { handleClose();}} class="bi bi-award-fill docu-icon2"></Link>
-                  <Link to={`/Juez/${user.sub}`} className ="TextoValid2" onClick={() => { handleClose(); }}>Calificar proyectos</Link> 
+                  <Link to={`/Juez`} onClick={() => { handleClose();}} class="bi bi-award-fill docu-icon2"></Link>
+                  <Link to={`/Juez`} className ="TextoValid2" onClick={() => { handleClose(); }}>Calificar proyectos</Link> 
                 </div>  
               </div>
 
               <div className='row m-2'>
                 <div className ='col-md-auto '>
-                  <Link to={`/Juez/General/${user.sub}`} onClick={() => { handleClose();}} class="bi bi-book-fill docu-icon2"></Link>
-                  <Link to={`/Juez/General/${user.sub}`} className ="TextoValid2" onClick={() => { handleClose(); }}>Todos los proyectos</Link> 
+                  <Link to={`/Juez/General`} onClick={() => { handleClose();}} class="bi bi-book-fill docu-icon2"></Link>
+                  <Link to={`/Juez/General`} className ="TextoValid2" onClick={() => { handleClose(); }}>Todos los proyectos</Link> 
                 </div>  
               </div>
 
