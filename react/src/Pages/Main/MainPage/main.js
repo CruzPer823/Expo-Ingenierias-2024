@@ -80,9 +80,9 @@ useEffect(() => {
       <div className='container-fluid portadaimg p-5'></div>
       <div className='container-fluid conocenos'>
 
-        <div className='row pt-5'>
+        <div className='row pt-3'>
           <div className='col-12 col-md-12'>
-            <h2 className='titulo p-1'>¿Qué es expoingenieria?</h2>
+            <h2 className='titulo-main-que-es-expo p-1'>¿Qué es expoingenieria?</h2>
           </div>
         </div>
 
@@ -94,8 +94,8 @@ useEffect(() => {
           </span>
         </div>
         <div className='row p-1 d-flex justify-content-center'>
-          <div className='col-12 col-md-3 m-5'>
-            <div className='card categoria'>
+          <div className='col-12 m-5 col-md-3 MarginPalTelefono'>
+            <div className='card CardQueEstaEnElMain categoria'>
               <img src={CardConcept} alt='' className='ImagMain' />
               <div className='card-body'>
                 <h6 className='card-title text-center'>Concepto</h6>
@@ -103,8 +103,8 @@ useEffect(() => {
               </div>
             </div>
           </div>
-          <div className='col-12 col-md-3 m-5'>
-            <div className='card'>
+          <div className='col-12 col-md-3 m-5 MarginPalTelefono'>
+            <div className='card CardQueEstaEnElMain'>
               <img src={CardProto} alt='' className='ImagMain' />
               <div className='card-body'>
                 <h6 className='card-title text-center'>Prototipo</h6>
@@ -112,8 +112,8 @@ useEffect(() => {
               </div>
             </div>
           </div>
-          <div className='col-12 col-md-3 m-5'>
-            <div className='card'>
+          <div className='col-12 col-md-3 m-5 MarginPalTelefono'>
+            <div className='card CardQueEstaEnElMain'>
               <img src={CardFinish} alt='' className='ImagMain' />
               <div className='card-body'>
                 <h6 className='card-title text-center'>Prototipo finalizado</h6>
@@ -168,8 +168,8 @@ useEffect(() => {
 
 
       <div className='container-fluid carrusel-main'>
-        <div className='row justify-content-center align-items-center'>
-          <div className='col-md-8 ps-0'>
+        <div className='row justify-content-center align-items-center '>
+          <div className='col-md-8 ps-0 pe-0'>
             <Carousel fade>
               <Carousel.Item>
                 <img src={carrusel1} alt='' />
@@ -192,7 +192,7 @@ useEffect(() => {
             </Carousel>
           </div>
           <div className='col-md-4 coment'>
-            <div className='container-fluid d-flex flex-column'>
+            <div className='container-fluid d-flex flex-column MaringCaruselTelefono'>
               <div className='row'>
                 <div className='col-md-10 mt-3 mb-3 text-conoce'>
                   <h6>¿Quieres conocer a ganadores, así como proyecto de ediciones pasadas?</h6>
