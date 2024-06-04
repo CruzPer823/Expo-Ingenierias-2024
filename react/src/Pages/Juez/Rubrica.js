@@ -3,15 +3,17 @@ import { Link, useParams } from 'react-router-dom';
 import './Rubrica.css';
 import ToggleBar from '../../Components/Togglebar/togglebar';
 import Loader from '../../Components/Loader/Loader';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const Rubrica = () => {
-  const { idpersona, projectId } = useParams(); // Capturamos los parámetros de la URL
+  const { projectId } = useParams(); // Capturamos los parámetros de la URL
   const [criteria, setCriteria] = useState([]);
   const [selectedCriteria, setSelectedCriteria] = useState([]);
   const [comments, setComments] = useState([]);
   const [additionalComment, setAdditionalComment] = useState('');
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [loading, setLoading] = useState(true); // Estado de carga
+  const { isAuthenticated, isLoading, error, user } = useAuth0();
 
   useEffect(() => {
     const fetchCriteria = async () => {
@@ -59,7 +61,7 @@ const Rubrica = () => {
 
     setShowErrorMessage(false);
     const criteriaData = criteria.map((criterion, index) => ({
-      id_person: idpersona,
+      id_person: user.sub,
       id_criteria: criterion.id,
       grade: selectedCriteria[index],
       id_project: projectId,
@@ -93,7 +95,7 @@ const Rubrica = () => {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            id_person: idpersona,
+            id_person: user.sub,
             id_project: projectId,
             comment: additionalComment
           })
@@ -103,7 +105,7 @@ const Rubrica = () => {
         }
 
         // Redirigimos al usuario después de enviar la rúbrica y el comentario adicional
-        window.location.href = `/Juez/${idpersona}`;
+        window.location.href = `/Juez`;
       } catch (error) {
         console.error('Error al enviar la rúbrica:', error);
         alert('Hubo un problema al enviar la rúbrica. Por favor, inténtalo de nuevo.');
@@ -159,7 +161,7 @@ const Rubrica = () => {
               
               <div className="buttons-container2">
 
-                <Link to={`/Juez/${idpersona}`} className="btn2">Cancelar</Link>
+                <Link to={`/Juez`} className="btn2">Cancelar</Link>
                 <button onClick={handleSubmit} className="btn3">Enviar</button>
               </div>
             </div>

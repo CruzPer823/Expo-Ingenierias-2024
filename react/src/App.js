@@ -59,9 +59,9 @@ import Proyectos from './Pages/Juez/Proyectos'; // Catalogo Proyectos
 import ProjResumeContJudge from './Pages/Juez/ProjectResumenContent';
 import GeneralProjectResume from './Pages/Juez/GeneralProjectResume';
 import Rubrica from './Pages/Juez/Rubrica';
-import Anuncios from './Pages/Juez/Announ';
-import DetailedAnnoun from './Pages/Juez/DetailedAnnoun';
-import PerfilJuez from './Pages/Juez/Profile';
+//import Anuncios from './Pages/Juez/Announ';
+//import DetailedAnnoun from './Pages/Juez/DetailedAnnoun';
+//import PerfilJuez from './Pages/Juez/Profile';
 
 // Auth0
 import Callback from './auth0/callback.js';
@@ -164,14 +164,14 @@ function App() {
               <Route path='/Admin/rubrica/criterio/:criteriaId' element={<EditCriteriaPage />}/>
 
               {/* Judge Routes */}
-              <Route path="/Juez/:idpersona" element={<ProtectedRoute requiredRole="teacher"><Juez /></ProtectedRoute>} />
-              <Route path="/Juez/General/:idpersona" element={<ProtectedRoute requiredRole="teacher"><Proyectos /></ProtectedRoute>} />
-              <Route path="/Juez/General/:idpersona/Proyectos/:projectId" element={<ProtectedRoute requiredRole="teacher"><GeneralProjectResume /></ProtectedRoute>} />
-              <Route path="/Juez/Anuncios/:idpersona" element={<Anuncios />} />
-              <Route path="/Juez/Anuncios/:idpersona/DetailAnnoun/:anuncioId" element={<DetailedAnnoun />} />
-              <Route path="/Juez/:idpersona/Calificar/:projectId" element={<ProtectedRoute requiredRole="teacher"><Rubrica /></ProtectedRoute>} />
-              <Route path="/Juez/:idpersona/ProyectoJuez/:projectId" element={<ProtectedRoute requiredRole="teacher"><ProjResumeContJudge /></ProtectedRoute>} />
-              <Route path="/Juez/Perfil/:idpersona" element={<PerfilJuez />} />
+              <Route path="/Juez" element={<ProtectedRoute requiredRole="teacher"><Juez /></ProtectedRoute>} />
+              <Route path="/Juez/General" element={<ProtectedRoute requiredRole="teacher"><Proyectos /></ProtectedRoute>} />
+              <Route path="/Juez/General/Proyecto/:projectId" element={<ProtectedRoute requiredRole="teacher"><GeneralProjectResume /></ProtectedRoute>} />
+              {/*<Route path="/Juez/Anuncios/:idpersona" element={<Anuncios />} />*/}
+              {/*<Route path="/Juez/Anuncios/:idpersona/DetailAnnoun/:anuncioId" element={<DetailedAnnoun />} />*/}
+              <Route path="/Juez/Calificar/:projectId" element={<ProtectedRoute requiredRole="teacher"><Rubrica /></ProtectedRoute>} />
+              <Route path="/Juez/ProyectoJuez/:projectId" element={<ProtectedRoute requiredRole="teacher"><ProjResumeContJudge /></ProtectedRoute>} />
+              {/*<Route path="/Juez/Perfil/:idpersona" element={<PerfilJuez />} />*/}
           </Routes>
       </div>
     </>
