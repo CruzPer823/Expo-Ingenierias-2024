@@ -18,11 +18,10 @@ export default function Usure({ Path, className, Texto, MensajeTitle, BotonA, Bo
     const handleShow = () => setShow(true);
 
     const handleConfirm = async () => {
+        handleClose();
         setIsConfirming(true);
-        await onConfirm(); // Esperar a que se complete la función onConfirm
-
-        // Después de confirmar los cambios, redirigir a la ruta especificada en Path
-        handleClose(); // Cierra el modal después de confirmar los cambios
+        await onConfirm(); 
+        
         if(recharge){
             window.location.reload();
         }
