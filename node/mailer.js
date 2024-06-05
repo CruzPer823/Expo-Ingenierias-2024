@@ -1,6 +1,15 @@
 import nodemailer from 'nodemailer';
-import generateEmailTemplate from './emailtemp/comment.js'; 
 import config from './config.js';
+
+
+import generateCommentTemplate from './emailtemp/comment.js';
+
+
+const templates = {
+  comment: generateCommentTemplate,
+  
+  
+};
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.zoho.com',
@@ -12,12 +21,17 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const sendEmail = async ({ nombreAlumno, nombreProyecto, nombreProfesor, estatusProyecto, comentario, studentEmail }) => {
-  const emailHtml = generateEmailTemplate({ nombreAlumno, nombreProyecto, nombreProfesor, estatusProyecto, comentario });
+const sendEmail = async ({ templateName, templateParams }) => {
+  const generateTemplate = templates[templateName];
+  if (!generateTemplate) {
+    throw new Error(`No se encontró la plantilla: ${templateName}`);
+  }
+
+  const emailHtml = generateTemplate(templateParams);
 
   const mailOptions = {
     from: config.MAIL,
-    to: studentEmail,
+    to: templateParams.studentEmail,
     subject: 'Notificación de Comentarios en tu Proyecto',
     html: emailHtml,
   };
