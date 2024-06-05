@@ -28,7 +28,6 @@ function SimpleModal() {
     const [secAreas, setSecAreas] = useState([]); // Cambiado a un array para manejar múltiples selecciones
     const [areaperson, setAreaPerson] = useState([]);
     const [validated, setValidated] = useState(false);
-    const navigate = useNavigate();
     useEffect(() => {
       if (user && user.sub) {
           async function fetchData() {
@@ -103,7 +102,7 @@ function SimpleModal() {
                 <div className='row p-2'>
                   <div className='col-md-12'>
                     <center>
-                    <h4>Escoja las area en la que se sienta con más conocimientos</h4>
+                    <h4>Escoja las area en las que se sienta con más conocimientos</h4>
                     </center>
                   </div>
                 </div>

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
-
+import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import CardConcept from '../../../img/CardConcept.png';
@@ -15,6 +15,7 @@ import ToggleBar from '../../../Components/Togglebar/togglebar.js';
 import Usure from '../../../Components/BotonConfirmacion/ConfBot';
 import Placeholder from 'react-bootstrap/Placeholder';
 import Spinner from 'react-bootstrap/Spinner';
+import Popup from '../../../Components/Popup/Popup.js'
 
 
 
@@ -148,7 +149,10 @@ export default function ProjResumeCont() {
       { id: 5, description: "", weight: 0 }
     ]
   });
-  const { id_person, id_project } = useParams();
+  
+  const {id_project } = useParams();
+  const { user } = useAuth0();
+  const id_person = user.sub;
   const [IsLoaded, setIsLoaded] = useState(false);
   const navigate = useNavigate();
   const [validated, setValidated] = useState(false);
@@ -156,6 +160,9 @@ export default function ProjResumeCont() {
   const [switchPdf, setSwitchPdf] = useState(false);
   const [switchVideo, setSwitchVideo] = useState(false);
   const [showFullText, setShowFullText] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [type, setType] = useState(false);
+  const [content, setContent] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -174,7 +181,6 @@ export default function ProjResumeCont() {
 
     fetchData();
   }, [id_project]);
-  console.log(comment);
 
   const handleComment = async () => {
       try {
@@ -184,9 +190,9 @@ export default function ProjResumeCont() {
               comment
           });
       } catch (error) {
-          console.error('Full error object:', error);
-          const errorMessage = error.response ? error.response.data.message : error.message;
-          throw new Error(`An error has occurred: ${errorMessage}`);
+          setType(true);
+          setContent(error.response.data.message);
+          setShowModal(true);
       }
   };
 
@@ -201,9 +207,10 @@ export default function ProjResumeCont() {
               statusVideo: statusVideoValue,
               statusGeneral: statusTotal
           });
-          navigate('/principal-profesor');
       } catch (error) {
-          console.error('Error al actualizar:', error);
+          setType(true);
+          setContent(error.response.data.message);
+          setShowModal(true);
       }
   };
 
@@ -219,6 +226,9 @@ export default function ProjResumeCont() {
       } else {
           handleComment();
           handleUpdate();
+          setType(false);
+          setShowModal(true);
+          setContent("Proyecto revisado exitosamente");
       }
       setValidated(true);
   };
@@ -351,11 +361,12 @@ export default function ProjResumeCont() {
                   <div className='row m-3 justify-content-between'>
                       <div className='col-md-4'></div>
                       <div className="col-md-2 centered-container2">
-                          <Usure Path={'/principal-profesor'} className={"custom-btn"} Texto={"Guardar"}
+                          <Usure className={"custom-btn"} Texto={"Guardar"}
                               MensajeTitle={'¿Estás seguro que quieres confirmar la autorización del proyecto?'}
                               BotonA={'Cancelar'}
                               BotonB={'Aceptar'}
                               onConfirm={handleSubmit} />
+                              {showModal && <Popup content={content} onClose={()=>setShowModal(false)} error={type} ruta={'/principal-profesor'}/>}
                       </div>
                       <div className='col-md-4'></div>
                   </div>

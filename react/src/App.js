@@ -93,7 +93,7 @@ function App() {
 
               {/*Teacher Routes */}
               <Route path="/principal-profesor" element={<ProtectedRoute requiredRole="teacher"><Hometeacher /></ProtectedRoute>} />
-              <Route path="/profesor/:id_person/:id_project" element={<ProtectedRoute requiredRole="teacher"><ProjResumeCont /></ProtectedRoute>} />
+              <Route path="/profesor/:id_project" element={<ProtectedRoute requiredRole="teacher"><ProjResumeCont /></ProtectedRoute>} />
               <Route path="/login" element={<Login />} />
               <Route path="/Registro-usuario" element={<ProtectedRoute requiredRole="teacher"><FormUser /></ProtectedRoute>} />
               <Route path="/Registro-inicio" element={<ProtectedRoute requiredRole="teacher"><UserRegisterCont /></ProtectedRoute>} />

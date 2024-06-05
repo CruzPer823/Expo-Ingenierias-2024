@@ -8,6 +8,7 @@ import './TeacherAdvertisements.css'
 import Menu from '../../../Components/Togglebar/togglebar.js';
 import axios from 'axios';
 
+
 const URL = 'http://localhost:8000/announ/';
 
 function AnnounSearch({ handleSearch }) {
