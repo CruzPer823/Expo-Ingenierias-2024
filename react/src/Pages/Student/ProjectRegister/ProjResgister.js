@@ -300,6 +300,21 @@ export default function FormExample() {
           email: teacher.email,
         })),
       });
+
+      // Enviar correos electrónicos a los profesores asesores
+      for (const teacher of teachers) {
+        const templateParams = {
+          nombreProfesor: `${teacher.nameTeacher} ${teacher.lastNameTeacher}`,
+          tituloProyecto: title,
+          studentEmail: teacher.email,
+        };
+
+        await axios.post('http://localhost:8000/send-email', {
+          templateName: 'assigned', 
+          templateParams
+        });
+      }
+      
     }
 
     setValidated(true);
