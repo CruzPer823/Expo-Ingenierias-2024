@@ -138,7 +138,7 @@ function CardJuez({ name, namecomplete }) {
     const [commentsCount, setCommentsCount] = useState(0);
     const [judgeProjectsCount, setJudgeProjectsCount] = useState(0);
     const { user } = useAuth0();
-    
+    console.log(user.sub);
     useEffect(() => {
         if (user && user.sub) {
             async function fetchData() {
@@ -166,7 +166,6 @@ function CardJuez({ name, namecomplete }) {
         let hasRevision = projects.some(project => project.statusGeneral === "en revision");
         setConstCheck(!hasRevision);
     }, [projects]);
-    
     return(
         <>
             <ToggleBar NameSecProf={"Constancias"}></ToggleBar>
@@ -193,11 +192,13 @@ function CardJuez({ name, namecomplete }) {
 
                 {ConstCheck && (
                     <div className='row d-flex flex-col justify-content-evenly'>
-                        {judgeProjectsCount === commentsCount && <CardJuez name={user_bs.name} namecomplete={user_bs.name + ' ' + user_bs.lastName} />}
-                        {!ConstCheck && <CardCalif name={user_bs.name} namecomplete={user_bs.name + ' ' + user_bs.lastName} />}
-                        {/*<p>ID usado para búsqueda: {user && user.sub}</p>*/}
-                        {/*<p>Nombre completo usado: {user_bs.name + ' ' + user_bs.lastName}</p>*/}
+                        <CardCalif name={user_bs.name} namecomplete={user_bs.name + ' ' + user_bs.lastName} />
                     </div>       
+                )}
+                {judgeProjectsCount === commentsCount && (
+                    <div className='row d-flex flex-col justify-content-evenly'>
+                            <CardJuez name={user_bs.name} namecomplete={user_bs.name + ' ' + user_bs.lastName} />
+                    </div>
                 )}
             </div>        
         </>
