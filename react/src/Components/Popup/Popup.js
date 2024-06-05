@@ -23,13 +23,13 @@ const Popup = ({content,onClose,error,ruta} )=>{
         }
     }
     return(
-    <article ref={modalRef} onClick={closeModal} className="modal isOpen">
-        <div className="modalContainer">
-            <button onClick={error?onClose:handleSuccess}className="closeModal bi bi-x-lg">     
+    <article ref={modalRef} onClick={closeModal} className="popUp isOpen">
+        <div className="popupContainer">
+            <button onClick={error?onClose:handleSuccess}className="closePopup bi bi-x-lg">     
             </button>
             {error?<h2 className="errorTitle">¡Cuidado!</h2>:<h2 className="successTitle">¡Listo!</h2>}
-            <p className="modalContent">{content}</p>
-            <div className="btnModal">
+            <p className="modalCont">{content}</p>
+            <div className="btnMod">
             <button onClick={error?onClose:handleSuccess}className="btn btn-primary" >Aceptar</button>
             </div>
         </div>

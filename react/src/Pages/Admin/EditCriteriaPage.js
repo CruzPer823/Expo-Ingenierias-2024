@@ -15,7 +15,6 @@ function EditCriteriaPage() {
     const [content, setContent] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [type, setType] = useState(false);
-    const navigate = useNavigate(); // Access the navigate function
 
     useEffect(() => {
         // Fetch the criteria data from the API
