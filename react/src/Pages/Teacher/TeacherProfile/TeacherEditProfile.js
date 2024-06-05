@@ -14,6 +14,7 @@ import Row from 'react-bootstrap/Row';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import Usure from '../../../Components/BotonConfirmacion/ConfBot';
+import Popup from '../../../Components/Popup/Popup.js'
 import { Button } from 'react-bootstrap';
 
 export default function Perfil(){
@@ -30,6 +31,9 @@ export default function Perfil(){
     const [apellido, setApellido] = useState('');
     const {user} = useAuth0();
     const [validated, setValidated] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [type, setType] = useState(false);
+    const [content, setContent] = useState(null);
     const navigate = useNavigate();
     useEffect(() => {
       if (user && user.sub) {
@@ -75,11 +79,13 @@ export default function Perfil(){
                     id_person,
                     areas: secAreas.map(id_area => parseInt(id_area, 10)) // Convertir id_area a número si es necesario
                 });}
-                navigate("/perfil-profesor");
+                setType(false);
+                setShowModal(true);
+                setContent("Perfil actualizado exitosamente");
             } catch (error) {
-                console.error('Full error object:', error);
-                const errorMessage = error.response ? error.response.data.message : error.message || 'Error desconocido';
-                throw new Error(`An error has occurred: ${errorMessage}`);
+                setType(true);
+                setContent(error.response.data.message);
+                setShowModal(true);
             }
         }
         setValidated(true);
@@ -175,6 +181,7 @@ export default function Perfil(){
                     <center>
                     <Button type="submit" className='custom-btn-edit'>Guardar</Button>
                     </center>
+                    {showModal && <Popup content={content} onClose={()=>setShowModal(false)} error={type} ruta={'/perfil-profesor'}/>}
                   </Row>
                   </Form>
               </div>

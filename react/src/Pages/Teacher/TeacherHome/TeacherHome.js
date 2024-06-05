@@ -120,7 +120,7 @@ function HorizontalSlider({ data, IsLoaded }) {
                                               </div>
                                           </div>
                                       </div>
-                                      <Link to={`/profesor/auth0|6653d38ae957844eac7c9f99/${item.id}`} className='custom-btn3 mb-5'>Ver Proyecto</Link>
+                                      <Link to={`/profesor/${item.id}`} className='custom-btn3 mb-5'>Ver Proyecto</Link>
                                   </div>
                               </div>
                           ))}
@@ -202,7 +202,7 @@ function ProjResume({ horas, profesor, IsLoaded }) {
                         <hr className='divisor'></hr>
 
                         <div className="row">
-                            <div className="col-md proj-sub text-start"><h1 className='text-break prof-titulo-h1'>{IsLoaded && ("Bienvenido " + profesor)} {IsLoaded === "True" && (<Placeholder animation="glow" className="w-100"><Placeholder xs={12} bg="light" className="mb-2" /></Placeholder>)}</h1></div>
+                            <div className="col-md proj-sub text-start"><h1 className='text-break prof-titulo-h1'>{IsLoaded && ("Bienvenid@ " + profesor)} {IsLoaded === "True" && (<Placeholder animation="glow" className="w-100"><Placeholder xs={12} bg="light" className="mb-2" /></Placeholder>)}</h1></div>
                         </div>
                     </div>
                 </div>
@@ -214,9 +214,14 @@ function ProjResume({ horas, profesor, IsLoaded }) {
 export default function Hometeacher() {
     const [projects, setProjects] = useState([]);
     const { id_responsable } = useParams(); // Asumiendo que este es el parámetro que obtienes desde la URL
-    const { isAuthenticated, isLoading, error, user } = useAuth0();
-    console.log(user.sub);
+    const {user} = useAuth0();
     const Ref = useRef(null);
+    const [user_bs, setUser] = useState({
+        id: "",
+        name: "",
+        lastName: "",
+        email: "",
+    });
 
     // The state for our timer
     const [timer, setTimer] = useState('00:00:00');
@@ -260,22 +265,32 @@ export default function Hometeacher() {
 
     useEffect(() => {
         //nuevodescr120T
+        //http://localhost:8000/projects/responsable/auth0|6653d38ae957844eac7c9f99
         //http://localhost:8000/projects/responsable/${user.sub}
-        fetch(`http://localhost:8000/projects/responsable/auth0|6653d38ae957844eac7c9f99`)
-            .then((res) => {
-                if (!res.ok) {
-                    throw new Error('Network response was not ok');
+        async function fetchData() {
+            try {
+        const [userResponse, projectsResponse] = await Promise.all([
+            fetch(`http://localhost:8000/person/resume/${user.sub}`).then(res => res.json()),
+            fetch(`http://localhost:8000/projects/responsable/${user.sub}`).then(res => res.json().catch(error => {
+                if (error.response && error.response.status === 404 && error.response.data.error === 'No area found for this person') {
+                    return null;
                 }
-                return res.json();
-            })
-            .then((data) => { setProjects(data); setIsLoaded(true); })
-            .catch((error) => { console.error('Error al obtener los proyectos:', error); setIsLoaded(true); });
-        const endTime = new Date("2024-06-10T00:00:00");
-        clearTimer(endTime);
-
+                throw error;
+            }))
+        ]);
+        setUser(userResponse);
+        setProjects(projectsResponse);
+        setIsLoaded(true);}
+        catch(error){
+            console.error('Error fetching data:', error);
+        }
+        
+    }
+    fetchData();
+    const endTime = new Date("2024-06-10T00:00:00");
+    clearTimer(endTime);
     }, [id_responsable]);
 
-    console.log(projects);
     const falt = projects.filter(project => project.statusGeneral === "en revision");
     const rev = projects.filter(project => project.statusGeneral === "rechazado" || project.statusGeneral === "aprobado");
     const porcentaje = (rev.length * 100) / projects.length;
@@ -287,7 +302,7 @@ export default function Hometeacher() {
                 <div className='container-fluid'>
                     <div className='row d-flex justify-content-center'>
                         <div className="col-md-1"></div>
-                        <ProjResume IsLoaded={IsLoaded} horas={timer} profesor={"Sarai Santiago"}></ProjResume>
+                        <ProjResume IsLoaded={IsLoaded} horas={timer} profesor={user_bs.name+' '+user_bs.lastName}></ProjResume>
                         <Resumeteacher IsLoaded={IsLoaded} Total={projects.length} revisados={rev.length} faltantes={falt.length} progreso={porcentaje + '%'}></Resumeteacher>
                         <div className="col-md-1"></div>
                         <div className='row d-flex MarginPhone justify-content-between align-items-center'>
