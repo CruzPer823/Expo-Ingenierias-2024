@@ -3,11 +3,12 @@ import config from './config.js';
 
 
 import generateCommentTemplate from './emailtemp/comment.js';
+import generateAssignedTemplate from './emailtemp/assigned.js';
 
 
 const templates = {
   comment: generateCommentTemplate,
-  
+  assigned: generateAssignedTemplate,
   
 };
 
@@ -32,7 +33,7 @@ const sendEmail = async ({ templateName, templateParams }) => {
   const mailOptions = {
     from: config.MAIL,
     to: templateParams.studentEmail,
-    subject: 'Notificación de Comentarios en tu Proyecto',
+    subject: 'Notificación de ExpoIngenierias',
     html: emailHtml,
   };
 
