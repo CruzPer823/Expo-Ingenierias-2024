@@ -1,6 +1,6 @@
 import express from 'express';
 import { deleteProject, disqualifyProject, getAllProjects, getProject, handleRegister, handleEdition, handleResumen, 
-    getProjectsByResponsable, getProjectStatusData, getMaterialChecklistItems,getProjectAdmin, getAllProjectsByAreas,updateProject, getProjectCertificate, handleMaterials
+    getProjectsByResponsable, getProjectStatusData, getMaterialChecklistItems,getProjectAdmin, getAllProjectsByAreas,updateProject, getProjectCertificate, handleMaterials, GetFinalGradeByProjectId, UpdateFinalGradeByProjectId
 } from '../controllers/ProjectController.js'
 
 const router = express.Router();
@@ -44,5 +44,10 @@ router.get('/getMaterialChecklist/Data', getMaterialChecklistItems)
 
 // Disqualify a project
 router.post('/disqualify', disqualifyProject);
+
+router.get('/projects/final-grade/:id', GetFinalGradeByProjectId);
+
+router.put('/projects/update-final-grade/:id', UpdateFinalGradeByProjectId);
+
 
 export default router;

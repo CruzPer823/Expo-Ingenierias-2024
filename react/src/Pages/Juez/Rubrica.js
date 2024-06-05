@@ -89,7 +89,7 @@ const Rubrica = () => {
         }
 
         // Enviamos el comentario adicional
-        const response = await fetch('http://localhost:8000/Juez/createComment', {
+        const responseComment = await fetch('http://localhost:8000/Juez/createComment', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -100,12 +100,24 @@ const Rubrica = () => {
             comment: additionalComment
           })
         });
-        if (!response.ok) {
+        if (!responseComment.ok) {
           throw new Error('Error al enviar el comentario adicional');
         }
 
         // Redirigimos al usuario después de enviar la rúbrica y el comentario adicional
         window.location.href = `/Juez`;
+
+        // Actualizamos la calificación final del proyecto
+        const responseUpdateFinalGrade = await fetch(`http://localhost:8000/projects/projects/update-final-grade/${projectId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        if (!responseUpdateFinalGrade.ok) {
+          throw new Error('Error al actualizar la calificación final del proyecto');
+        }
+
       } catch (error) {
         console.error('Error al enviar la rúbrica:', error);
         alert('Hubo un problema al enviar la rúbrica. Por favor, inténtalo de nuevo.');
