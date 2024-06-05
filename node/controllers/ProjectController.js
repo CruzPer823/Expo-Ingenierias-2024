@@ -32,7 +32,7 @@ const transformProjectData = async (project) => {
     const memberNames = team.members.map(member => member.name);
 
     // Determine if project is reviewed
-    const isReviewed = project.statusGeneral === "revisado";
+    const isReviewed = project.statusGeneral === "aprobado";
 
     // Check if the project is disqualified
     const disqualifiedEntry = await DisqualifiedModel.findOne({
@@ -913,7 +913,7 @@ export const getProjectStatusData = async (req, res) => {
   try {
     const reviewedCount = await ProjectModel.count({
       where: {
-        statusGeneral: 'revisado'
+        statusGeneral: 'aprobado'
       }
     });
 
@@ -922,10 +922,15 @@ export const getProjectStatusData = async (req, res) => {
         statusGeneral: 'en revision'
       }
     });
+    const rejectedCount = await ProjectModel.count({
+        where: {
+          statusGeneral: 'rechazado'
+        }
+      });
 
     res.json({
-      labels: ['Revisado', 'Pendiente'],
-      data: [reviewedCount, pendingCount]
+      labels: ['Aprobados', 'En revisión','Rechazados'],
+      data: [reviewedCount, pendingCount,rejectedCount]
     });
   } catch (error) {
     console.error('Error fetching project status data:', error);

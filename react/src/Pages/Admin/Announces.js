@@ -3,6 +3,8 @@ import axios from 'axios';
 import NavigationBar from '../../Components/NavigationBar/Admin/NavigationBar'
 import AnnounceCardList from '../../Components/AnnounceCard/AnnounceCard';
 import Loader from '../../Components/Loader/Loader';
+import SearchBar from '../../Components/SearchBar/SearchBar';
+import RoleFilterAnnounces from '../../Components/RoleFilter/RoleFilterAnnounces';
 import '../../Components/AreaCard/AreaCard.css';
 
 const Announ_API='http://localhost:8000/Admin/Announces/';
@@ -10,6 +12,9 @@ const Announ_API='http://localhost:8000/Admin/Announces/';
 function Announces(){
 
     const [announce, setAnnounce] = useState([]);
+
+    const [searchTerm, setSearchTerm] = useState("");
+    const [selectedOption, setSelectedOption] = useState("");
     const [loading, setLoading] = useState(true);
 
     const fetchAnnounce = async () => {
@@ -28,16 +33,29 @@ function Announces(){
         fetchAnnounce();
     }, []);
 
+    const handleSearch = (term) => {
+        setSearchTerm(term);
+    };
+    
+    const handleFilter = (role) => {
+        setSelectedOption(role);
+    };
 
     return(
         <>
             <NavigationBar NameSection={"Anuncios"}/>
+            <div className="contenedorSuperior" style={{marginTop:'4vh'}}>
+                    <SearchBar onSearch={handleSearch}/>
+                    <RoleFilterAnnounces
+                    onRoleFilter={handleFilter}
+                    />
+                </div>
             <div className='contenedor'>
                 {loading? (
                     <Loader/>
                 ) : (
                     <>
-                    <AnnounceCardList data={announce}/>
+                    <AnnounceCardList data={announce} filter={selectedOption} searchTerm={searchTerm}/>
                     </>
                 )
                 }

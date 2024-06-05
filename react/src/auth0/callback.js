@@ -8,18 +8,25 @@ import LoadingSpinner from './loading.js';
 function Callback() {
   const URL="http://localhost:8000/Admin/getAdmin/";
   const { isAuthenticated, isLoading, error, user } = useAuth0();
-  const [admin,setAdmin]=useState(false);
   const navigate = useNavigate();
+  
+  const isAdmin =async(username)=>{
+    const response =await fetch(URL+username);
+    const data = await response.json();
+    return data.exists;
+  };
 
   useEffect(() => {
     console.log('isLoading:', isLoading);
     console.log('isAuthenticated:', isAuthenticated);
     console.log('error:', error);
-
+    
     if (!isLoading && !isAuthenticated) {
       window.location.href = "http://localhost:3000";
       return null; 
-    }    
+    } 
+    
+    
     //Verificar si es admin o no
     //Auht0 genera un id, en ese id va user.sub()
     //auth0|66539b1ce539b35aea94e74d
@@ -27,11 +34,10 @@ function Callback() {
 
     if (!isLoading && isAuthenticated && user) {
       const username = user.email.split('@')[0];
-
-      const isAdmin = admin;
+      const admin=isAdmin(username);
       const isStudent = /^[aA]\d{8}$/.test(username);
 
-      if(isAdmin){
+      if(admin){
         localStorage.setItem('userRole', 'admin');
         navigate('/Admin');
       }
