@@ -37,6 +37,7 @@ router.patch('/Areas/inhabilitate/:id',inhabilitateArea);
 //Judges Routes
 router.get('/getJudges/:areaId', getAreaJudge); // query string (?projectId=<project.id>)
 router.get('/getAllJudges', getAllJudges); // query string (?projectId=<project.id>)
+// router.get('/countAllJudges', getAllJudgeCounts) // This is a test API end-point
 
 // Projects Routes
 router.get('/projects',getAllProjects)

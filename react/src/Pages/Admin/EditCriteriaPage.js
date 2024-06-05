@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+import Loader from '../../Components/Loader/Loader';
 import NavigationBar from '../../Components/NavigationBar/Admin/NavigationBar';
 import ContentCard from '../../Components/ContentCard/ContentCard';
 import TextInput from '../../Components/TextInput/TextInput';
@@ -93,7 +94,7 @@ function EditCriteriaPage() {
                                             required
                                         />
                                         <TextInput
-                                            label="Peso"
+                                            label="Valor(%)"
                                             name="weight"
                                             value={criteria.weight}
                                             onChange={handleChange}
