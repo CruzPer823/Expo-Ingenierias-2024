@@ -240,7 +240,10 @@ export default function ProjResumeCont() {
          studentEmail
          };
         
-         await axios.post('http://localhost:8000/send-email', templateParams);  
+         await axios.post('http://localhost:8000/send-email', {
+         templateName: 'comment', 
+         templateParams
+         });
 
       } catch (error) {
           setType(true);
