@@ -1,4 +1,4 @@
-.modal{
+.popUp{
     position: fixed;
     z-index: 999;
     top: 0;
@@ -11,11 +11,11 @@
     align-items: center;
 }
 
-.modal.isOpen{
+.popUp.isOpen{
     display: flex;
 }
 
-.modalContainer{
+.popupContainer{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -37,7 +37,7 @@
     font-size: 3rem;
     color: rgb(3, 101, 3);
 }
-.modalContent{
+.modalCont{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -47,7 +47,7 @@
     font-weight: 700;
     font-size: 2rem;
 }
-.btnModal *{
+.btnMod *{
     display: flex;
     align-items: end;
     width: 80px;
@@ -55,7 +55,7 @@
     ;
 }
 
-.closeModal{
+.closePopup{
     background-color: transparent;
     border: none;
     position: absolute;
@@ -69,7 +69,7 @@
 }
 
 @media(max-width: 1000px){
-    .modalContainer{
+    .popupContainer{
         width: 85vw;
     }
 }
