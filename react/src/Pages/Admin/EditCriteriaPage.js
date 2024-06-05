@@ -6,7 +6,6 @@ import Loader from '../../Components/Loader/Loader';
 import NavigationBar from '../../Components/NavigationBar/Admin/NavigationBar';
 import ContentCard from '../../Components/ContentCard/ContentCard';
 import TextInput from '../../Components/TextInput/TextInput';
-import Loader from '../../Components/Loader/Loader';
 import Popup from '../../Components/Popup/Popup';
 
 function EditCriteriaPage() {
