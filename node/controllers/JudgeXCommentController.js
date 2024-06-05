@@ -72,5 +72,24 @@ async function fetchCommentsByProject(req, res) {
     res.status(500).json({ error: 'Error al obtener los comentarios' });
   }
 }
+async function fetchCommentsByIdPerson(req, res) {
+  const { id_person } = req.params;
+  try {
+    const comments = await JudgeCommentModel.findAll({
+      where: {
+        id_person
+      }
+    });
 
-export { fetchAllComments, createComment, fetchCommentByPersonAndProject, fetchCommentsByProject };
+    if (comments && comments.length > 0) {
+      res.status(200).json(comments);
+    } else {
+      res.status(404).json({ error: 'No se encontraron comentarios para esta persona' });
+    }
+  } catch (error) {
+    console.error('Error al obtener los comentarios:', error);
+    res.status(500).json({ error: 'Error al obtener los comentarios' });
+  }
+}
+
+export { fetchAllComments, createComment, fetchCommentByPersonAndProject, fetchCommentsByProject, fetchCommentsByIdPerson};
