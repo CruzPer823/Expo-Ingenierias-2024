@@ -86,15 +86,15 @@ try {
 
 // Ruta para enviar correos electrónicos
 app.post('/send-email', async (req, res) => {
-    const { nombreAlumno, nombreProyecto, nombreProfesor, estatusProyecto, comentario, studentEmail } = req.body;
-
+    const { templateName, templateParams } = req.body;
+  
     try {
-        await sendEmail({ nombreAlumno, nombreProyecto, nombreProfesor, estatusProyecto, comentario, studentEmail });
-        res.status(200).send('Correo enviado con éxito');
+      await sendEmail({ templateName, templateParams });
+      res.status(200).send('Correo enviado con éxito');
     } catch (error) {
-        res.status(500).send(`Error al enviar correo: ${error.toString()}`);
+      res.status(500).send(`Error al enviar correo: ${error.toString()}`);
     }
-});
+  });
 
 
 // cron.schedule('*/20 * * * * *', function() { console.log('Running a task every 20 seconds'); main();});
