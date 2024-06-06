@@ -121,7 +121,7 @@
     "id" INT GENERATED ALWAYS AS IDENTITY NOT NULL,
     "title" VARCHAR(50),
     "description" VARCHAR(350),
-    "audience" VARCHAR(50) CHECK ("audience" IN ('students', 'teachers', 'judges')),
+    "audience" VARCHAR(50) CHECK ("audience" IN ('students', 'teachers', 'all')),
     "multimedia" VARCHAR(355),
     "createdAt" DATE,
     "updatedAt" DATE,

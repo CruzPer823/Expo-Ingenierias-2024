@@ -22,6 +22,8 @@ import TeamMemberModel from "./TeamMemberModel.js";
 import AnnounModel from "./AnnounModel.js";
 import AnnounceReadStudentModel from "./AnnounceReadStudentModel.js";
 import AnnounceReadPersonModel from "./AnnounceReadPersonModel.js";
+import ProjectDisqualifiedModel from "./ProjectDisqualifiedModel.js";
+
 
 TeamModel.belongsTo(ProjectModel, { foreignKey: 'id_project', as: 'project' });
 ProjectModel.hasOne(TeamModel, {foreignKey: 'id_project'});
@@ -194,6 +196,9 @@ AnnounModel.belongsToMany(PersonModel,{
         foreignKey: 'id_announce'
 });
 
+ProjectModel.hasMany(ProjectDisqualifiedModel,{foreignKey:'id_project'});
+ProjectDisqualifiedModel.belongsTo(ProjectModel,{foreignKey: 'id_project'});
+
 
 
 
@@ -221,5 +226,6 @@ export {
         TeamMemberModel,
         AnnounModel,
         AnnounceReadStudentModel,
-        AnnounceReadPersonModel
+        AnnounceReadPersonModel,
+        ProjectDisqualifiedModel
 };
