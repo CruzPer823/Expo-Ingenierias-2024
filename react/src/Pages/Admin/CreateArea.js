@@ -4,11 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import NavigationBar from '../../Components/NavigationBar/Admin/NavigationBar'
 import ContentCard from '../../Components/ContentCard/ContentCard';
 import TextInput from '../../Components/TextInput/TextInput';
+import Popup from '../../Components/Popup/Popup';
 
 function CreateAreaPage() {
     const [area, setArea] = useState({ name: '', description: '',IsActive:1 }); // Inicializa el estado con valores vacíos
     const [loading, setLoading] = useState(false); // Estado de carga
-    const navigate = useNavigate();
+    const [content, setContent] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+    const [type, setType] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -29,10 +32,13 @@ function CreateAreaPage() {
         .then(response => {
             setLoading(false); // Termina el estado de carga
             if (response.ok) {
-                alert('Área creada correctamente!');
-                navigate('/Admin/areas'); // Redirige a la lista de áreas
+                setType(false);
+                setContent('Área creada correctamente!');
+                setShowModal(true);
             } else {
-                alert('Fallo al crear el área.');
+                setType(true);
+                setContent('Fallo al crear el área.');
+                setShowModal(true);
             }
         })
         .catch(error => {
@@ -71,6 +77,7 @@ function CreateAreaPage() {
                                 <button type="submit" className="btn btn-primary custom-primary-btn">
                                     {loading ? 'Creando...' : 'Crear Área'}
                                 </button>
+                                {showModal && <Popup content={content} onClose={()=>setShowModal(false)} error={type} ruta={'/Admin/areas'}/>}
                             </div>
                         </form>
                     </div>

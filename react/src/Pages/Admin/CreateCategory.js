@@ -4,11 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import NavigationBar from '../../Components/NavigationBar/Admin/NavigationBar'
 import ContentCard from '../../Components/ContentCard/ContentCard';
 import TextInput from '../../Components/TextInput/TextInput';
+import Popup from '../../Components/Popup/Popup';
 
 function CreateCategoryPage() {
     const [category, setCategory] = useState({ title: '', description: '',isActive:1 }); // Inicializa el estado con valores vacíos
     const [loading, setLoading] = useState(false); // Estado de carga
-    const navigate = useNavigate();
+    const [content, setContent] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+    const [type, setType] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -29,10 +32,13 @@ function CreateCategoryPage() {
         .then(response => {
             setLoading(false); // Termina el estado de carga
             if (response.ok) {
-                alert('Categoría creada correctamente!');
-                navigate('/Admin/categorias'); // Redirige a la lista de áreas
+                setType(false);
+                setContent('Categoría creada correctamente!');
+                setShowModal(true);
             } else {
-                alert('Fallo al crear la categoría.');
+                setType(true);
+                setContent('Fallo al crear la categoría.');
+                setShowModal(true);
             }
         })
         .catch(error => {
@@ -71,6 +77,7 @@ function CreateCategoryPage() {
                                 <button type="submit" className="btn btn-primary custom-primary-btn">
                                     {loading ? 'Creando...' : 'Crear Categoría'}
                                 </button>
+                                {showModal && <Popup content={content} onClose={()=>setShowModal(false)} error={type} ruta={'/Admin/categorias'}/>}
                             </div>
                         </form>
                     </div>

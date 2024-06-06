@@ -40,7 +40,7 @@ import Users from './Pages/Admin/Users';
 import Judges from './Pages/Admin/Judges';
 import EditUserPage from './Pages/Admin/EditUserPage';
 import Projects from './Pages/Admin/Projects';
-import ProjectPage from './Pages/Admin/ProjectPage';
+import ProjectPage from './Pages/Admin/ProjectPage/ProjectPage.js';
 import Categorias from './Pages/Admin/Categorias';
 import Areas from './Pages/Admin/Areas';
 import EditAreaPage from './Pages/Admin/EditAreas';
@@ -52,6 +52,9 @@ import CreateAnnouncePage from './Pages/Admin/CreateAnnounce';
 import Announces from './Pages/Admin/Announces';
 import AdminRubrica from './Pages/Admin/AdminRubrica';
 import EditCriteriaPage from './Pages/Admin/EditCriteriaPage.js';
+import PerfilAdmin from './Pages/Admin/AdminProfile.js';
+import EditAdminProfile from './Pages/Admin/AdminEditProfile.js';
+import ProjectRubric from './Pages/Admin/ProjectRubric.js';
 
 // Judge
 import Juez from './Pages/Juez/Juez'; // Mis Proyectos
@@ -116,24 +119,32 @@ function App() {
               <Route path="/Callback" element={<Callback />} />
 
               {/* Admin Routes */}
-              <Route path="/Admin" element={<Dashboard />} />
-              <Route path="/Admin/historico" element={<Historical />} />
-              <Route path="/Admin/usuarios" element={<Users />} />
-              <Route path="/Admin/usuarios/jueces/:projectId" element={<Judges />} />
-              <Route path="/Admin/usuarios/:userId" element={<EditUserPage />} />
-              <Route path="/Admin/proyectos" element={<Projects />} />
-              <Route path="/Admin/proyectos/:projectId" element={<ProjectPage />} />
-              <Route path="/Admin/anuncios" element={<Announces/>}/>
-              <Route path="/Admin/areas" element={<Areas/>}/>
-              <Route path='/Admin/areas/nuevo' element={<CreateAreaPage/>}/>
-              <Route path="/Admin/areas/:areaId" element={<EditAreaPage/>}/>
-              <Route path='/Admin/categorias' element={<Categorias/>}/>
-              <Route path='/Admin/categorias/nuevo' element={<CreateCategoryPage/>}/>
-              <Route path='/Admin/Categorias/:categoriaId' element={<EditCategoryPage/>}/>
-              <Route path='/Admin/anuncios/:anunciosId' element={<EditAnnouncePage/>}/>
-              <Route path='/Admin/anuncios/nuevo' element={<CreateAnnouncePage/>}/>
-              <Route path='/Admin/rubrica' element={<AdminRubrica />}/>
-              <Route path='/Admin/rubrica/criterio/:criteriaId' element={<EditCriteriaPage />}/>
+              <Route path="/Admin" element={<ProtectedRoute requiredRole="admin"><Dashboard /></ProtectedRoute>} />
+              <Route path="/Admin/admin-profile" element={<ProtectedRoute requiredRole="admin"><PerfilAdmin /></ProtectedRoute>} />
+              <Route path="/Admin/editar-admin-perfil" element={<ProtectedRoute requiredRole="admin"><EditAdminProfile /></ProtectedRoute>} />
+              <Route path="/Admin/historico" element={<ProtectedRoute requiredRole="admin"><Historical /></ProtectedRoute>} />
+              {/* Manejo de usuarios */}
+              <Route path="/Admin/usuarios" element={<ProtectedRoute requiredRole="admin"><Users /></ProtectedRoute>} />
+              <Route path="/Admin/usuarios/jueces/:projectId" element={<ProtectedRoute requiredRole="admin"><Judges /></ProtectedRoute>} />
+              <Route path="/Admin/usuarios/:userId" element={<ProtectedRoute requiredRole="admin"><EditUserPage /></ProtectedRoute>} />
+              {/* Proyectos */}
+              <Route path="/Admin/proyectos" element={<ProtectedRoute requiredRole="admin"><Projects /></ProtectedRoute>} />
+              <Route path="/Admin/proyectos/:projectId" element={<ProtectedRoute requiredRole="admin"><ProjectPage /></ProtectedRoute>} />
+              <Route path='/Admin/proyectos/calificar/:projectId' element={<ProtectedRoute requiredRole="admin"><ProjectRubric /></ProtectedRoute>}></Route>
+              <Route path="/Admin/areas" element={<ProtectedRoute requiredRole="admin"><Areas/></ProtectedRoute>}/>
+              <Route path='/Admin/areas/nuevo' element={<ProtectedRoute requiredRole="admin"><CreateAreaPage/></ProtectedRoute>}/>
+              <Route path="/Admin/areas/:areaId" element={<ProtectedRoute requiredRole="admin"><EditAreaPage/></ProtectedRoute>}/>
+              {/* categorias */}
+              <Route path='/Admin/categorias' element={<ProtectedRoute requiredRole="admin"><Categorias/></ProtectedRoute>}/>
+              <Route path='/Admin/categorias/nuevo' element={<ProtectedRoute requiredRole="admin"><CreateCategoryPage/></ProtectedRoute>}/>
+              <Route path='/Admin/Categorias/:categoriaId' element={<ProtectedRoute requiredRole="admin"><EditCategoryPage/></ProtectedRoute>}/>
+              {/* Manejo de anuncios */}
+              <Route path="/Admin/anuncios" element={<ProtectedRoute requiredRole="admin"><Announces/></ProtectedRoute>}/>
+              <Route path='/Admin/anuncios/:anunciosId' element={<ProtectedRoute requiredRole="admin"><EditAnnouncePage/></ProtectedRoute>}/>
+              <Route path='/Admin/anuncios/nuevo' element={<ProtectedRoute requiredRole="admin"><CreateAnnouncePage/></ProtectedRoute>}/>
+              {/* Manejo de rubrica */}
+              <Route path='/Admin/rubrica' element={<ProtectedRoute requiredRole="admin"><AdminRubrica /></ProtectedRoute>}/>
+              <Route path='/Admin/rubrica/criterio/:criteriaId' element={<ProtectedRoute requiredRole="admin"><EditCriteriaPage /></ProtectedRoute>}/>
 
               {/* Judge Routes */}
               <Route path="/Juez" element={<ProtectedRoute requiredRole="teacher"><Juez /></ProtectedRoute>} />

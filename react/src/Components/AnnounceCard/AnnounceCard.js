@@ -27,14 +27,15 @@ function AnnounceCard({data}){
 
     const handleEditClick = () => {
         // Redirect to EditUserPage and pass the userId as a URL parameter
-        navigate(`/anuncios/${id}`);
+        navigate(`/Admin/anuncios/${id}`);
     };
     return (
         <div className='tar'>
             <img src={imagen} className="card-img-top" alt="Project Image"/>
             <div className='contenido'>
             <h2>{truncateString(`${title}`,15)}</h2>
-            <p className='description'>{truncateString(`${description}`,53)}</p>
+            <p className='description'>{truncateString(` Descripción: ${description}`,50)}</p>
+            <p className='descriptionAud'>{`Audiencia: ${audience}`}</p>
             <button className="btn btn-primary custom-primaty-btn btnPrin" onClick={handleEditClick}>Editar</button>
             <button className="btn  btn-danger mx-2 btnElim" onClick={()=>handleDelete(id)}>Eliminar</button>
             </div>
@@ -42,8 +43,18 @@ function AnnounceCard({data}){
     );
 }
 
-export default function AnnounceCardList({data}){
+export default function AnnounceCardList({data, filter,searchTerm}){
     let announceInfo=data;
+    if (filter !== "") {
+      announceInfo = announceInfo.filter(announce => announce.audience === filter);
+    }
+  
+    // Apply search filter
+    if (searchTerm) {
+      announceInfo = announceInfo.filter(project =>
+        project.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
     return(
         <div className="contenedor row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
           <div className='tarjeta'>

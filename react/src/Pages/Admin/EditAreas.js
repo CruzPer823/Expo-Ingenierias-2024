@@ -5,12 +5,15 @@ import NavigationBar from '../../Components/NavigationBar/Admin/NavigationBar'
 import ContentCard from '../../Components/ContentCard/ContentCard';
 import TextInput from '../../Components/TextInput/TextInput';
 import Loader from '../../Components/Loader/Loader';
+import Popup from '../../Components/Popup/Popup';
 
 function EditAreaPage() {
     const { areaId } = useParams(); // Retrieve the userId from the URL parameters
     const [area, setArea] = useState({ name: '', description: '' }); // Include enrollment in state
     const [loading, setLoading] = useState(true);
-    const navigate = useNavigate();
+    const [content, setContent] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+    const [type, setType] = useState(false);
 
     // Fetch existing user data
     useEffect(() => {
@@ -43,10 +46,13 @@ function EditAreaPage() {
         })
         .then(response => {
             if (response.ok) {
-                alert('Area correctamente actualizada!');
-                navigate('/Admin/areas'); // Redirect to home or users list page
+                setType(false);
+                setContent('Area correctamente actualizada!');
+                setShowModal(true);
             } else {
-                alert('Fallo al actualizar el área.');
+                setType(true);
+                setContent('Fallo al actualizar el área.');
+                setShowModal(true);
             }
         })
         .catch(error => {
@@ -96,6 +102,7 @@ function EditAreaPage() {
                                 } />
                               <div className="d-flex justify-content-center mt-3">
                                 <button type="submit" className="btn btn-primary custom-primaty-btn">Actualizar área</button>
+                                {showModal && <Popup content={content} onClose={()=>setShowModal(false)} error={type} ruta={'/Admin/areas'}/>}
                               </div>
                             </form>
                         </div>

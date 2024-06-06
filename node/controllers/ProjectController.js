@@ -5,6 +5,68 @@ import {ProjectModel, PersonModel, JudgeProjectModel, AsessorProjectModel, Stude
 import { Sequelize } from 'sequelize';  // Import Sequelize
 import { Op } from 'sequelize';  // Import operator from Sequelize
 //** Métodos para el CRUD **/
+export const GetFinalGradeByProjectId = async (req, res) => {
+    try {
+        // Buscar todas las calificaciones del proyecto por su ID
+        const criteriaJudges = await CriteriaJudgeModel.findAll({
+            where: { id_project: req.params.id }
+        });
+
+        if (criteriaJudges.length === 0) {
+            return res.status(404).json({ message: 'No hay calificaciones para este proyecto.' });
+        }
+
+        // Sumar todas las calificaciones
+        let totalGradeSum = 0;
+        criteriaJudges.forEach(criteriaJudge => {
+            totalGradeSum += criteriaJudge.grade;
+        });
+
+        // Calcular el número de conjuntos de 5 calificaciones
+        const numberOfSets = criteriaJudges.length / 5;
+
+        // Calcular el promedio de las calificaciones
+        const finalGrade = (totalGradeSum / criteriaJudges.length).toFixed(2);
+
+        res.json({ finalGrade });
+    } catch (error) {
+        console.error('Error al obtener la calificación final del proyecto:', error);
+        res.status(500).json({ message: 'Hubo un error al obtener la calificación final del proyecto.' });
+    }
+}
+export const UpdateFinalGradeByProjectId = async (req, res) => {
+    try {
+        // Buscar todas las calificaciones del proyecto por su ID
+        const criteriaJudges = await CriteriaJudgeModel.findAll({
+            where: { id_project: req.params.id }
+        });
+
+        if (criteriaJudges.length === 0) {
+            return res.status(404).json({ message: 'No hay calificaciones para este proyecto.' });
+        }
+
+        // Sumar todas las calificaciones
+        let totalGradeSum = 0;
+        criteriaJudges.forEach(criteriaJudge => {
+            totalGradeSum += criteriaJudge.grade;
+        });
+
+        // Calcular el promedio de las calificaciones
+        const finalGrade = (totalGradeSum / criteriaJudges.length).toFixed(2);
+
+        // Actualizar la columna finalGrade en la tabla projects
+        await ProjectModel.update(
+            { finalGrade: finalGrade },
+            { where: { id: req.params.id } }
+        );
+
+        res.json({ message: 'Calificación final actualizada correctamente.', finalGrade });
+    } catch (error) {
+        console.error('Error al actualizar la calificación final del proyecto:', error);
+        res.status(500).json({ message: 'Hubo un error al actualizar la calificación final del proyecto.' });
+    }
+}
+
 
 
 // Helper function to transform project data into the desired format
@@ -35,7 +97,7 @@ const transformProjectData = async (project) => {
     const memberNames = team.members.map(member => member.name);
 
     // Determine if project is reviewed
-    const isReviewed = project.statusGeneral === "revisado";
+    const isReviewed = project.statusGeneral === "aprobado";
 
     // Check if the project is disqualified
     const disqualifiedEntry = await DisqualifiedModel.findOne({
@@ -67,7 +129,7 @@ const transformProjectData = async (project) => {
         title: project.title,
         review: isReviewed,
         img: "mockProject.jpeg", // Placeholder, update as necessary
-        poster: "poster.jpg",
+        poster: project.linkPoster,
         video: project.linkVideo,
         description: project.description,
         categories: [category.title, area.name], 
@@ -927,7 +989,7 @@ export const getProjectStatusData = async (req, res) => {
   try {
     const reviewedCount = await ProjectModel.count({
       where: {
-        statusGeneral: 'revisado'
+        statusGeneral: 'aprobado'
       }
     });
 
@@ -936,10 +998,15 @@ export const getProjectStatusData = async (req, res) => {
         statusGeneral: 'en revision'
       }
     });
+    const rejectedCount = await ProjectModel.count({
+        where: {
+          statusGeneral: 'rechazado'
+        }
+      });
 
     res.json({
-      labels: ['Revisado', 'Pendiente'],
-      data: [reviewedCount, pendingCount]
+      labels: ['Aprobados', 'En revisión','Rechazados'],
+      data: [reviewedCount, pendingCount,rejectedCount]
     });
   } catch (error) {
     console.error('Error fetching project status data:', error);
