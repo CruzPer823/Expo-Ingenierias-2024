@@ -1,11 +1,14 @@
 // src/auth0/callback.js
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useNavigate } from 'react-router-dom';
 import LoadingSpinner from './loading.js';
 
 function Callback() {
+  const URL="http://localhost:8000/Admin/getAdmin/";
   const { isAuthenticated, isLoading, error, user } = useAuth0();
+  const [admin,setAdmin]=useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,8 +19,7 @@ function Callback() {
     if (!isLoading && !isAuthenticated) {
       window.location.href = "http://localhost:3000";
       return null; 
-    }
-
+    }    
     //Verificar si es admin o no
     //Auht0 genera un id, en ese id va user.sub()
     //auth0|66539b1ce539b35aea94e74d
@@ -25,9 +27,15 @@ function Callback() {
 
     if (!isLoading && isAuthenticated && user) {
       const username = user.email.split('@')[0];
+
+      const isAdmin = admin;
       const isStudent = /^[aA]\d{8}$/.test(username);
 
-      if (isStudent) {
+      if(isAdmin){
+        localStorage.setItem('userRole', 'admin');
+        navigate('/Admin');
+      }
+      else if (isStudent) {
         localStorage.setItem('userRole', 'student');
         navigate('/principal-estudiante'); // Redirigir a la página de estudiante
       } else {

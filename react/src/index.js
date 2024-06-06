@@ -25,6 +25,8 @@ root.render(
     <Auth0Provider
       domain={domain}
       clientId={clientId}
+      useRefreshTokens={true} 
+      cacheLocation="localstorage"
       authorizationParams={{
         redirect_uri: "http://localhost:3000/Callback"
   }}

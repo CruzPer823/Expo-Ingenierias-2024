@@ -2,9 +2,8 @@ import logo from '../../img/logo.svg';
 import { Link } from 'react-router-dom';
 import './menu.css';
 import { useAuth0 } from "@auth0/auth0-react";
-import Callback from '../../auth0/callback.js';
 import { useNavigate } from 'react-router-dom';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 const RegisterLink = () => {
   const { loginWithRedirect } = useAuth0();
@@ -13,7 +12,6 @@ const RegisterLink = () => {
     <button onClick={() => loginWithRedirect()} className="opciones-btn me-3">Iniciar Sesión</button>
   );
 };
-
 
 const PlatformLink = () => {
   const { isAuthenticated, isLoading, user } = useAuth0();
@@ -39,10 +37,8 @@ const PlatformLink = () => {
   );
 };
 
-
 export default function Menu() {
   const { isAuthenticated } = useAuth0();
-
 
   return (
     <>  
@@ -61,14 +57,18 @@ export default function Menu() {
       <div className="container-fluid p-0 w-100">
         <div className='row'>
           <div className='col-md'>
-            <nav className='navbar navbar-expand-lg fixed-top' id="NavBar">
-            <Link to={"/"} className ="ToggleButtonMain textmain">
-              <img className="ExpoIngLog2Main" src ={logo} alt=""></img>
-              <span className="textmain no-select"><strong>ExpoIngenierias</strong></span>
-            </Link>
-  
-              <div className={`collapse navbar-collapse justify-content-end`} id="navbarNav">
-                <ul className="nav navbar-nav">
+            <nav className='navbar navbar-expand-lg navbar-light fixed-top' id="NavBar">
+              <Link to={"/"} className="navbar-brand d-flex align-items-center ToggleButtonMain textmain">
+                <img className="ExpoIngLog2Main" src={logo} alt=""></img>
+                <span className="textmain no-select"><strong>ExpoIngenierias</strong></span>
+              </Link>
+
+              <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"></span>
+              </button>
+
+              <div className={`collapse navbar-collapse justify-content-end FondoDeMenu`} id="navbarNav">
+                <ul className="navbar-nav">
                   <li className="nav-item">
                     <Link to="/Ediciones-pasadas" className='nav-link opciones m-2'>Ediciones Pasadas</Link>
                   </li>

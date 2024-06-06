@@ -8,7 +8,7 @@ import Loader from '../../Components/Loader/Loader';
 
 function EditUserPage() {
     const { userId } = useParams(); // Retrieve the userId from the URL parameters
-    const [user, setUser] = useState({ name: '', email: '', enrollment: '' }); // Include enrollment in state
+    const [user, setUser] = useState({ name: '', lastName: '', email: '', enrollment: '' }); // Include enrollment in state
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
@@ -17,7 +17,7 @@ function EditUserPage() {
         fetch(`http://localhost:8000/users/${userId}`)
             .then(response => response.json())
             .then(data => {
-                setUser({ name: data.name, email: data.email, enrollment: data.enrollment }); // Include enrollment
+                setUser({ name: data.name, lastName: data.lastName, email: data.email, enrollment: data.enrollment }); // Include enrollment
                 setLoading(false);
             })
             .catch(error => {
@@ -43,15 +43,15 @@ function EditUserPage() {
         })
         .then(response => {
             if (response.ok) {
-                alert('User updated successfully!');
+                alert('Usuario actualizado de forma exitosa!');
                 navigate('/Admin/usuarios'); // Redirect to home or users list page
             } else {
-                alert('Failed to update user.');
+                alert('No se pudo actualizar al usuario :(');
             }
         })
         .catch(error => {
             console.error('Error updating user:', error);
-            alert('An error occurred. Please try again.');
+            alert('Ocurrio un error. Por favor intente de nuevo.');
         });
     };
 
@@ -72,16 +72,24 @@ function EditUserPage() {
                                 <ContentCard title="Modificar Usuario" content={  
                                     <>
                                         <TextInput
-                                            label="Name"
+                                            label="Nombre(s)"
                                             name="name"
                                             value={user.name}
                                             onChange={handleChange}
                                             required
                                         />
 
+                                        <TextInput
+                                            label="Apellido(s)"
+                                            name="lastName"
+                                            value={user.lastName}
+                                            onChange={handleChange}
+                                            required
+                                        />
+
                                         {user.enrollment ? ( // Check if enrollment exists
                                             <TextInput
-                                                label="Enrollment"
+                                                label="Matricula"
                                                 name="enrollment"
                                                 value={user.enrollment}
                                                 onChange={handleChange}
@@ -89,7 +97,7 @@ function EditUserPage() {
                                             />
                                         ) : (
                                             <TextInput
-                                                label="Email"
+                                                label="Correo"
                                                 name="email"
                                                 value={user.email}
                                                 onChange={handleChange}

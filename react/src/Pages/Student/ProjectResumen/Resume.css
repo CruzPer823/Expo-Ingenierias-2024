@@ -444,4 +444,10 @@
     height: 492px !important;
   
   }
+
+  .contenedortituloparaquesepuedahcaergrande{
+    overflow-y: auto;
+  
+    height: 200px !important;
+  }
 }

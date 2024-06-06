@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 import Form from 'react-bootstrap/Form';
 import Placeholder from 'react-bootstrap/Placeholder';
 import { Link } from 'react-router-dom';
@@ -7,9 +8,8 @@ import './TeacherAdvertisements.css'
 import Menu from '../../../Components/Togglebar/togglebar.js';
 import axios from 'axios';
 
-const URL = 'http://localhost:8000/announ/';
 
-import { useAuth0 } from '@auth0/auth0-react';
+const URL = 'http://localhost:8000/announ/';
 
 function AnnounSearch({ handleSearch }) {
   const handleChange = (e) => {

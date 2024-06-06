@@ -1,0 +1,75 @@
+.popUp{
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    background-color: rgba(0,0,0,0.65);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.popUp.isOpen{
+    display: flex;
+}
+
+.popupContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 1rem;
+    background-color: white;
+    width: 50vw;
+    height: 35vh;
+    overflow-y: auto;
+    border-radius: 10px;
+    border: 5px solid #0C356A;
+}
+.errorTitle{
+    font-size: 3rem;
+    color: rgb(193, 10, 10);
+}
+.successTitle{
+    font-size: 3rem;
+    color: rgb(3, 101, 3);
+}
+.modalCont{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    height: 100vh;
+    text-align: center;
+    font-weight: 700;
+    font-size: 2rem;
+}
+.btnMod *{
+    display: flex;
+    align-items: end;
+    width: 80px;
+    justify-content: center
+    ;
+}
+
+.closePopup{
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+.bi-x-lg:hover{
+    
+    color: red;
+}
+
+@media(max-width: 1000px){
+    .popupContainer{
+        width: 85vw;
+    }
+}

@@ -4,6 +4,7 @@ import express  from "express"
 import cors from 'cors'
 import session from 'express-session'
 import SequelizeStore from 'connect-session-sequelize'
+import sendEmail from './mailer.js';
 
 //importamos la conexión a la DB
 import db from "./database/db.js"
@@ -20,7 +21,6 @@ import AnnounRoutes from './routes/AnnounRoutes.js';
 import CommentRoutes from './routes/CommentRoutes.js';
 import PersonRoutes from './routes/PersonRoutes.js';
 import EditionRoutes from "./routes/EditionRoutes.js";
-
 
 
 // las rutas de juez
@@ -83,6 +83,19 @@ try {
 } catch (error) {
     console.log(`El error de conexión es: ${error}`)
 }
+
+// Ruta para enviar correos electrónicos
+app.post('/send-email', async (req, res) => {
+    const { templateName, templateParams } = req.body;
+  
+    try {
+      await sendEmail({ templateName, templateParams });
+      res.status(200).send('Correo enviado con éxito');
+    } catch (error) {
+      res.status(500).send(`Error al enviar correo: ${error.toString()}`);
+    }
+  });
+
 
 // cron.schedule('*/20 * * * * *', function() { console.log('Running a task every 20 seconds'); main();});
 
