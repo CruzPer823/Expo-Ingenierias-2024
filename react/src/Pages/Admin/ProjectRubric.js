@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import './Rubrica.css';
+import '../Juez/Rubrica.css';
 import ToggleBar from '../../Components/Togglebar/togglebar';
 import Loader from '../../Components/Loader/Loader';
 import { useAuth0 } from '@auth0/auth0-react';
 
-const Rubrica = () => {
+const ProjectRubric = () => {
   const { projectId } = useParams(); // Capturamos los parámetros de la URL
   const [criteria, setCriteria] = useState([]);
   const [selectedCriteria, setSelectedCriteria] = useState([]);
@@ -173,7 +173,7 @@ const Rubrica = () => {
               
               <div className="buttons-container2">
 
-                <Link to={`/Juez`} className="btn2">Cancelar</Link>
+                <Link to={`/Admin/proyectos`} className="btn2">Cancelar</Link>
                 <button onClick={handleSubmit} className="btn3">Enviar</button>
               </div>
             </div>
@@ -184,4 +184,4 @@ const Rubrica = () => {
   );
 };
 
-export default Rubrica;
+export default ProjectRubric;

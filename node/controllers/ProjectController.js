@@ -2,6 +2,68 @@ import db from "../database/db.js";
 import {ProjectModel, PersonModel, JudgeProjectModel, AsessorProjectModel, StudentModel, AdminModel, TeamModel, MaterialModel, MaterialProjectModel, CategoryModel, AreaModel, EditionModel, DisqualifiedModel, CommentModel, CriteriaModel, CriteriaJudgeModel, TeamMemberModel} from "../models/Relations.js"
 import { Sequelize } from 'sequelize';  // Import Sequelize
 //** Métodos para el CRUD **/
+export const GetFinalGradeByProjectId = async (req, res) => {
+    try {
+        // Buscar todas las calificaciones del proyecto por su ID
+        const criteriaJudges = await CriteriaJudgeModel.findAll({
+            where: { id_project: req.params.id }
+        });
+
+        if (criteriaJudges.length === 0) {
+            return res.status(404).json({ message: 'No hay calificaciones para este proyecto.' });
+        }
+
+        // Sumar todas las calificaciones
+        let totalGradeSum = 0;
+        criteriaJudges.forEach(criteriaJudge => {
+            totalGradeSum += criteriaJudge.grade;
+        });
+
+        // Calcular el número de conjuntos de 5 calificaciones
+        const numberOfSets = criteriaJudges.length / 5;
+
+        // Calcular el promedio de las calificaciones
+        const finalGrade = (totalGradeSum / criteriaJudges.length).toFixed(2);
+
+        res.json({ finalGrade });
+    } catch (error) {
+        console.error('Error al obtener la calificación final del proyecto:', error);
+        res.status(500).json({ message: 'Hubo un error al obtener la calificación final del proyecto.' });
+    }
+}
+export const UpdateFinalGradeByProjectId = async (req, res) => {
+    try {
+        // Buscar todas las calificaciones del proyecto por su ID
+        const criteriaJudges = await CriteriaJudgeModel.findAll({
+            where: { id_project: req.params.id }
+        });
+
+        if (criteriaJudges.length === 0) {
+            return res.status(404).json({ message: 'No hay calificaciones para este proyecto.' });
+        }
+
+        // Sumar todas las calificaciones
+        let totalGradeSum = 0;
+        criteriaJudges.forEach(criteriaJudge => {
+            totalGradeSum += criteriaJudge.grade;
+        });
+
+        // Calcular el promedio de las calificaciones
+        const finalGrade = (totalGradeSum / criteriaJudges.length).toFixed(2);
+
+        // Actualizar la columna finalGrade en la tabla projects
+        await ProjectModel.update(
+            { finalGrade: finalGrade },
+            { where: { id: req.params.id } }
+        );
+
+        res.json({ message: 'Calificación final actualizada correctamente.', finalGrade });
+    } catch (error) {
+        console.error('Error al actualizar la calificación final del proyecto:', error);
+        res.status(500).json({ message: 'Hubo un error al actualizar la calificación final del proyecto.' });
+    }
+}
+
 
 
 // Helper function to transform project data into the desired format
@@ -64,7 +126,7 @@ const transformProjectData = async (project) => {
         title: project.title,
         review: isReviewed,
         img: "mockProject.jpeg", // Placeholder, update as necessary
-        poster: "poster.jpg",
+        poster: project.linkPoster,
         video: project.linkVideo,
         description: project.description,
         categories: [category.title, area.name], 

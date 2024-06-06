@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
-import Loader from '../../Components/Loader/Loader';
-import Widget from '../../Components/Widget/Widget';
-import VideoCard from '../../Components/VideoCard/VideoCard';
-import CustomCarousel from '../../Components/CustomCarousel/CustomCarousel';
-import AssignJudge from '../../Components/AssignJudge/AssignJudge';
-import ProjectScore from '../../Components/ProjectScore/ProjectScore';
-import ProjectMembers from '../../Components/ProjectMembers/ProjectMembers';
-import NavigationBar from '../../Components/NavigationBar/Admin/NavigationBar';
-import Checklist from '../../Components/Checklist/Checklist';
-import CustomModal from '../../Components/CustomModal/CustomModal';
+import Loader from '../../../Components/Loader/Loader';
+import Widget from '../../../Components/Widget/Widget';
+import VideoCard from '../../../Components/VideoCard/VideoCard';
+import CustomCarousel from '../../../Components/CustomCarousel/CustomCarousel';
+import AssignJudge from '../../../Components/AssignJudge/AssignJudge';
+import ProjectScore from '../../../Components/ProjectScore/ProjectScore';
+import ProjectMembers from '../../../Components/ProjectMembers/ProjectMembers';
+import NavigationBar from '../../../Components/NavigationBar/Admin/NavigationBar';
+import Checklist from '../../../Components/Checklist/Checklist';
+import CustomModal from '../../../Components/CustomModal/CustomModal';
+
+import './ProjectPage.css'
 
 const useFetchData = (url, isChecklist = false) => {
   const [data, setData] = useState(isChecklist ? [] : { labels: [], data: [] });
@@ -96,6 +98,10 @@ function ProjectPage() {
     navigate('/Admin/proyectos'); // Redirect to the projects page after the alert
   };
 
+  const handleRedirect = () => {
+    window.open(project.poster, '_blank', 'noopener,noreferrer');
+  };
+
   if (loading) {
     return (
     <>
@@ -123,7 +129,21 @@ function ProjectPage() {
           
 
           <div className="col-lg-6">
-            <Widget title={"Póster"} centered={true} content={<img style={{height:"625px"}} src={`${process.env.PUBLIC_URL}/${project.poster}`} alt="Project Image" />} />
+          <Widget
+        title={"Póster"}
+        centered={true}
+        content={
+          <button
+            className="admin-poster-button"
+            onClick={handleRedirect}
+            style={{ backgroundImage: `url(${project.poster})` }}
+          >
+            <div className="text-admin-poster-button-container">
+              Ver Poster
+            </div>
+          </button>
+        }
+      />
           </div>
           <div className="col-lg-6">
             <div className="row">
@@ -165,7 +185,12 @@ function ProjectPage() {
 
         <div className="row mb-3">
           <div className="col-lg-12 d-flex justify-content-center mt-3">
-            <button className="btn btn-lg btn-primary mx-2 custom-primaty-btn">Calificar</button>
+            <Link
+              to={`/Admin/proyectos/calificar/${projectId}`}
+              className="btn btn-lg btn-primary mx-2 custom-primary-btn"
+            >
+              Calificar
+            </Link>
             <button className="btn btn-lg btn-danger mx-2" onClick={handleDescalify}>Descalificar</button>
           </div>
         </div>

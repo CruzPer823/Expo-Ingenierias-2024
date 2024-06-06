@@ -146,8 +146,8 @@ function CardJuez({ name, namecomplete }) {
                     const [projectsResponse, userResponse, judgeProjectsResponse, commentsResponse] = await Promise.all([
                         fetch(`http://localhost:8000/projects/responsable/${user.sub}`).then(res => res.json()),
                         fetch(`http://localhost:8000/person/resume/${user.sub}`).then(res => res.json()),
-                        fetch(`http://localhost:8000/judgeProjects/${user.sub}`).then(res => res.json()),
-                        fetch(`http://localhost:8000/fetchComment/${user.sub}`).then(res => res.json())
+                        fetch(`http://localhost:8000/judgeProjects/fetchJudgeProject/${user.sub}`).then(res => res.json()),
+                        fetch(`http://localhost:8000/jcomments/fetchComment/${user.sub}`).then(res => res.json())
                     ]);
                     setProjects(projectsResponse);
                     setUser_bs(userResponse);

@@ -15,7 +15,7 @@ router.get('/fetchComments/project/:id_project', fetchCommentsByProject);
 // Ruta para obtener comentarios por id_persona y id_project
 router.get('/fetchComment/:id_person/:id_project', fetchCommentByPersonAndProject);
 // Ruta para obtener comentarios por id_project
-router.get('/fetchComment:id_person', fetchCommentsByIdPerson);
+router.get('/fetchComment/:id_person', fetchCommentsByIdPerson);
 // Ruta para obtener comentarios por id_person
 
 export default router;
