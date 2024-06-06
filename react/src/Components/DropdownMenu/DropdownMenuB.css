@@ -1,0 +1,15 @@
+.B{
+    margin-left: 2vw;
+    width: 25vw;
+    border-radius: 10px;
+    border: 2px solid #0C356A;
+    background-color: white;
+    font-weight: 500;
+    color: black;
+}
+.contDrop{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

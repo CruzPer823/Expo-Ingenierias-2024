@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import '../Juez/Rubrica.css';
-import ToggleBar from '../../Components/Togglebar/togglebar';
+import NavigationBar from '../../Components/NavigationBar/Admin/NavigationBar'
 import Loader from '../../Components/Loader/Loader';
 import { useAuth0 } from '@auth0/auth0-react';
 
@@ -127,7 +127,7 @@ const ProjectRubric = () => {
 
   return (
     <>
-      <ToggleBar />
+      <NavigationBar NameSection={"Calificar Proyecto"} />
       <div className="container">
         {loading ? (
           <div style={{display:"flex",justifyContent:"center"}}>
