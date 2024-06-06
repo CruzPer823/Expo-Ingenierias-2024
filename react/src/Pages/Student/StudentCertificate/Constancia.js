@@ -6,16 +6,22 @@ import React, { useState, useEffect } from "react";
 import logo from '../../../img/logo-certificado.png';
 import firma from '../../../img/firma-ejemplo.jpg';
 
+import Popup from '../../../Components/Popup/PopUpElim.js';
+
 import './Constancia.css';
 
 import StudentToggle from '../../../Components/TogglebarStudent/togglebarStudent.js';
 
 const URL = 'http://localhost:8000/projects/certificate/';
 
-function CardCalif({ student_name, project }) {
+function CardCalif({ student_name, project, setShowModal, setContent, setType }) {
     const doc = new jsPDF();
 
     const handleOnClick = async () => {
+        setType(false);
+        setContent("Pronto se descargará tu constancia");
+        setShowModal(true);
+
         doc.setFontSize(22);
         doc.setFont('times', 'bold');
         doc.text('Certificado de Participación en Expoingenieria', 20, 70);
@@ -42,7 +48,7 @@ function CardCalif({ student_name, project }) {
         const img1 = new Image();
         img1.src = firma;
         img.onload = function () {
-            doc.addImage(img, 'PNG', 60, 10, 90, 50); // x, y, width, height
+            doc.addImage(img, 'PNG', 60, 10, 90, 45); // x, y, width, height
             doc.addImage(img1, 'JPG', 20, 220, 30, 30);
             doc.save(`${student_name}-certificate.pdf`);
         }
@@ -66,22 +72,22 @@ function CardCalif({ student_name, project }) {
 }
 
 function tieneInformacion(variable) {
-    if (variable === null || variable === undefined || Object.keys(variable).length === 0 ) {
+    if (variable === null || variable === undefined || Object.keys(variable).length === 0) {
         return false;
     }
-    
+
     if (typeof variable === 'string' && variable.trim() === '') {
         return false;
     }
-    
+
     if (Array.isArray(variable) && variable.length === 0) {
         return false;
     }
-    
+
     if (typeof variable === 'number' && isNaN(variable)) {
         return false;
     }
-    
+
     return true;
 }
 
@@ -90,25 +96,31 @@ export default function ProjSelection() {
 
     const { user } = useAuth0();
     const id_student = user.sub;
-  const [ConstCheck, setConstCheck] = useState("False");
+    const [ConstCheck, setConstCheck] = useState("False");
 
-  const target = new Date(2024, 3, 1); // 1 de septiembre de 2024 (el mes 8 corresponde a septiembre)
-  const target1 = new Date(2024,5,1);
-  useEffect(() => {
-    const checkDate = () => {
-      const now = new Date();
-      if (now >= target) {
-        setConstCheck("True");
-      }
-      if (projects.length === 1 && projects[0].statusGeneral === "rechazado" && now >= target1) {
-        setConstCheck("False");
-      }
-    };
+    const target = new Date(2024, 3, 1); // 1 de septiembre de 2024 (el mes 8 corresponde a septiembre)
+    const target1 = new Date(2024, 5, 1);
 
-    const intervalId = setInterval(checkDate, 1000); // Verifica cada segundo
+    const [content, setContent] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+    const [type, setType] = useState(false);
 
-    return () => clearInterval(intervalId); // Limpia el intervalo cuando el componente se desmonte
-  }, [projects, target1,target]);
+    useEffect(() => {
+        const checkDate = () => {
+            const now = new Date();
+            if (now >= target) {
+                setConstCheck("True");
+            }
+            if (projects.length === 1 && projects[0].statusGeneral === "rechazado" && now >= target1) {
+                setConstCheck("False");
+            }
+        };
+
+        const intervalId = setInterval(checkDate, 1000); // Verifica cada segundo
+
+        return () => clearInterval(intervalId); // Limpia el intervalo cuando el componente se desmonte
+    }, [projects, target1, target]);
+
     useEffect(() => {
         fetch(URL + id_student)
             .then((res) => res.json())
@@ -124,9 +136,6 @@ export default function ProjSelection() {
                 setProjects([]); // En caso de error, establece un arreglo vacío
             });
     }, [id_student]);
-    
-
-
 
     return (
         <>
@@ -163,7 +172,7 @@ export default function ProjSelection() {
                                         </div>
                                     </div>
                                 </center>
-                            </div>        
+                            </div>
                         )}
 
                         {tieneInformacion(projects) && (
@@ -173,20 +182,27 @@ export default function ProjSelection() {
                                         key={item.student.id}
                                         student_name={item.student.name + " " + item.student.lastName}
                                         project={item.title}
+                                        setShowModal={setShowModal}
+                                        setContent={setContent}
+                                        setType={setType}
                                     />
                                     {item.team.members.map((student, index) => (
                                         <CardCalif
                                             key={student.id} // Asegúrate de usar una key única
                                             student_name={student.name + " " + student.lastName}
                                             project={item.title}
+                                            setShowModal={setShowModal}
+                                            setContent={setContent}
+                                            setType={setType}
                                         />
                                     ))}
                                 </div>
-                            ))         
-                        )}                        
+                            ))
+                        )}
                     </>
                 )}
             </div>
+            {showModal && <Popup content={content} onClose={() => setShowModal(false)} error={type} ruta={'/constancia-estudiante'} />}
         </>
     );
 }

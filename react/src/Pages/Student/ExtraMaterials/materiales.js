@@ -68,16 +68,19 @@ export default function ProjSelection({ ProjCheck }) {
           event.stopPropagation();
         } else {
           try {
+
             setType(false);
             setContent("Los materiales se actualizaron correctamente");
             setShowModal(true);
+
             await axios.put(URL + id_project, [
                 {id_material: 1, amount: quantities.contacto},
                 {id_material: 2, amount: quantities.mampara},
                 {id_material: 3, amount: quantities.pantalla}
             ]);
 
-          } catch (e) {
+          } 
+          catch (e) {
             setType(false);
             setContent("Los materiales no se han podido actualizar");
             setShowModal(true);
@@ -197,14 +200,14 @@ export default function ProjSelection({ ProjCheck }) {
 
                         <center>
                             <div className='row BotonMaterialExtraContinuarContainer p-3 m-3'>
-                                <Usure MensajeTitle={"¿Estas de acuerdo con el cambio?"} BotonA={"Regresar"} BotonB={"Confirmar cambios"} Path={'/principal-estudiante/'} className={"rcol BotonRegistrarMaterialesExtra p-3"} Texto={"Actualizar pedido de materiales"} onConfirm={handleSubmit}/>
+                                <Usure MensajeTitle={"¿Estas de acuerdo con el cambio?"} BotonA={"Regresar"} BotonB={"Confirmar cambios"} className={"rcol BotonRegistrarMaterialesExtra p-3"} Texto={"Actualizar pedido de materiales"} onConfirm={handleSubmit}/>
                             </div>
                         </center>
 
                     </>
                 )}
             </div>
-            {showModal && <Popup content={content} onClose={()=>setShowModal(false)} error={type} ruta={'/Admin/rubrica'}/>}
+            {showModal && <Popup content={content} onClose={()=>setShowModal(false)} error={type} ruta={'/principal-estudiante/'}/>}
         </>
     );
 }
