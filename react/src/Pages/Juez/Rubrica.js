@@ -131,7 +131,7 @@ const Rubrica = () => {
       <div className="container">
         {loading ? (
           <div style={{display:"flex",justifyContent:"center"}}>
-          <Loader />  
+            <Loader />  
           </div>
         ) : (
           <>
@@ -169,10 +169,9 @@ const Rubrica = () => {
                 value={additionalComment}
                 onChange={(e) => handleAdditionalCommentChange(e.target.value)}
               />
-              {showErrorMessage && additionalComment.trim().length < 100 && <p className="error-message ">Por favor, ingresa un comentario adicional con al menos 100 caracteres.</p>}
+              {showErrorMessage && additionalComment.trim().length < 100 && <p className="error-message">Por favor, ingresa un comentario adicional con al menos 100 caracteres.</p>}
               
               <div className="buttons-container2">
-
                 <Link to={`/Juez`} className="btn2">Cancelar</Link>
                 <button onClick={handleSubmit} className="btn3">Enviar</button>
               </div>
