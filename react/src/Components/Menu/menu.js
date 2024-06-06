@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import './menu.css';
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from 'react-router-dom';
-import React from 'react';
+import axios from 'axios';
+import React,{useState} from 'react';
 
 const RegisterLink = () => {
   const { loginWithRedirect } = useAuth0();
