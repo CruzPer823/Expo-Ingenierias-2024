@@ -40,7 +40,7 @@ import Users from './Pages/Admin/Users';
 import Judges from './Pages/Admin/Judges';
 import EditUserPage from './Pages/Admin/EditUserPage';
 import Projects from './Pages/Admin/Projects';
-import ProjectPage from './Pages/Admin/ProjectPage';
+import ProjectPage from './Pages/Admin/ProjectPage/ProjectPage.js';
 import Categorias from './Pages/Admin/Categorias';
 import Areas from './Pages/Admin/Areas';
 import EditAreaPage from './Pages/Admin/EditAreas';
@@ -54,6 +54,7 @@ import AdminRubrica from './Pages/Admin/AdminRubrica';
 import EditCriteriaPage from './Pages/Admin/EditCriteriaPage.js';
 import PerfilAdmin from './Pages/Admin/AdminProfile.js';
 import EditAdminProfile from './Pages/Admin/AdminEditProfile.js';
+import ProjectRubric from './Pages/Admin/ProjectRubric.js';
 
 // Judge
 import Juez from './Pages/Juez/Juez'; // Mis Proyectos
@@ -129,6 +130,7 @@ function App() {
               {/* Proyectos */}
               <Route path="/Admin/proyectos" element={<ProtectedRoute requiredRole="admin"><Projects /></ProtectedRoute>} />
               <Route path="/Admin/proyectos/:projectId" element={<ProtectedRoute requiredRole="admin"><ProjectPage /></ProtectedRoute>} />
+              <Route path='/Admin/proyectos/calificar/:projectId' element={<ProtectedRoute requiredRole="admin"><ProjectRubric /></ProtectedRoute>}></Route>
               <Route path="/Admin/areas" element={<ProtectedRoute requiredRole="admin"><Areas/></ProtectedRoute>}/>
               <Route path='/Admin/areas/nuevo' element={<ProtectedRoute requiredRole="admin"><CreateAreaPage/></ProtectedRoute>}/>
               <Route path="/Admin/areas/:areaId" element={<ProtectedRoute requiredRole="admin"><EditAreaPage/></ProtectedRoute>}/>

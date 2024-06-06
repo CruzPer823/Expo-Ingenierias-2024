@@ -126,7 +126,7 @@ const transformProjectData = async (project) => {
         title: project.title,
         review: isReviewed,
         img: "mockProject.jpeg", // Placeholder, update as necessary
-        poster: "poster.jpg",
+        poster: project.linkPoster,
         video: project.linkVideo,
         description: project.description,
         categories: [category.title, area.name], 
