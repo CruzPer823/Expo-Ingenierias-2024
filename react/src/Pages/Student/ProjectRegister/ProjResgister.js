@@ -314,6 +314,25 @@ export default function FormExample() {
           templateParams
         });
       }
+
+      
+      /*
+      // Enviar correo electrónico al primer profesor registrado
+      if (teachers.length > 0) {
+        const firstTeacher = teachers[0];
+        const templateParams = {
+          nombreProfesor: `${firstTeacher.nameTeacher} ${firstTeacher.lastNameTeacher}`,
+          tituloProyecto: title,
+          studentEmail: firstTeacher.email,
+        };
+
+        await axios.post('http://localhost:8000/send-email', {
+          templateName: 'assigned',
+          templateParams
+        });
+      }*/
+
+      
       
     }
 
