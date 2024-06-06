@@ -1,0 +1,27 @@
+.uploadBotton{
+    position: relative;
+  display: inline-block;
+  margin-top: 3vh;
+  margin-bottom: 3vh;
+}
+.uploadBotton::before{
+  background-color: #0C356A;  
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  content: 'Subir nueva imagen'; /* testo por defecto */
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.uploadBotton input[type="file"]{
+    opacity: 0;
+  width: 200px;
+  height: 32px;
+  display: inline-block;
+}

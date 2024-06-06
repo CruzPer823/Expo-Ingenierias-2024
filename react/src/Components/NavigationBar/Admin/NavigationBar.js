@@ -143,8 +143,8 @@ function ToggleBar({SectionName}) {
 
               <div className='row m-2'>
                 <div className ='col-md-auto '>
-                  <Link to='/mapa' onClick={() => { handleClose(); }} class="bi bi-map-fill docu-icon2"></Link>
-                  <Link to='/mapa' className ="TextoValid2" onClick={() => { handleClose();}}>Mapa</Link> 
+                  <Link to='/Admin/mapa' onClick={() => { handleClose(); }} class="bi bi-map-fill docu-icon2"></Link>
+                  <Link to='/Admin/mapa' className ="TextoValid2" onClick={() => { handleClose();}}>Mapa</Link> 
                 </div>  
               </div>
 

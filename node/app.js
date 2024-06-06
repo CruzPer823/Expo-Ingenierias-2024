@@ -9,7 +9,7 @@ import SequelizeStore from 'connect-session-sequelize'
 import db from "./database/db.js"
 
 //importamos nuestro enrutador
-
+import MapRoutes from './routes/MapRoutes.js';
 //hay que importar las rutas de admin
 import AdminRoutes from "./routes/AdminRoutes.js";
 import UserRoutes from './routes/UserRoutes.js';
@@ -45,7 +45,9 @@ const app = express()
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-
+app.use('/assets', express.static('assets'));
+//general
+app.use('/map',MapRoutes);
 // Adimn Routes
 app.use('/users', UserRoutes);
 app.use('/categories', CategoryRoutes);

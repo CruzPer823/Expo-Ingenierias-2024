@@ -55,7 +55,7 @@ import EditCriteriaPage from './Pages/Admin/EditCriteriaPage.js';
 import PerfilAdmin from './Pages/Admin/AdminProfile.js';
 import EditAdminProfile from './Pages/Admin/AdminEditProfile.js';
 import ProjectRubric from './Pages/Admin/ProjectRubric.js';
-
+import AdminMap from './Pages/Admin/AdminMap.js';
 // Judge
 import Juez from './Pages/Juez/Juez'; // Mis Proyectos
 import Proyectos from './Pages/Juez/Proyectos'; // Catalogo Proyectos
@@ -134,6 +134,8 @@ function App() {
               <Route path="/Admin/areas" element={<ProtectedRoute requiredRole="admin"><Areas/></ProtectedRoute>}/>
               <Route path='/Admin/areas/nuevo' element={<ProtectedRoute requiredRole="admin"><CreateAreaPage/></ProtectedRoute>}/>
               <Route path="/Admin/areas/:areaId" element={<ProtectedRoute requiredRole="admin"><EditAreaPage/></ProtectedRoute>}/>
+              {/* Mapa */}
+              <Route path="/Admin/mapa" element={<ProtectedRoute requiredRole="admin"><AdminMap/></ProtectedRoute>}/>
               {/* categorias */}
               <Route path='/Admin/categorias' element={<ProtectedRoute requiredRole="admin"><Categorias/></ProtectedRoute>}/>
               <Route path='/Admin/categorias/nuevo' element={<ProtectedRoute requiredRole="admin"><CreateCategoryPage/></ProtectedRoute>}/>
