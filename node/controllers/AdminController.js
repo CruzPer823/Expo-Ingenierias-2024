@@ -15,7 +15,7 @@ export const getAdmin = async(req,res)=>{
                 exists: false
             });
         }else{
-            res.status(200).json({exists:true});
+            res.status(200).json({admin});
         }
     } catch (error){
         res.json({message:error.message})
