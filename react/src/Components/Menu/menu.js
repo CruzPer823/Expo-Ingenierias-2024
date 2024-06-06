@@ -14,15 +14,25 @@ const RegisterLink = () => {
 };
 
 const PlatformLink = () => {
+  const URL="http://localhost:8000/Admin/getAdmin/";
+  const isAdmin =async(username)=>{
+    const response =await fetch(URL+username);
+    const data = await response.json();
+    return data.exists;
+  };
   const { isAuthenticated, isLoading, user } = useAuth0();
   const navigate = useNavigate();
 
   const handlePlatformClick = () => {
     if (!isLoading && isAuthenticated && user) {
       const username = user.email.split('@')[0];
+      const admin=isAdmin(username);
       const isStudent = /^[aA]\d{8}$/.test(username);
-
-      if (isStudent) {
+      if(admin){
+        localStorage.setItem('userRole', 'admin');
+        navigate('/Admin');
+      }
+      else  if (isStudent) {
         localStorage.setItem('userRole', 'student');
         navigate('/principal-estudiante'); // Redirigir a la página de estudiante
       } else {
