@@ -4,12 +4,12 @@ import config from './config.js';
 
 import generateCommentTemplate from './emailtemp/comment.js';
 import generateAssignedTemplate from './emailtemp/assigned.js';
-
+import generateChangeTemplate from './emailtemp/change.js';
 
 const templates = {
   comment: generateCommentTemplate,
   assigned: generateAssignedTemplate,
-  
+  change: generateChangeTemplate,
 };
 
 const transporter = nodemailer.createTransport({

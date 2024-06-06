@@ -1,6 +1,9 @@
 import db from "../database/db.js";
-import {ProjectModel, PersonModel, JudgeProjectModel, AsessorProjectModel, StudentModel, AdminModel, TeamModel, MaterialModel, MaterialProjectModel, CategoryModel, AreaModel, EditionModel, DisqualifiedModel, CommentModel, CriteriaModel, CriteriaJudgeModel, TeamMemberModel} from "../models/Relations.js"
+import {ProjectModel, PersonModel, JudgeProjectModel, AsessorProjectModel, StudentModel, 
+    AdminModel, TeamModel, MaterialModel, MaterialProjectModel, CategoryModel, AreaModel, EditionModel, DisqualifiedModel, 
+    CommentModel, CriteriaModel, CriteriaJudgeModel, TeamMemberModel, ProjectDisqualifiedModel} from "../models/Relations.js"
 import { Sequelize } from 'sequelize';  // Import Sequelize
+import { Op } from 'sequelize';  // Import operator from Sequelize
 //** Métodos para el CRUD **/
 export const GetFinalGradeByProjectId = async (req, res) => {
     try {
@@ -121,11 +124,23 @@ const transformProjectData = async (project) => {
         teacherNames.unshift(teacher.name);
     }
 
+    // Determine the appropriate image based on the category title
+    let img;
+    if (category.title === "Concepto") {
+        img = "Concepto.jpg";
+    } else if (category.title === "Prototipo") {
+        img = "Prototipo.jpg";
+    } else if (category.title === "Producto") {
+        img = "Producto.jpg";
+    } else {
+        img = "mockProject.jpeg"; // Default image
+    }
+
     return {
         id: project.id,
         title: project.title,
         review: isReviewed,
-        img: "mockProject.jpeg", // Placeholder, update as necessary
+        img: img, // Placeholder, update as necessary
         poster: project.linkPoster,
         video: project.linkVideo,
         description: project.description,
@@ -134,14 +149,12 @@ const transformProjectData = async (project) => {
         id_area: project.id_area,
         leader: leader.name,
         members: memberNames,
-        teachers: teacherNames, // Assuming one responsible person
+        teachers: teacherNames, 
         edition: edition.id, 
         score: project.finalGrade, 
         isDisqualified: isDisqualified
     };
 };
-
-
 
 // Mostrar todos los registros
 export const getAllProjectsChart = async (req, res) => {
@@ -363,7 +376,6 @@ export const assignProjectJudge = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
-
 
 
 //** Métodos para el CRUD **/
@@ -836,9 +848,20 @@ export const handleEdition = async (req, res) => {
 //Eliminar un proyecto y obtener un resumen de los proyectos de un estudiante
 async function getProjectByStudentID(id_student) {
     try {
+
+        const disqualifiedProjectIds = await ProjectDisqualifiedModel.findAll({
+            attributes: ['id_project'],
+            raw: true
+        });
+
+        const disqualifiedIds = disqualifiedProjectIds.map(dp => dp.id_project);
+
         const projects = await ProjectModel.findAll({
             where: {
-                id_lider: id_student
+                id_lider: id_student,
+                id: {
+                    [Op.notIn]: disqualifiedIds
+                }
             },
             include:[
                 {model: CategoryModel},
@@ -846,11 +869,14 @@ async function getProjectByStudentID(id_student) {
             ]
 
     
-    })
+        })
         // Verificar si se encontró el proyecto
         if (!projects) {
-            throw new Error('El proyecto no fue encontrado.');
+            throw new Error('Los proyectos no fueron encontrados.');
         }
+
+
+
 
         return projects;
     } catch (error) {

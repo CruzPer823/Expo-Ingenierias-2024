@@ -10,7 +10,7 @@ import { useParams } from "react-router-dom";
 import axios from 'axios';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useAuth0 } from '@auth0/auth0-react';
-import Popup from '../../../Components/Popup/Popup.js';
+import Popup from '../../../Components/Popup/PopUpElim.js';
 
 const URL = 'http://localhost:8000/projects/resumeProject/';
 
@@ -57,11 +57,9 @@ function MenuProyectos({ id_path, setShowModal, setContent, setType }) {
                             MensajeTitle={"¿Deseas eliminar este proyecto?"}
                             BotonA={'Cancelar'}
                             BotonB={'Eliminar'}
-                            Path={"/principal-estudiante/"}
                             className={"ButtonEliminar"}
                             Texto={icono}
                             onConfirm={(event) => handleSubmit(event, id_path)}
-                            recharge={true}
                         ></BotonElim>
                     </Dropdown.Item>
                     <Dropdown.Item href="#/action-2" className='m-2'>
@@ -307,7 +305,7 @@ export default function ProjSelection() {
                     </>
                 )}
             </div>
-            {showModal && <Popup content={content} onClose={() => setShowModal(false)} error={type} ruta={'/Admin/rubrica'} />}
+            {showModal && <Popup content={content} onClose={() => setShowModal(false)} error={type} />}
         </>
     );
 }
