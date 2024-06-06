@@ -61,6 +61,27 @@ function FormExample() {
               linkVideo: linkVideo,
               linkPoster: linkPoster
             });
+
+        // Obtener el proyecto actualizado y enviar correo al profesor responsable
+             const projectResponse = await axios.get(URI + id_project);
+             const projectData = projectResponse.data;
+ 
+             const professorResponse = await fetch(`http://localhost:8000/person/resume/${projectData.id_responsable}`);
+             const professorData = await professorResponse.json();
+             const professor = { name: professorData.name, lastName: professorData.lastName };
+
+             const templateParams = {
+               nombreProfesor: `${professor.name} ${professor.lastName}`,
+               tituloProyecto: title,
+               studentEmail: professorData.email,
+             };
+ 
+             await axios.post('http://localhost:8000/send-email', {
+               templateName: 'change',
+               templateParams
+             });  
+
+
           } catch (e) {
             console.log(e);
           }
