@@ -6,9 +6,7 @@ export const getAdmin = async(req,res)=>{
     try{
         const admin=await AdminModel.findAll({
             where:{
-                email:{
-                    [Op.like]:`${adminId}@%`
-                }, 
+                id: adminId, 
                 isActive:1    
             }
         });
