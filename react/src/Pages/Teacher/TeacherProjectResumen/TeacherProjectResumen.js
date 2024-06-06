@@ -163,24 +163,39 @@ export default function ProjResumeCont() {
   const [showModal, setShowModal] = useState(false);
   const [type, setType] = useState(false);
   const [content, setContent] = useState(null);
+  const [professor, setProfessor] = useState({ name: "", lastName: "" });
+  const [leaderEmail, setLeaderEmail] = useState("");
+
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoaded(false);
-      try {
-        const res = await fetch(`http://localhost:8000/projects/resume/student/${id_project}`);
-        const data = await res.json();
-        setProject(data);
-        setComment(data?.comment?.comment || ''); // Usa el operador de encadenamiento opcional y un valor predeterminado.
-      } catch (error) {
-        console.error('Error fetching project data:', error);
-      } finally {
-        setIsLoaded(true);
-      }
+        setIsLoaded(false);
+        try {
+            const res = await fetch(`http://localhost:8000/projects/resume/student/${id_project}`);
+            const data = await res.json();
+            setProject(data);
+            setComment(data?.comment?.comment || ''); // Usa el operador de encadenamiento opcional y un valor predeterminado.
+
+            
+            const leaderResponse = await fetch(`http://localhost:8000/students/${data.id_lider}`);
+            const leaderData = await leaderResponse.json();
+            setLeaderEmail(leaderData.enrollment + "@tec.mx");
+
+            
+            const professorResponse = await fetch(`http://localhost:8000/person/resume/${user.sub}`);
+            const professorData = await professorResponse.json();
+            setProfessor({ name: professorData.name, lastName: professorData.lastName });
+
+            setIsLoaded(true);
+        } catch (error) {
+            console.error('Error fetching project data:', error);
+          } finally {
+            setIsLoaded(true);
+        }
     };
 
     fetchData();
-  }, [id_project]);
+  }, [id_project, user]);
 
   const handleComment = async () => {
       try {
@@ -207,6 +222,29 @@ export default function ProjResumeCont() {
               statusVideo: statusVideoValue,
               statusGeneral: statusTotal
           });
+
+          // Obtener datos del correo
+         const nombreAlumno = project.student.name + " " + project.student.lastName;
+         const nombreProyecto = project.title;
+         const nombreProfesor = professor.name + " " + professor.lastName; 
+         const estatusProyecto = statusTotal;
+         const comentario = comment;
+         const studentEmail = leaderEmail; 
+
+         const templateParams = {
+         nombreAlumno,
+         nombreProyecto,
+         nombreProfesor,
+         estatusProyecto,
+         comentario,
+         studentEmail
+         };
+        
+         await axios.post('http://localhost:8000/send-email', {
+         templateName: 'comment', 
+         templateParams
+         });
+
       } catch (error) {
           setType(true);
           setContent(error.response.data.message);

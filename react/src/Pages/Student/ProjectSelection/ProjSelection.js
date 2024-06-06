@@ -10,17 +10,19 @@ import { useParams } from "react-router-dom";
 import axios from 'axios';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useAuth0 } from '@auth0/auth0-react';
+import Popup from '../../../Components/Popup/Popup.js';
 
 const URL = 'http://localhost:8000/projects/resumeProject/';
 
-function MenuProyectos({ id_path }) {
+function MenuProyectos({ id_path, setShowModal, setContent, setType }) {
     const icono = <i className='bi bi-trash-fill'> Eliminar proyecto</i>;
 
     const [validated, setValidated] = useState(false);
+    
 
     const handleSubmit = async (event, id) => {
         if (event) {
-            event.preventDefault(); // Evita que el formulario se envíe automáticamente
+            event.preventDefault();
         }
 
         const form = event ? event.target : null;
@@ -29,43 +31,51 @@ function MenuProyectos({ id_path }) {
         } else {
             try {
                 await axios.delete(URL + id);
+                setType(false);
+                setContent("El proyecto se ha borrado exitosamente");
+                setShowModal(true);
             } catch (e) {
                 console.log(e);
+                setType(true);
+                setContent("El proyecto no se ha podido borrar");
+                setShowModal(true);
             }
         }
         setValidated(true);
     };
 
     return (
-        <Dropdown data-bs-theme="dark">
-            <Dropdown.Toggle className='BotonDropDownSelect fw-bolder' id="dropdown-basic">
-                Opciones
-            </Dropdown.Toggle>
+        <>
+            <Dropdown data-bs-theme="dark">
+                <Dropdown.Toggle className='BotonDropDownSelect fw-bolder' id="dropdown-basic">
+                    Opciones
+                </Dropdown.Toggle>
 
-            <Dropdown.Menu className='MenuDropPersonali'>
-                <Dropdown.Item href="#/action-1" className='m-2'>
-                    <BotonElim
-                        MensajeTitle={"¿Deseas eliminar este proyecto?"}
-                        BotonA={'Cancelar'}
-                        BotonB={'Eliminar'}
-                        Path={"/principal-estudiante/"}
-                        className={"ButtonEliminar"}
-                        Texto={icono}
-                        onConfirm={(event) => handleSubmit(event, id_path)}
-                        recharge={true}
-                    ></BotonElim>
-                </Dropdown.Item>
-                <Dropdown.Item href="#/action-2" className='m-2'>
-                    <Link to={'/extramaterial/' + id_path} className='ButtonAddMaterial bi-wrench-adjustable-circle'>
-                        Actualizar lista de materiales
-                    </Link>
-                </Dropdown.Item>
-            </Dropdown.Menu>
-        </Dropdown>
+                <Dropdown.Menu className='MenuDropPersonali'>
+                    <Dropdown.Item href="#/action-1" className='m-2'>
+                        <BotonElim
+                            MensajeTitle={"¿Deseas eliminar este proyecto?"}
+                            BotonA={'Cancelar'}
+                            BotonB={'Eliminar'}
+                            Path={"/principal-estudiante/"}
+                            className={"ButtonEliminar"}
+                            Texto={icono}
+                            onConfirm={(event) => handleSubmit(event, id_path)}
+                            recharge={true}
+                        ></BotonElim>
+                    </Dropdown.Item>
+                    <Dropdown.Item href="#/action-2" className='m-2'>
+                        <Link to={'/extramaterial/' + id_path} className='ButtonAddMaterial bi-wrench-adjustable-circle'>
+                            Actualizar lista de materiales
+                        </Link>
+                    </Dropdown.Item>
+                </Dropdown.Menu>
+            </Dropdown>
+        </>
     );
 }
 
-function CardCalif({ projects, isLoading }) {
+function CardCalif({ projects, isLoading, setShowModal, setContent, setType }) {
     const truncateText = (text, limit) => {
         if (!text || typeof text !== 'string' || text.length <= limit) {
             return text;
@@ -137,7 +147,12 @@ function CardCalif({ projects, isLoading }) {
                         <Link to={"/resumen-proyecto-estudiante/" + item.id} className="btn23">Ver Proyecto</Link>
                     </div>
                     <div className="button-container">
-                        <MenuProyectos id_path={item.id}></MenuProyectos>
+                        <MenuProyectos
+                            id_path={item.id}
+                            setShowModal={setShowModal}
+                            setContent={setContent}
+                            setType={setType}
+                        ></MenuProyectos>
                     </div>
                 </div>
             ))}
@@ -170,6 +185,9 @@ export default function ProjSelection() {
     const { isAuthenticated, isLoadingAuth, error, user } = useAuth0();
     const [projects, setProjects] = useState([]);
     const { id_student } = useParams();
+    const [showModal, setShowModal] = useState(false);
+    const [content, setContent] = useState("");
+    const [type, setType] = useState(false);
 
     const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 768);
 
@@ -191,7 +209,6 @@ export default function ProjSelection() {
 
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-
     }, [id_student, user.sub]);
 
     return (
@@ -274,18 +291,23 @@ export default function ProjSelection() {
                                                 </h1>
                                             </center>
                                         </div>
-                                    </div>                   
+                                    </div>
                                 </>
-
                             )}
-
                         </div>
                         <div className='row d-flex flex-col justify-content-evenly'>
-                            <CardCalif projects={projects} isLoading={isLoading} />
+                            <CardCalif 
+                                projects={projects} 
+                                isLoading={isLoading} 
+                                setShowModal={setShowModal} 
+                                setContent={setContent} 
+                                setType={setType} 
+                            />
                         </div>
                     </>
                 )}
             </div>
+            {showModal && <Popup content={content} onClose={() => setShowModal(false)} error={type} ruta={'/Admin/rubrica'} />}
         </>
     );
 }

@@ -25,6 +25,8 @@ import Autosuggest from 'react-autosuggest';
 
 import { Typeahead } from 'react-bootstrap-typeahead';
 
+import Popup from '../../../Components/Popup/Popup.js';
+
 const URI = 'http://localhost:8000/projects/register'
 
 
@@ -213,7 +215,7 @@ function CategoryButtons({setCategory, categories}) {
   );
 }
 
-function FormExample() {
+export default function FormExample() {
   const [data, setData] = useState({ students: [], teachers: [], categories: [], areas: [] });
   const [validated, setValidated] = useState(false);
   const [memberNum, setMemberNum] = useState(1);
@@ -241,6 +243,9 @@ function FormExample() {
 
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 768);
 
+  const [content, setContent] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [type, setType] = useState(false);
 
   useEffect(() => {
     fetch('http://localhost:8000/projects/register')
@@ -261,8 +266,16 @@ function FormExample() {
     }
     const form = event ? event.target : null;
     if (form && form.checkValidity() === false) {
+      setType(true);
+      setContent("El proyecto no se ha podido crear");
+      setShowModal(true);
       event.stopPropagation();
     } else {
+
+      setType(false);
+      setContent("El proyecto se ha creado correctamente");
+      setShowModal(true); 
+
       await axios.post(URI, {
         id_student: user.sub,
         title: title,
@@ -287,6 +300,40 @@ function FormExample() {
           email: teacher.email,
         })),
       });
+
+      // Enviar correos electrónicos a los profesores asesores
+      for (const teacher of teachers) {
+        const templateParams = {
+          nombreProfesor: `${teacher.nameTeacher} ${teacher.lastNameTeacher}`,
+          tituloProyecto: title,
+          studentEmail: teacher.email,
+        };
+
+        await axios.post('http://localhost:8000/send-email', {
+          templateName: 'assigned', 
+          templateParams
+        });
+      }
+
+      
+      /*
+      // Enviar correo electrónico al primer profesor registrado
+      if (teachers.length > 0) {
+        const firstTeacher = teachers[0];
+        const templateParams = {
+          nombreProfesor: `${firstTeacher.nameTeacher} ${firstTeacher.lastNameTeacher}`,
+          tituloProyecto: title,
+          studentEmail: firstTeacher.email,
+        };
+
+        await axios.post('http://localhost:8000/send-email', {
+          templateName: 'assigned',
+          templateParams
+        });
+      }*/
+
+      
+      
     }
 
     setValidated(true);
@@ -384,473 +431,464 @@ function FormExample() {
 
   return (
     <>
-      <Form noValidate validated={validated} onSubmit={handleSubmit}>
+      <ToggleBarStudent NameSection={"Registro de nuevo proyecto"} />
+        <div className='container ContenedorForm mt-4 mb-4 bg-white'>
+          <div className='row p-2'>
+                <Form noValidate validated={validated} onSubmit={handleSubmit}>
 
-        <Row className="mb-3">
-          <Form.Group as={Col} md="12" controlId="validationCustom06">
-            <Form.Label className="Titulo ps-2">Titulo del proyecto</Form.Label>
-            <Form.Control
-              required
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              type="text"
-              placeholder="Ingresa un titulo para tu proyecto"
-              className="InputFormat"
-            />
-          </Form.Group>
-        </Row>
+                  <Row className="mb-3">
+                    <Form.Group as={Col} md="12" controlId="validationCustom06">
+                      <Form.Label className="Titulo ps-2">Titulo del proyecto</Form.Label>
+                      <Form.Control
+                        required
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        type="text"
+                        placeholder="Ingresa un titulo para tu proyecto"
+                        className="InputFormat"
+                      />
+                    </Form.Group>
+                  </Row>
 
-        <Row className="mb-3">
-          <Form.Group controlId="exampleForm.ControlTextarea1">
-            <Form.Label className="Titulo">Descripción del proyecto</Form.Label>
-            <Form.Control
-              as="textarea"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className="InputFormat"
-              rows={5}
-            />
-          </Form.Group>
-        </Row>
+                  <Row className="mb-3">
+                    <Form.Group controlId="exampleForm.ControlTextarea1">
+                      <Form.Label className="Titulo">Descripción del proyecto</Form.Label>
+                      <Form.Control
+                        as="textarea"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        className="InputFormat"
+                        rows={5}
+                      />
+                    </Form.Group>
+                  </Row>
 
-        <Row className="mb-3">
-          <Form.Group as={Col} md="12" controlId="validationMembers">
-            <Form.Label className="Titulo">Integrantes</Form.Label>
-            {isLargeScreen ? (
-              <>
-                {members.map((member, indexMember) => (
-                  <div key={member.id} className="container">
-                    <div className="row pt-2 pb-2 pe-2">
-                      {indexMember !== 0 && (
-                        <div className="col-auto">
-                          <Button className="ButtonAddLessMaterials" onClick={() => handleRemoveMember(member.id)}>
-                            -
-                          </Button>
-                        </div>
-                      )}
-                      {indexMember === members.length - 1 && (
-                        <div className="col-auto">
-                          <Button className="ButtonAddLessMaterials" onClick={handleAddMember}>
-                            +
-                          </Button>
-                        </div>
-                      )}
-                    </div>
-                    <div className="row">
+                  <Row className="mb-3">
+                    <Form.Group as={Col} md="12" controlId="validationMembers">
+                      <Form.Label className="Titulo">Integrantes</Form.Label>
+                      {isLargeScreen ? (
+                        <>
+                          {members.map((member, indexMember) => (
+                            <div key={member.id} className="container">
+                              <div className="row pt-2 pb-2 pe-2">
+                                {indexMember !== 0 && (
+                                  <div className="col-auto">
+                                    <Button className="ButtonAddLessMaterials" onClick={() => handleRemoveMember(member.id)}>
+                                      -
+                                    </Button>
+                                  </div>
+                                )}
+                                {indexMember === members.length - 1 && (
+                                  <div className="col-auto">
+                                    <Button className="ButtonAddLessMaterials" onClick={handleAddMember}>
+                                      +
+                                    </Button>
+                                  </div>
+                                )}
+                              </div>
+                              <div className="row">
 
-                      <div className="col">
-                        <Typeahead
-                          id={`member-enrollment-${member.id}`}
-                          options={filteredStudents}
-                          labelKey="enrollment"
-                          onChange={(selected) => handleMemberSelect(selected, indexMember)}
-                          onInputChange={(text) => handleEnrollmentChange(text, indexMember)}
-                          placeholder="A01XXXXXX"
-                          selected={data.students.filter((student) => student.enrollment === member.enrollment)}
-                          inputProps={{ className: 'InputFormat', required: true }}
-                        />
-                        </div>
+                                <div className="col">
+                                  <Typeahead
+                                    id={`member-enrollment-${member.id}`}
+                                    options={filteredStudents}
+                                    labelKey="enrollment"
+                                    onChange={(selected) => handleMemberSelect(selected, indexMember)}
+                                    onInputChange={(text) => handleEnrollmentChange(text, indexMember)}
+                                    placeholder="A01XXXXXX"
+                                    selected={data.students.filter((student) => student.enrollment === member.enrollment)}
+                                    inputProps={{ className: 'InputFormat', required: true }}
+                                  />
+                                  </div>
+
+                                
+                                <div className='col'>
+                                <Form.Control
+                                  required
+                                  value={member.nameMember}
+                                  onChange={(e) => {
+                                    const updatedMembers = [...members];
+                                    updatedMembers[indexMember].nameMember = e.target.value;
+                                    setMembers(updatedMembers);
+                                  }}
+                                  type="text"
+                                  placeholder="Ingresa el nombre(s)"
+                                  className="InputFormat"
+                                />
+                                </div>
+
+
+                                <div className='col'>
+                                <Form.Control
+                                  required
+                                  value={member.lastNameMember}
+                                  onChange={(e) => {
+                                    const updatedMembers = [...members];
+                                    updatedMembers[indexMember].lastNameMember = e.target.value;
+                                    setMembers(updatedMembers);
+                                  }}
+                                  type="text"
+                                  placeholder="Ahora los apellidos"
+                                  className="InputFormat"
+                                />
+                                </div>
+
+                              </div>
+                                <Form.Control.Feedback type='invalid'>No hay integrantes</Form.Control.Feedback>
+                              </div>
+                            ))}              
+                        </>
+                      ) : (
+                        <>
+                          {members.map((member, indexMember) => (
+                            <div key={member.id} className="container">
+                              <div className="row pt-2 pb-2 pe-2">
+                                {indexMember !== 0 && (
+                                  <div className="col-auto">
+                                    <Button className="ButtonAddLessMaterials" onClick={() => handleRemoveMember(member.id)}>
+                                      -
+                                    </Button>
+                                  </div>
+                                )}
+                                {indexMember === members.length - 1 && (
+                                  <div className="col-auto">
+                                    <Button className="ButtonAddLessMaterials" onClick={handleAddMember}>
+                                      +
+                                    </Button>
+                                  </div>
+                                )}
+                              </div>
+                              <div className="row">
+
+                                <div className="col">
+                                  <Typeahead
+                                    id={`member-enrollment-${member.id}`}
+                                    options={filteredStudents}
+                                    labelKey="enrollment"
+                                    onChange={(selected) => handleMemberSelect(selected, indexMember)}
+                                    onInputChange={(text) => handleEnrollmentChange(text, indexMember)}
+                                    placeholder="A01XXXXXX"
+                                    selected={data.students.filter((student) => student.enrollment === member.enrollment)}
+                                    inputProps={{ className: 'InputFormat', required: true }}
+                                  />
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className='col'>
+                                <Form.Control
+                                  required
+                                  value={member.nameMember}
+                                  onChange={(e) => {
+                                    const updatedMembers = [...members];
+                                    updatedMembers[indexMember].nameMember = e.target.value;
+                                    setMembers(updatedMembers);
+                                  }}
+                                  type="text"
+                                  placeholder="Ingresa el nombre(s)"
+                                  className="InputFormat"
+                                />
+                                </div>
+                              </div>
+                              <div className="row">
+
+                                <div className='col'>
+                                <Form.Control
+                                  required
+                                  value={member.lastNameMember}
+                                  onChange={(e) => {
+                                    const updatedMembers = [...members];
+                                    updatedMembers[indexMember].lastNameMember = e.target.value;
+                                    setMembers(updatedMembers);
+                                  }}
+                                  type="text"
+                                  placeholder="Ahora los apellidos"
+                                  className="InputFormat"
+                                />
+                                </div>
+
+                              </div>
+                                <Form.Control.Feedback type='invalid'>No hay integrantes</Form.Control.Feedback>
+                              </div>
+                            ))}
+                          </>
+                        )}
 
                       
-                      <div className='col'>
-                      <Form.Control
-                        required
-                        value={member.nameMember}
-                        onChange={(e) => {
-                          const updatedMembers = [...members];
-                          updatedMembers[indexMember].nameMember = e.target.value;
-                          setMembers(updatedMembers);
-                        }}
-                        type="text"
-                        placeholder="Ingresa el nombre(s)"
-                        className="InputFormat"
-                      />
+                      </Form.Group>
+                    </Row>
+
+                      
+                  <Row className="mb-3  ">
+                      <Form.Group as={Col} md="12" controlId="validationArea">
+                      <div className='container-fluid'>
+                          <div className='row'>
+                            <div className='col'>
+                              <Form.Label className='Titulo ps-2'>Área</Form.Label>
+                            </div>
+                          </div>
+
+                          <div className='row'>
+                            <div className='col'>
+                              <AreaButtons setArea={setArea} areas={data.areas}/>
+                            </div>
+                          </div>
                       </div>
+                      </Form.Group>
+                  </Row>
 
 
-                      <div className='col'>
-                      <Form.Control
-                        required
-                        value={member.lastNameMember}
-                        onChange={(e) => {
-                          const updatedMembers = [...members];
-                          updatedMembers[indexMember].lastNameMember = e.target.value;
-                          setMembers(updatedMembers);
-                        }}
-                        type="text"
-                        placeholder="Ahora los apellidos"
-                        className="InputFormat"
-                      />
-                      </div>
-
-                    </div>
-                      <Form.Control.Feedback type='invalid'>No hay integrantes</Form.Control.Feedback>
-                    </div>
-                  ))}              
-              </>
-            ) : (
-              <>
-                {members.map((member, indexMember) => (
-                  <div key={member.id} className="container">
-                    <div className="row pt-2 pb-2 pe-2">
-                      {indexMember !== 0 && (
-                        <div className="col-auto">
-                          <Button className="ButtonAddLessMaterials" onClick={() => handleRemoveMember(member.id)}>
-                            -
-                          </Button>
+                <Row className="mb-3  ">
+                    <Form.Group as={Col} md="12" controlId="validationCustom03">
+                    <div className='container-fluid'>
+                        <div className='row'>
+                            <div className='col'>
+                                <Form.Label className='Titulo ps-2'>Categoría</Form.Label>
+                            </div>
                         </div>
+
+                          <div className='row'>
+                              <div className='col'>
+                                  <CategoryButtons setCategory={setCategory} categories={data.categories}/>
+                              </div>
+                          </div>
+                      </div>
+                      </Form.Group>
+                  </Row>
+
+                <Row className="mb-3">
+                  <Form.Group as={Col} md="12" controlId="validationTeacher">
+                    <Form.Label className='Titulo'>Profesor(es) asesor</Form.Label>
+
+                      {isLargeScreen ? (
+                        <>
+                        {teachers.map((teacher, indexTeacher) => (
+                          <div key={teacher.id} className='container'>
+                            <div className='row pt-2 pb-2 pe-2'>
+                              {indexTeacher !== 0 && (
+                                <div className='col-auto'>
+                                  <Button className='ButtonAddLessMaterials' onClick={() => handleRemoveProf(teacher.id)}>-</Button>
+                                </div>
+                              )}
+                              {indexTeacher === teachers.length - 1 && (
+                                <div className='col-auto'>
+                                  <Button className='ButtonAddLessMaterials' onClick={() => handleAddProf()}>+</Button>
+                                </div>
+                              )}
+                            </div>
+                            <div className='row'>
+
+
+                              <div className='col'>
+                                <Typeahead
+                                  id={`teacher-email-${teacher.id}`}
+                                  options={filteredTeachers}
+                                  labelKey="email"
+                                  onChange={(selected) => handleTeacherSelect(selected, indexTeacher)}
+                                  onInputChange={(text) => handleEmailChange(text, indexTeacher)}
+                                  placeholder="correo@example"
+                                  selected={teachers[indexTeacher].email ? [teachers[indexTeacher]] : []}
+                                  inputProps={{ className: 'InputFormat', required: true }}
+                                  
+                                />
+                              </div>
+
+                              <div className='col'>
+                                <Form.Control 
+                                  required
+                                  value={teacher.nameTeacher}
+                                  onChange={(e) => {
+                                    const updatedTeachers = [...teachers];
+                                    updatedTeachers[indexTeacher].nameTeacher = e.target.value;
+                                    setTeachers(updatedTeachers);
+                                  }} 
+                                  type="text"
+                                  placeholder="Ingresa el nombre"  
+                                  className='InputFormat' />
+                              </div>
+
+
+                              <div className='col'>
+                                <Form.Control
+                                required
+                                value={teacher.lastNameTeacher} 
+                                onChange={(e) => {
+                                  const updatedTeachers = [...teachers];
+                                  updatedTeachers[indexTeacher].lastNameTeacher = e.target.value;
+                                  setTeachers(updatedTeachers);
+                                }}  
+                                type="text"
+                                placeholder="Ingresa los apellidos"  
+                                className='InputFormat' />
+                              </div>
+                            </div>
+
+                          </div>
+                        ))}              
+                        </>
+                      ) : (
+                        <>
+                          {teachers.map((teacher, indexTeacher) => (
+                            <div key={teacher.id} className='container'>
+                              <div className='row pt-2 pb-2 pe-2'>
+                                {indexTeacher !== 0 && (
+                                  <div className='col-auto'>
+                                    <Button className='ButtonAddLessMaterials' onClick={() => handleRemoveProf(teacher.id)}>-</Button>
+                                  </div>
+                                )}
+                                {indexTeacher === teachers.length - 1 && (
+                                  <div className='col-auto'>
+                                    <Button className='ButtonAddLessMaterials' onClick={() => handleAddProf()}>+</Button>
+                                  </div>
+                                )}
+                              </div>
+                              <div className='row'>
+                                <div className='col'>
+                                  <Typeahead
+                                    id={`teacher-email-${teacher.id}`}
+                                    options={filteredTeachers}
+                                    labelKey="email"
+                                    onChange={(selected) => handleTeacherSelect(selected, indexTeacher)}
+                                    onInputChange={(text) => handleEmailChange(text, indexTeacher)}
+                                    placeholder="correo@example"
+                                    selected={teachers[indexTeacher].email ? [teachers[indexTeacher]] : []}
+                                    inputProps={{ className: 'InputFormat', required: true }}
+                                    
+                                  />
+                                </div>
+                              </div>
+                              <div className="row">
+                                <div className='col'>
+                                  <Form.Control 
+                                    required
+                                    value={teacher.nameTeacher}
+                                    onChange={(e) => {
+                                      const updatedTeachers = [...teachers];
+                                      updatedTeachers[indexTeacher].nameTeacher = e.target.value;
+                                      setTeachers(updatedTeachers);
+                                    }} 
+                                    type="text"
+                                    placeholder="Ingresa el nombre"  
+                                    className='InputFormat' />
+                                </div>
+                              </div>
+
+                              <div className="row">
+                                <div className='col'>
+                                  <Form.Control
+                                  required
+                                  value={teacher.lastNameTeacher} 
+                                  onChange={(e) => {
+                                    const updatedTeachers = [...teachers];
+                                    updatedTeachers[indexTeacher].lastNameTeacher = e.target.value;
+                                    setTeachers(updatedTeachers);
+                                  }}  
+                                  type="text"
+                                  placeholder="Ingresa los apellidos"  
+                                  className='InputFormat' />
+                                </div>
+                              </div>
+
+                            </div>
+                          ))}              
+                        </>
                       )}
-                      {indexMember === members.length - 1 && (
-                        <div className="col-auto">
-                          <Button className="ButtonAddLessMaterials" onClick={handleAddMember}>
-                            +
-                          </Button>
+
+                  </Form.Group>
+                </Row>
+
+                  <Row className="mb-3  ">
+
+                    <Form.Group as={Col} md="12" controlId="validationCustom06">
+
+                      <div className='container-fluid'>
+                        <div className='row'>
+                          <div className='col'>
+                            <Form.Label className='Titulo ps-2'>Poster(PDF)</Form.Label>
+                          </div>
                         </div>
-                      )}
-                    </div>
-                    <div className="row">
 
-                      <div className="col">
-                        <Typeahead
-                          id={`member-enrollment-${member.id}`}
-                          options={filteredStudents}
-                          labelKey="enrollment"
-                          onChange={(selected) => handleMemberSelect(selected, indexMember)}
-                          onInputChange={(text) => handleEnrollmentChange(text, indexMember)}
-                          placeholder="A01XXXXXX"
-                          selected={data.students.filter((student) => student.enrollment === member.enrollment)}
-                          inputProps={{ className: 'InputFormat', required: true }}
-                        />
-                      </div>
-                  </div>
-                  <div className="row">
-                      <div className='col'>
-                      <Form.Control
-                        required
-                        value={member.nameMember}
-                        onChange={(e) => {
-                          const updatedMembers = [...members];
-                          updatedMembers[indexMember].nameMember = e.target.value;
-                          setMembers(updatedMembers);
-                        }}
-                        type="text"
-                        placeholder="Ingresa el nombre(s)"
-                        className="InputFormat"
-                      />
-                      </div>
-                    </div>
-                    <div className="row">
-
-                      <div className='col'>
-                      <Form.Control
-                        required
-                        value={member.lastNameMember}
-                        onChange={(e) => {
-                          const updatedMembers = [...members];
-                          updatedMembers[indexMember].lastNameMember = e.target.value;
-                          setMembers(updatedMembers);
-                        }}
-                        type="text"
-                        placeholder="Ahora los apellidos"
-                        className="InputFormat"
-                      />
+                        <div className='row'>
+                          <div className='col'>
+                            <Form.Control
+                            required
+                            value={linkPoster}
+                            onChange={(e)=> setLinkPoster(e.target.value)}
+                            type="text"
+                            placeholder="Link de tu carpeta de drive"
+                            className='InputFormat'
+                            />            
+                          </div>
+                        </div>
                       </div>
 
-                    </div>
-                      <Form.Control.Feedback type='invalid'>No hay integrantes</Form.Control.Feedback>
-                    </div>
-                  ))}
-                </>
-              )}
+                    </Form.Group>
+                </Row>
 
-            
-            </Form.Group>
-          </Row>
+                  <Row className="mb-3  ">
 
-            
-        <Row className="mb-3  ">
-            <Form.Group as={Col} md="12" controlId="validationArea">
-            <div className='container-fluid'>
-                <div className='row'>
-                  <div className='col'>
-                    <Form.Label className='Titulo ps-2'>Área</Form.Label>
-                  </div>
-                </div>
+                    <Form.Group as={Col} md="12" controlId="validationCustom06">
 
-                <div className='row'>
-                  <div className='col'>
-                    <AreaButtons setArea={setArea} areas={data.areas}/>
-                  </div>
-                </div>
-            </div>
-            </Form.Group>
-        </Row>
+                      <div className='container-fluid'>
+                        <div className='row'>
+                          <div className='col'>
+                            <Form.Label className='Titulo ps-2'>Link video</Form.Label>
+                          </div>
+                        </div>
 
 
-      <Row className="mb-3  ">
-          <Form.Group as={Col} md="12" controlId="validationCustom03">
-          <div className='container-fluid'>
-              <div className='row'>
-                  <div className='col'>
-                      <Form.Label className='Titulo ps-2'>Categoría</Form.Label>
-                  </div>
-              </div>
-
-                <div className='row'>
-                    <div className='col'>
-                        <CategoryButtons setCategory={setCategory} categories={data.categories}/>
-                    </div>
-                </div>
-            </div>
-            </Form.Group>
-        </Row>
-
-      <Row className="mb-3">
-        <Form.Group as={Col} md="12" controlId="validationTeacher">
-          <Form.Label className='Titulo'>Profesor(es) asesor</Form.Label>
-
-            {isLargeScreen ? (
-              <>
-              {teachers.map((teacher, indexTeacher) => (
-                <div key={teacher.id} className='container'>
-                  <div className='row pt-2 pb-2 pe-2'>
-                    {indexTeacher !== 0 && (
-                      <div className='col-auto'>
-                        <Button className='ButtonAddLessMaterials' onClick={() => handleRemoveProf(teacher.id)}>-</Button>
+                        <div className='row'>
+                          <div className='col'>
+                            <Form.Control
+                              required
+                              value={linkVideo}
+                              onChange={(e)=> setLinkVideo(e.target.value)}
+                              type="text"
+                              placeholder="Link de youtube"
+                              className='InputFormat'
+                            />                
+                          </div>
+                        </div>            
                       </div>
-                    )}
-                    {indexTeacher === teachers.length - 1 && (
-                      <div className='col-auto'>
-                        <Button className='ButtonAddLessMaterials' onClick={() => handleAddProf()}>+</Button>
+                    </Form.Group>
+                </Row>
+
+                <Row className="mb-3  ">
+                    <Form.Group as={Col} md="12" controlId="validationCustom07">
+                    <div className='cotainer-fluid'>
+                        <div className='row'>
+                            <div className='col'>
+                                <Form.Label className='Titulo'>Necesitas materiales extra?</Form.Label>
+                            </div>
+                        </div>
+
+                          <div className='row d-flex justify-content-center'>
+                              <div className='d-flex justify-content-center p-3 BckGrnd'>
+                                  <ButtonMaterials material1={contacto} setMaterial1={setContacto} material2={mampara} setMaterial2={setMampara} material3={pantalla} setMaterial3={setPantalla}/>
+                              </div>
+                          </div>
                       </div>
-                    )}
-                  </div>
+                      </Form.Group>
+
+                  </Row>
+
+
+                  {/*<center><Button type="submit" className='mt-4 btn-lg ButtonRegister'>Registrar proyecto</Button></center>*/}
+                  <center><Usure MensajeTitle={"¿Deseas registrar este proyecto?"} BotonA={"Regresar"} BotonB={"Confirmar registro"} Path={'/principal-estudiante/'} className={"mt-4 btn-lg ButtonRegister"} Texto={"Registrar proyecto"} onConfirm={handleSubmit}/></center>
+                </Form>   
+
+                <div className='container-fluid mb-4'>
                   <div className='row'>
-
-
-                    <div className='col'>
-                      <Typeahead
-                        id={`teacher-email-${teacher.id}`}
-                        options={filteredTeachers}
-                        labelKey="email"
-                        onChange={(selected) => handleTeacherSelect(selected, indexTeacher)}
-                        onInputChange={(text) => handleEmailChange(text, indexTeacher)}
-                        placeholder="correo@example"
-                        selected={teachers[indexTeacher].email ? [teachers[indexTeacher]] : []}
-                        inputProps={{ className: 'InputFormat', required: true }}
-                        
-                      />
-                    </div>
-
-                    <div className='col'>
-                      <Form.Control 
-                        required
-                        value={teacher.nameTeacher}
-                        onChange={(e) => {
-                          const updatedTeachers = [...teachers];
-                          updatedTeachers[indexTeacher].nameTeacher = e.target.value;
-                          setTeachers(updatedTeachers);
-                        }} 
-                        type="text"
-                        placeholder="Ingresa el nombre"  
-                        className='InputFormat' />
-                    </div>
-
-
-                    <div className='col'>
-                      <Form.Control
-                      required
-                      value={teacher.lastNameTeacher} 
-                      onChange={(e) => {
-                        const updatedTeachers = [...teachers];
-                        updatedTeachers[indexTeacher].lastNameTeacher = e.target.value;
-                        setTeachers(updatedTeachers);
-                      }}  
-                      type="text"
-                      placeholder="Ingresa los apellidos"  
-                      className='InputFormat' />
-                    </div>
-                  </div>
-
-                </div>
-              ))}              
-              </>
-            ) : (
-              <>
-                {teachers.map((teacher, indexTeacher) => (
-                  <div key={teacher.id} className='container'>
-                    <div className='row pt-2 pb-2 pe-2'>
-                      {indexTeacher !== 0 && (
-                        <div className='col-auto'>
-                          <Button className='ButtonAddLessMaterials' onClick={() => handleRemoveProf(teacher.id)}>-</Button>
-                        </div>
-                      )}
-                      {indexTeacher === teachers.length - 1 && (
-                        <div className='col-auto'>
-                          <Button className='ButtonAddLessMaterials' onClick={() => handleAddProf()}>+</Button>
-                        </div>
-                      )}
-                    </div>
-                    <div className='row'>
                       <div className='col'>
-                        <Typeahead
-                          id={`teacher-email-${teacher.id}`}
-                          options={filteredTeachers}
-                          labelKey="email"
-                          onChange={(selected) => handleTeacherSelect(selected, indexTeacher)}
-                          onInputChange={(text) => handleEmailChange(text, indexTeacher)}
-                          placeholder="correo@example"
-                          selected={teachers[indexTeacher].email ? [teachers[indexTeacher]] : []}
-                          inputProps={{ className: 'InputFormat', required: true }}
-                          
-                        />
+                          <Link to={'/principal-estudiante'} className='bi bi-arrow-left-circle IconBack'> Regresar</Link>
                       </div>
-                    </div>
-                    <div className="row">
-                      <div className='col'>
-                        <Form.Control 
-                          required
-                          value={teacher.nameTeacher}
-                          onChange={(e) => {
-                            const updatedTeachers = [...teachers];
-                            updatedTeachers[indexTeacher].nameTeacher = e.target.value;
-                            setTeachers(updatedTeachers);
-                          }} 
-                          type="text"
-                          placeholder="Ingresa el nombre"  
-                          className='InputFormat' />
-                      </div>
-                    </div>
-
-                    <div className="row">
-                      <div className='col'>
-                        <Form.Control
-                        required
-                        value={teacher.lastNameTeacher} 
-                        onChange={(e) => {
-                          const updatedTeachers = [...teachers];
-                          updatedTeachers[indexTeacher].lastNameTeacher = e.target.value;
-                          setTeachers(updatedTeachers);
-                        }}  
-                        type="text"
-                        placeholder="Ingresa los apellidos"  
-                        className='InputFormat' />
-                      </div>
-                    </div>
-
                   </div>
-                ))}              
-              </>
-            )}
-
-        </Form.Group>
-      </Row>
-
-        <Row className="mb-3  ">
-
-          <Form.Group as={Col} md="12" controlId="validationCustom06">
-
-            <div className='container-fluid'>
-              <div className='row'>
-                <div className='col'>
-                  <Form.Label className='Titulo ps-2'>Poster(PDF)</Form.Label>
-                </div>
-              </div>
-
-              <div className='row'>
-                <div className='col'>
-                  <Form.Control
-                  required
-                  value={linkPoster}
-                  onChange={(e)=> setLinkPoster(e.target.value)}
-                  type="text"
-                  placeholder="Link de tu carpeta de drive"
-                  className='InputFormat'
-                  />            
-                </div>
-              </div>
-            </div>
-
-          </Form.Group>
-      </Row>
-
-        <Row className="mb-3  ">
-
-          <Form.Group as={Col} md="12" controlId="validationCustom06">
-
-            <div className='container-fluid'>
-              <div className='row'>
-                <div className='col'>
-                  <Form.Label className='Titulo ps-2'>Link video</Form.Label>
-                </div>
-              </div>
-
-
-              <div className='row'>
-                <div className='col'>
-                  <Form.Control
-                    required
-                    value={linkVideo}
-                    onChange={(e)=> setLinkVideo(e.target.value)}
-                    type="text"
-                    placeholder="Link de youtube"
-                    className='InputFormat'
-                  />                
-                </div>
-              </div>            
-            </div>
-          </Form.Group>
-      </Row>
-
-      <Row className="mb-3  ">
-          <Form.Group as={Col} md="12" controlId="validationCustom07">
-          <div className='cotainer-fluid'>
-              <div className='row'>
-                  <div className='col'>
-                      <Form.Label className='Titulo'>Necesitas materiales extra?</Form.Label>
-                  </div>
-              </div>
-
-                <div className='row d-flex justify-content-center'>
-                    <div className='d-flex justify-content-center p-3 BckGrnd'>
-                        <ButtonMaterials material1={contacto} setMaterial1={setContacto} material2={mampara} setMaterial2={setMampara} material3={pantalla} setMaterial3={setPantalla}/>
-                    </div>
-                </div>
-            </div>
-            </Form.Group>
-
-        </Row>
-
-
-        {/*<center><Button type="submit" className='mt-4 btn-lg ButtonRegister'>Registrar proyecto</Button></center>*/}
-        <center><Usure MensajeTitle={"¿Deseas registrar este proyecto?"} BotonA={"Regresar"} BotonB={"Confirmar registro"} Path={'/principal-estudiante/'} className={"mt-4 btn-lg ButtonRegister"} Texto={"Registrar proyecto"} onConfirm={handleSubmit}/></center>
-      </Form>   
-
-      <div className='container-fluid mb-4'>
-        <div className='row'>
-            <div className='col'>
-                <Link to={'/principal-estudiante'} className='bi bi-arrow-left-circle IconBack'> Regresar</Link>
+                </div> 
             </div>
         </div>
-      </div>  
+        {showModal && <Popup content={content} onClose={()=>setShowModal(false)} error={type} ruta={'/Admin/rubrica'}/>} 
     </>
 
 
     
 );
-}
-
-export default function ProjRegisterCont(){
-  return (
-    <>
-      <ToggleBarStudent NameSection={"Registro de nuevo proyecto"} />
-      <div className='container ContenedorForm mt-4 mb-4 bg-white'>
-        <div className='row p-2'>
-            <div className='col p-4'>
-                <FormExample />
-            </div>
-        </div>
-      </div>   
-    </>
-  );
 }
