@@ -121,11 +121,23 @@ const transformProjectData = async (project) => {
         teacherNames.unshift(teacher.name);
     }
 
+    // Determine the appropriate image based on the category title
+    let img;
+    if (category.title === "Concepto") {
+        img = "Concepto.jpg";
+    } else if (category.title === "Prototipo") {
+        img = "Prototipo.jpg";
+    } else if (category.title === "Producto") {
+        img = "Producto.jpg";
+    } else {
+        img = "mockProject.jpeg"; // Default image
+    }
+
     return {
         id: project.id,
         title: project.title,
         review: isReviewed,
-        img: "mockProject.jpeg", // Placeholder, update as necessary
+        img: img, // Placeholder, update as necessary
         poster: project.linkPoster,
         video: project.linkVideo,
         description: project.description,
@@ -134,7 +146,7 @@ const transformProjectData = async (project) => {
         id_area: project.id_area,
         leader: leader.name,
         members: memberNames,
-        teachers: teacherNames, // Assuming one responsible person
+        teachers: teacherNames, 
         edition: edition.id, 
         score: project.finalGrade, 
         isDisqualified: isDisqualified

@@ -13,7 +13,7 @@ function ProjectCard({ project }) {
         <div className={`project-card-status ${statusClassName}`}>
           <StatusIcon /> {/* Render dynamic icon */}
         </div>
-        <img src={`${process.env.PUBLIC_URL}/${img}`} className="card-img-top" alt="Project Image" />
+        <img src={require(`../../Assets/${img}`)} className="card-img-top" alt={`${img}`} />
         <div className="card-body project-card-content">
           <h5 className="card-title">{title}</h5>
           <div className="category-container">
