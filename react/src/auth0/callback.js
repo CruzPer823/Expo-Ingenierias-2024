@@ -6,46 +6,59 @@ import { useNavigate } from 'react-router-dom';
 import LoadingSpinner from './loading.js';
 
 function Callback() {
-  const URL="http://localhost:8000/Admin/getAdmin/";
+  const URL = "http://localhost:8000/Admin/getAdmin/";
   const { isAuthenticated, isLoading, error, user } = useAuth0();
-  const [admin,setAdmin]=useState(false);
+  const [isCheckingAdmin, setIsCheckingAdmin] = useState(true);
   const navigate = useNavigate();
-
+  
   useEffect(() => {
-    console.log('isLoading:', isLoading);
-    console.log('isAuthenticated:', isAuthenticated);
     console.log('error:', error);
+    
 
     if (!isLoading && !isAuthenticated) {
       window.location.href = "http://localhost:3000";
-      return null; 
-    }    
-    //Verificar si es admin o no
-    //Auht0 genera un id, en ese id va user.sub()
-    //auth0|66539b1ce539b35aea94e74d
-
+      return null;
+    }
 
     if (!isLoading && isAuthenticated && user) {
-      const username = user.email.split('@')[0];
 
-      const isAdmin = admin;
-      const isStudent = /^[aA]\d{8}$/.test(username);
+      const checkAdminStatus = async () => {
+        try {
+          const response = await axios.get(`${URL}${user.sub}`);
+          const isAdmin = response.data.length > 0;
 
-      if(isAdmin){
-        localStorage.setItem('userRole', 'admin');
-        navigate('/Admin');
-      }
-      else if (isStudent) {
-        localStorage.setItem('userRole', 'student');
-        navigate('/principal-estudiante'); // Redirigir a la página de estudiante
-      } else {
-        localStorage.setItem('userRole', 'teacher');
-        navigate('/principal-profesor'); // Redirigir a la página de profesor
-      }
+          if (isAdmin) {
+            localStorage.setItem('userRole', 'admin');
+            navigate('/Admin');
+          } else {
+            throw new Error('Not an admin');
+          }
+        } catch (error) {
+          if (error.response && error.response.status === 404) {
+            const username = user.email.split('@')[0];
+            const isStudent = /^[aA]\d{8}$/.test(username);
+
+            if (isStudent) {
+              localStorage.setItem('userRole', 'student');
+              navigate('/principal-estudiante');
+            } else {
+              localStorage.setItem('userRole', 'teacher');
+              navigate('/principal-profesor');
+            }
+          } else {
+            console.error('Error checking admin status:', error);
+            navigate('/'); 
+          }
+        } finally {
+          setIsCheckingAdmin(false);
+        }
+      };
+
+      checkAdminStatus();
     }
   }, [isLoading, isAuthenticated, error, user, navigate]);
 
-  if (isLoading) {
+  if (isLoading || isCheckingAdmin) {
     return <LoadingSpinner />;
   }
 
