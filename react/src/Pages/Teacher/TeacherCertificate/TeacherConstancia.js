@@ -70,7 +70,7 @@ function CardCalif({ name, namecomplete }) {
             <div className="card cardconst mb-1 me-0">
                 <div className="imagConstancias ConstanciaCardPhoto"></div>
                 <div className="text constanciastextsirveporfa">
-                    <center><span className='fw-bolder'>Esta constancia es valida para:</span></center>
+                    <center><span className='fw-bolder'>Esta constancia de profesor encargado es valida para:</span></center>
                     <center><p>{namecomplete}</p></center>
                     <button className="btn23" onClick={handleOnClick}>Descargar Constancia</button>
                 </div>
