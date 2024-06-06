@@ -30,7 +30,7 @@ function CreateAnnouncePage() {
             setLoading(false); // Termina el estado de carga
             if (response.ok) {
                 alert('Anuncio creado correctamente!');
-                navigate('/anuncios'); // Redirige a la lista de áreas
+                navigate('/Admin/anuncios'); // Redirige a la lista de áreas
             } else {
                 alert('Fallo al crear el anuncio.');
             }
