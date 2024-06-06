@@ -42,7 +42,7 @@ function CardCalif({ student_name, project }) {
         const img1 = new Image();
         img1.src = firma;
         img.onload = function () {
-            doc.addImage(img, 'PNG', 60, 10, 90, 50); // x, y, width, height
+            doc.addImage(img, 'PNG', 60, 10, 90, 45); // x, y, width, height
             doc.addImage(img1, 'JPG', 20, 220, 30, 30);
             doc.save(`${student_name}-certificate.pdf`);
         }

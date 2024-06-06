@@ -9,7 +9,6 @@ const Popup = ({content,onClose,error,ruta} )=>{
     const modalRef=useRef();
 
     const handleSuccess= () => {
-        // Redirect to EditUserPage and pass the userId as a URL parameter
         navigate(ruta);
     };
 
@@ -30,7 +29,7 @@ const Popup = ({content,onClose,error,ruta} )=>{
             {error?<h2 className="errorTitle">¡Cuidado!</h2>:<h2 className="successTitle">¡Listo!</h2>}
             <p className="modalCont">{content}</p>
             <div className="btnMod">
-            <button onClick={error?onClose:handleSuccess}className="btn btn-primary" >Aceptar</button>
+            <button onClick={error?onClose:handleSuccess} className="btn btn-primary" >Aceptar</button>
             </div>
         </div>
     </article>

@@ -23,7 +23,9 @@ export default function Usure({ Path, className, Texto, MensajeTitle, BotonA, Bo
         await onConfirm(); 
         
         if(recharge){
-            window.location.reload();
+            setTimeout(function() {
+                window.location.reload();
+            }, 1000);
         }
         else{
             navigate(Path); // Redirige a la ruta especificada en Path

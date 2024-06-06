@@ -873,7 +873,7 @@ export default function FormExample() {
 
 
                   {/*<center><Button type="submit" className='mt-4 btn-lg ButtonRegister'>Registrar proyecto</Button></center>*/}
-                  <center><Usure MensajeTitle={"¿Deseas registrar este proyecto?"} BotonA={"Regresar"} BotonB={"Confirmar registro"} Path={'/principal-estudiante/'} className={"mt-4 btn-lg ButtonRegister"} Texto={"Registrar proyecto"} onConfirm={handleSubmit}/></center>
+                  <center><Usure MensajeTitle={"¿Deseas registrar este proyecto?"} BotonA={"Regresar"} BotonB={"Confirmar registro"} className={"mt-4 btn-lg ButtonRegister"} Texto={"Registrar proyecto"} onConfirm={handleSubmit}/></center>
                 </Form>   
 
                 <div className='container-fluid mb-4'>
@@ -885,7 +885,7 @@ export default function FormExample() {
                 </div> 
             </div>
         </div>
-        {showModal && <Popup content={content} onClose={()=>setShowModal(false)} error={type} ruta={'/Admin/rubrica'}/>} 
+        {showModal && <Popup content={content} onClose={()=>setShowModal(false)} error={type} ruta={'/principal-estudiante'}/>} 
     </>
 
 
