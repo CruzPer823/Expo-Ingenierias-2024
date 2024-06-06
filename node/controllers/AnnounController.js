@@ -1,5 +1,6 @@
 
 import {AnnounModel, StudentModel, AnnounceReadStudentModel, PersonModel, AnnounceReadPersonModel} from "../models/Relations.js";
+import { Op } from 'sequelize';
 
 export const getAllAnnouns = async (req, res) => {
     try {
@@ -36,7 +37,12 @@ export const getAnnoun = async (req, res) => {
 export const getAllAnnounsStudents = async (req, res) => {
     try {
         const announs = await AnnounModel.findAll({
-            where: {audience: 'students'},
+            where: {
+                [Op.or]: [
+                    { audience: 'students' },
+                    { audience: 'all' }
+                ]
+            },
             order: [
                 ['id','DESC'] // Orden ascendente por id
             ]
@@ -50,7 +56,12 @@ export const getAllAnnounsStudents = async (req, res) => {
 export const getAllAnnounsPerson = async (req, res) => {
     try {
         const announs = await AnnounModel.findAll({
-            where: {audience: 'teachers'},
+            where: {
+                [Op.or]: [
+                    { audience: 'teachers' },
+                    { audience: 'all' }
+                ]
+            },
             order: [
                 ['id','DESC'] // Orden ascendente por id
             ]
@@ -90,7 +101,14 @@ export const countReadAnnouncementsStudents = async (req, res) => {
         const { id_student } = req.params; // Suponiendo que estás pasando el ID del estudiante como parámetro en la URL
 
         const allAnnoun = await AnnounModel.count(
-            {where: {audience: 'students'}}
+            {
+                where: {
+                    [Op.or]: [
+                        { audience: 'students' },
+                        { audience: 'all' }
+                    ]
+                }
+            }
         );
 
         // Realiza la consulta de conteo
@@ -133,7 +151,14 @@ export const countReadAnnouncementsPerson = async (req, res) => {
         const { id_person } = req.params; // Suponiendo que estás pasando el ID del estudiante como parámetro en la URL
 
         const allAnnoun = await AnnounModel.count(
-            {where: {audience: 'teachers'}}
+            {
+                where: {
+                    [Op.or]: [
+                        { audience: 'teachers' },
+                        { audience: 'all' }
+                    ]
+                }
+            }
         );
 
         // Realiza la consulta de conteo

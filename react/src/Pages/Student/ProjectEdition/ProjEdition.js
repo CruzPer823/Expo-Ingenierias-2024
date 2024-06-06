@@ -14,6 +14,7 @@ import "./ProjEdition.css"
 
 import ToggleBarStudent from '../../../Components/TogglebarStudent/togglebarStudent.js';
 
+import Popup from '../../../Components/Popup/Popup.js';
 
 const URI = 'http://localhost:8000/projects/editionProject/'
 
@@ -43,6 +44,10 @@ function FormExample() {
 
     const {id_project} = useParams();
 
+    const [content, setContent] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+    const [type, setType] = useState(false);
+
   
     const handleSubmit = async (event) => {
         if (event) {
@@ -55,14 +60,41 @@ function FormExample() {
         } else {
           console.log(title, description, linkPoster, linkVideo);
           try {
+            setType(false);
+            setContent("El proyecto ha sido actualizado correctamente");
+            setShowModal(true);
             await axios.put(URI + id_project, {
               title: title,
               description: description,
               linkVideo: linkVideo,
               linkPoster: linkPoster
             });
+
+        // Obtener el proyecto actualizado y enviar correo al profesor responsable
+             const projectResponse = await axios.get(URI + id_project);
+             const projectData = projectResponse.data;
+ 
+             const professorResponse = await fetch(`http://localhost:8000/person/resume/${projectData.id_responsable}`);
+             const professorData = await professorResponse.json();
+             const professor = { name: professorData.name, lastName: professorData.lastName };
+
+             const templateParams = {
+               nombreProfesor: `${professor.name} ${professor.lastName}`,
+               tituloProyecto: title,
+               studentEmail: professorData.email,
+             };
+ 
+             await axios.post('http://localhost:8000/send-email', {
+               templateName: 'change',
+               templateParams
+             });  
+
+
           } catch (e) {
             console.log(e);
+            setType(true);
+            setContent("El proyecto no se he podido actualizar");
+            setShowModal(true);
           }
         }
         
@@ -195,7 +227,7 @@ function FormExample() {
                 </Row>
 
 
-                <center><Usure MensajeTitle={"¿Estas de acuerdo con los cambios?"} BotonA={"Regresar"} BotonB={"Aceptar cambios"} Path={'/resumen-proyecto-estudiante/' + id_project} className={"ButtonRegister mt-3 btn-lg"} Texto={"Aceptar cambios"} onConfirm={handleSubmit}/></center>
+                <center><Usure MensajeTitle={"¿Estas de acuerdo con los cambios?"} BotonA={"Regresar"} BotonB={"Aceptar cambios"} className={"ButtonRegister mt-3 btn-lg"} Texto={"Aceptar cambios"} onConfirm={handleSubmit}/></center>
 
                 {/*<center><Button type="submit" className='mt-4 btn-lg ButtonRegister'>Registrar proyecto</Button></center> */}
 
@@ -207,7 +239,9 @@ function FormExample() {
                             <Link to={'/resumen-proyecto-estudiante/' + id_project} className='bi bi-arrow-left-circle IconBack'> Regresar</Link>
                         </div>
                     </div>
-            </div>      
+            </div>
+
+            {showModal && <Popup content={content} onClose={()=>setShowModal(false)} error={type} ruta={'/resumen-proyecto-estudiante/' + id_project}/>}      
 
         </>
     );

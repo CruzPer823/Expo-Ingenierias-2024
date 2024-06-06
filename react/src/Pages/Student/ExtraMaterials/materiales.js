@@ -11,6 +11,8 @@ import { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import axios from 'axios';
 
+import Popup from '../../../Components/Popup/Popup.js';
+
 const URL = 'http://localhost:8000/projects/materials/';
 
 function CardCalif({ title, quantity, onIncrease, onDecrease, className }) {
@@ -51,6 +53,10 @@ export default function ProjSelection({ ProjCheck }) {
     const initialQuantities = { contacto: 0, mampara: 0, pantalla: 0 };
     const [quantities, setQuantities] = useState(initialQuantities);
 
+    const [content, setContent] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+    const [type, setType] = useState(false);
+
 
     const handleSubmit = async (event) => {
         if (event) {
@@ -62,12 +68,22 @@ export default function ProjSelection({ ProjCheck }) {
           event.stopPropagation();
         } else {
           try {
+
+            setType(false);
+            setContent("Los materiales se actualizaron correctamente");
+            setShowModal(true);
+
             await axios.put(URL + id_project, [
                 {id_material: 1, amount: quantities.contacto},
                 {id_material: 2, amount: quantities.mampara},
                 {id_material: 3, amount: quantities.pantalla}
             ]);
-          } catch (e) {
+
+          } 
+          catch (e) {
+            setType(false);
+            setContent("Los materiales no se han podido actualizar");
+            setShowModal(true);
             console.log(e);
           }
         }
@@ -184,13 +200,14 @@ export default function ProjSelection({ ProjCheck }) {
 
                         <center>
                             <div className='row BotonMaterialExtraContinuarContainer p-3 m-3'>
-                                <Usure MensajeTitle={"¿Estas de acuerdo con el cambio?"} BotonA={"Regresar"} BotonB={"Confirmar cambios"} Path={'/principal-estudiante/'} className={"rcol BotonRegistrarMaterialesExtra p-3"} Texto={"Actualizar pedido de materiales"} onConfirm={handleSubmit}/>
+                                <Usure MensajeTitle={"¿Estas de acuerdo con el cambio?"} BotonA={"Regresar"} BotonB={"Confirmar cambios"} className={"rcol BotonRegistrarMaterialesExtra p-3"} Texto={"Actualizar pedido de materiales"} onConfirm={handleSubmit}/>
                             </div>
                         </center>
 
                     </>
                 )}
             </div>
+            {showModal && <Popup content={content} onClose={()=>setShowModal(false)} error={type} ruta={'/principal-estudiante/'}/>}
         </>
     );
 }

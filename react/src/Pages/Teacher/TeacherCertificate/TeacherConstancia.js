@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import ToggleBar from '../../../Components/Togglebar/togglebar.js';
 import logo from '../../../img/logo-certificado.png';
 import firma from '../../../img/firma-ejemplo.jpg';
+import Popup from '../../../Components/Popup/PopUpElim.js';
 import './TeacherConstancia.css';
 
 function tieneInformacion(variable) {
@@ -27,9 +28,13 @@ function tieneInformacion(variable) {
     return true;
 }
 
-function CardCalif({ name, namecomplete }) {
+function CardCalif({ name, namecomplete,setShowModal, setContent, setType}) {
     const doc = new jsPDF();
     const handleOnClick = async () => {
+        setType(false);
+        setContent("Pronto se descargará tu constancia");
+        setShowModal(true);
+
         doc.setFontSize(22);
         doc.setFont('times', 'bold');
         doc.text('Certificado de Participación en Expoingenieria', 20, 70);
@@ -70,7 +75,7 @@ function CardCalif({ name, namecomplete }) {
             <div className="card cardconst mb-1 me-0">
                 <div className="imagConstancias ConstanciaCardPhoto"></div>
                 <div className="text constanciastextsirveporfa">
-                    <center><span className='fw-bolder'>Esta constancia es valida para:</span></center>
+                    <center><span className='fw-bolder'>Esta constancia de profesor encargado es valida para:</span></center>
                     <center><p>{namecomplete}</p></center>
                     <button className="btn23" onClick={handleOnClick}>Descargar Constancia</button>
                 </div>
@@ -79,9 +84,12 @@ function CardCalif({ name, namecomplete }) {
     );
 }
 
-function CardJuez({ name, namecomplete }) {
+function CardJuez({ name, namecomplete,setShowModal, setContent, setType}) {
     const doc = new jsPDF();
     const handleOnClick = async () => {
+        setType(false);
+        setContent("Pronto se descargará tu constancia");
+        setShowModal(true);
         doc.setFontSize(22);
         doc.setFont('times', 'bold');
         doc.text('Certificado de Evaluación en Expoingenieria', 20, 70);
@@ -122,6 +130,7 @@ function CardJuez({ name, namecomplete }) {
                     <center><span className='fw-bolder'>Esta constancia de Juez es valida para: </span></center>
                     <center><p>{namecomplete}</p></center>
                     <button className="btn23" onClick={handleOnClick}>Descargar Constancia</button>
+
                 </div>
             </div>
         </div>
@@ -138,6 +147,9 @@ function CardJuez({ name, namecomplete }) {
     const [commentsCount, setCommentsCount] = useState(0);
     const [judgeProjectsCount, setJudgeProjectsCount] = useState(0);
     const { user } = useAuth0();
+    const [showModal, setShowModal] = useState(false);
+    const [type, setType] = useState(false);
+    const [content, setContent] = useState(null);
     console.log(user.sub);
     useEffect(() => {
         if (user && user.sub) {
@@ -153,6 +165,9 @@ function CardJuez({ name, namecomplete }) {
                     setUser_bs(userResponse);
                     setJudgeProjectsCount(judgeProjectsResponse.length);
                     setCommentsCount(commentsResponse.length);
+                    if (projectsResponse.length === 0) {
+                        setConstCheck(false);
+                    } 
                 } catch (error) {
                     console.error('Error fetching data:', error);
                     // Manejar el error aquí si es necesario
@@ -191,16 +206,31 @@ function CardJuez({ name, namecomplete }) {
                 )}
 
                 {ConstCheck && (
+                    <>
                     <div className='row d-flex flex-col justify-content-evenly'>
-                        <CardCalif name={user_bs.name} namecomplete={user_bs.name + ' ' + user_bs.lastName} />
-                    </div>       
+                        <CardCalif name={user_bs.name} namecomplete={user_bs.name + ' ' + user_bs.lastName} content={content} type={type} showModal={showModal}
+                            setShowModal={setShowModal}
+                            setContent={setContent}
+                            setType={setType}
+                        />
+                    </div>  
+                      
+                    </>
                 )}
                 {judgeProjectsCount === commentsCount && (
+                    <>
                     <div className='row d-flex flex-col justify-content-evenly'>
-                            <CardJuez name={user_bs.name} namecomplete={user_bs.name + ' ' + user_bs.lastName} />
-                    </div>
+                            <CardJuez name={user_bs.name} namecomplete={user_bs.name + ' ' + user_bs.lastName} content={content} type={type} showModal={showModal}
+                            setShowModal={setShowModal}
+                            setContent={setContent}
+                            setType={setType}
+                            />
+                    </div>   
+                    </>
+    
                 )}
-            </div>        
+            </div>
+            {showModal && <Popup content={content} onClose={()=>setShowModal(false)} error={type} ruta={'/constancia-profesor'}/>}          
         </>
     );
 }

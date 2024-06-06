@@ -6,14 +6,12 @@ export const getAdmin = async(req,res)=>{
     try{
         const admin=await AdminModel.findAll({
             where:{
-                email:{
-                    [Op.like]:`${adminId}@%`
-                }, 
+                id: adminId, 
                 isActive:1    
             }
         });
         if(!admin|| admin.length === 0){
-            return res.status(200).json({
+            return res.status(404).json({
                 exists: false
             });
         }else{

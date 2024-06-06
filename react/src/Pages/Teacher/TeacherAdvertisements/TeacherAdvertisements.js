@@ -16,6 +16,7 @@ function AnnounSearch({ handleSearch }) {
     handleSearch(e.target.value);
   };
 
+
   return (
     <div className='col-12 p-2'>
       <Form.Control
