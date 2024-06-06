@@ -5,21 +5,20 @@ import NavigationBar from '../../Components/NavigationBar/Admin/NavigationBar'
 import ContentCard from '../../Components/ContentCard/ContentCard';
 import TextInput from '../../Components/TextInput/TextInput';
 import Loader from '../../Components/Loader/Loader';
-import Widget from '../../Components/Widget/Widget';
-import VideoCard from '../../Components/VideoCard/VideoCard';
 import DropdownMenuB from '../../Components/DropdownMenu/DropdownMenuB';
 import Popup from '../../Components/Popup/Popup';
-
+import DisplayAnnounce from '../../Components/Display/DisplayAnnounce';
+import UploadFile from '../../Components/UploadFile/UploadFile';
 
 function EditAnnouncePage() {
-
     const { anunciosId } = useParams(); // Retrieve the userId from the URL parameters
     const [anuncio, setAnuncio] = useState({ title: '', description: '', multimedia:'',audience:'' }); // Include enrollment in state
     const [loading, setLoading] = useState(true);
     const [content, setContent] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [type, setType] = useState(false);
-    const [selectedOption, setSelectedOption] = useState(null);
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [oldFile, setOldFile] = useState(null);
     // Fetch existing user data
     useEffect(() => {
         fetch(`http://localhost:8000/Admin/Announces/${anunciosId}`)
@@ -39,9 +38,46 @@ function EditAnnouncePage() {
         setAnuncio(prevState => ({ ...prevState, [name]: value }));
     };
 
-    const handleSubmit = (e) => {
+    const handleOptionSelect = (option) => {
+        setAnuncio(prevState => ({ ...prevState, audience: option }));
+      };
+
+    const handleFileSelect = (file) => {
+        setOldFile(anuncio.multimedia);
+        setSelectedFile(file);
+        setAnuncio(prevState => ({ ...prevState, multimedia: file.name }));
+    };
+
+    const handleSubmit = async(e) => {
         e.preventDefault();
 
+        if (selectedFile) {
+            const formData = new FormData();
+            formData.append('image', selectedFile);
+
+            try {
+                const response = await fetch('http://localhost:8000/Admin/uploadAnnounceImage', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    setType(true);
+                    setContent('Fallo al subir la imagen.');
+                    setShowModal(true);
+                    return;
+                }
+            } catch (error) {
+                console.error('Error subiendo la imagen:', error);
+                setType(true);
+                setContent('Un error ocurrió al subir la imagen.');
+                setShowModal(true);
+                return;
+            }
+        }
+        await fetch(`http://localhost:8000/Admin/deleteImage/${oldFile}`,{
+            method:`DELETE`,
+        });
         fetch(`http://localhost:8000/Admin/Announce/update/${anunciosId}`, {
             method: 'PUT',
             headers: {
@@ -65,10 +101,6 @@ function EditAnnouncePage() {
             alert('Un error ocurrió, inténtelo después otra vez.');
         });
     };
-
-    const handleOptionSelect = (option) => {
-        setSelectedOption(option);
-      };
 
     if (loading) {
         return (
@@ -97,16 +129,12 @@ function EditAnnouncePage() {
                                             onChange={handleChange}
                                             required
                                         />
-                                        <Widget title={"Anuncio"} centered={true} content={`${process.env.PUBLIC_URL}/${'poster.jpg'}`} />
-                                       <TextInput
-                                            label="Multimedia"
-                                            name="multimedia"
-                                            value={anuncio.multimedia}
-                                            onChange={handleChange}
-                                            required
-                                        />
+                                        {selectedFile? null: <DisplayAnnounce label={"Multimedia"} src={anuncio.multimedia} alt={"Anuncio"}/>}
+                                         
+                                         <UploadFile onFileSelect={handleFileSelect}/>
+
                                           <TextInput
-                                            label="Descripcion"
+                                            label="Descripción"
                                             name="description"
                                             value={anuncio.description}
                                             onChange={handleChange}
@@ -116,6 +144,7 @@ function EditAnnouncePage() {
                                             title={"Audiencia"}
                                             onSelect={handleOptionSelect}
                                             value={anuncio.audience}
+                                            
                                         />
                                     </> 
                                 } />
