@@ -4,6 +4,7 @@ import './Rubrica.css';
 import ToggleBar from '../../Components/Togglebar/togglebar';
 import Loader from '../../Components/Loader/Loader';
 import { useAuth0 } from '@auth0/auth0-react';
+import Popup from '../../Components/Popup/Popup';
 
 const Rubrica = () => {
   const { projectId } = useParams(); // Capturamos los parámetros de la URL
@@ -14,6 +15,9 @@ const Rubrica = () => {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [loading, setLoading] = useState(true); // Estado de carga
   const { isAuthenticated, isLoading, error, user } = useAuth0();
+  const [content, setContent] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [type, setType] = useState(false);
 
   useEffect(() => {
     const fetchCriteria = async () => {
@@ -26,6 +30,7 @@ const Rubrica = () => {
         setLoading(false); // Desactivar el estado de carga después de obtener los datos
       } catch (error) {
         console.error('Error al obtener los criterios:', error);
+        setContent('Error al obtener los criterios:', error.error)
         setLoading(false); // Desactivar el estado de carga en caso de error
       }
     };
@@ -54,7 +59,7 @@ const Rubrica = () => {
   };
 
   const handleSubmit = async () => {
-    if (additionalComment.trim().length < 100) {
+    if (additionalComment.trim().length < 50) {
       setShowErrorMessage(true);
       return;
     }
@@ -71,12 +76,12 @@ const Rubrica = () => {
     const totalScore = selectedCriteria.reduce((acc, value) => acc + value, 0);
 
     // Mostrar confirmación al usuario
-    const confirmMessage = `¿Estás seguro de que deseas enviar tu rúbrica? ESTA ACCION NO SE PUEDE DESHACER\n\nPuntaje Total: ${totalScore / criteria.length}/5\nComentario adicional: ${additionalComment}`;
-    if (window.confirm(confirmMessage)) {
+    const confirmMessage = `¿Estás seguro de que deseas enviar tu rúbrica?\nESTA ACCION NO SE PUEDE DESHACER\nPuntaje Total: ${totalScore / criteria.length}/5\nComentario adicional: ${additionalComment}`;
+    //if (window.confirm(confirmMessage)) {
       try {
         // Enviamos los datos de la rúbrica
         for (const criterionData of criteriaData) {
-          const response = await fetch('http://localhost:8000/Juez/createCriteriaJudge', {
+          const response = await fetch('http://localhost:8000/Juez/createCriteriJudge', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -105,7 +110,7 @@ const Rubrica = () => {
         }
 
         // Redirigimos al usuario después de enviar la rúbrica y el comentario adicional
-        window.location.href = `/Juez`;
+        //window.location.href = `/Juez`;
 
         // Actualizamos la calificación final del proyecto
         const responseUpdateFinalGrade = await fetch(`http://localhost:8000/projects/projects/update-final-grade/${projectId}`, {
@@ -118,11 +123,18 @@ const Rubrica = () => {
           throw new Error('Error al actualizar la calificación final del proyecto');
         }
 
+        setType(false);
+        setContent(confirmMessage);
+        setShowModal(true);
+
       } catch (error) {
         console.error('Error al enviar la rúbrica:', error);
-        alert('Hubo un problema al enviar la rúbrica. Por favor, inténtalo de nuevo.');
+        //alert('Hubo un problema al enviar la rúbrica. Por favor, inténtalo de nuevo.');
+        setType(true);
+        setContent('Error al enviar la rúbrica', error.error);
+        setShowModal(true);
       }
-    }
+    //}
   };
 
   return (
@@ -131,7 +143,7 @@ const Rubrica = () => {
       <div className="container">
         {loading ? (
           <div style={{display:"flex",justifyContent:"center"}}>
-          <Loader />  
+            <Loader />  
           </div>
         ) : (
           <>
@@ -164,17 +176,17 @@ const Rubrica = () => {
                 </div>
               ))}
               <textarea
-                placeholder="Comentario adicional sobre el proyecto (mínimo 100 caracteres)"
+                placeholder="Comentario adicional sobre el proyecto (mínimo 50 caracteres)"
                 className="comment-box"
                 value={additionalComment}
                 onChange={(e) => handleAdditionalCommentChange(e.target.value)}
               />
-              {showErrorMessage && additionalComment.trim().length < 100 && <p className="error-message ">Por favor, ingresa un comentario adicional con al menos 100 caracteres.</p>}
+              {showErrorMessage && additionalComment.trim().length < 50 && <p className="error-message">Por favor, ingresa un comentario adicional con al menos 50 caracteres.</p>}
               
               <div className="buttons-container2">
-
                 <Link to={`/Juez`} className="btn2">Cancelar</Link>
                 <button onClick={handleSubmit} className="btn3">Enviar</button>
+                {showModal && <Popup content={content} onClose={()=>setShowModal(false)} error={type} ruta={`/Juez`}/>}
               </div>
             </div>
           </>

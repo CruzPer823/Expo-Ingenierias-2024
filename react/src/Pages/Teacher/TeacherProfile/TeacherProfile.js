@@ -196,6 +196,7 @@ export default function Perfil(){
       id_person:"",
       areas:[]
 });
+    const [isEmpty, setIsEmpty] = useState(false);
     const {user} = useAuth0();
     const navigate = useNavigate();
     const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 768);    
@@ -229,11 +230,13 @@ export default function Perfil(){
       window.addEventListener('resize', handleResize);
       return () => window.removeEventListener('resize', handleResize);
   }, [user]);// Dependencias del useEffect
-  const tieneInformacion = (areaperson) => {
-    return Array.isArray(areaperson) && areaperson.length > 0;
-};
+  useEffect(() => {
+    if (areaperson.id_person === "" && areaperson.areas.length === 0) {
+        setIsEmpty(true);
+    } 
+}, [areaperson]);
 
-  console.log(areaperson);
+  console.log(isEmpty);
   
         return (
             <>
@@ -248,7 +251,7 @@ export default function Perfil(){
                   </div>
                 </div>
                 <Datos name={`${user_b.name} ${user_b.lastName}`} type={"Profesor"} email={user.email} />
-                {!tieneInformacion(areaperson) && (
+                {isEmpty && (
                     <div className='row p-2'>
                     <div className='col-6 col-md-6'>
                     <h3>Área: </h3>
@@ -260,7 +263,7 @@ export default function Perfil(){
                   </div>
               </div>
           )}
-           {tieneInformacion(areaperson) && (
+           {!isEmpty && (
                   <div className='row p-2'>
                   <div className='col-6 col-md-6'>
                   <h3>Área: </h3>

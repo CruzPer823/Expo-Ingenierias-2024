@@ -466,6 +466,7 @@ export default function FormExample() {
                   <Row className="mb-3">
                     <Form.Group as={Col} md="12" controlId="validationMembers">
                       <Form.Label className="Titulo">Integrantes</Form.Label>
+                      <p className='MessageImportante'>IMPORTANTE: Al tu estar registrando el proyecto, serás considerado como el lider del mismo. En este apartado solo es necesario que ingreses a los miembros de tu equipo</p>
                       {isLargeScreen ? (
                         <>
                           {members.map((member, indexMember) => (
@@ -658,6 +659,7 @@ export default function FormExample() {
                 <Row className="mb-3">
                   <Form.Group as={Col} md="12" controlId="validationTeacher">
                     <Form.Label className='Titulo'>Profesor(es) asesor</Form.Label>
+                    <p className='MessageImportante'>IMPORTANTE: El primer profesor que asignes en este apartado, será el responsable de autorizar tu proyecto. Los demás profesores son de apoyo para el profesor principal</p>
 
                       {isLargeScreen ? (
                         <>
@@ -803,7 +805,7 @@ export default function FormExample() {
                       <div className='container-fluid'>
                         <div className='row'>
                           <div className='col'>
-                            <Form.Label className='Titulo ps-2'>Poster(PDF)</Form.Label>
+                            <Form.Label className='Titulo ps-2'>Link de drive del póster (PDF)</Form.Label>
                           </div>
                         </div>
 
@@ -831,7 +833,7 @@ export default function FormExample() {
                       <div className='container-fluid'>
                         <div className='row'>
                           <div className='col'>
-                            <Form.Label className='Titulo ps-2'>Link video</Form.Label>
+                            <Form.Label className='Titulo ps-2'>Link de video</Form.Label>
                           </div>
                         </div>
 

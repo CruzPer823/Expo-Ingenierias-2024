@@ -41,7 +41,6 @@ function EditAnnouncePage() {
     const handleOptionSelect = (option) => {
         setAnuncio(prevState => ({ ...prevState, audience: option }));
       };
-
     const handleFileSelect = (file) => {
         setOldFile(anuncio.multimedia);
         setSelectedFile(file);
