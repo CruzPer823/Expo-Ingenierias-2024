@@ -136,12 +136,12 @@ function ToggleBar({SectionName}) {
                 </div>  
               </div>
 
-              <div className='row m-2'>
+              {/*<div className='row m-2'>
                 <div className ='col-md-auto '>
                   <Link to={`/Juez/General`} onClick={() => { handleClose();}} class="bi bi-book-fill docu-icon2"></Link>
                   <Link to={`/Juez/General`} className ="TextoValid2" onClick={() => { handleClose(); }}>Todos los proyectos</Link> 
                 </div>  
-              </div>
+              </div>*/}
 
               <div className='row m-2'>
                   <div className ='col-md-auto '>
@@ -154,6 +154,13 @@ function ToggleBar({SectionName}) {
                   <div className ='col-md-auto d-flex align-items-center'>
                     <Link to='/anuncios-profesors' onClick={() => { handleClose(); }} class="bi bi-megaphone-fill docu-icon2"></Link>
                     <Link to='/anuncios-profesor' className ="TextoValid2" onClick={() => { handleClose(); }}>Anuncios {unreadCount > 0 && (<span className="notification-badge">{unreadCount}</span>)}</Link> 
+                  </div>  
+                </div>
+
+                <div className='row m-2'>
+                  <div className ='col-md-auto d-flex align-items-center'>
+                    <Link to='/Juez/Mapa' onClick={() => { handleClose(); }} class="bi bi-map-fill docu-icon2"></Link>
+                    <Link to='/Juez/Mapa' className ="TextoValid2" onClick={() => { handleClose(); }}>Mapa {unreadCount > 0 && (<span className="notification-badge">{unreadCount}</span>)}</Link> 
                   </div>  
                 </div>
 
