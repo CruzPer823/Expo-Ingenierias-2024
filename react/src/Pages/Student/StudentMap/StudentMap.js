@@ -21,7 +21,7 @@ function ZoomableImage({ width = '100%', height = '585px' }) {
         fetch(`http://localhost:8000/map/getMap/${mapId}`)
             .then(response => response.json())
             .then(data => {
-                setMapa({ map_image: data.map_image });
+                setMapa({ map_image: data[0].map_image });
                 setLoading(false);
             })
             .catch(error => {
@@ -30,7 +30,7 @@ function ZoomableImage({ width = '100%', height = '585px' }) {
             });
     }, [mapId]);
 
-    const mapSrc = URLimage + "PruebaMap5.png";
+    const mapSrc = URLimage + mapa.map_image;
 
     return (
         <>
