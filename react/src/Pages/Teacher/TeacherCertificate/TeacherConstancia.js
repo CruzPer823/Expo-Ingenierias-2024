@@ -165,9 +165,6 @@ function CardJuez({ name, namecomplete,setShowModal, setContent, setType}) {
                     setUser_bs(userResponse);
                     setJudgeProjectsCount(judgeProjectsResponse.length);
                     setCommentsCount(commentsResponse.length);
-                    if (projectsResponse.length === 0) {
-                        setConstCheck(false);
-                    } 
                 } catch (error) {
                     console.error('Error fetching data:', error);
                     // Manejar el error aquí si es necesario
@@ -176,10 +173,13 @@ function CardJuez({ name, namecomplete,setShowModal, setContent, setType}) {
             fetchData();
         }
     }, [user]);
-    
+    console.log(projects);
     useEffect(() => {
         let hasRevision = projects.some(project => project.statusGeneral === "en revision");
         setConstCheck(!hasRevision);
+        if (projects.length === 0) {
+            setConstCheck(false);
+        } 
     }, [projects]);
     return(
         <>

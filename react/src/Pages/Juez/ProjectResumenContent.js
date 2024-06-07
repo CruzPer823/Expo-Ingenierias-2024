@@ -210,14 +210,23 @@ function Rubrica({ criterias, grades, comments }) {
     </div>
   );
 }
+
 function FinalCalf({ finalCalf }) {
+  let finalGrade = finalCalf
+  if(isNaN(finalGrade)) {
+    finalGrade = '--'
+  }
+  else {
+    finalGrade = (finalCalf / 5).toFixed(1)
+  }
+
   return (
     <div className='col-xxl-3 h-50'>
       <h1 className="Titulo text-break text-center">Calificación Otorgada</h1>
       <div className='container-fluid p-1 d-flex justify-content-center align-items-center'>
         <div className="row pb-3 align-items-center w-100">
           <div className='col-md-auto ContFinalRes text-center p-3 mx-auto'>
-            <span className="FinalResul">{(finalCalf / 5).toFixed(1)}/5</span>
+            <span className="FinalResul">{finalGrade}/5</span>
           </div>
         </div>
       </div>

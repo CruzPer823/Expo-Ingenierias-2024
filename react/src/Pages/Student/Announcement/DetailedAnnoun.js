@@ -4,6 +4,9 @@ import Placeholder from 'react-bootstrap/Placeholder';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import DisplayAnnounce from '../../../Components/Display/DisplayAnnounce.js';
+
+import ImagenPrueba from '../../../img/CardConcept.png';
 
 const URL = 'http://localhost:8000/announ/detailed/';
 
@@ -102,6 +105,14 @@ function AnnounBody({ Contenido, isLoaded }) {
           <div className="row">
             <div className="col p-3">
               <span className="texto">{Contenido}</span>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col p-3">
+              <span className="texto">
+                <DisplayAnnounce label={"Multimedia"} src={"fondo.jpg"} alt={"Anuncio"}/>
+              </span>
             </div>
           </div>
         </div>

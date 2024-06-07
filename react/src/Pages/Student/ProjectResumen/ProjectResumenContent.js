@@ -23,31 +23,31 @@ function RubricaCalf({Calf1, Calf2, Calf3, Calf4, Calf5, Rubri1, Rubri2, Rubri3,
   return (
     <Accordion>
       <Accordion.Item eventKey="0">
-        <Accordion.Header><span className='Subtitulo'>Calificación rubro 1: </span> <span className='Texto Resultado'>{!IsLoaded && (<Spinner animation="grow" size="sm" />)}{IsLoaded && (Calf1 + " pts")}</span></Accordion.Header>
+        <Accordion.Header><span className='Subtitulo'>Calificación rubro 1: </span> <span className='Texto Resultado'>{!IsLoaded && (<Spinner animation="grow" size="sm" />)}{IsLoaded && (<>{tieneInformacion(Calf1) ? (Calf1 + " pts") : ("Sin nota")}</>)}</span></Accordion.Header>
         <Accordion.Body>
           {Rubri1}
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item eventKey="1">
-        <Accordion.Header><span className='Subtitulo'>Calificación rubro 2: </span> <span className='Texto Resultado'> {!IsLoaded && (<Spinner animation="grow" size="sm" />)}{IsLoaded && (Calf2 + " pts")}</span></Accordion.Header>
+        <Accordion.Header><span className='Subtitulo'>Calificación rubro 2: </span> <span className='Texto Resultado'> {!IsLoaded && (<Spinner animation="grow" size="sm" />)}{IsLoaded && (<>{tieneInformacion(Calf2) ? (Calf2 + " pts") : ("Sin nota")}</>)}</span></Accordion.Header>
         <Accordion.Body>
           {Rubri2}
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item eventKey="2">
-        <Accordion.Header><span className='Subtitulo'>Calificación rubro 3: </span> <span className='Texto Resultado'>{!IsLoaded && (<Spinner animation="grow" size="sm" />)}{IsLoaded && (Calf3 + " pts")}</span></Accordion.Header>
+        <Accordion.Header><span className='Subtitulo'>Calificación rubro 3: </span> <span className='Texto Resultado'>{!IsLoaded && (<Spinner animation="grow" size="sm" />)}{<>{tieneInformacion(Calf3) ? (Calf3 + " pts") : ("Sin nota")}</>}</span></Accordion.Header>
         <Accordion.Body>
           {Rubri3}
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item eventKey="3">
-        <Accordion.Header><span className='Subtitulo'>Calificación rubro 4: </span> <span className='Texto Resultado'> {!IsLoaded && (<Spinner animation="grow" size="sm" />)}{IsLoaded && (Calf4 + " pts")}</span></Accordion.Header>
+        <Accordion.Header><span className='Subtitulo'>Calificación rubro 4: </span> <span className='Texto Resultado'> {!IsLoaded && (<Spinner animation="grow" size="sm" />)}{IsLoaded && (<>{tieneInformacion(Calf4) ? (Calf4 + " pts") : ("Sin nota")}</>)}</span></Accordion.Header>
         <Accordion.Body>
           {Rubri4}
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item eventKey="4">
-        <Accordion.Header><span className='Subtitulo'>Calificación rubro 5: </span> <span className='Texto Resultado'> {!IsLoaded && (<Spinner animation="grow" size="sm" />)}{IsLoaded && (Calf5 + " pts")}</span></Accordion.Header>
+        <Accordion.Header><span className='Subtitulo'>Calificación rubro 5: </span> <span className='Texto Resultado'> {!IsLoaded && (<Spinner animation="grow" size="sm" />)}{IsLoaded && (<>{tieneInformacion(Calf5) ? (Calf5 + " pts") : ("Sin nota")}</>)}</span></Accordion.Header>
         <Accordion.Body>
           {Rubri5}
         </Accordion.Body>
@@ -523,7 +523,7 @@ function JuezContComment({comment,id_judge,comentariosRubrica}){
 }
 
 function tieneInformacion(variable) {
-  if (variable === null || variable === undefined || Object.keys(variable).length === 0 ) {
+  if (variable === null || variable === undefined || Object.keys(variable).length === 0 || variable === "NaN") {
       return false;
   }
   
@@ -672,10 +672,12 @@ function FinalCalf({finalCalf, IsLoaded}){
             <div className ="row align-items-center">
               <div className ='col-md-12'>
                 {!IsLoaded && (
-                  <Spinner animation="border" size="xs" className='BolitaDeCargaCalFin' />
+                  <center><Spinner animation="border" size="xs" className='BolitaDeCargaCalFin' /></center>
                 )}
                 {IsLoaded && (
-                  <span className ="FinalResul text-center">{finalCalf}/10</span> 
+                  <span className ="FinalResul text-center">
+                    {tieneInformacion(finalCalf) ? (finalCalf + "/10") : (<div className='container mt-3 ContNoComment'><center> <div className='row'><div className='col ClaseParatamanoDecontenedor'> <i className='bi bi-award-fill IconoNohayComentarios colornohaycomment'></i> </div></div> <div className='row'><div className='col colornohaycomment TamanoFinalCalf'> Aun han calificado tu proyecto</div></div> </center></div>)}
+                  </span> 
                 )}
               </div>              
             </div>

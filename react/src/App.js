@@ -56,15 +56,12 @@ import PerfilAdmin from './Pages/Admin/AdminProfile.js';
 import EditAdminProfile from './Pages/Admin/AdminEditProfile.js';
 import ProjectRubric from './Pages/Admin/ProjectRubric.js';
 import AdminMap from './Pages/Admin/AdminMap.js';
+
 // Judge
 import Juez from './Pages/Juez/Juez'; // Mis Proyectos
-import Proyectos from './Pages/Juez/Proyectos'; // Catalogo Proyectos
 import ProjResumeContJudge from './Pages/Juez/ProjectResumenContent';
-import GeneralProjectResume from './Pages/Juez/GeneralProjectResume';
 import Rubrica from './Pages/Juez/Rubrica';
-//import Anuncios from './Pages/Juez/Announ';
-//import DetailedAnnoun from './Pages/Juez/DetailedAnnoun';
-//import PerfilJuez from './Pages/Juez/Profile';
+import JudgeMap from './Pages/Juez/JudgeMap.js';
 
 // Auth0
 import Callback from './auth0/callback.js';
@@ -150,13 +147,9 @@ function App() {
 
               {/* Judge Routes */}
               <Route path="/Juez" element={<ProtectedRoute requiredRole="teacher"><Juez /></ProtectedRoute>} />
-              <Route path="/Juez/General" element={<ProtectedRoute requiredRole="teacher"><Proyectos /></ProtectedRoute>} />
-              <Route path="/Juez/General/Proyecto/:projectId" element={<ProtectedRoute requiredRole="teacher"><GeneralProjectResume /></ProtectedRoute>} />
-              {/*<Route path="/Juez/Anuncios/:idpersona" element={<Anuncios />} />*/}
-              {/*<Route path="/Juez/Anuncios/:idpersona/DetailAnnoun/:anuncioId" element={<DetailedAnnoun />} />*/}
-              <Route path="/Juez/Calificar/:projectId" element={<ProtectedRoute requiredRole="teacher"><Rubrica /></ProtectedRoute>} />
               <Route path="/Juez/ProyectoJuez/:projectId" element={<ProtectedRoute requiredRole="teacher"><ProjResumeContJudge /></ProtectedRoute>} />
-              {/*<Route path="/Juez/Perfil/:idpersona" element={<PerfilJuez />} />*/}
+              <Route path="/Juez/Calificar/:projectId" element={<ProtectedRoute requiredRole="teacher"><Rubrica /></ProtectedRoute>} />
+              <Route path="/Juez/Mapa" element={<ProtectedRoute requiredRole="teacher"><JudgeMap /></ProtectedRoute>} />
           </Routes>
       </div>
     </>

@@ -7,7 +7,7 @@ export const getAdmin = async(req,res)=>{
         const admin=await AdminModel.findAll({
             where:{
                 id: adminId, 
-                isActive:1    
+                //isActive:1    
             }
         });
         if(!admin|| admin.length === 0){
@@ -15,7 +15,7 @@ export const getAdmin = async(req,res)=>{
                 exists: false
             });
         }else{
-            res.status(200).json({admin});
+            res.status(200).json(admin);
         }
     } catch (error){
         res.json({message:error.message})
