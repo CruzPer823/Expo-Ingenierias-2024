@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import StudentToggle from '../../../Components/TogglebarStudent/togglebarStudent.js';
 import './Announ.css';
 import axios from 'axios';
-
 import { useAuth0 } from '@auth0/auth0-react';
 
 const URL = 'http://localhost:8000/announ/';
@@ -28,7 +27,15 @@ function AnnounSearch({ handleSearch }) {
   );
 }
 
-function AnnounInfo({ announ, isLoading }) {
+function AnnounIcon({ isRead }) {
+  return (
+    <>
+     {isRead ? (<i className={'bi bi-envelope-open-fill AnnounIcon'}></i>) :(<i className={'bi bi-envelope-fill AnnounIcon'}></i>)}
+    </>
+  );
+}
+
+function AnnounInfo({ announ, isLoading, markAsRead }) {
   const truncatedText = (text, limit) => {
     if (!text || typeof text !== 'string' || text.length <= limit) {
       return text;
@@ -37,9 +44,6 @@ function AnnounInfo({ announ, isLoading }) {
   };
 
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 768);
-
-
-  const {  user } = useAuth0();
 
   useEffect(() => {
     const handleResize = () => {
@@ -50,90 +54,84 @@ function AnnounInfo({ announ, isLoading }) {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-
   const handleAnnounceClick = async () => {
     try {
-      await axios.post(URL+'readAnnounceStudent', {
-        id_student: user.sub,
-        id_announce: announ.id
+      // Marca el anuncio como leído en el backend
+      await axios.post(URL + 'readAnnounceStudent', {
+        id_student: announ.user.sub,
+        id_announce: announ.id,
       });
+      // Actualiza el estado del anuncio a leído
+      markAsRead(announ.id);
     } catch (error) {
       console.error('Error marking announce as read', error);
     }
   };
 
-
-
-
   return (
     <>
       {isLoading ? (
-        <>
-          <div className='row m-3 p-2 AnnounInfoContainer d-flex align-items-center'>
-            <div className='col-3 d-flex align-items-center'>
-              <i className='bi bi-envelope-fill AnnounIcon'></i>
-              <Placeholder animation="glow" className="w-75">
-                <Placeholder xs={12} bg="primary" className="ms-4" size="lg" />
-              </Placeholder>
-            </div>
-            <div className='col-7 d-flex align-items-center'>
-              <Placeholder animation="glow" className="w-100">
-                <Placeholder xs={12} bg="secondary" className="ms-4" size="lg" />
-              </Placeholder>
-            </div>
-            <div className='col-2 text-end'>
-              <Placeholder animation="glow" className="w-100">
-                <Placeholder xs={10} bg="dark" className="ms-4" size="lg" />
-              </Placeholder>
-            </div>
+        <div className='row m-3 p-2 AnnounInfoContainer d-flex align-items-center'>
+          <div className='col-3 d-flex align-items-center'>
+            <AnnounIcon isRead={false} />
+            <Placeholder animation='glow' className='w-75'>
+              <Placeholder xs={12} bg='primary' className='ms-4' size='lg' />
+            </Placeholder>
           </div>
-        </>
+          <div className='col-7 d-flex align-items-center'>
+            <Placeholder animation='glow' className='w-100'>
+              <Placeholder xs={12} bg='secondary' className='ms-4' size='lg' />
+            </Placeholder>
+          </div>
+          <div className='col-2 text-end'>
+            <Placeholder animation='glow' className='w-100'>
+              <Placeholder xs={10} bg='dark' className='ms-4' size='lg' />
+            </Placeholder>
+          </div>
+        </div>
       ) : (
-        <>
-        <Link to={'/announ-estudiante/'+announ.id} className='row m-3 p-2 AnnounInfoContainer d-flex align-items-center' onClick={handleAnnounceClick}>
-        {isLargeScreen ? (
-          <>
-            <div className='col-3 d-flex align-items-center'>
-              <i className='bi bi-envelope-fill AnnounIcon'></i>
-              <span className='Titulo'> {announ.title}</span>
-            </div>
-            <div className='col-7 d-flex align-items-center'>
-              <span className='TextoAnnoun'>{truncatedText(announ.description, 100)}</span>
-            </div>
-            <div className='col-2 text-end'>
-              <span className='Subtitulo text-wrap'>{announ.createdAt && announ.createdAt.substring(0, 10)}</span>
-            </div>
-          </>
-        ) : (
-          <>
-            <div className='row-3 d-flex align-items-center'>
-              <i className='bi bi-envelope-fill AnnounIcon'></i>
-              <span className='Titulo'> {announ.title}</span>
-            </div>
-            <div className='row-7 d-flex align-items-center'>
-              <span className='TextoAnnoun'>{truncatedText(announ.description, 100)}</span>
-            </div>
-            <div className='row-2 text-end'>
-              <span className='Subtitulo text-wrap'>{announ.createdAt && announ.createdAt.substring(0, 10)}</span>
-            </div>
-          </>
-        )}
+        <Link to={'/announ-estudiante/' + announ.id} className='row m-3 p-2 AnnounInfoContainer d-flex align-items-center' onClick={handleAnnounceClick}>
+          {isLargeScreen ? (
+            <>
+              <div className='col-3 d-flex align-items-center'>
+                <AnnounIcon isRead={announ.isRead} />
+                <span className='Titulo'> {announ.title}</span>
+              </div>
+              <div className='col-7 d-flex align-items-center'>
+                <span className='TextoAnnoun'>{truncatedText(announ.description, 100)}</span>
+              </div>
+              <div className='col-2 text-end'>
+                <span className='Subtitulo text-wrap'>{announ.createdAt && announ.createdAt.substring(0, 10)}</span>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className='row-3 d-flex align-items-center'>
+                <AnnounIcon isRead={announ.isRead} />
+                <span className='Titulo'> {announ.title}</span>
+              </div>
+              <div className='row-7 d-flex align-items-center'>
+                <span className='TextoAnnoun'>{truncatedText(announ.description, 100)}</span>
+              </div>
+              <div className='row-2 text-end'>
+                <span className='Subtitulo text-wrap'>{announ.createdAt && announ.createdAt.substring(0, 10)}</span>
+              </div>
+            </>
+          )}
         </Link>
-        
-        </>
       )}
     </>
   );
 }
 
-function AnnounInfoCont({ announcements, isLoading }) {
+function AnnounInfoCont({ announcements, isLoading, markAsRead }) {
   return (
     <div className='col-12 p-12'>
       <div className='container-fluid'>
         {isLoading
-          ? Array.from({ length: 5 }).map((_, index) => <AnnounInfo key={index} isLoading={true} />)
+          ? Array.from({ length: 5 }).map((_, index) => <AnnounInfo key={index} isLoading={true} markAsRead={markAsRead} />)
           : announcements.map((announcement, index) => (
-              <AnnounInfo key={index} announ={announcement} isLoading={false} />
+              <AnnounInfo key={index} announ={announcement} isLoading={false} markAsRead={markAsRead} />
             ))}
       </div>
     </div>
@@ -141,18 +139,29 @@ function AnnounInfoCont({ announcements, isLoading }) {
 }
 
 export default function AnnounCont() {
+  const { user } = useAuth0();
   const [allAnnouncements, setAllAnnouncements] = useState([]);
   const [filteredAnnouncements, setFilteredAnnouncements] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch(URL+'students')
-      .then((res) => res.json())
-      .then((data) => {
-        setAllAnnouncements(data);
-        setFilteredAnnouncements(data);
-        setIsLoading(false); // Datos obtenidos, desactivar estado de carga
-      });
+    const fetchData = async () => {
+      const response = await fetch(URL + 'students');
+      const data = await response.json();
+      const savedReadStatus = JSON.parse(localStorage.getItem('readAnnouncements')) || {};
+
+      // Map saved read status to announcements
+      const updatedAnnouncements = data.map(announcement => ({
+        ...announcement,
+        isRead: savedReadStatus[announcement.id] || false
+      }));
+
+      setAllAnnouncements(updatedAnnouncements);
+      setFilteredAnnouncements(updatedAnnouncements);
+      setIsLoading(false); // Datos obtenidos, desactivar estado de carga
+    };
+
+    fetchData();
   }, []);
 
   const handleSearch = (searchText) => {
@@ -166,6 +175,24 @@ export default function AnnounCont() {
     }
   };
 
+  const markAsRead = (id) => {
+    setAllAnnouncements((prevAnnouncements) =>
+      prevAnnouncements.map((announcement) =>
+        announcement.id === id ? { ...announcement, isRead: true } : announcement
+      )
+    );
+    setFilteredAnnouncements((prevFiltered) =>
+      prevFiltered.map((announcement) =>
+        announcement.id === id ? { ...announcement, isRead: true } : announcement
+      )
+    );
+
+    // Save read status in localStorage
+    const savedReadStatus = JSON.parse(localStorage.getItem('readAnnouncements')) || {};
+    savedReadStatus[id] = true;
+    localStorage.setItem('readAnnouncements', JSON.stringify(savedReadStatus));
+  };
+
   return (
     <>
       <StudentToggle NameSection={'Anuncios'} />
@@ -175,7 +202,7 @@ export default function AnnounCont() {
         </div>
 
         <div className='row p-3 mt-4 ContainerAnnoun'>
-          <AnnounInfoCont announcements={filteredAnnouncements} isLoading={isLoading} />
+          <AnnounInfoCont announcements={filteredAnnouncements} isLoading={isLoading} markAsRead={markAsRead} />
         </div>
       </div>
     </>
