@@ -37,11 +37,17 @@ export const getAnnoun = async (req, res) => {
 export const getAllAnnounsStudents = async (req, res) => {
     try {
         const announs = await AnnounModel.findAll({
+            include: [
+                {
+                    model: AnnounceReadStudentModel,
+                    required: false,
+                    where: { id_student: req.params.id_student },
+                }
+            ],
             where: {
-                [Op.or]: [
-                    { audience: 'students' },
-                    { audience: 'all' }
-                ]
+                audience: {
+                    [Op.in]: ['students', 'all']
+                }
             },
             order: [
                 ['id','DESC'] // Orden ascendente por id
@@ -55,17 +61,48 @@ export const getAllAnnounsStudents = async (req, res) => {
 
 export const getAllAnnounsPerson = async (req, res) => {
     try {
-        const announs = await AnnounModel.findAll({
-            where: {
-                [Op.or]: [
-                    { audience: 'teachers' },
-                    { audience: 'all' }
+        const person = await PersonModel.findByPk(req.params.id_person);
+        let announs;
+
+        if(person.isJudge === 0){
+            announs = await AnnounModel.findAll({
+                include: [
+                    {
+                        model: AnnounceReadPersonModel,
+                        required: false,
+                        where: { id_person: req.params.id_person },
+                    }
+                ],
+                where: {
+                    audience: {
+                        [Op.in]: ['teachers', 'all']
+                    }
+                },
+                order: [
+                    ['id','DESC'] // Orden ascendente por id
                 ]
-            },
-            order: [
-                ['id','DESC'] // Orden ascendente por id
-            ]
-        });
+            });
+        }
+        else if(person.isJudge === 1){
+            announs = await AnnounModel.findAll({
+                include: [
+                    {
+                        model: AnnounceReadPersonModel,
+                        required: false,
+                        where: { id_person: req.params.id_person },
+                    }
+                ],
+                where: {
+                    audience: {
+                        [Op.in]: ['teachers', 'all', 'judges']
+                    }
+                },
+                order: [
+                    ['id','DESC'] // Orden ascendente por id
+                ]
+            });
+        }
+
         res.json(announs)
     } catch (error) {
         res.json( {message: error.message} )
@@ -95,9 +132,6 @@ export const createReadAnnounStudents = async (req, res) => {
 
 export const countReadAnnouncementsStudents = async (req, res) => {
     try {
-
-
-
         const { id_student } = req.params; // Suponiendo que estás pasando el ID del estudiante como parámetro en la URL
 
         const allAnnoun = await AnnounModel.count(

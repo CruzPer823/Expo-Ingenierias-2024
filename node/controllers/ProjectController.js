@@ -400,7 +400,7 @@ export const getAllProjectsByAreas = async (req, res) => {
     try {
         const projects = await AreaModel.findAll({include:
             [
-                {model:ProjectModel, include: [
+                {model:ProjectModel, where: {statusGeneral: 'aprobado'},include: [
                     { model: AreaModel },
                     { model: CategoryModel },
                     { model: PersonModel,

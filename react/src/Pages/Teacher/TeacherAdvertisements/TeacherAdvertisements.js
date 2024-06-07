@@ -30,7 +30,27 @@ function AnnounSearch({ handleSearch }) {
   );
 }
 
+function hasData(variable) {
+  if (variable.length === 0) {
+    return false;
+  }
+  else{
+    return true;
+  }
+
+}
+
+function AnnounIcon({ isRead }) {
+  return (
+    <>
+     {isRead ? (<i className={'bi bi-envelope-open-fill AnnounIcon'}></i>) :(<i className={'bi bi-envelope-fill AnnounIcon'}></i>)}
+    </>
+  );
+}
+
+
 function AnnounInfo({ announ, isLoading }) {
+  
   const truncatedText = (text, limit) => {
     if (!text || typeof text !== 'string' || text.length <= limit) {
       return text;
@@ -92,7 +112,7 @@ function AnnounInfo({ announ, isLoading }) {
         {isLargeScreen ? (
           <>
             <div className='col-3 d-flex align-items-center'>
-              <i className='bi bi-envelope-fill AnnounIcon'></i>
+              <AnnounIcon isRead={hasData(announ.announ_read_persons)} />
               <span className='Titulo'> {announ.title}</span>
             </div>
             <div className='col-7 d-flex align-items-center'>
@@ -105,7 +125,7 @@ function AnnounInfo({ announ, isLoading }) {
         ) : (
           <>
             <div className='row-3 d-flex align-items-center'>
-              <i className='bi bi-envelope-fill AnnounIcon'></i>
+              <AnnounIcon isRead={hasData(announ.announ_read_persons)} />
               <span className='Titulo'> {announ.title}</span>
             </div>
             <div className='row-7 d-flex align-items-center'>
@@ -138,12 +158,13 @@ function AnnounInfoCont({ announcements, isLoading }) {
 }
 
 export default function AnnounCont() {
+  const { user } = useAuth0();
   const [allAnnouncements, setAllAnnouncements] = useState([]);
   const [filteredAnnouncements, setFilteredAnnouncements] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch(URL+'person')
+    fetch(URL+'person/' + user.sub)
       .then((res) => res.json())
       .then((data) => {
         setAllAnnouncements(data);

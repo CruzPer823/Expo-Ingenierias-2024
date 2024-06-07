@@ -121,7 +121,7 @@
     "id" INT GENERATED ALWAYS AS IDENTITY NOT NULL,
     "title" VARCHAR(50),
     "description" VARCHAR(350),
-    "audience" VARCHAR(50) CHECK ("audience" IN ('students', 'teachers', 'all')),
+    "audience" VARCHAR(50) CHECK ("audience" IN ('students', 'teachers', 'judges' ,'all')),
     "multimedia" VARCHAR(355),
     "createdAt" DATE,
     "updatedAt" DATE,
@@ -417,5 +417,10 @@ COMMIT;
   drop table "areas_persons" cascade constraints;
   drop table "announ_read_person" cascade constraints;
   drop table "announ_read_student" cascade constraints;
+
+
+ALTER TABLE "announcements" DROP CONSTRAINT SYS_C0036657;
+
+ALTER TABLE "announcements" ADD CONSTRAINT check_audience CHECK ("audience" IN ('students', 'teachers', 'all', 'judges'));
 
 

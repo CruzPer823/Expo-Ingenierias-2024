@@ -12,8 +12,9 @@ router.get('/', getAllAnnouns);
 router.get('/detailed/:id', getAnnoun);
 
 
-router.get('/students', getAllAnnounsStudents);
-router.get('/person', getAllAnnounsPerson);
+router.get('/students/:id_student', getAllAnnounsStudents);
+
+router.get('/person/:id_person', getAllAnnounsPerson);
 
 
 router.post('/readAnnounceStudent', createReadAnnounStudents)

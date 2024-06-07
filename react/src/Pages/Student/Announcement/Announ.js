@@ -27,6 +27,15 @@ function AnnounSearch({ handleSearch }) {
   );
 }
 
+function hasData(variable) {
+  if (variable.length === 0) {
+    return false;
+  }
+  else{
+    return true;
+  }
+}
+
 function AnnounIcon({ isRead }) {
   return (
     <>
@@ -35,7 +44,8 @@ function AnnounIcon({ isRead }) {
   );
 }
 
-function AnnounInfo({ announ, isLoading, markAsRead }) {
+function AnnounInfo({ announ, isLoading}) {
+  const { user } = useAuth0();
   const truncatedText = (text, limit) => {
     if (!text || typeof text !== 'string' || text.length <= limit) {
       return text;
@@ -58,11 +68,10 @@ function AnnounInfo({ announ, isLoading, markAsRead }) {
     try {
       // Marca el anuncio como leído en el backend
       await axios.post(URL + 'readAnnounceStudent', {
-        id_student: announ.user.sub,
+        id_student: user.sub,
         id_announce: announ.id,
       });
-      // Actualiza el estado del anuncio a leído
-      markAsRead(announ.id);
+
     } catch (error) {
       console.error('Error marking announce as read', error);
     }
@@ -94,7 +103,7 @@ function AnnounInfo({ announ, isLoading, markAsRead }) {
           {isLargeScreen ? (
             <>
               <div className='col-3 d-flex align-items-center'>
-                <AnnounIcon isRead={announ.isRead} />
+                <AnnounIcon isRead={hasData(announ.announ_read_students)} />
                 <span className='Titulo'> {announ.title}</span>
               </div>
               <div className='col-7 d-flex align-items-center'>
@@ -107,7 +116,7 @@ function AnnounInfo({ announ, isLoading, markAsRead }) {
           ) : (
             <>
               <div className='row-3 d-flex align-items-center'>
-                <AnnounIcon isRead={announ.isRead} />
+                <AnnounIcon isRead={hasData(announ.announ_read_students)} />
                 <span className='Titulo'> {announ.title}</span>
               </div>
               <div className='row-7 d-flex align-items-center'>
@@ -124,14 +133,14 @@ function AnnounInfo({ announ, isLoading, markAsRead }) {
   );
 }
 
-function AnnounInfoCont({ announcements, isLoading, markAsRead }) {
+function AnnounInfoCont({ announcements, isLoading}) {
   return (
     <div className='col-12 p-12'>
       <div className='container-fluid'>
         {isLoading
-          ? Array.from({ length: 5 }).map((_, index) => <AnnounInfo key={index} isLoading={true} markAsRead={markAsRead} />)
+          ? Array.from({ length: 5 }).map((_, index) => <AnnounInfo key={index} isLoading={true}/>)
           : announcements.map((announcement, index) => (
-              <AnnounInfo key={index} announ={announcement} isLoading={false} markAsRead={markAsRead} />
+              <AnnounInfo key={index} announ={announcement} isLoading={false}/>
             ))}
       </div>
     </div>
@@ -145,24 +154,15 @@ export default function AnnounCont() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(URL + 'students');
-      const data = await response.json();
-      const savedReadStatus = JSON.parse(localStorage.getItem('readAnnouncements')) || {};
-
-      // Map saved read status to announcements
-      const updatedAnnouncements = data.map(announcement => ({
-        ...announcement,
-        isRead: savedReadStatus[announcement.id] || false
-      }));
-
-      setAllAnnouncements(updatedAnnouncements);
-      setFilteredAnnouncements(updatedAnnouncements);
-      setIsLoading(false); // Datos obtenidos, desactivar estado de carga
-    };
-
-    fetchData();
+    fetch(URL+'students/' + user.sub)
+      .then((res) => res.json())
+      .then((data) => {
+        setAllAnnouncements(data);
+        setFilteredAnnouncements(data);
+        setIsLoading(false); // Datos obtenidos, desactivar estado de carga
+      });
   }, []);
+
 
   const handleSearch = (searchText) => {
     if (searchText.trim() === '') {
@@ -175,23 +175,6 @@ export default function AnnounCont() {
     }
   };
 
-  const markAsRead = (id) => {
-    setAllAnnouncements((prevAnnouncements) =>
-      prevAnnouncements.map((announcement) =>
-        announcement.id === id ? { ...announcement, isRead: true } : announcement
-      )
-    );
-    setFilteredAnnouncements((prevFiltered) =>
-      prevFiltered.map((announcement) =>
-        announcement.id === id ? { ...announcement, isRead: true } : announcement
-      )
-    );
-
-    // Save read status in localStorage
-    const savedReadStatus = JSON.parse(localStorage.getItem('readAnnouncements')) || {};
-    savedReadStatus[id] = true;
-    localStorage.setItem('readAnnouncements', JSON.stringify(savedReadStatus));
-  };
 
   return (
     <>
@@ -202,7 +185,7 @@ export default function AnnounCont() {
         </div>
 
         <div className='row p-3 mt-4 ContainerAnnoun'>
-          <AnnounInfoCont announcements={filteredAnnouncements} isLoading={isLoading} markAsRead={markAsRead} />
+          <AnnounInfoCont announcements={filteredAnnouncements} isLoading={isLoading} />
         </div>
       </div>
     </>

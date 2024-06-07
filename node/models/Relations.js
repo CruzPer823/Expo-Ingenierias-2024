@@ -196,6 +196,13 @@ AnnounModel.belongsToMany(PersonModel,{
         foreignKey: 'id_announce'
 });
 
+AnnounModel.hasMany(AnnounceReadStudentModel,{foreignKey:'id_announce'});
+AnnounceReadStudentModel.belongsTo(AnnounModel,{foreignKey: 'id_announce'});
+
+AnnounModel.hasMany(AnnounceReadPersonModel,{foreignKey:'id_announce'});
+AnnounceReadPersonModel.belongsTo(AnnounModel,{foreignKey: 'id_announce'});
+
+
 ProjectModel.hasMany(ProjectDisqualifiedModel,{foreignKey:'id_project'});
 ProjectDisqualifiedModel.belongsTo(ProjectModel,{foreignKey: 'id_project'});
 
