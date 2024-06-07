@@ -6,8 +6,14 @@ import UserRow from './UserRow';
 import JudgeRow from './JudgeRow';
 import RubricRow from './RubricRow';
 
+import AdminDeleteUserPopUp from '../Popup/AdminDeleteUserPopUp';
+
 function Table({ data, searchQuery = "", selectedRole = "", judgeTable = false, rubricTable = false }) {
     const [tableData, setTableData] = useState(data);
+
+    const [showModal, setShowModal] = useState(false);
+    const [modalContent, setModalContent] = useState("");
+    const [deleteUserId, setDeleteUserId] = useState(null);
 
     // Filter data based on search query and selected role
     React.useEffect(() => {
@@ -25,18 +31,26 @@ function Table({ data, searchQuery = "", selectedRole = "", judgeTable = false, 
     }, [searchQuery, selectedRole, data]);
 
     const handleDelete = (id) => {
-        const updatedData = tableData.filter(row => row.id !== id);
-        // Update the state with the new data
+        setDeleteUserId(id);
+        setModalContent("Estas seguro que quires eliminar al usuario? Esta accion no puede deshacerse");
+        setShowModal(true);
+    };
+
+    const confirmDelete = () => {
+        const updatedData = tableData.filter(row => row.id !== deleteUserId);
         setTableData(updatedData);
-        
-        // Make the API call to toggle the active status
-        axios.patch(`http://localhost:8000/users/toggleActiveStatus/${id}`)
+        axios.patch(`http://localhost:8000/users/toggleActiveStatus/${deleteUserId}`)
             .then(response => {
                 console.log("User status toggled successfully:", response.data);
             })
             .catch(error => {
                 console.error("Error toggling user status:", error);
             });
+        setShowModal(false);
+    };
+
+    const closeModal = () => {
+        setShowModal(false);
     };
     
 
@@ -170,6 +184,13 @@ function Table({ data, searchQuery = "", selectedRole = "", judgeTable = false, 
                     )}
                 </tbody>
             </table>
+            {showModal && (
+                <AdminDeleteUserPopUp 
+                    content={modalContent} 
+                    onClose={closeModal} 
+                    onConfirm={confirmDelete} 
+                />
+            )}
         </div>
     );
     
