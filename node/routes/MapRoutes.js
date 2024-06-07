@@ -1,8 +1,9 @@
 import express from 'express';
-import { getMap } from '../controllers/MapController.js';
+import { getMap,updateMap } from '../controllers/MapController.js';
 
 const router = express.Router();
 
-router.get('/getMap/:id', getMap);
+router.get('/get/map/:id', getMap);
+router.put('/updateMap/:id',updateMap);
 
 export default router;

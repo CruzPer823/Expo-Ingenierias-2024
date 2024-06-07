@@ -18,7 +18,7 @@ export const getAdmin = async(req,res)=>{
             res.status(200).json(admin);
         }
     } catch (error){
-        res.json({message:error.message})
+        res.json({message:error.message})   
     }
 };
 
