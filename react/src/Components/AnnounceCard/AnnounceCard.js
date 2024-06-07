@@ -9,7 +9,7 @@ import AddCard from '../AddCard/AddCard';
 import imagen from './announce.png';
 
 function AnnounceCard({data}){
-    const {id,title,description,audience,multimedia} = data;
+    const {id,title,description,audience,multimedia,createdAt} = data;
     const truncateString = (str, num) => {
         if (str.length <= num) {
             return str;
@@ -52,6 +52,7 @@ function AnnounceCard({data}){
             <h2>{truncateString(`${title}`,15)}</h2>
             <p className='description'>{truncateString(` Descripción: ${description}`,50)}</p>
             <p className='descriptionAud'>{`Audiencia: ${handleRoles(audience)}`}</p>
+            <p className='descriptionAud'>{` Creación: ${handleRoles(createdAt  )}`}</p>
             <button className="btn btn-primary custom-primaty-btn btnPrin" onClick={handleEditClick}>Editar</button>
             <button className="btn  btn-danger mx-2 btnElim" onClick={()=>handleDelete(id,multimedia)}>Eliminar</button>
             </div>
