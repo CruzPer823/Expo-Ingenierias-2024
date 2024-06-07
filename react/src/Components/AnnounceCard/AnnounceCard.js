@@ -18,7 +18,10 @@ function AnnounceCard({data}){
     };
     const navigate = useNavigate();
 
-    const handleDelete = (id) => {
+    const handleDelete = async(id,multimedia) => {
+      await fetch(`http://localhost:8000/Admin/deleteImage/${multimedia}`,{
+            method:`DELETE`,
+        });
       axios.delete(`http://localhost:8000/Admin/Announce/delete/${id}`).then(response => {
         console.log("Anuncio correctamente eliminado:",response.data);
       }).catch(error=>{console.error("Error al eliminar el anuncio:", error)})
@@ -29,15 +32,28 @@ function AnnounceCard({data}){
         // Redirect to EditUserPage and pass the userId as a URL parameter
         navigate(`/Admin/anuncios/${id}`);
     };
+
+    const handleRoles=(role)=>{
+      if (role ==="teachers"){
+        return "Profesores";
+      }else if(role ==="judges"){
+        return "Jueces";
+      }else if(role==="students"){
+        return "Alumnos";
+      }else{
+        return "Todos";
+      }
+    };
+
     return (
         <div className='tar'>
             <img src={imagen} className="card-img-top" alt="Project Image"/>
             <div className='contenido'>
             <h2>{truncateString(`${title}`,15)}</h2>
             <p className='description'>{truncateString(` Descripción: ${description}`,50)}</p>
-            <p className='descriptionAud'>{`Audiencia: ${audience}`}</p>
+            <p className='descriptionAud'>{`Audiencia: ${handleRoles(audience)}`}</p>
             <button className="btn btn-primary custom-primaty-btn btnPrin" onClick={handleEditClick}>Editar</button>
-            <button className="btn  btn-danger mx-2 btnElim" onClick={()=>handleDelete(id)}>Eliminar</button>
+            <button className="btn  btn-danger mx-2 btnElim" onClick={()=>handleDelete(id,multimedia)}>Eliminar</button>
             </div>
         </div>
     );

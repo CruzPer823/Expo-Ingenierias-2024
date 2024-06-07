@@ -10,6 +10,10 @@ import { getAllProjects, getProjectJudges, removeProjectJudge, assignProjectJudg
 
 import { getAllCriteria, getCriteria, updateCriteria } from '../controllers/CriteriaController.js';
 
+import upload from '../controllers/FilesController.js';
+import fs from 'fs';
+import path from 'path';
+
 const router = express.Router()
 // Rutas de anuncios
 router.get('/getAdmin/:adminId',getAdmin);
@@ -53,5 +57,25 @@ router.post('/assignProjectJudge', assignProjectJudge);
 router.get('/getCriterias', getAllCriteria)
 router.get('/getCriteria/:criteriaId', getCriteria)
 router.put('/updateCriteria/:criteriaId', updateCriteria)
+
+//files management
+router.post('/uploadAnnounceImage', upload.single('image'), (req, res) => {
+    if (!req.file) {
+      return res.status(400).send({ message: 'No se subió ninguna imagen' });
+    }
+    res.status(200).send({ message: 'Imagen subida con éxito', filename: req.file.filename });
+  });
+
+router.delete('/deleteImage/:filename',(req, res) => {
+    const filename = req.params.filename;
+  
+    fs.unlink(`assets/${filename}`, (err) => {
+      if (err) {
+        return res.status(500).send({ message: 'Error al eliminar la imagen', error: err });
+      }
+      res.status(200).send({ message: 'Imagen eliminada con éxito' });
+    });
+  });
+
 
 export default router;

@@ -12,6 +12,7 @@ import ProjectMembers from '../../../Components/ProjectMembers/ProjectMembers';
 import NavigationBar from '../../../Components/NavigationBar/Admin/NavigationBar';
 import Checklist from '../../../Components/Checklist/Checklist';
 import CustomModal from '../../../Components/CustomModal/CustomModal';
+import { useAuth0 } from '@auth0/auth0-react';
 
 import './ProjectPage.css'
 
@@ -45,6 +46,7 @@ const useFetchData = (url, isChecklist = false) => {
 };
 
 function ProjectPage() {
+  const {user} = useAuth0();
   const { projectId } = useParams();
   const [project, setProject] = useState(null);
   const [allProjects, setAllProjects] = useState([]);
@@ -52,7 +54,7 @@ function ProjectPage() {
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
-  const adminId = '66539b1ce539b35aea94e74d'; // Replace this with the actual admin ID from your authentication logic
+  const adminId = user.sub; // Replace this with the actual admin ID from your authentication logic
 
   const checklistApiUrl = `http://localhost:8000/Admin/projects/${projectId}/material-checklist`;
   const { data: checklistData } = useFetchData(checklistApiUrl, true);

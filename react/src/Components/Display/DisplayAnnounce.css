@@ -1,0 +1,12 @@
+.displayImage{
+   border: 5px solid #0C356A;
+   border-radius: 5px;
+    margin: 1rem;
+    height: 40vh;
+}
+.ImageContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
