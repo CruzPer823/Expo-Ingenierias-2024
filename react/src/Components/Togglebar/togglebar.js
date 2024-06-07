@@ -160,7 +160,7 @@ function ToggleBar({SectionName}) {
                 <div className='row m-2'>
                   <div className ='col-md-auto d-flex align-items-center'>
                     <Link to='/Juez/Mapa' onClick={() => { handleClose(); }} class="bi bi-map-fill docu-icon2"></Link>
-                    <Link to='/Juez/Mapa' className ="TextoValid2" onClick={() => { handleClose(); }}>Mapa {unreadCount > 0 && (<span className="notification-badge">{unreadCount}</span>)}</Link> 
+                    <Link to='/Juez/Mapa' className ="TextoValid2" onClick={() => { handleClose(); }}>Mapa</Link> 
                   </div>  
                 </div>
 
