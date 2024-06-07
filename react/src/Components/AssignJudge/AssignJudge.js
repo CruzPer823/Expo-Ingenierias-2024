@@ -30,7 +30,7 @@ const AssignJudge = ({ area, project }) => {
             judgeId: selectedJudge.id,
             projectId: project
           });
-          setAlert({ type: 'success', message: 'Juez asignado de forma exitosa!', visible: true });
+          setAlert({ type: 'success', message: `Juez ${selectedJudge.name} asignad@ de forma exitosa!`, visible: true });
           // <------------- Refresh the page --------->
           setTimeout(() => {
             window.location.reload();
@@ -39,7 +39,7 @@ const AssignJudge = ({ area, project }) => {
       }
     } catch (error) {
       console.error('Error fetching or assigning judge:', error);
-      setAlert({ type: 'danger', message: 'Error assigning judge. Please try again.', visible: true });
+      setAlert({ type: 'danger', message: 'Error asignando juez!', visible: true });
     }
   };
 

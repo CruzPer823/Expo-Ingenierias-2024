@@ -2,7 +2,9 @@ import {AreaModel} from "../models/Relations.js";
 
 export const getAllAreas = async(req,res)=>{
     try{
-        const Areas = await AreaModel.findAll()
+        const Areas = await AreaModel.findAll({
+            order:[['name','ASC']]
+          })
         res.json(Areas);
     }catch (error){
         res.json({message:error.message});

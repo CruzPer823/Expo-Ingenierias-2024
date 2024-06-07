@@ -1,12 +1,13 @@
 import React from 'react';
 import './ProjectCard.css';
-import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
+import { AiOutlineCheckCircle } from "react-icons/ai";
+import { PiWarningCircle } from "react-icons/pi";
 import { Link } from 'react-router-dom';
 
 function ProjectCard({ project }) {
     const { id, title, img, categories, review, isDisqualified } = project; // Destructure project object
     const statusClassName = review ? 'review-true' : 'review-false'; // Determine class based on review status
-    const StatusIcon = review ? AiOutlineCheckCircle : AiOutlineCloseCircle; // Choose icon based on review status
+    const StatusIcon = review ? AiOutlineCheckCircle : PiWarningCircle; // Choose icon based on review status
     const disqualifiedClass = isDisqualified ? 'disqualified' : ''; // Determine disqualified class
     return (
       <div className={` card  ${disqualifiedClass}`} style={{width:"40vw",height:"60vh"}}>

@@ -52,7 +52,7 @@ function UserRow({ user, onDelete, onRoleChange }) {
             {/* Third column - Bootstrap buttons */}
             <td className="text-center">
                 <button className="btn btn-primary btn-separator" onClick={handleEditClick}>Editar</button>
-                <button className="btn btn-danger" onClick={() => onDelete(user.id)}>Inhabilitar</button>
+                <button className="btn btn-danger" onClick={() => onDelete(user.id)}>Eliminar</button>
             </td>
         </tr>
     );
