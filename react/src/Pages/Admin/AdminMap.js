@@ -4,9 +4,11 @@ import ContentCard from '../../Components/ContentCard/ContentCard';
 import Popup from '../../Components/Popup/Popup';
 import DisplayAnnounce from '../../Components/Display/DisplayAnnounce';
 import UploadFile from '../../Components/UploadFile/UploadFile';
+import axios from 'axios';
 
 function AdminMap() {
-    const [mapa, setMapa] = useState({ map_image: '' });
+    const idMap=1;
+    const [mapa, setMapa] = useState({ map_image:'' });
     const [content, setContent] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [type, setType] = useState(false);
@@ -16,10 +18,11 @@ function AdminMap() {
 
     useEffect(() => {
         setLoading(true);
-        fetch("http://localhost:8000/map/get")
-            .then(response => response.json())
+
+        fetch("http://localhost:8000/map/get/map/1")
+        .then(response => response.json())
             .then(data => {
-                setMapa({ map_image: data.map_image });
+                setMapa({ map_image: data[0].map_image });
                 setLoading(false);
             })
             .catch(error => {
@@ -72,7 +75,7 @@ function AdminMap() {
             }
         }
 
-        fetch(`http://localhost:8000/Admin/Announce/update`, {
+        fetch(`http://localhost:8000/map/updateMap/1`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -106,7 +109,7 @@ function AdminMap() {
                             <ContentCard title="Subir Mapa" content={
                                 <>
                                     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                        <h2 className="text-input-label">Multimedia:</h2>
+                                        
                                     </div>
                                     {selectedFile ? null : <DisplayAnnounce label={"Multimedia"} src={mapa.map_image} alt={"Mapa"} />}
                                     {selectedFile ?
@@ -122,7 +125,7 @@ function AdminMap() {
                                 <button type="submit" className="btn btn-primary custom-primary-btn">
                                     {loading ? 'Actualizando...' : 'Actualizar Mapa'}
                                 </button>
-                                {showModal && <Popup content={content} onClose={() => setShowModal(false)} error={type} ruta={'/Admin/mapa'} />}
+                                {showModal && <Popup content={content} onClose={() => setShowModal(false)} error={type} ruta={'/Admin'} />}
                             </div>
                         </form>
                     </div>
