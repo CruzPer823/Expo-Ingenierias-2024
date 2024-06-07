@@ -7,7 +7,7 @@ export const getAdmin = async(req,res)=>{
         const admin=await AdminModel.findAll({
             where:{
                 id: adminId, 
-                isActive:1    
+                //isActive:1    
             }
         });
         if(!admin|| admin.length === 0){

@@ -99,7 +99,7 @@ app.post('/send-email', async (req, res) => {
   });
 
 
-// cron.schedule('*/20 * * * * *', function() { console.log('Running a task every 20 seconds'); main();});
+//cron.schedule('*/20 * * * * *', function() { console.log('Running a task every 20 seconds'); main();});
 
 const sessionStore = SequelizeStore(session.Store)
 const store = new sessionStore({db:db})
