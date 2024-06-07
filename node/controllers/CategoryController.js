@@ -76,7 +76,9 @@ async function getCategoryProjectData(req, res) {
 // Obtener todas las categorías
 async function getAllCategories(req, res) {
   try {
-    const categories = await CategoryModel.findAll();
+    const categories = await CategoryModel.findAll({
+      order:[['title','ASC']]
+    });
     res.json(categories);
   } catch (error) {
     console.error('Error al obtener las categorías:', error);

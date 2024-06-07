@@ -2,7 +2,9 @@ import {AnnounceModel} from "../models/Relations.js"
 
 export const getAllAnnounces = async(req,res)=>{
     try{
-      const Announces = await AnnounceModel.findAll();
+      const Announces = await AnnounceModel.findAll({
+        order:[['createdAt','DESC']]
+      });
       res.json(Announces);
     }catch(error){
       res.status(500).json({message:error.message});
