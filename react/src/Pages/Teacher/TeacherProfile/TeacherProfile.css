@@ -21,11 +21,17 @@
 .perfil span{
     font-size: 20px;
 }
-.ButtonMaterials{  
+.ButtonAreas{  
 
     background-color: #0C356A;
     border-color: #0C356A;
     font-weight: bold;
+    color: #fff;
+    padding: 15px;
+    padding-left: 40px;
+    margin: 5px;
+    text-align: center;
+    border-radius: 5px;
     
 }
 .custom-btn-edit{
