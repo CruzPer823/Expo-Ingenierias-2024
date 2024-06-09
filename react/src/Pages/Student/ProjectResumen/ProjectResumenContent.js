@@ -523,6 +523,7 @@ function JuezContComment({comment,id_judge,comentariosRubrica}){
 }
 
 function tieneInformacion(variable) {
+
   if (variable === null || variable === undefined || Object.keys(variable).length === 0 || variable === "NaN") {
       return false;
   }
@@ -675,8 +676,9 @@ function FinalCalf({finalCalf, IsLoaded}){
                   <center><Spinner animation="border" size="xs" className='BolitaDeCargaCalFin' /></center>
                 )}
                 {IsLoaded && (
+                  
                   <span className ="FinalResul text-center">
-                    {tieneInformacion(finalCalf) ? (finalCalf + "/10") : (<div className='container mt-3 ContNoComment'><center> <div className='row'><div className='col ClaseParatamanoDecontenedor'> <i className='bi bi-award-fill IconoNohayComentarios colornohaycomment'></i> </div></div> <div className='row'><div className='col colornohaycomment TamanoFinalCalf'> Aun han calificado tu proyecto</div></div> </center></div>)}
+                    {tieneInformacion({finalCalf}) ? (finalCalf + "/5") : (<div className='container mt-3 ContNoComment'><center> <div className='row'><div className='col ClaseParatamanoDecontenedor'> <i className='bi bi-award-fill IconoNohayComentarios colornohaycomment'></i> </div></div> <div className='row'><div className='col colornohaycomment TamanoFinalCalf'> Aún no han calificado tu proyecto</div></div> </center></div>)}
                   </span> 
                 )}
               </div>              
@@ -716,7 +718,7 @@ export default function ProjResumeCont(){
     gradeCriteria3: "",
     gradeCriteria4: "",
     gradeCriteria5: "",
-    finalGrade: "",
+    finalGrade: 0,
     comment: "",
     criterias: [
       { id: 1, description: "", weight: 0 },
@@ -758,12 +760,14 @@ export default function ProjResumeCont(){
 
   return(
     <>
+   
     <StudentToggle NameSection={"Resumen de proyecto"}></StudentToggle>
     <div className='container-fluid centered-container mt-3 '>
       <div className='container-fluid'>
         <div className='row justify-content-between d-flex align-items-center'>
         {isLargeScreen ? (
           <>
+           
             <InfoProj IsLoaded={IsLoaded} lead={project.student.name + " " + project.student.lastName} profLead={project.Lider.name + " " + project.Lider.lastName} members={project.team.members}></InfoProj>
             <ProjResume IsLoaded={IsLoaded} type={project.category.title} area={project.area.name} descr={project.description} title={project.title}></ProjResume>
             <ProjVal postVal={project.statusPoster} vidVal={project.statusVideo} finalRes={project.statusGeneral} id_project={id_project}></ProjVal>
@@ -777,7 +781,6 @@ export default function ProjResumeCont(){
         )}
 
         </div>
-  
         <div className='row m-2 justify-content-between d-flex align-items-center w-100 mb-4'>
           <div className='Info col-md-12'>
             <div className="m-auto p-4">
@@ -787,7 +790,7 @@ export default function ProjResumeCont(){
 
                   <CommentCont IsLoaded={IsLoaded} role={"Juez"} comment={project.comentariosAgrupados}></CommentCont>
 
-
+                  
                   <Rubrica IsLoaded={IsLoaded} Calf11={project.gradeCriteria1} Calf21={project.gradeCriteria2} Calf31={project.gradeCriteria3} Calf41={project.gradeCriteria4} Calf51={project.gradeCriteria5} Rubri11={findCriteriaById(1).description} Rubri21={findCriteriaById(2).description} Rubri31={findCriteriaById(3).description} Rubri41={findCriteriaById(4).description} Rubri51={findCriteriaById(5).description}></Rubrica>
                   <FinalCalf IsLoaded={IsLoaded} finalCalf={project.finalGrade}></FinalCalf>
                 </div>

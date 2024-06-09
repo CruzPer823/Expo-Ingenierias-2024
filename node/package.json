@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jasmine",
     "dev": "nodemon app.js"
   },
   "keywords": [],
@@ -37,6 +37,8 @@
     "sequelize-oracle": "^3.3.2-0.0"
   },
   "devDependencies": {
-    "sequelize-cli": "^6.6.2"
+    "jasmine": "^5.1.0",
+    "sequelize-cli": "^6.6.2",
+    "supertest": "^7.0.0"
   }
 }

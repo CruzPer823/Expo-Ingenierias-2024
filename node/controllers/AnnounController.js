@@ -184,16 +184,37 @@ export const countReadAnnouncementsPerson = async (req, res) => {
 
         const { id_person } = req.params; // Suponiendo que estás pasando el ID del estudiante como parámetro en la URL
 
-        const allAnnoun = await AnnounModel.count(
-            {
-                where: {
-                    [Op.or]: [
-                        { audience: 'teachers' },
-                        { audience: 'all' }
-                    ]
+        const person = await PersonModel.findByPk(id_person);
+        let allAnnoun;
+        if(person.isJudge === 0){
+            
+            allAnnoun = await AnnounModel.count(
+                {
+                    where: {
+                        [Op.or]: [
+                            { audience: 'teachers' },
+                            { audience: 'all' }
+                        ]
+                    }
                 }
-            }
-        );
+            );
+
+        }
+        else if(person.isJudge === 1){
+            allAnnoun = await AnnounModel.count(
+                {
+                    where: {
+                        [Op.or]: [
+                            { audience: 'teachers' },
+                            { audience: 'all' },
+                            { audience: 'judges' }
+                        ]
+                    }
+                }
+            );
+
+
+        }
 
         // Realiza la consulta de conteo
         const countRead = await AnnounceReadPersonModel.count({

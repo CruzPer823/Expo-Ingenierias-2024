@@ -76,6 +76,10 @@ app.use('/jperson', JudgeXPersonRoutes);
 app.use('/teams', JudgeXTeamRoutes);
 app.use('/teamMembers', TeamMemberRoutes);
 
+app.get('/hello', (req, res) => {
+    res.send('Hello World');
+});
+
 //console.log(process.env.DB_CONNECTION_STRING)
 
 try {
@@ -98,8 +102,10 @@ app.post('/send-email', async (req, res) => {
 });
 
 
-cron.schedule('*/20 * * * * *', function() { console.log('Running a task every 20 seconds'); main();});
+//cron.schedule('*/20 * * * * *', function() { console.log('Running a task every 20 seconds'); main();});
 
 app.listen(8000, ()=>{
     console.log('Server UP running in http://localhost:8000/')
 })
+
+export default app;

@@ -523,11 +523,6 @@ export const getProject = async (req, res) => {
         project.dataValues.gradeCriteria4 = gradeCriteria4Rounded
         project.dataValues.gradeCriteria5 = gradeCriteria5Rounded
 
-        let sumGrades = parseFloat(gradeCriteria1Rounded) + parseFloat(gradeCriteria2Rounded) + parseFloat(gradeCriteria3Rounded) + parseFloat(gradeCriteria4Rounded) + parseFloat(gradeCriteria5Rounded);
-
-        const finalGrade = sumGrades / 5;
-
-        project.dataValues.finalGrade = finalGrade.toFixed(2);
 
 
         
