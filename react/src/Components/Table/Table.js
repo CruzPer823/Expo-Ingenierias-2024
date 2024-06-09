@@ -32,7 +32,7 @@ function Table({ data, searchQuery = "", selectedRole = "", judgeTable = false, 
 
     const handleDelete = (id) => {
         setDeleteUserId(id);
-        setModalContent("Estas seguro que quires eliminar al usuario? Esta accion no puede deshacerse");
+        setModalContent("¿Estas seguro que quires eliminar al usuario? Esta accion no puede deshacerse");
         setShowModal(true);
     };
 

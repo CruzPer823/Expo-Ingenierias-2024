@@ -110,17 +110,17 @@ function CardCalif({ projects, isLoading, setShowModal, setContent, setType }) {
     return (
         <div className='col-12 d-flex flex-wrap align-items-center justify-content-evenly'>
             {projects.map((item) => (
-                <div className="cardSelect card-container m-4" key={item.id}>
+                <div to={"/resumen-proyecto-estudiante/" + item.id} className="cardSelect card-container m-4 NoselecctionCard" key={item.id}>
                     {item.category.title === 'Concepto' && (
-                        <div className="imag algoimagConcept"></div>
+                        <Link to={"/resumen-proyecto-estudiante/" + item.id} className="imag algoimagConcept"></Link>
                     )}
                     {item.category.title === 'Prototipo' && (
-                        <div className="imag algoimagProto"></div>
+                        <Link to={"/resumen-proyecto-estudiante/" + item.id} className="imag algoimagProto"></Link>
                     )}
                     {item.category.title === 'Prototipo finalizado' && (
-                        <div className="imag algoimagFinish"></div>
+                        <Link to={"/resumen-proyecto-estudiante/" + item.id} className="imag algoimagFinish"></Link>
                     )}
-                    <div className="text">
+                    <Link to={"/resumen-proyecto-estudiante/" + item.id} className="text NoDecorateCard">
                         <p className="TituloProjSELCARD text-wrap mb-0">{truncateText(item.title, 55)}</p>
                         <p className="TextoTarjeta">{truncateText(item.description, 160)}</p>
                         <div className="badge-container w-100">
@@ -143,7 +143,7 @@ function CardCalif({ projects, isLoading, setShowModal, setContent, setType }) {
                             )}
                         </div>
                         <Link to={"/resumen-proyecto-estudiante/" + item.id} className="btn23">Ver Proyecto</Link>
-                    </div>
+                    </Link>
                     <div className="button-container">
                         <MenuProyectos
                             id_path={item.id}

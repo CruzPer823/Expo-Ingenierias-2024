@@ -8,6 +8,7 @@ import Popup from '../../Components/Popup/Popup';
 import DropdownMenuB from '../../Components/DropdownMenu/DropdownMenuB';
 import DisplayAnnounce from '../../Components/Display/DisplayAnnounce';
 import UploadFile from '../../Components/UploadFile/UploadFile';
+import axios from 'axios';
 
 function CreateAnnouncePage() {
     const [announce, setAnnounce] = useState({ title: '', description: '', multimedia:'',audience:'all' }); // Inicializa el estado con valores vacíos
@@ -30,10 +31,38 @@ function CreateAnnouncePage() {
         setSelectedFile(file);
         setAnnounce(prevState => ({ ...prevState, multimedia: file.name }));
     };
+    
+
+    const fetchEmails = async (audience) => {
+        let emails = [];
+        try {
+            if (audience === 'students' || audience === 'all') {
+                const studentResponse = await axios.get('http://localhost:8000/students');
+                emails = emails.concat(studentResponse.data.map(student => `${student.enrollment}@tec.mx`));
+            }
+            if (audience === 'teachers' || audience === 'all') {
+                const teacherResponse = await axios.get('http://localhost:8000/person');
+                emails = emails.concat(teacherResponse.data.map(person => person.email));
+            }
+            if (audience === 'judges') {
+                const judgeResponse = await axios.get('http://localhost:8000/person');
+                emails = emails.concat(judgeResponse.data.filter(person => person.isJudge).map(person => person.email));
+            }
+        } catch (error) {
+            console.error('Error fetching emails:', error);
+        }
+        return emails;
+    };
+
 
     const handleSubmit = async(e) => {
         e.preventDefault();
         setLoading(true); // Inicia el estado de carga
+
+        const emails = await fetchEmails(announce.audience);
+
+        
+
         if (selectedFile) {
             const formData = new FormData();
             formData.append('image', selectedFile);
@@ -71,6 +100,10 @@ function CreateAnnouncePage() {
                 setType(false);
                 setContent('Anuncio creado correctamente!');
                 setShowModal(true); // Redirige a la lista de áreas
+
+                // Enviar correos electrónicos
+                sendAnnouncementEmails(emails, announce, selectedFile);
+
             } else {
                 setType(true);
                 setContent('Fallo al crear el anuncio.');
@@ -84,6 +117,51 @@ function CreateAnnouncePage() {
             setContent('Un error ocurrió, inténtelo después otra vez.');
             setShowModal(true);
         });
+
+        const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+        const sendAnnouncementEmails = async (emails, announce, selectedFile) => {
+
+            
+
+            const getAudienceLabel = (audience) => {
+                switch (audience) {
+                    case 'students':
+                        return 'Estudiante';
+                    case 'teachers':
+                        return 'Docente';
+                    case 'judges':
+                        return 'Juez';
+                    default:
+                        return 'Participante';
+                }
+            };
+    
+            const audienceLabel = getAudienceLabel(announce.audience);
+
+            for (const email of emails) {
+            
+                const delayTime = Math.floor(Math.random() * 10) + 1;
+                await delay(delayTime * 1000);
+                
+                const templateParams = {
+                    audienceType: audienceLabel,
+                    announcement: announce.description,
+                    studentEmail: "A01705713@tec.mx",
+                };
+    
+                
+                    try {
+                        await axios.post('http://localhost:8000/send-email', {
+                            templateName: 'ad',
+                            templateParams, 
+                        }); break;
+                    } catch (error) {
+                        console.error(`Error al enviar el correo a ${email}:`, error);
+                    }
+                
+            }
+        };
     };
 
     return (

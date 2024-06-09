@@ -156,23 +156,6 @@ function App() {
   );
 }
 
-// const getTitle = (pathname) => {
-//   switch (pathname) {
-//     case '/Admin':
-//       return 'Tablero';
-//     case '/Admin/historico':
-//       return 'Historico';
-//     case '/Admin/usuarios':
-//       return 'Usuarios';
-//     case '/Admin/proyectos':
-//       return 'Proyectos';
-//     case '/Admin/anuncios':
-//       return 'Anuncios';
-//     case '/Admin/perfil':
-//       return 'Perfil';
-//     default:
-//       return 'Your Default Title';
-//   }
-// };
+
 
 export default App;

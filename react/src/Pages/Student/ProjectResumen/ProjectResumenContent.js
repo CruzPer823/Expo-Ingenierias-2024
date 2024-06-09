@@ -667,7 +667,7 @@ function Rubrica({Calf11, Calf21, Calf31, Calf41, Calf51, Rubri11, Rubri21, Rubr
 function FinalCalf({finalCalf, IsLoaded}){
   return(
     <>
-      <div className='col-xxl-3 h-50 ClaseParaeliminarH'>
+      <div className='col-xxl-3 ClaseParaeliminarH'>
         <h1 className ="Titulo text-break">Calificación final</h1>
           <div className ='container-fluid '>
             <div className ="row align-items-center">
@@ -676,10 +676,9 @@ function FinalCalf({finalCalf, IsLoaded}){
                   <center><Spinner animation="border" size="xs" className='BolitaDeCargaCalFin' /></center>
                 )}
                 {IsLoaded && (
-                  
-                  <span className ="FinalResul text-center">
-                    {tieneInformacion({finalCalf}) ? (finalCalf + "/5") : (<div className='container mt-3 ContNoComment'><center> <div className='row'><div className='col ClaseParatamanoDecontenedor'> <i className='bi bi-award-fill IconoNohayComentarios colornohaycomment'></i> </div></div> <div className='row'><div className='col colornohaycomment TamanoFinalCalf'> Aún no han calificado tu proyecto</div></div> </center></div>)}
-                  </span> 
+                  <>
+                    {tieneInformacion(finalCalf) ? (<span className ="FinalResul text-center">{finalCalf + "/10" }</span>) : (<span className ="text-center"><div className='container-fluid ContNoComment'><center> <div className='row'><div className='col ClaseParatamanoDecontenedor'> <i className='bi bi-award-fill IconoNohayComentarios colornohaycomment'></i> </div></div> <div className='row'><div className='col colornohaycomment TamanoFinalCalf'> Aun han calificado tu proyecto</div></div> </center></div></span> )}
+                  </>
                 )}
               </div>              
             </div>

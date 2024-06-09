@@ -9,7 +9,7 @@ function RoleFilterAnnounces({ onRoleFilter }) {
     return (
         <div className="col-md-4">
             {/* Group of Buttons */}
-            <div className="btn-group" role="group" aria-label="Basic radio toggle button group" style={{ backgroundColor: "#fff" }}>
+            <div className="btn-group" role="group" aria-label="Basic radio toggle button group" style={{ backgroundColor: "#e6e6e6" }}>
                 <input 
                     type="radio" 
                     className="btn-check" 

@@ -57,7 +57,7 @@ function Users() {
         <>
             <NavigationBar NameSection={"Usuarios"} />
             <div className="container-fluid mt-3">
-                <div className="row">
+                <div className="contenedorSuperior">
                     <SearchBar onSearch={handleSearch} />
                     <RoleFilter onRoleFilter={handleRoleFilter} />
                 </div>
