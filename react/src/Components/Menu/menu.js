@@ -3,15 +3,40 @@ import { Link } from 'react-router-dom';
 import './menu.css';
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { jwtDecode } from 'jwt-decode';
 
 const RegisterLink = () => {
-  const { isAuthenticated, isLoading, user, loginWithRedirect } = useAuth0();
+  const { isAuthenticated, isLoading, user, loginWithRedirect, getIdTokenClaims } = useAuth0();
   const navigate = useNavigate();
+  const [firstName, setFirstName] = useState('');
+
+  useEffect(() => {
+    const fetchUserMetadata = async () => {
+      if (isAuthenticated && user) {
+        try {
+          const idTokenClaims = await getIdTokenClaims();
+          console.log("ID Token Claims:", idTokenClaims);
+          const decodedToken = jwtDecode(idTokenClaims.__raw);
+
+          const namespace = 'http://localhost:3000/';
+          const userMetadata = decodedToken[`${namespace}user_metadata`];
+
+          if (userMetadata && userMetadata.firstName) {
+            setFirstName(userMetadata.firstName);
+          } else {
+            setFirstName(user.name); 
+          }
+        } catch (error) {
+          console.error('Error fetching user metadata:', error);
+        }
+      }
+    };
+
+    fetchUserMetadata();
+  }, [isAuthenticated, user, getIdTokenClaims]);
 
   const handlePlatformClick = () => {
-   
     if (!isLoading && !isAuthenticated) {
       loginWithRedirect();
     } else if (user) {
@@ -21,7 +46,7 @@ const RegisterLink = () => {
 
       if (userRole === 'admin') {
         navigate('/Admin');
-      } else if (isStudent && userRole == 'student') {
+      } else if (isStudent && userRole === 'student') {
         navigate('/principal-estudiante');
       } else if (userRole === 'teacher') {
         navigate('/principal-profesor');
@@ -33,7 +58,7 @@ const RegisterLink = () => {
 
   return (
     <button onClick={handlePlatformClick} className="opciones-btn me-3">
-      {isAuthenticated ? '!Hola Inge!' : 'Iniciar Sesión'}
+      {isAuthenticated ? `¡Hola ${firstName}!` : 'Iniciar Sesión'}
     </button>
   );
 };
