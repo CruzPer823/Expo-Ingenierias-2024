@@ -202,9 +202,22 @@ export default function Menu({NameSection}){
   <div className="row " id = "NavBar">
 
     {isLargeScreen ? (
+      <>
       <div className="col-5">
         <ToggleBarStudent SectionName={NameSection} />
       </div>
+      
+      <div className={`col-7 collapse navbar-collapse justify-content-end FondoDeMenu`} id="navbarNav">
+        <ul className="navbar-nav">
+          <li className="nav-item">
+            <Link to="/Ediciones-pasadas" className='nav-link opciones m-2'>Ediciones Pasadas</Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/Catalogo" className='nav-link opciones m-2'>Catalogo</Link>
+          </li>
+        </ul>
+      </div>
+      </>
     ) : (
       <>
         <div className="col-12">

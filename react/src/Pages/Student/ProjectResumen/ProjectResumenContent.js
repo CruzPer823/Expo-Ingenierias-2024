@@ -23,31 +23,31 @@ function RubricaCalf({Calf1, Calf2, Calf3, Calf4, Calf5, Rubri1, Rubri2, Rubri3,
   return (
     <Accordion>
       <Accordion.Item eventKey="0">
-        <Accordion.Header><span className='Subtitulo'>Calificación rubro 1: </span> <span className='Texto Resultado'>{!IsLoaded && (<Spinner animation="grow" size="sm" />)}{IsLoaded && (<>{tieneInformacion(Calf1) ? (Calf1 + " pts") : ("Sin nota")}</>)}</span></Accordion.Header>
+        <Accordion.Header><span className='Subtitulo'>Calificación rubro 1: </span> <span className='Texto Resultado'>{!IsLoaded && (<Spinner animation="grow" size="sm" />)}{IsLoaded && (<>{tieneInformacion(Calf1) ? (Calf1 + " pts") : ("-- pts")}</>)}</span></Accordion.Header>
         <Accordion.Body>
           {Rubri1}
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item eventKey="1">
-        <Accordion.Header><span className='Subtitulo'>Calificación rubro 2: </span> <span className='Texto Resultado'> {!IsLoaded && (<Spinner animation="grow" size="sm" />)}{IsLoaded && (<>{tieneInformacion(Calf2) ? (Calf2 + " pts") : ("Sin nota")}</>)}</span></Accordion.Header>
+        <Accordion.Header><span className='Subtitulo'>Calificación rubro 2: </span> <span className='Texto Resultado'> {!IsLoaded && (<Spinner animation="grow" size="sm" />)}{IsLoaded && (<>{tieneInformacion(Calf2) ? (Calf2 + " pts") : ("-- pts")}</>)}</span></Accordion.Header>
         <Accordion.Body>
           {Rubri2}
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item eventKey="2">
-        <Accordion.Header><span className='Subtitulo'>Calificación rubro 3: </span> <span className='Texto Resultado'>{!IsLoaded && (<Spinner animation="grow" size="sm" />)}{<>{tieneInformacion(Calf3) ? (Calf3 + " pts") : ("Sin nota")}</>}</span></Accordion.Header>
+        <Accordion.Header><span className='Subtitulo'>Calificación rubro 3: </span> <span className='Texto Resultado'>{!IsLoaded && (<Spinner animation="grow" size="sm" />)}{<>{tieneInformacion(Calf3) ? (Calf3 + " pts") : ("-- pts")}</>}</span></Accordion.Header>
         <Accordion.Body>
           {Rubri3}
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item eventKey="3">
-        <Accordion.Header><span className='Subtitulo'>Calificación rubro 4: </span> <span className='Texto Resultado'> {!IsLoaded && (<Spinner animation="grow" size="sm" />)}{IsLoaded && (<>{tieneInformacion(Calf4) ? (Calf4 + " pts") : ("Sin nota")}</>)}</span></Accordion.Header>
+        <Accordion.Header><span className='Subtitulo'>Calificación rubro 4: </span> <span className='Texto Resultado'> {!IsLoaded && (<Spinner animation="grow" size="sm" />)}{IsLoaded && (<>{tieneInformacion(Calf4) ? (Calf4 + " pts") : ("-- pts")}</>)}</span></Accordion.Header>
         <Accordion.Body>
           {Rubri4}
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item eventKey="4">
-        <Accordion.Header><span className='Subtitulo'>Calificación rubro 5: </span> <span className='Texto Resultado'> {!IsLoaded && (<Spinner animation="grow" size="sm" />)}{IsLoaded && (<>{tieneInformacion(Calf5) ? (Calf5 + " pts") : ("Sin nota")}</>)}</span></Accordion.Header>
+        <Accordion.Header><span className='Subtitulo'>Calificación rubro 5: </span> <span className='Texto Resultado'> {!IsLoaded && (<Spinner animation="grow" size="sm" />)}{IsLoaded && (<>{tieneInformacion(Calf5) ? (Calf5 + " pts") : ("-- pts")}</>)}</span></Accordion.Header>
         <Accordion.Body>
           {Rubri5}
         </Accordion.Body>
@@ -103,7 +103,7 @@ function InfoProj({lead, profLead,members, IsLoaded}){
             </div>
           </div>
 
-          <div className ="row pb-1">
+          <div className ="row pb-1 ps-4">
             {!IsLoaded && (
               <div className ='col-md ps-4'>
                 <Placeholder animation="glow" className="w-100">

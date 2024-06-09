@@ -55,12 +55,22 @@
     color: red;
 }
 
-.AnnounIcon{
+.AnnounIconAbierto{
     font-weight: bolder;
     font-size: 40px;
 
     text-decoration: none;
 
-    color: black;
+    color: #474747;
+
+}
+
+.AnnounIconCerrado{
+    font-weight: bolder;
+    font-size: 40px;
+
+    text-decoration: none;
+
+    color: #0C356A;
 
 }

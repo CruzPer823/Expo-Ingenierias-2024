@@ -5,11 +5,13 @@ import config from './config.js';
 import generateCommentTemplate from './emailtemp/comment.js';
 import generateAssignedTemplate from './emailtemp/assigned.js';
 import generateChangeTemplate from './emailtemp/change.js';
+import generateAnnouncementTemplate from './emailtemp/ad.js';
 
 const templates = {
   comment: generateCommentTemplate,
   assigned: generateAssignedTemplate,
   change: generateChangeTemplate,
+  ad: generateAnnouncementTemplate,
 };
 
 const transporter = nodemailer.createTransport({

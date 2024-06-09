@@ -334,7 +334,7 @@
   Insert into ADMIN."categories" ("title","description","createdAt","updatedAt") values ('Prototipo finalizado','Categor a relacionada con...',to_date('03-MAY-24','DD-MON-RR'),to_date('03-MAY-24','DD-MON-RR'));
 
   Insert into ADMIN."editions" ("period","year","createdAt","updatedAt") values ('Primavera',2023,to_date('03-MAY-24','DD-MON-RR'),to_date('03-MAY-24','DD-MON-RR'));
-  Insert into ADMIN."editions" ("period","year","createdAt","updatedAt") values ('Oto�o',2024,to_date('03-MAY-24','DD-MON-RR'),to_date('03-MAY-24','DD-MON-RR'));
+  Insert into ADMIN."editions" ("period","year","createdAt","updatedAt") values ('Otoño',2024,to_date('03-MAY-24','DD-MON-RR'),to_date('03-MAY-24','DD-MON-RR'));
 
 
   Insert into ADMIN."projects" ("id", "title", "description", "statusGeneral", "statusPoster", "statusVideo", "linkPoster", "linkVideo", "finalGrade", "id_edition", "id_area", "id_category", "id_lider", "id_responsable") values ('ABC10','title','descripcion','en revision','en revision','en revision','linkPoster','nuevofdsgsadgsdgasg',0,1,1,1,'auth0|66465772cddc69d8a11bcff9','auth0|6653d38ae957844eac7c9f99');
@@ -392,7 +392,7 @@
 
 COMMIT;
 --DROP ALL THE TABLES
-  drop table DBTOOLS$EXECUTION_HISTORY cascade constraints;
+  drop table "DBTOOLS$EXECUTION_HISTORY" cascade constraints;
   drop table "maps" cascade constraints;
   drop table "editions" cascade constraints;
   drop table "students" cascade constraints;
