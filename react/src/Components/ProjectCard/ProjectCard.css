@@ -15,12 +15,7 @@
     justify-content: center;
     margin: 1vw;
 }
-.card{
-    /* margin-bottom: 1rem;  */
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
-    width: 350px;
-    height: 70vh;
-}
+
 .card2{
     width: 40vw;
     height: 50vh;

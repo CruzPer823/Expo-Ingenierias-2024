@@ -223,7 +223,7 @@ export default function Perfil(){
     return(
         <>
         <Menu NameSection={"Perfil de usuario"} />
-        <div className='container-fluid m-5 perfil cont-principal-perfil-estudiante mx-auto'>
+        <div className='container-fluid perfil cont-principal-perfil-estudiante mx-auto mt-4 pt-3'>
             <div className='row p-2'>
                 <i className="bi bi-person-circle icon-p"></i>
             </div>
