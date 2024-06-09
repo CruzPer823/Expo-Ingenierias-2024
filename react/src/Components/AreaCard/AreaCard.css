@@ -80,6 +80,11 @@ h2{
     width: 10vw;
 }
 @media(max-width: 1000px){
+    .contenedorSuperior{
+        flex-direction: column;
+        align-items: center;
+        gap: 1vh;
+    }
     .areasImg{
         height: 25vh;
     }
@@ -88,21 +93,22 @@ h2{
         
     }
     .tar,.tarj{
-        width: 70vw;
-        height: 60vh;
+        width: 75vw;
+        height: 65vh;
         
     }
     .btnPrin{
-        margin: 2vh;
+        margin: 1vh;
         width: 30vw;
     }
     
     .btnElim{
-        margin-top: 2vh;
+        margin-top: 1vh;
         width: 30vw;
     }
     .description{
+        margin-bottom: 0%;
         text-align: center;
-        width: 50vw;
+        width: 60vw;
     }
 }

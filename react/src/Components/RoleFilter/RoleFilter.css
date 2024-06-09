@@ -21,3 +21,12 @@
     border-color: #0C356A; 
     color: #0C356A;
   }
+
+@media(max-width: 1000px){
+  .grupo{
+    border-radius: 5px;
+    width: 90vw;
+    background-color: #e6e6e6;
+    margin-top: 1vh;
+  }
+}

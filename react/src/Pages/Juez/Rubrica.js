@@ -4,6 +4,8 @@ import './Rubrica.css';
 import ToggleBar from '../../Components/Togglebar/togglebar';
 import Loader from '../../Components/Loader/Loader';
 import { useAuth0 } from '@auth0/auth0-react';
+import AdminDeleteUserPopUp from '../../Components/Popup/AdminDeleteUserPopUp';
+import { useNavigate } from 'react-router-dom';
 import Popup from '../../Components/Popup/Popup';
 
 const Rubrica = () => {
@@ -15,9 +17,17 @@ const Rubrica = () => {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [loading, setLoading] = useState(true); // Estado de carga
   const { isAuthenticated, isLoading, error, user } = useAuth0();
-  const [content, setContent] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [content, setContent] = useState("");
+  const [showErrorModal, setShowErrorModal] = useState(false);
   const [type, setType] = useState(false);
+  const [errorContent, setErrorContent] = useState("");
+
+  const navigate = useNavigate();
+  
+  const handleSucces = () => {
+    navigate('/Juez');
+  };
 
   useEffect(() => {
     const fetchCriteria = async () => {
@@ -30,7 +40,9 @@ const Rubrica = () => {
         setLoading(false); // Desactivar el estado de carga después de obtener los datos
       } catch (error) {
         console.error('Error al obtener los criterios:', error);
-        setContent('Error al obtener los criterios:', error.error)
+        setErrorContent('Error al obtener los criterios:', error.error)
+        setType(true)
+        setShowErrorMessage(true)
         setLoading(false); // Desactivar el estado de carga en caso de error
       }
     };
@@ -58,6 +70,35 @@ const Rubrica = () => {
     setAdditionalComment(value);
   };
 
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+  const confirmSubmit = () => {
+    if (additionalComment.trim().length < 50) {
+      setShowErrorMessage(true);
+      return;
+    }
+    
+    setShowErrorMessage(false);
+
+    const criteriaData = criteria.map((criterion, index) => ({
+      id_person: user.sub,
+      id_criteria: criterion.id,
+      grade: selectedCriteria[index],
+      id_project: projectId,
+      Comentario: comments[index]
+    }));
+
+    const totalScore = selectedCriteria.reduce((acc, value) => acc + value, 0);
+
+    // Mostrar confirmación al usuario
+    const confirmMessage = `¿Estás seguro de que deseas enviar tu rúbrica?     \n¡ESTA ACCION NO SE PUEDE DESHACER!     \nPUNTAJE TOTAL: ${totalScore / criteria.length}/5     \nCOMENTARIO ADICIONAL: ${additionalComment} (AVISO: Tras darle a Aceptar puede tardar unos segundos, sea paciente)`;
+
+    setContent(confirmMessage);
+    setShowModal(true);
+  }
+
   const handleSubmit = async () => {
     if (additionalComment.trim().length < 50) {
       setShowErrorMessage(true);
@@ -73,15 +114,15 @@ const Rubrica = () => {
       Comentario: comments[index]
     }));
 
-    const totalScore = selectedCriteria.reduce((acc, value) => acc + value, 0);
+    //const totalScore = selectedCriteria.reduce((acc, value) => acc + value, 0);
 
     // Mostrar confirmación al usuario
-    const confirmMessage = `¿Estás seguro de que deseas enviar tu rúbrica?\nESTA ACCION NO SE PUEDE DESHACER\nPuntaje Total: ${totalScore / criteria.length}/5\nComentario adicional: ${additionalComment}`;
+    //const confirmMessage = `¿Estás seguro de que deseas enviar tu rúbrica?\nESTA ACCION NO SE PUEDE DESHACER\nPuntaje Total: ${totalScore / criteria.length}/5\nComentario adicional: ${additionalComment}`;
     //if (window.confirm(confirmMessage)) {
       try {
         // Enviamos los datos de la rúbrica
         for (const criterionData of criteriaData) {
-          const response = await fetch('http://localhost:8000/Juez/createCriteriJudge', {
+          const response = await fetch('http://localhost:8000/Juez/createCriteriaJudge', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -123,16 +164,16 @@ const Rubrica = () => {
           throw new Error('Error al actualizar la calificación final del proyecto');
         }
 
-        setType(false);
-        setContent(confirmMessage);
-        setShowModal(true);
+        setShowModal(false);
+        handleSucces();
+        
 
       } catch (error) {
         console.error('Error al enviar la rúbrica:', error);
         //alert('Hubo un problema al enviar la rúbrica. Por favor, inténtalo de nuevo.');
-        setType(true);
-        setContent('Error al enviar la rúbrica', error.error);
-        setShowModal(true);
+        setErrorContent('Error al enviar la rúbrica', error.error);
+        setType(true)
+        setShowErrorModal(true);
       }
     //}
   };
@@ -185,8 +226,15 @@ const Rubrica = () => {
               
               <div className="buttons-container2">
                 <Link to={`/Juez`} className="btn2">Cancelar</Link>
-                <button onClick={handleSubmit} className="btn3">Enviar</button>
-                {showModal && <Popup content={content} onClose={()=>setShowModal(false)} error={type} ruta={`/Juez`}/>}
+                <button onClick={confirmSubmit} className="btn3">Enviar</button>
+                {showModal && (
+                <AdminDeleteUserPopUp 
+                    content={content} 
+                    onClose={closeModal} 
+                    onConfirm={handleSubmit} 
+                />
+                )}
+                {showErrorModal && <Popup content={errorContent} onClose={()=>setShowErrorModal(false)} error={type} ruta={'/Juez'}/>}
               </div>
             </div>
           </>
