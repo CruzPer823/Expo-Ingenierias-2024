@@ -93,7 +93,7 @@ export default function Perfil(){
         return (
             <>
               <Menu />
-              <div className='container-fluid m-5 perfil cont-principal mx-auto'>
+              <div className='container-fluid perfil cont-principal mx-auto'>
                 <div className='row p-2'>
                   <i className="bi bi-person-circle icon-p"></i>
                 </div>
@@ -104,7 +104,7 @@ export default function Perfil(){
                 </div>
                 <Form noValidate validated={validated} className='row p-2' onSubmit={handleSubmit}>
                 <div className='row p-2'>
-                <div className='col-6 col-md-6'>
+                <div className='col-6 col-md-4'>
                 <h3>Nombre: </h3>
                 </div>
                 <div className='col-6 col-md-6'>
@@ -112,7 +112,7 @@ export default function Perfil(){
                 </div>
             </div>
             <div className='row p-2'>
-                <div className='col-6 col-md-6'>
+                <div className='col-6 col-md-4'>
                 <h3>Apellido: </h3>
                 </div>
                 <div className='col-6 col-md-6'>

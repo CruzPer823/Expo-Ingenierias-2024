@@ -14,14 +14,13 @@ const LogoutButton = () => {
   const { logout } = useAuth0();
 
   const handleLogout = () => {
-    logout({
-      returnTo: "http://localhost:3000", 
-    });
+    logout();
   };
 
-  
   return (
-    <Link to='/' className="TextoValid2" onClick={handleLogout}>Cerrar sesión</Link>
+    <div className="TextoValid2" onClick={handleLogout} style={{ cursor: 'pointer' }}>
+      Cerrar sesión
+    </div>
   );
 };
 
@@ -170,11 +169,11 @@ function ToggleBar({SectionName}) {
               </div>
 
               <div className='row m-2 mt-5'>
-                  <div className='col-md-auto mt-5'>
-                  <Link onClick={() => { handleClose(); }} class="bi bi-box-arrow-left docu-icon2"></Link>
-                  <LogoutButton/>
-                  </div>
+                <div className='col-md-auto mt-5 d-flex align-items-center'>
+                  <Link onClick={() => { handleClose(); }} className="bi bi-box-arrow-left docu-icon2" style={{ display: 'inline' }}></Link>
+                  <LogoutButton />
                 </div>
+              </div>
 
             </div>
           </nav>
