@@ -21,6 +21,7 @@ import LoadingSpinner from '../../../auth0/loading.js';
 
 export default function Main() {
   const { isAuthenticated, isLoading } = useAuth0();
+  const [initialLoading, setInitialLoading] = useState(true);
 
   const Ref = useRef(null);
   
@@ -70,9 +71,16 @@ useEffect(() => {
 }, []);
   
 
-  if (isLoading) {
+  useEffect(() => {
+    setTimeout(() => {
+      setInitialLoading(false);
+    }, 900); 
+  }, []);
+
+  if (initialLoading) {
     return <LoadingSpinner />;
   }
+
 
   return (
     <>
