@@ -150,30 +150,27 @@ export default function Perfil(){
                   </div>
                 </div>
                   <Row className="mb-3">
-                    <Form.Group as={Col} md="12" controlId="validationArea">
+                  <Form.Group as={Col} md="12" controlId="validationArea">
                       <div className='container-fluid'>
-                        <div className='row'>
-                          <div className='col'>
                           <ToggleButtonGroup
                             type="checkbox"
                             value={secAreas}
                             className='d-flex justify-content-between w-100'
                         >
                             {areas.map(area => (
-                                <ToggleButton
-                                key={area.id}
-                                id={"tbg-check-" + area.id}
-                                value={area.id}
-                                className='ButtonMaterials w-100'
-                                onChange={() => handleToggleChange(area.id)}
-                            >
-                                {area.name}
-                            </ToggleButton>
+                                <>
+                            <Form.Check
+                            type="checkbox"
+                            checked={secAreas.includes(area.id)}
+                            onChange={() => handleToggleChange(area.id)}
+                            inline
+                            label={area.name}
+                            className='ButtonAreas w-100'
                             
+                        />
+                            </>
                             ))}
                         </ToggleButtonGroup>
-                          </div>
-                        </div>
                       </div>
                     </Form.Group>
                   </Row>
