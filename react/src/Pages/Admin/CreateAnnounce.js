@@ -78,7 +78,7 @@ function CreateAnnouncePage() {
             }
         })
         .catch(error => {
-            console.error('Error al crear el área:', error);
+            console.error('Error al crear el Anuncio:', error);
             setLoading(false); // Termina el estado de carga
             setType(true);
             setContent('Un error ocurrió, inténtelo después otra vez.');

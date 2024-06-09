@@ -96,7 +96,7 @@ function EditAnnouncePage() {
             }
         })
         .catch(error => {
-            console.error('Error actualizando al usuario:', error);
+            console.error('Error actualizando al anuncio:', error);
             alert('Un error ocurrió, inténtelo después otra vez.');
         });
     };

@@ -119,6 +119,7 @@ function App() {
               <Route path="/Admin" element={<ProtectedRoute requiredRole="admin"><Dashboard /></ProtectedRoute>} />
               <Route path="/Admin/admin-profile" element={<ProtectedRoute requiredRole="admin"><PerfilAdmin /></ProtectedRoute>} />
               <Route path="/Admin/editar-admin-perfil" element={<ProtectedRoute requiredRole="admin"><EditAdminProfile /></ProtectedRoute>} />
+              {/* historico */}
               <Route path="/Admin/historico" element={<ProtectedRoute requiredRole="admin"><Historical /></ProtectedRoute>} />
               {/* Manejo de usuarios */}
               <Route path="/Admin/usuarios" element={<ProtectedRoute requiredRole="admin"><Users /></ProtectedRoute>} />
@@ -128,6 +129,7 @@ function App() {
               <Route path="/Admin/proyectos" element={<ProtectedRoute requiredRole="admin"><Projects /></ProtectedRoute>} />
               <Route path="/Admin/proyectos/:projectId" element={<ProtectedRoute requiredRole="admin"><ProjectPage /></ProtectedRoute>} />
               <Route path='/Admin/proyectos/calificar/:projectId' element={<ProtectedRoute requiredRole="admin"><ProjectRubric /></ProtectedRoute>}></Route>
+              {/* manejo de áreas */}
               <Route path="/Admin/areas" element={<ProtectedRoute requiredRole="admin"><Areas/></ProtectedRoute>}/>
               <Route path='/Admin/areas/nuevo' element={<ProtectedRoute requiredRole="admin"><CreateAreaPage/></ProtectedRoute>}/>
               <Route path="/Admin/areas/:areaId" element={<ProtectedRoute requiredRole="admin"><EditAreaPage/></ProtectedRoute>}/>
