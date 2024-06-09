@@ -20,7 +20,7 @@ function Historical() {
     } else {
       const response = await fetch(`${URI}/export/${selectedOption}`);
       if(!response){
-          console.error('Error al obtener el Historico:', error);
+          console.error('Error al obtener el Historico');
       }
       const blob =await response.blob();
       const url=window.URL.createObjectURL(blob);

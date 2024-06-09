@@ -133,7 +133,7 @@ const transformProjectData = async (project) => {
     } else if (category.title === "Producto") {
         img = "Producto.jpg";
     } else {
-        img = "mockProject.jpeg"; // Default image
+        img = "Areas.png"; // Default image
     }
 
     return {
