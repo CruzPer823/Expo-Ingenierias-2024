@@ -37,7 +37,12 @@
     "sequelize-oracle": "^3.3.2-0.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
+    "babel-jest": "^29.7.0",
     "jasmine": "^5.1.0",
+    "jasmine-core": "^5.1.2",
+    "jasmine-spec-reporter": "^7.0.0",
     "sequelize-cli": "^6.6.2",
     "supertest": "^7.0.0"
   }

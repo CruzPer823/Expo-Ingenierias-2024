@@ -76,9 +76,7 @@ app.use('/jperson', JudgeXPersonRoutes);
 app.use('/teams', JudgeXTeamRoutes);
 app.use('/teamMembers', TeamMemberRoutes);
 
-app.get('/hello', (req, res) => {
-    res.send('Hello World');
-});
+
 
 //console.log(process.env.DB_CONNECTION_STRING)
 

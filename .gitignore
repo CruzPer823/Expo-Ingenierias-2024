@@ -27,3 +27,4 @@ yarn-error.log*
 /react/.env
 /node/.env
 .env
+/node/spec

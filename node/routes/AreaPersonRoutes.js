@@ -1,5 +1,5 @@
 import express from 'express';
-import { registerAreaPerson,getAreaPerson,updateAreaPerson} from '../controllers/AreaPersonControllers.js  ';
+import { registerAreaPerson,getAreaPerson,updateAreaPerson} from '../controllers/AreaPersonControllers.js';
 
 const router = express.Router();
 
