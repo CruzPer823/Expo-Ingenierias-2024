@@ -14,7 +14,7 @@ import Row from 'react-bootstrap/Row';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import Usure from '../../../Components/BotonConfirmacion/ConfBot';
-
+import Popup from '../../../Components/Popup/PopUpElim.js';
 
 import { Modal, Button } from 'react-bootstrap';
 
@@ -28,6 +28,9 @@ function SimpleModal() {
     const [secAreas, setSecAreas] = useState([]); // Cambiado a un array para manejar múltiples selecciones
     const [areaperson, setAreaPerson] = useState([]);
     const [validated, setValidated] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [type, setType] = useState(false);
+    const [content, setContent] = useState(null);
     useEffect(() => {
       if (user && user.sub) {
           async function fetchData() {
@@ -77,11 +80,14 @@ function SimpleModal() {
                   await axios.post(`http://localhost:8000/areaperson/register`, { id_person, id_area });
               });
               await Promise.all(promises);
+              setType(false);
+              setShowModal(true);
+            setContent("Area agregada existosamente");
               // Maneja el éxito si es necesario
           } catch (error) {
-              console.error('Full error object:', error);
-              const errorMessage = error.response ? error.response.data.message : error.message || 'Error desconocido';
-              throw new Error(`An error has occurred: ${errorMessage}`);
+            setType(true);
+            setContent(error.response?.data?.message || "Error al agregar el área");
+            setShowModal(true);
           }
       }
       setValidated(true);
@@ -143,6 +149,7 @@ function SimpleModal() {
                 </Form>
                 </Modal.Body>
             </Modal>
+            {showModal && <Popup content={content} onClose={()=>setShowModal(false)} error={type} ruta={'/perfil-profesor'}/>}
         </>
     );
 }

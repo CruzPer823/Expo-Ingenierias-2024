@@ -211,6 +211,20 @@
         REFERENCES "projects"("id")
   );
 
+  CREATE TABLE "comments_judge" (
+    "id_person" VARCHAR(50),
+    "id_project" VARCHAR(15),
+    "comment" CLOB,
+    "createdAt" DATE,
+    "updatedAt" DATE,
+    CONSTRAINT "FK_commentsjudge.id_person"
+      FOREIGN KEY ("id_person")
+        REFERENCES "persons"("id"),
+    CONSTRAINT "FK_commentsjudge.id_project"
+      FOREIGN KEY ("id_project")
+        REFERENCES "projects"("id")
+  );
+
   CREATE TABLE "team_members" (
     "id_team" INT,
     "id_member" VARCHAR(50),
@@ -312,6 +326,20 @@
         REFERENCES "persons"("id")
   );
 
+  CREATE TABLE "comments_judge" (
+    "id_person" VARCHAR(50),
+    "id_project" VARCHAR(15),
+    "comment" CLOB,
+    "createdAt" DATE,
+    "updatedAt" DATE,
+    CONSTRAINT "FK_commentsjudge.id_person"
+      FOREIGN KEY ("id_person")
+        REFERENCES "persons"("id"),
+    CONSTRAINT "FK_commentsjudge.id_project"
+      FOREIGN KEY ("id_project")
+        REFERENCES "projects"("id")
+  );
+
 -- INSERTS
 
   Insert into ADMIN."students" ("id","name","lastName","enrollment","createdAt","updatedAt") values ('auth0|6654224574b4f6b24c120e5d','Sarai','Santiago Lozano','a01735331',to_date('27-MAY-24','DD-MON-RR'),to_date('27-MAY-24','DD-MON-RR'));
@@ -410,6 +438,7 @@ COMMIT;
   drop table "materials" cascade constraints;
   drop table "materials_projects" cascade constraints;
   drop table "comments" cascade constraints;
+  drop table "comments_judge" cascade constraints;
   drop table "team_members" cascade constraints;
   drop table "asessor_projects" cascade constraints;
   drop table "criteria_judges" cascade constraints;
@@ -417,6 +446,7 @@ COMMIT;
   drop table "areas_persons" cascade constraints;
   drop table "announ_read_person" cascade constraints;
   drop table "announ_read_student" cascade constraints;
+  drop table "comments_judge" cascade constraints;
 
 
 ALTER TABLE "announcements" DROP CONSTRAINT SYS_C0036657;

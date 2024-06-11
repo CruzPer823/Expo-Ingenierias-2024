@@ -92,7 +92,7 @@ async function saveUsersToDatabase(users) {
     }
     
     else {
-      const personNew = { id: user_id, name: firstName, lastName: lastName1, email, idJudge: 0, ISACTIVE: 1};
+      const personNew = { id: user_id, name: firstName, lastName: lastName1, email, isJudge: 0, ISACTIVE: 1};
 
       console.log(personNew);
 

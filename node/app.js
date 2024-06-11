@@ -76,6 +76,8 @@ app.use('/jperson', JudgeXPersonRoutes);
 app.use('/teams', JudgeXTeamRoutes);
 app.use('/teamMembers', TeamMemberRoutes);
 
+
+
 //console.log(process.env.DB_CONNECTION_STRING)
 
 try {
@@ -103,3 +105,5 @@ app.post('/send-email', async (req, res) => {
 app.listen(8000, ()=>{
     console.log('Server UP running in http://localhost:8000/')
 })
+
+export default app;

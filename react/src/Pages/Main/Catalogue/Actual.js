@@ -270,10 +270,7 @@ function tieneInformacion(variable) {
 
 export default function Actual() {
 
-    const [nexusProjects, setNexusProjects] = useState([]);
-    const [nanoProjects, setNanoProjects] = useState([]);
-    const [bioProjects, setBioProjects] = useState([]);
-    const [cyberProjects, setCyberProjects] = useState([]);
+    const [totalProjects, setTotalProjects] = useState([]);
 
     
     
@@ -281,29 +278,7 @@ export default function Actual() {
         fetch(URL)
         .then((res)=> res.json())
         .then((data) => {
-
-            //Nexus
-            const nexusArea = data.find((area) => area.name === 'Nexus');
-            const projectsNexus = nexusArea ? nexusArea.projects : [];
-            setNexusProjects(projectsNexus);
-
-            //Nano
-            const nanoArea = data.find((area) => area.name === 'Nano');
-            const projectsNano = nanoArea ? nanoArea.projects : [];
-            setNanoProjects(projectsNano);
-
-            //Bio
-            const bioArea = data.find((area) => area.name === 'Bio');
-            const projectsBio = bioArea ? bioArea.projects : [];
-            setBioProjects(projectsBio);
-
-            //Cyber
-            const cyberArea = data.find((area) => area.name === 'Cyber');
-            const projectsCyber = cyberArea ? cyberArea.projects : [];
-            setCyberProjects(projectsCyber);
-
-
-
+            setTotalProjects(data);
         })
       },[])
     
@@ -327,159 +302,43 @@ export default function Actual() {
                     </div>
                 </div>
             </div>
-            <div className='row m-4 p-3 CardsContainer'>
-
-                <div className='container-fluid'>
-                    <div className='row'>
-                        <div className='col'>
-                            <h3 className='Titulo123'>Nano</h3>
+            {totalProjects.map((item,index) => (
+                <div className='row m-4 p-3 CardsContainer'>    
+                    <div className='container-fluid'>
+                        <div className='row'>
+                            <div className='col'>
+                                <h3 className='Titulo123'>{item.name}</h3>
+                            </div>
                         </div>
-                    </div>
-
-                    <div className='row scroll-container'>
-                        <div className='col'>
-                            {!tieneInformacion(nanoProjects) && (
-                                <div className="container pb-1">
-                                    <div className='row '>
-                                        <div className='col-12 d-flex align-items-center justify-content-center'>
-                                            <i className='bi bi-binoculars-fill IconoNohyProjectsProfe'></i>
-                                        </div>
-                                        <div className='col-12 d-flex align-items-center justify-content-center'>
-                                            <h3 className='ColorNohayProyectoprofe'>Parece ser que aun no hay proyectos</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-
-                            {tieneInformacion(nanoProjects) && (
-                                <div className="d-flex flex-nowrap">
-                                    {nanoProjects.map((item,index) => (
-                                        <CardProj CategoCheck={item.category.title} Title={item.title} Description={item.description} Student={item.student} Members={item.team.members}  Teacher={item.Lider} Assesors={item.Asesores}/>
-                                    ))}
-                                </div> 
-                            )}                 
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-  
-            <div className='row m-4 p-3 CardsContainer'>
-
-                <div className='container-fluid'>
-                    <div className='row'>
-                        <div className='col'>
-                            <h3 className='Titulo123'>Nexus</h3>
-                        </div>
-                    </div>
-
-                    <div className='row scroll-container'>
-                        <div className='col'>
-                            {!tieneInformacion(nexusProjects) && (
-                                <div className="container pb-1">
-                                    <div className='row '>
-                                        <div className='col-12 d-flex align-items-center justify-content-center'>
-                                            <i className='bi bi-binoculars-fill IconoNohyProjectsProfe'></i>
-                                        </div>
-                                        <div className='col-12 d-flex align-items-center justify-content-center'>
-                                            <h3 className='ColorNohayProyectoprofe'>Parece ser que aun no hay proyectos</h3>
+                        
+                        <div className='row scroll-container'>
+                            <div className='col'>
+                                {!tieneInformacion(item.projects) && (
+                                    <div className="container pb-1">
+                                        <div className='row '>
+                                            <div className='col-12 d-flex align-items-center justify-content-center'>
+                                                <i className='bi bi-binoculars-fill IconoNohyProjectsProfe'></i>
+                                            </div>
+                                            <div className='col-12 d-flex align-items-center justify-content-center'>
+                                                <h3 className='ColorNohayProyectoprofe'>Parece ser que aun no hay proyectos</h3>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            )}
+                                )}
 
-                            {tieneInformacion(nexusProjects) && (
-                                <div className="d-flex flex-nowrap">
-                                    {nexusProjects.map((item,index) => (
-                                        <CardProj CategoCheck={item.category.title} Title={item.title} Description={item.description} Student={item.student} Members={item.team.members} Teacher={item.Lider} Assesors={item.Asesores}/>
-                                    ))}
-                                </div> 
-                            )}                               
-               
+                                {tieneInformacion(item.projects) && (
+                                    <div className="d-flex flex-nowrap">
+                                        {item.projects.map((item,index) => (
+                                            <CardProj CategoCheck={item.category.title} Title={item.title} Description={item.description} Student={item.student} Members={item.team.members}  Teacher={item.Lider} Assesors={item.Asesores}/>
+                                        ))}
+                                    </div> 
+                                )}                 
+                            </div>
                         </div>
+                        
                     </div>
                 </div>
-
-            </div>
-  
-            <div className='row m-4 p-3 CardsContainer'>
-
-                <div className='container-fluid'>
-                    <div className='row'>
-                        <div className='col'>
-                            <h3 className='Titulo123'>Bio</h3>
-                        </div>
-                    </div>
-
-                    <div className='row scroll-container'>
-                        <div className='col'>
-
-                        {!tieneInformacion(bioProjects) && (
-                                <div className="container pb-1">
-                                    <div className='row '>
-                                        <div className='col-12 d-flex align-items-center justify-content-center'>
-                                            <i className='bi bi-binoculars-fill IconoNohyProjectsProfe'></i>
-                                        </div>
-                                        <div className='col-12 d-flex align-items-center justify-content-center'>
-                                            <h3 className='ColorNohayProyectoprofe'>Parece ser que aun no hay proyectos</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-
-                        {tieneInformacion(bioProjects) && (
-                            <div className="d-flex flex-nowrap">
-                                {bioProjects.map((item,index) => (
-                                    <CardProj CategoCheck={item.category.title} Title={item.title} Description={item.description} Student={item.student}  Members={item.team.members}  Teacher={item.Lider} Assesors={item.Asesores}/>
-                                ))}
-                            </div>  
-                        )}
-
-                            
-                
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div className='row m-4 p-3 CardsContainer'>
-
-                <div className='container-fluid'>
-                    <div className='row'>
-                        <div className='col'>
-                            <h3 className='Titulo123'>Cyber</h3>
-                        </div>
-                    </div>
-
-                    <div className='row scroll-container'>
-                        <div className='col'>
-
-                        {!tieneInformacion(cyberProjects) && (
-                                <div className="container pb-1">
-                                    <div className='row '>
-                                        <div className='col-12 d-flex align-items-center justify-content-center'>
-                                            <i className='bi bi-binoculars-fill IconoNohyProjectsProfe'></i>
-                                        </div>
-                                        <div className='col-12 d-flex align-items-center justify-content-center'>
-                                            <h3 className='ColorNohayProyectoprofe'>Parece ser que aun no hay proyectos</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-
-                            {tieneInformacion(cyberProjects) && (
-                            <div className="d-flex flex-nowrap">
-                                {cyberProjects.map((item,index) => (
-                                    <CardProj CategoCheck={item.category.title} Title={item.title} Description={item.description} Student={item.student} Members={item.team.members}  Teacher={item.Lider} Assesors={item.Asesores} />
-                                ))}
-                            </div>  
-                            )}                
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+            ))}
         </div>
       </>
     );
