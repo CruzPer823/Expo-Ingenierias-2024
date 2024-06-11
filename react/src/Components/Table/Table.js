@@ -5,15 +5,20 @@ import "./Table.css";
 import UserRow from './UserRow';
 import JudgeRow from './JudgeRow';
 import RubricRow from './RubricRow';
+import Popup from '../Popup/Popup';
 
 import AdminDeleteUserPopUp from '../Popup/AdminDeleteUserPopUp';
+import { Prev } from 'react-bootstrap/esm/PageItem';
 
 function Table({ data, searchQuery = "", selectedRole = "", judgeTable = false, rubricTable = false }) {
     const [tableData, setTableData] = useState(data);
-
+    const [modifiedRows, setModifiedRows] = useState({});
     const [showModal, setShowModal] = useState(false);
     const [modalContent, setModalContent] = useState("");
     const [deleteUserId, setDeleteUserId] = useState(null);
+    const [content, setContent] = useState(null);
+    const [showModalCriteria, setShowModalCriteria] = useState(false);
+    const [type, setType] = useState(false);
 
     // Filter data based on search query and selected role
     React.useEffect(() => {
@@ -52,6 +57,61 @@ function Table({ data, searchQuery = "", selectedRole = "", judgeTable = false, 
     const closeModal = () => {
         setShowModal(false);
     };
+
+    const handleCriteriaChange = (id, field, value) => {
+        setModifiedRows(prevState => ({
+            ...prevState,
+            [id]: {
+                ...prevState[id],
+                [field]: value
+            }
+        }));
+
+        setTableData(prevData =>
+            prevData.map(row=>
+            row.id === id? {...row,[field]: value} : row)
+        );
+    };
+
+    const handleSave= () => {
+        const totalWeight = tableData.reduce((sum, row) => {
+            const modifiedRow = modifiedRows[row.id];
+            const weight = modifiedRow ? parseInt(modifiedRow.weight, 10) : row.weight;
+            return sum + weight;
+        }, 0);
+
+        // Check if total weight exceeds 100
+        if (totalWeight > 100) {
+            setType(true);
+            setContent("La suma de los pesos no puede exceder 100.");
+            setShowModalCriteria(true);
+            return;
+        }
+
+        const requests = Object.keys(modifiedRows).map(id => {
+           const updatedCriteria={
+                description:modifiedRows[id].description,
+                weight:parseInt(modifiedRows[id].weight)
+            };
+        return axios.put(`http://localhost:8000/Admin/updateCriteria/${id}`, updatedCriteria).then(response=>{
+            console.log("Criteria updated successfully:", response.data);
+            setType(false);
+            setContent("La rúbrica ha sido correctamente actualizada");
+           setShowModalCriteria(true);
+        }).catch(err => {
+            setType(true);
+            setContent(err.response.data.message);
+            setShowModalCriteria(true);
+        });
+       });
+
+       
+       Promise.all(requests)
+       .then(() => {
+           setModifiedRows({});
+       });
+};
+
     
 
     const handleRoleChange = (id, role) => {
@@ -129,7 +189,11 @@ function Table({ data, searchQuery = "", selectedRole = "", judgeTable = false, 
     
 
     return (
-        <div className="table-container">
+        <>
+        <div className={rubricTable?"table-container rubricTable":"table-container"}>
+            {rubricTable?<div className='rubricTitle'>
+                <h1>Actualizar Rúbrica</h1>
+            </div>:null}
             <table className="table">
             <thead>
                     <tr>
@@ -143,7 +207,6 @@ function Table({ data, searchQuery = "", selectedRole = "", judgeTable = false, 
                             <>
                                 <th className="text-center">Criterios</th>
                                 <th className="text-center">Ponderación</th>
-                                <th className="text-center">Administrar</th>
                             </>
                         ) : (
                             <>
@@ -165,9 +228,11 @@ function Table({ data, searchQuery = "", selectedRole = "", judgeTable = false, 
                         ))
                     ) : rubricTable ? (
                         tableData.map((criteria) => (
+                            
                             <RubricRow 
                                 key={criteria.id} 
                                 criteria={criteria} 
+                                onCriteriaChange={handleCriteriaChange}
                             />
                         ))
                     ) : (
@@ -184,6 +249,8 @@ function Table({ data, searchQuery = "", selectedRole = "", judgeTable = false, 
                     )}
                 </tbody>
             </table>
+            {showModalCriteria && <Popup content={content} 
+            onClose={()=>setShowModalCriteria(false)} error={type} />}
             {showModal && (
                 <AdminDeleteUserPopUp 
                     content={modalContent} 
@@ -192,6 +259,11 @@ function Table({ data, searchQuery = "", selectedRole = "", judgeTable = false, 
                 />
             )}
         </div>
+        {rubricTable? 
+            <div className='rubricButton'>
+            <button className="btn btn-primary" onClick={handleSave}>Guardar</button>
+            </div>:null}
+        </>
     );
     
 }

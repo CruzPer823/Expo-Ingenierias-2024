@@ -26,7 +26,7 @@ function AnnounceCard({data}){
 
     const handleDelete = async(id,multimedia) => {
       setShowModal(true);
-      setModalContent("¿Estas seguro que quires eliminar el anuncio? Esta accion no puede deshacerse")
+      setModalContent("¿Estas seguro de querer eliminar el anuncio? Esta accion no puede deshacerse")
       setDeleteId(id);
       setDeletedMul(multimedia);
     };

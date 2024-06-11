@@ -1,32 +1,39 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { useNavigate } from 'react-router-dom';
+import TextInput from '../TextInput/TextInput';
+import { Prev } from 'react-bootstrap/esm/PageItem';
 
-function RubricRow({ criteria }) {
+function RubricRow({ criteria, onCriteriaChange }) {
 
-    const navigate = useNavigate();
 
-    const handleEditClick = () => {
-        // Redirect to EditCriteriaPage and pass the criteriaId as a URL parameter
-        navigate(`/Admin/rubrica/criterio/${criteria.id}`);
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        onCriteriaChange(criteria.id, name, value);  
     };
+
 
     return (
         <>
-            <tr key={criteria.id}>
+            <tr>
                 {/* First column */}
                 <td className="text-center" style={{fontWeight:700}}>
-                    {criteria.description}
+                    <TextInput
+                    name="description" 
+                    value={criteria.description}
+                    onChange={handleInputChange}
+                    />
+                    
                 </td>
             
                 {/* Second column - criteria weight */}
                 <td className="text-center" style={{fontWeight:400}}>
-                    {criteria.weight}
+                   <TextInput
+                    name="weight"
+                    value={criteria.weight}
+                    onChange={handleInputChange}
+                   />
                 </td>
 
-                {/* Third column - Administration */}
-                <td className="text-center">
-                    <button className="btn btn-primary btn-separator" onClick={handleEditClick}>Editar</button>
-                </td>
             </tr>
         </>
     );

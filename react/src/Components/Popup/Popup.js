@@ -9,7 +9,7 @@ const Popup = ({content,onClose,error,ruta} )=>{
     const modalRef=useRef();
 
     const handleSuccess= () => {
-        navigate(ruta);
+        ruta?navigate(ruta):window.location.reload();
     };
 
     const closeModal = (e)=>{
