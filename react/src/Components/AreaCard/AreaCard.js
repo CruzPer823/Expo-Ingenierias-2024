@@ -7,6 +7,8 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './AreaCard.css';
 import imagen from './Areas.png';
 import AddCard from '../AddCard/AddCard';
+
+
 function Areacard({data}){
     const {id,name,description,isActive} = data;
     const truncateString = (str, num) => {

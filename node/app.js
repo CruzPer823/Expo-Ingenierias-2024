@@ -100,7 +100,7 @@ app.post('/send-email', async (req, res) => {
 });
 
 
-//cron.schedule('*/20 * * * * *', function() { console.log('Running a task every 20 seconds'); main();});
+cron.schedule('*/20 * * * * *', function() { console.log('Running a task every 20 seconds'); main();});
 
 app.listen(8000, ()=>{
     console.log('Server UP running in http://localhost:8000/')

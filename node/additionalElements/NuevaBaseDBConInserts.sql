@@ -211,6 +211,20 @@
         REFERENCES "projects"("id")
   );
 
+  CREATE TABLE "comments_judge" (
+    "id_person" VARCHAR(50),
+    "id_project" VARCHAR(15),
+    "comment" CLOB,
+    "createdAt" DATE,
+    "updatedAt" DATE,
+    CONSTRAINT "FK_commentsjudge.id_person"
+      FOREIGN KEY ("id_person")
+        REFERENCES "persons"("id"),
+    CONSTRAINT "FK_commentsjudge.id_project"
+      FOREIGN KEY ("id_project")
+        REFERENCES "projects"("id")
+  );
+
   CREATE TABLE "team_members" (
     "id_team" INT,
     "id_member" VARCHAR(50),
@@ -424,6 +438,7 @@ COMMIT;
   drop table "materials" cascade constraints;
   drop table "materials_projects" cascade constraints;
   drop table "comments" cascade constraints;
+  drop table "comments_judge" cascade constraints;
   drop table "team_members" cascade constraints;
   drop table "asessor_projects" cascade constraints;
   drop table "criteria_judges" cascade constraints;

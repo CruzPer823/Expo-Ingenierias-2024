@@ -15,11 +15,11 @@ import fs from 'fs';
 import path from 'path';
 
 const router = express.Router()
-// Rutas de anuncios
+
 router.get('/getAdmin/:adminId',getAdmin);
 router.get('/getAdminInfo/:id',getAdminInfo);
 router.put('/updateAdmin/:id',updateAdmin);
-
+// Rutas de anuncios
 router.get('/Announces/',getAllAnnounces);
 router.get('/Announces/:id',getAnnounce);
 router.post('/Announce/create',createAnnounce);
