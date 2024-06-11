@@ -594,8 +594,8 @@ async function registerProject (req, res){
     var id_profesorAsesor = 0;
     
     const { id_student, title, description, linkVideo, linkPoster, area, category, materials, members, teachers } = req.body;
-    console.log(id_student + " " + title + " " , description + " " + linkVideo + " " + linkPoster +  " " + area + " " + category + " " + materials);  
-
+    //console.log(id_student + " " + title + " " , description + " " + linkVideo + " " + linkPoster +  " " + area + " " + category + " " + materials);  
+    console.log(materials)
     //var codigo = title.substring(0,5) + description.substring(0,5) + area + category;
 
     var contadorProfe = 0;

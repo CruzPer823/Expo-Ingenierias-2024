@@ -83,62 +83,6 @@ return (
                     </div>
                 </div>
               ))}
-              {/* 
-                <div className='row align-items-center m-2'>
-                  <div className='col-4'>
-                      <span className='Subtitulo'>Contacto de 220v</span>
-                  </div>
-
-                  <div className='col-auto'>
-                      <Button className='ButtonAddLessMaterials' onClick={()=>material1!==0 && setMaterial1(material1-1)}>-</Button>
-                  </div>
-
-                  <div className='col-auto'>
-                      <span>{material1}</span>
-                  </div>
-
-                  <div className='col-auto'>
-                      <Button className='ButtonAddLessMaterials' onClick={()=>material1 !== 3 && setMaterial1(material1+1)}>+</Button>
-                  </div>
-                </div>
-
-                <div className='row align-items-center m-2'>
-                    <div className='col-4'>
-                        <span className='Subtitulo'>Mampara para poster</span>
-                    </div>
-
-                    <div className='col-auto'>
-                        <Button className='ButtonAddLessMaterials' onClick={()=>material2 !== 0 && setMaterial2(material2-1)} >-</Button>
-                    </div>
-
-                    <div className='col-auto'>
-                        <span>{material2}</span>
-                    </div>
-
-                    <div className='col-auto'>
-                        <Button className='ButtonAddLessMaterials' onClick={()=>material2 !== 3 && setMaterial2(material2+1)}>+</Button>
-                    </div>
-                </div>
-
-                <div className='row align-items-center m-2  '>
-                    <div className='col-4'>
-                        <span className='Subtitulo'>Pantalla</span>
-                    </div>
-
-                    <div className='col-auto'>
-                        <Button className='ButtonAddLessMaterials' onClick={()=>material3 !== 0 && setMaterial3(material3-1)}>-</Button>
-                    </div>
-
-                    <div className='col-auto text-center'>
-                        <span>{material3}</span>
-                    </div>
-
-                    <div className='col-auto'>
-                        <Button className='ButtonAddLessMaterials' onClick={()=>material3 !== 3 && setMaterial3(material3+1)}>+</Button>
-                    </div>
-                </div>
-
-              */}
           </div>
         </Modal.Body>
       </Modal>
@@ -249,13 +193,9 @@ export default function FormExample() {
   const [linkPoster, setLinkPoster] = useState('');
   const [area, setArea] = useState(1);
   const [category, setCategory] = useState(1);
-  const [contacto, setContacto] = useState(0);
-  const [mampara, setMampara] = useState(0);
-  const [pantalla, setPantalla] = useState(0);
 
   const [materialsQuantity, setMaterialsQuantity] = useState({});
 
-  // Función para manejar la actualización de la cantidad de un material
   const handleMaterialQuantity = (materialId, quantity) => {
     setMaterialsQuantity(prevState => ({
       ...prevState,
@@ -291,6 +231,25 @@ export default function FormExample() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+    // Función para manejar la actualización de la cantidad de un material
+    useEffect(() => {
+      const initialQuantities = {};
+      data.materials.forEach(material => {
+        initialQuantities[material.id] = 0;
+      });
+      setMaterialsQuantity(initialQuantities);
+    }, [data.materials]);
+
+
+  // Función para transformar el estado al formato deseado, incluyendo materiales con cantidad 0
+  const transformMaterialsQuantity = (materialsQuantity) => {
+    return Object.entries(materialsQuantity)
+      .map(([id, amount]) => ({
+        id_material: id,
+        amount: amount
+      }));
+  };
+  
   const handleSubmit = async (event) => {
     if (event) {
       event.preventDefault();
@@ -307,6 +266,8 @@ export default function FormExample() {
       setContent("El proyecto se ha creado correctamente");
       setShowModal(true); 
 
+      const transformedMaterials = transformMaterialsQuantity(materialsQuantity);
+
       await axios.post(URI, {
         id_student: user.sub,
         title: title,
@@ -315,11 +276,7 @@ export default function FormExample() {
         linkPoster: linkPoster,
         area: area,
         category: category,
-        materials: [
-          { id_material: 1, amount: contacto },
-          { id_material: 2, amount: mampara },
-          { id_material: 3, amount: pantalla },
-        ],
+        materials: transformedMaterials,
         members: members.map((member) => ({
           name: member.nameMember,
           lastName: member.lastNameMember,
@@ -403,8 +360,6 @@ export default function FormExample() {
     setTeacherNum(teacherNum - 1);
   };
   
-
-
   //Students
   const handleEnrollmentChange = (value, indexMember) => {
     const updatedMembers = [...members];
@@ -418,8 +373,6 @@ export default function FormExample() {
     setMembers(updatedMembers);
   };
   
-
-
   const handleMemberSelect = (selected, indexMember) => {
     if (selected.length > 0) {
       const student = selected[0];
