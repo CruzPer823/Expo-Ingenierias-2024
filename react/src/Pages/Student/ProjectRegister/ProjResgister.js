@@ -262,33 +262,46 @@ export default function FormExample() {
       event.stopPropagation();
     } else {
 
-      setType(false);
-      setContent("El proyecto se ha creado correctamente");
-      setShowModal(true); 
+      setType(false); // Indica que no es un error
+      setContent("Registrando proyecto..."); // Mensaje inicial de proceso
+      setShowModal(true); // Muestra el modal de carga  
 
-      const transformedMaterials = transformMaterialsQuantity(materialsQuantity);
+      try{
+        const transformedMaterials = transformMaterialsQuantity(materialsQuantity);
 
-      await axios.post(URI, {
-        id_student: user.sub,
-        title: title,
-        description: description,
-        linkVideo: linkVideo,
-        linkPoster: linkPoster,
-        area: area,
-        category: category,
-        materials: transformedMaterials,
-        members: members.map((member) => ({
-          name: member.nameMember,
-          lastName: member.lastNameMember,
-          enrollment: member.enrollment,
-        })),
-        teachers: teachers.map((teacher) => ({
-          name: teacher.nameTeacher,
-          lastName: teacher.lastNameTeacher,
-          email: teacher.email,
-        })),
-      });
+        await axios.post(URI, {
+          id_student: user.sub,
+          title: title,
+          description: description,
+          linkVideo: linkVideo,
+          linkPoster: linkPoster,
+          area: area,
+          category: category,
+          materials: transformedMaterials,
+          members: members.map((member) => ({
+            name: member.nameMember,
+            lastName: member.lastNameMember,
+            enrollment: member.enrollment,
+          })),
+          teachers: teachers.map((teacher) => ({
+            name: teacher.nameTeacher,
+            lastName: teacher.lastNameTeacher,
+            email: teacher.email,
+          })),
+        });
 
+
+                // Si la petición es exitosa, mostrar el mensaje de éxito
+        setContent("El proyecto se ha creado correctamente");
+        setType(false); // Indica que no es un error
+      } catch (error) {
+              // Maneja los errores aquí
+        setContent("Hubo un error al registrar el proyecto. Por favor, intenta nuevamente.");
+        setType(true); // Indica que es un error
+      }finally {
+        // Mostrar el modal independientemente del resultado
+        setShowModal(true);
+      }
       // Enviar correos electrónicos a los profesores asesores
       for (const teacher of teachers) {
         const templateParams = {

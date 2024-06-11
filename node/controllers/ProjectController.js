@@ -896,7 +896,21 @@ async function getProjectByStudentID(id_student) {
     }
 }
 
+async function deleteProjectByID(id_project) {
+    try {
+        const projectDeleteCount = await ProjectModel.destroy({
+            where: { id: id_project },
+        });
+        console.log(`Proyectos eliminados: ${projectDeleteCount}`);
+        return { message: 'Proyecto y sus registros relacionados eliminados correctamente.' };
+    } catch (error) {
+        // Manejar cualquier error qu ocurra durante la consulta
+        console.error('Error al eliminar el proyecto y sus registros relacionados:', error);
+        throw error;
+    }
+}
 
+/*
 async function deleteProjectByID(id_project) {
     const transaction = await db.transaction();
     try {
@@ -946,6 +960,15 @@ async function deleteProjectByID(id_project) {
         );
         console.log(`Relaciones comentario-proyecto eliminadas: ${metaData.rowCount}`);
 
+        const [rest, metaData2] = await db.query(
+            'DELETE FROM "comments_judge" WHERE "id_project" = :id_project',
+            {
+                replacements: { id_project: id_project },
+                transaction
+            }
+        );
+        console.log(`Relaciones comentario_jueces-proyecto eliminadas: ${metaData.rowCount}`);
+
 
         const [resu, meta] = await db.query(
             'DELETE FROM "criteria_judges" WHERE "id_project" = :id_project',
@@ -955,6 +978,16 @@ async function deleteProjectByID(id_project) {
             }
         );
         console.log(`Relaciones criteria-proyecto eliminadas: ${meta.rowCount}`);
+
+        const [resul, meta3] = await db.query(
+            'DELETE FROM "judge_projects" WHERE "id_project" = :id_project',
+            {
+                replacements: { id_project: id_project },
+                transaction
+            }
+        );
+        console.log(`Relaciones criteria-proyecto eliminadas: ${meta.rowCount}`);
+
 
         // Eliminar el proyecto
         const projectDeleteCount = await ProjectModel.destroy({
@@ -977,7 +1010,7 @@ async function deleteProjectByID(id_project) {
         throw error;
     }
 }
-
+*/
 
 export const handleResumen = async (req, res) => {
 
