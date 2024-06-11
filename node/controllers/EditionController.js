@@ -1,4 +1,4 @@
-import {EditionModel,ProjectModel,StudentModel,PersonModel,CriteriaModel,CommentModel, CategoryModel, AreaModel, TeamModel} from "../models/Relations.js";
+import {EditionModel,ProjectModel,StudentModel,PersonModel,CriteriaModel,CommentModel, CategoryModel, AreaModel, TeamModel, TeamMemberModel} from "../models/Relations.js";
 import ExcelJS from 'exceljs';
 import path from 'path';
 
@@ -19,7 +19,7 @@ export const downloadHistoric = async (req, res)=>{
                 {model:CategoryModel, attributes:['title']},
                 {model:AreaModel, attributes:['name']},
                 {model:StudentModel, attributes:['name','lastName']},
-                {model:TeamModel, attributes:['name']}
+                {model:TeamModel, attributes:['name'] }
             ]
         });
         const workbook = new ExcelJS.Workbook();
@@ -28,6 +28,7 @@ export const downloadHistoric = async (req, res)=>{
         //Tabla de Proyectos (falta agregar ranking)
 
         worksheet.columns = [
+          { header: 'Id', key: 'id', width: 30 },
             { header: 'Area', key: 'area', width: 30 },
             { header: 'Categoria', key: 'category', width: 30 },
             { header: 'Proyecto', key: 'project', width: 30 },
@@ -41,6 +42,7 @@ export const downloadHistoric = async (req, res)=>{
 
         projects.forEach(project => {
             worksheet.addRow({
+                id:project.id,
                 area: project.id_area ? project.area.name : '',
                 category: project.id_category ? project.category.title : '',
                 project: project.title,
@@ -65,6 +67,7 @@ export const downloadHistoric = async (req, res)=>{
           });
 
         //tabla de proyecto y equipo 
+       
 
         const filePath = path.resolve('Historico.xlsx');
         await workbook.xlsx.writeFile(filePath);
