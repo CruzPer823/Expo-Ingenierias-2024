@@ -398,9 +398,14 @@ export const getAllProjects = async (req, res) => {
 
 export const getAllProjectsByAreas = async (req, res) => {
     try {
-        const projects = await AreaModel.findAll({include:
+        const projects = await AreaModel.findAll(
+            
+            {where: {isActive: 1} ,include:
             [
-                {model:ProjectModel, where: {statusGeneral: 'aprobado'},include: [
+                {model:ProjectModel,
+                    required: false, 
+                    where: {statusGeneral: 'aprobado'},
+                    include: [
                     { model: AreaModel },
                     { model: CategoryModel },
                     { model: PersonModel,
@@ -712,15 +717,25 @@ async function registerProject (req, res){
 }
 
 async function formProject() {
-    const categories = await CategoryModel.findAll();
-    const areas = await AreaModel.findAll();
-    const teachers = await PersonModel.findAll();
-    const students = await StudentModel.findAll();
+    const materiales = await MaterialModel.findAll();
+    const categories = await CategoryModel.findAll({
+        where: {isActive: 1}
+    });
+    const areas = await AreaModel.findAll(
+        {where: {isActive: 1}}
+    );
+    const teachers = await PersonModel.findAll(
+        {where: {ISACTIVE: 1}}
+    );
+    const students = await StudentModel.findAll(
+        {where: {isActive: 1}}
+    );
     return {
         students: students,
         teachers: teachers,
         categories: categories,
-        areas: areas
+        areas: areas,
+        materials: materiales
     };
 }
 
@@ -965,7 +980,6 @@ async function deleteProjectByID(id_project) {
 
 
 export const handleResumen = async (req, res) => {
-    console.log(`Método HTTP recibido: ${req.method}`);
 
     if (req.method === 'GET') {
         try {
@@ -1173,7 +1187,6 @@ async function updateMaterialsByProjectID(req, res) {
 
 
 export const handleMaterials = async (req, res) => {
-    console.log(`Método HTTP recibido: ${req.method}`);
 
     if (req.method === 'GET') {
         try {
