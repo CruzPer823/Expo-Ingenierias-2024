@@ -190,7 +190,7 @@ function CreateAnnouncePage() {
                                     <div style={{display:'flex', justifyContent:'center',alignItems:'center'}}>
                                     <h2 className="text-input-label" >Multimedia:</h2>
                                     </div>
-                                    {selectedFile?<><p style={{fontWeight:700,marginTop:'1vh'}}>Imagen seleccionada!</p> <UploadFile onFileSelect={handleFileSelect}/></>:<UploadFile onFileSelect={handleFileSelect}/>}
+                                    {selectedFile?<><p style={{fontWeight:700,marginTop:'1vh'}}>Imagen cargada!!</p> <UploadFile onFileSelect={handleFileSelect}/></>:<UploadFile onFileSelect={handleFileSelect}/>}
                                     <DropdownMenuB
                                             title={"Audiencia"}
                                             onSelect={handleOptionSelect}

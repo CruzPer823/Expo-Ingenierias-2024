@@ -32,8 +32,10 @@
 .errorTitle{
     font-size: 3rem;
     color: rgb(193, 10, 10);
+    width: auto;
 }
 .successTitle{
+    width: auto;
     font-size: 3rem;
     color: rgb(3, 101, 3);
 }

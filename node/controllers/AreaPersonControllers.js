@@ -8,6 +8,14 @@ export const registerAreaPerson = async (req, res) => {
     }
 
     try {
+        // Verificar si ya existe un registro con el mismo id_area e id_person
+        const existingEntry = await AreaPersonModel.findOne({ where: { id_person, id_area } });
+
+        if (existingEntry) {
+            return res.status(409).json({ error: 'A record with the same id_area and id_person already exists' });
+        }
+
+        // Crear un nuevo registro si no existe uno duplicado
         const newEntry = await AreaPersonModel.create({
             id_person,
             id_area
@@ -18,6 +26,7 @@ export const registerAreaPerson = async (req, res) => {
         res.status(500).json({ error: 'An error occurred while registering the area person' });
     }
 };
+
 export const getAreaPerson = async (req, res) => {
     const { id_person } = req.params;
 
