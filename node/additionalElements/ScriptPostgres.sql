@@ -48,7 +48,7 @@
     "lastName" VARCHAR(50),
     "email" VARCHAR(60),
     "isJudge" INT,
-    "isActive" INT,
+    "ISACTIVE" INT,
     "createdAt" TIMESTAMP,
     "updatedAt" TIMESTAMP
   );
@@ -77,15 +77,7 @@
     FOREIGN KEY ("id_responsable") REFERENCES "persons"("id")
   );
 
-  CREATE TABLE "projects_maps" (
-    "id_project" VARCHAR(15),
-    "coordinates" VARCHAR(10),
-    "id_map" INT,
-    "createdAt" TIMESTAMP,
-    "updatedAt" TIMESTAMP,
-    FOREIGN KEY ("id_map") REFERENCES "maps"("id"),
-    FOREIGN KEY ("id_project") REFERENCES "projects"("id")
-  );
+
 
   CREATE TABLE "admins" (
     "id" VARCHAR(50) PRIMARY KEY,
@@ -107,20 +99,14 @@
     "updatedAt" TIMESTAMP
   );
 
-  CREATE TABLE "admin_announcements" (
-    "id_admin" VARCHAR(50),
-    "id_announce" INT,
-    "createdAt" TIMESTAMP,
-    "updatedAt" TIMESTAMP,
-    FOREIGN KEY ("id_admin") REFERENCES "admins"("id"),
-    FOREIGN KEY ("id_announce") REFERENCES "announcements"("id")
-  );
+
 
   CREATE TABLE "project_disqualified" (
     "id_admin" VARCHAR(50),
     "id_project" VARCHAR(30),
     "reason" TEXT,
-    FOREIGN KEY ("id_admin") REFERENCES "admins"("id")
+    FOREIGN KEY ("id_admin") REFERENCES "admins"("id"),
+    FOREIGN KEY ("id_project") REFERENCES "projects"("id")
   );
 
   CREATE TABLE "teams" (
@@ -131,7 +117,7 @@
     "createdAt" TIMESTAMP,
     "updatedAt" TIMESTAMP,
     FOREIGN KEY ("id_leader") REFERENCES "students"("id"),
-    FOREIGN KEY ("id_project") REFERENCES "projects"("id")
+    FOREIGN KEY ("id_project") REFERENCES "projects"("id") ON DELETE CASCADE
   );
 
   CREATE TABLE "criterias" (
@@ -156,7 +142,7 @@
     "createdAt" TIMESTAMP,
     "updatedAt" TIMESTAMP,
     FOREIGN KEY ("id_material") REFERENCES "materials"("id"),
-    FOREIGN KEY ("id_project") REFERENCES "projects"("id")
+    FOREIGN KEY ("id_project") REFERENCES "projects"("id") ON DELETE CASCADE
   );
 
   CREATE TABLE "comments" (
@@ -166,7 +152,7 @@
     "createdAt" TIMESTAMP,
     "updatedAt" TIMESTAMP,
     FOREIGN KEY ("id_person") REFERENCES "persons"("id"),
-    FOREIGN KEY ("id_project") REFERENCES "projects"("id")
+    FOREIGN KEY ("id_project") REFERENCES "projects"("id") ON DELETE CASCADE
   );
 
   CREATE TABLE "team_members" (
@@ -175,7 +161,7 @@
     "createdAt" TIMESTAMP,
     "updatedAt" TIMESTAMP,
     FOREIGN KEY ("id_member") REFERENCES "students"("id"),
-    FOREIGN KEY ("id_team") REFERENCES "teams"("id")
+    FOREIGN KEY ("id_team") REFERENCES "teams"("id") ON DELETE CASCADE
   );
 
   CREATE TABLE "asessor_projects" (
@@ -184,7 +170,7 @@
     "createdAt" TIMESTAMP,
     "updatedAt" TIMESTAMP,
     FOREIGN KEY ("id_person") REFERENCES "persons"("id"),
-    FOREIGN KEY ("id_project") REFERENCES "projects"("id")
+    FOREIGN KEY ("id_project") REFERENCES "projects"("id") ON DELETE CASCADE
   );
 
   CREATE TABLE "criteria_judges" (
@@ -198,7 +184,7 @@
     "updatedAt" TIMESTAMP,
     FOREIGN KEY ("id_criteria") REFERENCES "criterias"("id"),
     FOREIGN KEY ("id_person") REFERENCES "persons"("id"),
-    FOREIGN KEY ("id_project") REFERENCES "projects"("id"),
+    FOREIGN KEY ("id_project") REFERENCES "projects"("id") ON DELETE CASCADE,
     FOREIGN KEY ("id_admin") REFERENCES "admins"("id")
   );
 
@@ -208,7 +194,7 @@
     "createdAt" TIMESTAMP,
     "updatedAt" TIMESTAMP,
     FOREIGN KEY ("id_person") REFERENCES "persons"("id"),
-    FOREIGN KEY ("id_project") REFERENCES "projects"("id")
+    FOREIGN KEY ("id_project") REFERENCES "projects"("id") ON DELETE CASCADE
   );
 
   CREATE TABLE "areas_persons" (
@@ -245,31 +231,31 @@
     "createdAt" TIMESTAMP,
     "updatedAt" TIMESTAMP,
     FOREIGN KEY ("id_person") REFERENCES "persons"("id"),
-    FOREIGN KEY ("id_project") REFERENCES "projects"("id")
+    FOREIGN KEY ("id_project") REFERENCES "projects"("id") ON DELETE CASCADE
   );
 
 
 --Inserts
-  INSERT INTO "areas" ("name", "description", "createdAt", "updatedAt") 
-  VALUES ('Cyber', 'Area relacionada', NULL, NULL);
+  INSERT INTO "areas" ("name", "description","isActive" ,"createdAt", "updatedAt") 
+  VALUES ('Cyber', 'Area relacionada', 1,NULL, NULL);
 
-  INSERT INTO "areas" ("name", "description", "createdAt", "updatedAt") 
-  VALUES ('Nano', 'Area relacionada con...', '2024-05-03', '2024-05-03');
+  INSERT INTO "areas" ("name", "description","isActive" ,"createdAt", "updatedAt") 
+  VALUES ('Nano', 'Area relacionada con...', 1,'2024-05-03', '2024-05-03');
 
-  INSERT INTO "areas" ("name", "description", "createdAt", "updatedAt") 
-  VALUES ('Nexus', 'Area relacionada con...', '2024-05-03', '2024-05-03');
+  INSERT INTO "areas" ("name", "description","isActive" ,"createdAt", "updatedAt") 
+  VALUES ('Nexus', 'Area relacionada con...', 1,'2024-05-03', '2024-05-03');
 
-  INSERT INTO "areas" ("name", "description", "createdAt", "updatedAt") 
-  VALUES ('Bio', 'Area relacionada con...', '2024-05-03', '2024-05-03');
+  INSERT INTO "areas" ("name", "description","isActive" ,"createdAt", "updatedAt")  
+  VALUES ('Bio', 'Area relacionada con...', 1,'2024-05-03', '2024-05-03');
 
-  INSERT INTO "categories" ("title", "description", "createdAt", "updatedAt") 
-  VALUES ('Concepto', 'Categoría relacionada con...', '2024-05-03', '2024-05-03');
+  INSERT INTO "categories" ("title", "description","isActive" ,"createdAt", "updatedAt") 
+  VALUES ('Concepto', 'Categoría relacionada con...', 1,'2024-05-03', '2024-05-03');
 
-  INSERT INTO "categories" ("title", "description", "createdAt", "updatedAt") 
-  VALUES ('Prototipo', 'Categoría relacionada con...', '2024-05-03', '2024-05-03');
+  INSERT INTO "categories" ("title", "description","isActive" ,"createdAt", "updatedAt") 
+  VALUES ('Prototipo', 'Categoría relacionada con...', 1,'2024-05-03', '2024-05-03');
 
-  INSERT INTO "categories" ("title", "description", "createdAt", "updatedAt") 
-  VALUES ('Prototipo finalizado', 'Categoría relacionada con...', '2024-05-03', '2024-05-03');
+  INSERT INTO "categories" ("title", "description","isActive" ,"createdAt", "updatedAt") 
+  VALUES ('Prototipo finalizado', 'Categoría relacionada con...', 1,'2024-05-03', '2024-05-03');
 
   INSERT INTO "editions" ("period", "year", "createdAt", "updatedAt") 
   VALUES ('Primavera', 2023, '2024-05-03', '2024-05-03');
@@ -300,5 +286,35 @@
 
   INSERT INTO "criterias" ("description", "weight", "createdAt", "updatedAt") 
   VALUES ('rubrica 5', 20, NULL, NULL);
+
+
+
+--DROP TABLES 
+DROP TABLE IF EXISTS "comments_judge" CASCADE;
+DROP TABLE IF EXISTS "judge_projects" CASCADE;
+DROP TABLE IF EXISTS "criteria_judges" CASCADE;
+DROP TABLE IF EXISTS "asessor_projects" CASCADE;
+DROP TABLE IF EXISTS "team_members" CASCADE;
+DROP TABLE IF EXISTS "comments" CASCADE;
+DROP TABLE IF EXISTS "materials_projects" CASCADE;
+DROP TABLE IF EXISTS "teams" CASCADE;
+DROP TABLE IF EXISTS "project_disqualified" CASCADE;
+DROP TABLE IF EXISTS "announ_read_person" CASCADE;
+DROP TABLE IF EXISTS "announ_read_student" CASCADE;
+DROP TABLE IF EXISTS "areas_persons" CASCADE;
+DROP TABLE IF EXISTS "projects_maps" CASCADE;
+DROP TABLE IF EXISTS "projects" CASCADE;
+DROP TABLE IF EXISTS "admins" CASCADE;
+DROP TABLE IF EXISTS "announcements" CASCADE;
+DROP TABLE IF EXISTS "criterias" CASCADE;
+DROP TABLE IF EXISTS "materials" CASCADE;
+DROP TABLE IF EXISTS "persons" CASCADE;
+DROP TABLE IF EXISTS "categories" CASCADE;
+DROP TABLE IF EXISTS "areas" CASCADE;
+DROP TABLE IF EXISTS "students" CASCADE;
+DROP TABLE IF EXISTS "editions" CASCADE;
+DROP TABLE IF EXISTS "maps" CASCADE;
+DROP TABLE IF EXISTS "admin_announcements" CASCADE;
+
 
 

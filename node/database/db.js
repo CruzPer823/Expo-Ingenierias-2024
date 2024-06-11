@@ -5,7 +5,7 @@ import oracledb from 'oracledb';
 
 
 //BASE DE DATOS ORACLE
-
+/*
 const db = new Sequelize({
     dialect: 'oracle',
     username: 'admin',
@@ -16,12 +16,13 @@ const db = new Sequelize({
     },
     logging: console.log
 });
+*/
 
-/*
 const db = new Sequelize('expoingenieria', 'postgres', '12345', {
     host: 'localhost',
     dialect: 'postgres'
-});*/
+});
+
 
 
 export default db
