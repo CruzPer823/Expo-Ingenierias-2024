@@ -79,7 +79,7 @@ return (
                   </div>
 
                   <div className='col-auto'>
-                      <Button className='ButtonAddLessMaterials' onClick={()=>material1 !== 3 && setMaterial1(material1+1)}>+</Button>
+                      <Button className='ButtonAddLessMaterials' onClick={()=>material1 !== 2 && setMaterial1(material1+1)}>+</Button>
                   </div>
               </div>
 
@@ -115,7 +115,7 @@ return (
                   </div>
 
                   <div className='col-auto'>
-                      <Button className='ButtonAddLessMaterials' onClick={()=>material3 !== 3 && setMaterial3(material3+1)}>+</Button>
+                      <Button className='ButtonAddLessMaterials' onClick={()=>material3 !== 2 && setMaterial3(material3+1)}>+</Button>
                   </div>
               </div>
           </div>
@@ -454,11 +454,13 @@ export default function FormExample() {
                     <Form.Group controlId="exampleForm.ControlTextarea1">
                       <Form.Label className="Titulo">Descripción del proyecto</Form.Label>
                       <Form.Control
+                        required
                         as="textarea"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         className="InputFormat"
                         rows={5}
+
                       />
                     </Form.Group>
                   </Row>

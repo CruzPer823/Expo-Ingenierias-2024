@@ -113,7 +113,7 @@ export default function Perfil(){
             </div>
             <div className='row p-2'>
                 <div className='col-6 col-md-4'>
-                <h3>Apellido: </h3>
+                <h3>Apellidos: </h3>
                 </div>
                 <div className='col-6 col-md-6'>
                     <Form.Control as="textarea" rows="1"  value={apellido} className='text-break' onChange={(e) => setApellido(e.target.value)}/>

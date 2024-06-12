@@ -48,15 +48,12 @@ export default function ProjSelection({ ProjCheck }) {
     const [isLoading, setIsLoading] = useState(true);
     const [validated, setValidated] = useState(false);
 
-    
-    
     const initialQuantities = { contacto: 0, mampara: 0, pantalla: 0 };
     const [quantities, setQuantities] = useState(initialQuantities);
 
     const [content, setContent] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [type, setType] = useState(false);
-
 
     const handleSubmit = async (event) => {
         if (event) {
@@ -68,7 +65,6 @@ export default function ProjSelection({ ProjCheck }) {
           event.stopPropagation();
         } else {
           try {
-
             setType(false);
             setContent("Los materiales se actualizaron correctamente");
             setShowModal(true);
@@ -78,7 +74,6 @@ export default function ProjSelection({ ProjCheck }) {
                 {id_material: 2, amount: quantities.mampara},
                 {id_material: 3, amount: quantities.pantalla}
             ]);
-
           } 
           catch (e) {
             setType(false);
@@ -90,20 +85,18 @@ export default function ProjSelection({ ProjCheck }) {
         
         setValidated(true);
       };
-      
 
     const { id_project } = useParams();
     useEffect(() => {
-        
         setIsLoading(true);
-        fetch(URL +  id_project)
+        fetch(URL + id_project)
             .then((res) => res.json())
             .then((data) => {
                 var contactoAmount = data.find((material) => material.id_material === 1)?.amount || 0;
                 var mamparaAmount = data.find((material) => material.id_material === 2)?.amount || 0;
                 var pantallaAmount = data.find((material) => material.id_material === 3)?.amount || 0;
 
-                setQuantities({contacto:contactoAmount, mampara: mamparaAmount, pantalla:pantallaAmount});
+                setQuantities({contacto: contactoAmount, mampara: mamparaAmount, pantalla: pantallaAmount});
                 setIsLoading(false);
             })
             .catch((error) => {
@@ -112,21 +105,26 @@ export default function ProjSelection({ ProjCheck }) {
             });
     }, [id_project]);
 
-
-
-
     const handleIncrease = (item) => {
-        setQuantities(prevQuantities => ({
-            ...prevQuantities,
-            [item]: prevQuantities[item] + 1
-        }));
+        setQuantities(prevQuantities => {
+            let newValue = prevQuantities[item] + 1;
+            if ((item === 'contacto' && newValue <= 2) ||
+                (item === 'mampara' && newValue <= 3) ||
+                (item === 'pantalla' && newValue <= 2)) {
+                return { ...prevQuantities, [item]: newValue };
+            }
+            return prevQuantities; // Return the same value if the condition is not met
+        });
     };
 
     const handleDecrease = (item) => {
-        setQuantities(prevQuantities => ({
-            ...prevQuantities,
-            [item]: Math.max(prevQuantities[item] - 1, 0)
-        }));
+        setQuantities(prevQuantities => {
+            let newValue = prevQuantities[item] - 1;
+            if (newValue >= 0) {
+                return { ...prevQuantities, [item]: newValue };
+            }
+            return prevQuantities; // Return the same value if the condition is not met
+        });
     };
 
     return (
@@ -187,16 +185,6 @@ export default function ProjSelection({ ProjCheck }) {
                                 />
                             </div>
                         </div>
-
-                        {/*}
-                        <center>
-                            <div className='row BotonMaterialExtraContinuarContainer p-3 m-3'>
-                                <Link to={'/principal-estudiante'} className='col BotonRegistrarMaterialesExtra p-3'>
-                                    Realizar pedido de materiales
-                                </Link>
-                            
-                                </div>
-                </center>*/}
 
                         <center>
                             <div className='row BotonMaterialExtraContinuarContainer p-3 m-3'>
