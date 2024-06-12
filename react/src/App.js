@@ -51,7 +51,6 @@ import CreateCategoryPage from './Pages/Admin/CreateCategory';
 import CreateAnnouncePage from './Pages/Admin/CreateAnnounce';
 import Announces from './Pages/Admin/Announces';
 import AdminRubrica from './Pages/Admin/AdminRubrica';
-import EditCriteriaPage from './Pages/Admin/EditCriteriaPage.js';
 import PerfilAdmin from './Pages/Admin/AdminProfile.js';
 import EditAdminProfile from './Pages/Admin/AdminEditProfile.js';
 import ProjectRubric from './Pages/Admin/ProjectRubric.js';
@@ -145,7 +144,6 @@ function App() {
               <Route path='/Admin/anuncios/nuevo' element={<ProtectedRoute requiredRole="admin"><CreateAnnouncePage/></ProtectedRoute>}/>
               {/* Manejo de rubrica */}
               <Route path='/Admin/rubrica' element={<ProtectedRoute requiredRole="admin"><AdminRubrica /></ProtectedRoute>}/>
-              <Route path='/Admin/rubrica/criterio/:criteriaId' element={<ProtectedRoute requiredRole="admin"><EditCriteriaPage /></ProtectedRoute>}/>
 
               {/* Judge Routes */}
               <Route path="/Juez" element={<ProtectedRoute requiredRole="teacher"><Juez /></ProtectedRoute>} />

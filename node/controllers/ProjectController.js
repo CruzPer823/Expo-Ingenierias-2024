@@ -398,9 +398,14 @@ export const getAllProjects = async (req, res) => {
 
 export const getAllProjectsByAreas = async (req, res) => {
     try {
-        const projects = await AreaModel.findAll({include:
+        const projects = await AreaModel.findAll(
+            
+            {where: {isActive: 1} ,include:
             [
-                {model:ProjectModel, where: {statusGeneral: 'aprobado'},include: [
+                {model:ProjectModel,
+                    required: false, 
+                    where: {statusGeneral: 'aprobado'},
+                    include: [
                     { model: AreaModel },
                     { model: CategoryModel },
                     { model: PersonModel,
@@ -523,11 +528,6 @@ export const getProject = async (req, res) => {
         project.dataValues.gradeCriteria4 = gradeCriteria4Rounded
         project.dataValues.gradeCriteria5 = gradeCriteria5Rounded
 
-        let sumGrades = parseFloat(gradeCriteria1Rounded) + parseFloat(gradeCriteria2Rounded) + parseFloat(gradeCriteria3Rounded) + parseFloat(gradeCriteria4Rounded) + parseFloat(gradeCriteria5Rounded);
-
-        const finalGrade = sumGrades / 5;
-
-        project.dataValues.finalGrade = finalGrade.toFixed(2);
 
 
         
@@ -594,8 +594,8 @@ async function registerProject (req, res){
     var id_profesorAsesor = 0;
     
     const { id_student, title, description, linkVideo, linkPoster, area, category, materials, members, teachers } = req.body;
-    console.log(id_student + " " + title + " " , description + " " + linkVideo + " " + linkPoster +  " " + area + " " + category + " " + materials);  
-
+    //console.log(id_student + " " + title + " " , description + " " + linkVideo + " " + linkPoster +  " " + area + " " + category + " " + materials);  
+    console.log(materials)
     //var codigo = title.substring(0,5) + description.substring(0,5) + area + category;
 
     var contadorProfe = 0;
@@ -717,15 +717,25 @@ async function registerProject (req, res){
 }
 
 async function formProject() {
-    const categories = await CategoryModel.findAll();
-    const areas = await AreaModel.findAll();
-    const teachers = await PersonModel.findAll();
-    const students = await StudentModel.findAll();
+    const materiales = await MaterialModel.findAll();
+    const categories = await CategoryModel.findAll({
+        where: {isActive: 1}
+    });
+    const areas = await AreaModel.findAll(
+        {where: {isActive: 1}}
+    );
+    const teachers = await PersonModel.findAll(
+        {where: {ISACTIVE: 1}}
+    );
+    const students = await StudentModel.findAll(
+        {where: {isActive: 1}}
+    );
     return {
         students: students,
         teachers: teachers,
         categories: categories,
-        areas: areas
+        areas: areas,
+        materials: materiales
     };
 }
 
@@ -886,7 +896,21 @@ async function getProjectByStudentID(id_student) {
     }
 }
 
+async function deleteProjectByID(id_project) {
+    try {
+        const projectDeleteCount = await ProjectModel.destroy({
+            where: { id: id_project },
+        });
+        console.log(`Proyectos eliminados: ${projectDeleteCount}`);
+        return { message: 'Proyecto y sus registros relacionados eliminados correctamente.' };
+    } catch (error) {
+        // Manejar cualquier error qu ocurra durante la consulta
+        console.error('Error al eliminar el proyecto y sus registros relacionados:', error);
+        throw error;
+    }
+}
 
+/*
 async function deleteProjectByID(id_project) {
     const transaction = await db.transaction();
     try {
@@ -936,6 +960,15 @@ async function deleteProjectByID(id_project) {
         );
         console.log(`Relaciones comentario-proyecto eliminadas: ${metaData.rowCount}`);
 
+        const [rest, metaData2] = await db.query(
+            'DELETE FROM "comments_judge" WHERE "id_project" = :id_project',
+            {
+                replacements: { id_project: id_project },
+                transaction
+            }
+        );
+        console.log(`Relaciones comentario_jueces-proyecto eliminadas: ${metaData.rowCount}`);
+
 
         const [resu, meta] = await db.query(
             'DELETE FROM "criteria_judges" WHERE "id_project" = :id_project',
@@ -945,6 +978,16 @@ async function deleteProjectByID(id_project) {
             }
         );
         console.log(`Relaciones criteria-proyecto eliminadas: ${meta.rowCount}`);
+
+        const [resul, meta3] = await db.query(
+            'DELETE FROM "judge_projects" WHERE "id_project" = :id_project',
+            {
+                replacements: { id_project: id_project },
+                transaction
+            }
+        );
+        console.log(`Relaciones criteria-proyecto eliminadas: ${meta.rowCount}`);
+
 
         // Eliminar el proyecto
         const projectDeleteCount = await ProjectModel.destroy({
@@ -967,10 +1010,9 @@ async function deleteProjectByID(id_project) {
         throw error;
     }
 }
-
+*/
 
 export const handleResumen = async (req, res) => {
-    console.log(`Método HTTP recibido: ${req.method}`);
 
     if (req.method === 'GET') {
         try {
@@ -1178,7 +1220,6 @@ async function updateMaterialsByProjectID(req, res) {
 
 
 export const handleMaterials = async (req, res) => {
-    console.log(`Método HTTP recibido: ${req.method}`);
 
     if (req.method === 'GET') {
         try {

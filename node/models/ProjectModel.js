@@ -13,6 +13,7 @@ const ProjectModel = db.define('projects', {
     title: { type: DataTypes.STRING },
     description: { type: DataTypes.STRING(4000) }, // CLOB puede ser representado como STRING con un límite alto en Sequelize
     linkVideo: { type: DataTypes.STRING },
+    finalGrade: {type:DataTypes.FLOAT},
     linkPoster: { type: DataTypes.STRING },
     statusGeneral: { type: DataTypes.STRING },
     statusPoster: { type: DataTypes.STRING },

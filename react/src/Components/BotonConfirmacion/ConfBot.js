@@ -51,10 +51,10 @@ export default function Usure({ Path, className, Texto, MensajeTitle, BotonA, Bo
                     <Modal.Title>{MensajeTitle}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className='centered-container h-100 d-flex justify-content-evenly'>
-                    <Button className='ButtonContinue' variant="secondary" onClick={handleClose} disabled={isConfirming}>
+                    <Button className='ButtonContinue' variant="secondary" onClick={handleClose} >
                         {BotonA}
                     </Button>
-                    <Button className='fw-bold ' variant="secondary" onClick={handleConfirm} disabled={isConfirming}>  
+                    <Button className='fw-bold ' variant="secondary" onClick={handleConfirm} >  
                         {BotonB}
                     </Button>
                 </Modal.Body>
