@@ -147,7 +147,7 @@ function CreateAnnouncePage() {
                 const templateParams = {
                     audienceType: audienceLabel,
                     announcement: announce.description,
-                    studentEmail: "A01705713@tec.mx",
+                    studentEmail: email,
                 };
     
                 
@@ -155,7 +155,7 @@ function CreateAnnouncePage() {
                         await axios.post('http://localhost:8000/send-email', {
                             templateName: 'ad',
                             templateParams, 
-                        }); break;
+                        });
                     } catch (error) {
                         console.error(`Error al enviar el correo a ${email}:`, error);
                     }
