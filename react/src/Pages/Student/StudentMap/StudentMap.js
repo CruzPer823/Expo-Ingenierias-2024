@@ -18,7 +18,7 @@ function ZoomableImage({ width = '100%', height = '585px' }) {
 
     useEffect(() => {
         setLoading(true);
-        fetch(`http://localhost:8000/map/getMap/${mapId}`)
+        fetch(`http://localhost:8000/map/get/map/${mapId}`)
             .then(response => response.json())
             .then(data => {
                 setMapa({ map_image: data[0].map_image });

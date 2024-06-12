@@ -20,17 +20,20 @@ export default function Usure({ Path, className, Texto, MensajeTitle, BotonA, Bo
     const handleConfirm = async () => {
         handleClose();
         setIsConfirming(true);
-        await onConfirm(); 
-        
-        if(recharge){
-            setTimeout(function() {
+        // Llamar a la función de confirmación que internamente llamará a handleSubmit
+        confirmRegistration();
+    };
+    
+    // Función de confirmación que llama a handleSubmit
+    const confirmRegistration = async () => {
+        await onConfirm();
+        if (recharge) {
+            setTimeout(function () {
                 window.location.reload();
             }, 1000);
-        }
-        else{
+        } else {
             navigate(Path); // Redirige a la ruta especificada en Path
         }
-        
     };
 
     
@@ -54,7 +57,7 @@ export default function Usure({ Path, className, Texto, MensajeTitle, BotonA, Bo
                     <Button className='ButtonContinue' variant="secondary" onClick={handleClose} >
                         {BotonA}
                     </Button>
-                    <Button className='fw-bold ' variant="secondary" onClick={handleConfirm} >  
+                    <Button  type='submit' className='fw-bold ' variant="secondary" onClick={handleConfirm} >  
                         {BotonB}
                     </Button>
                 </Modal.Body>

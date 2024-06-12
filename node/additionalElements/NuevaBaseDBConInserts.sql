@@ -72,7 +72,7 @@
     "id_edition" INT,
     "id_area" INT,
     "id_category" INT,
-    "id_lider" VARCHAR(50),
+    "id_lider" VARCHAR(50), 
     "id_responsable" VARCHAR(50),
     PRIMARY KEY ("id"),
     CONSTRAINT "FK_projects.id_edition"

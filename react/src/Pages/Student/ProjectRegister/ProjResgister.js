@@ -8,13 +8,13 @@ import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import Modal from 'react-bootstrap/Modal';
 import './ProjRegister.css';
 
+import { useNavigate } from 'react-router-dom';
+
 import Placeholder from 'react-bootstrap/Placeholder';
 
 import { useAuth0 } from '@auth0/auth0-react';
 
-import { Link } from 'react-router-dom';
-
-import Usure from '../../../Components/BotonConfirmacion/ConfBot'
+import { Link } from 'react-router-dom';  
 
 //Back
 import axios from 'axios';
@@ -29,6 +29,60 @@ import Popup from '../../../Components/Popup/Popup.js';
 
 const URI = 'http://localhost:8000/projects/register'
 
+function Usure({ Path, className, Texto, MensajeTitle, BotonA, BotonB, onConfirm, recharge = false }) {
+  const navigate = useNavigate();
+  const [show, setShow] = useState(false);
+  const [isConfirming, setIsConfirming] = useState(false);
+
+  const handleClose = () => {
+    setShow(false);
+    setIsConfirming(false);
+  };
+
+  const handleShow = () => setShow(true);
+
+  const handleConfirm = async () => {
+    handleClose();
+    setIsConfirming(true);
+    // Llamar a la función de confirmación proporcionada
+    await onConfirm();
+    if (recharge) {
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    } else {
+      navigate(Path); // Redirige a la ruta especificada en Path
+    }
+  };
+
+  return (
+    <>
+      <Button variant="primary" onClick={handleShow} className={className}>
+        {Texto}
+      </Button>
+
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>{MensajeTitle}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="centered-container h-100 d-flex justify-content-evenly">
+          <Button className="ButtonContinue" variant="secondary" onClick={handleClose}>
+            {BotonA}
+          </Button>
+          <Button className="fw-bold" variant="secondary" onClick={handleConfirm}>
+            {BotonB}
+          </Button>
+        </Modal.Body>
+      </Modal>
+    </>
+  );
+}
 
 function MemberCont({NombreMiembro}){
   return(
@@ -250,95 +304,7 @@ export default function FormExample() {
       }));
   };
   
-  const handleSubmit = async (event) => {
-    if (event) {
-      event.preventDefault();
-    }
-    const form = event ? event.target : null;
-    if (form && form.checkValidity() === false) {
-      setType(true);
-      setContent("El proyecto no se ha podido crear");
-      setShowModal(true);
-      event.stopPropagation();
-    } else {
 
-      setType(false); // Indica que no es un error
-      setContent("Registrando proyecto..."); // Mensaje inicial de proceso
-      setShowModal(true); // Muestra el modal de carga  
-
-      try{
-        const transformedMaterials = transformMaterialsQuantity(materialsQuantity);
-
-        await axios.post(URI, {
-          id_student: user.sub,
-          title: title,
-          description: description,
-          linkVideo: linkVideo,
-          linkPoster: linkPoster,
-          area: area,
-          category: category,
-          materials: transformedMaterials,
-          members: members.map((member) => ({
-            name: member.nameMember,
-            lastName: member.lastNameMember,
-            enrollment: member.enrollment,
-          })),
-          teachers: teachers.map((teacher) => ({
-            name: teacher.nameTeacher,
-            lastName: teacher.lastNameTeacher,
-            email: teacher.email,
-          })),
-        });
-
-
-                // Si la petición es exitosa, mostrar el mensaje de éxito
-        setContent("El proyecto se ha creado correctamente");
-        setType(false); // Indica que no es un error
-      } catch (error) {
-              // Maneja los errores aquí
-        setContent("Hubo un error al registrar el proyecto. Por favor, intenta nuevamente.");
-        setType(true); // Indica que es un error
-      }finally {
-        // Mostrar el modal independientemente del resultado
-        setShowModal(true);
-      }
-      // Enviar correos electrónicos a los profesores asesores
-      for (const teacher of teachers) {
-        const templateParams = {
-          nombreProfesor: `${teacher.nameTeacher} ${teacher.lastNameTeacher}`,
-          tituloProyecto: title,
-          studentEmail: teacher.email,
-        };
-
-        await axios.post('http://localhost:8000/send-email', {
-          templateName: 'assigned', 
-          templateParams
-        });
-      }
-
-      
-      /*
-      // Enviar correo electrónico al primer profesor registrado
-      if (teachers.length > 0) {
-        const firstTeacher = teachers[0];
-        const templateParams = {
-          nombreProfesor: `${firstTeacher.nameTeacher} ${firstTeacher.lastNameTeacher}`,
-          tituloProyecto: title,
-          studentEmail: firstTeacher.email,
-        };
-
-        await axios.post('http://localhost:8000/send-email', {
-          templateName: 'assigned',
-          templateParams
-        });
-      }*/
-
-      
-      
-    }
-
-    setValidated(true);
-  };
 
   const handleAddMember = () => {
     const newMemberId = memberNum + 1;
@@ -381,7 +347,7 @@ export default function FormExample() {
     if (value === '') {
       setSelectedStudentIds(selectedStudentIds.filter((studentId) => studentId !== prevEnrollment));
     }
-    
+      
     updatedMembers[indexMember].enrollment = value;
     setMembers(updatedMembers);
   };
@@ -425,6 +391,94 @@ export default function FormExample() {
   };
   
 
+  const handleSubmit = async (event) => {
+
+    console.log("Handle submit called")
+    if (event) {
+      event.preventDefault();
+    }
+  
+    const form = event ? event.target : null;
+    console.log("Form element:", form);
+    
+    if (form && !form.checkValidity()) {
+      console.log("Form is not valid");
+      setType(true);
+      setContent("El proyecto no se ha podido crear. Por favor, revisa los campos requeridos.");
+      setShowModal(true);
+      event.stopPropagation();
+    }
+  
+    // Marca el formulario como validado
+    setValidated(true);
+  
+    // Si el formulario es válido, proceder con el envío de datos
+    if (form && form.checkValidity()) {
+      setType(false); // Indica que no es un error
+      setContent("Registrando proyecto..."); // Mensaje inicial de proceso
+      setShowModal(true); // Muestra el modal de carga  
+  
+      try {
+        console.log("Transformando materiales...");
+        const transformedMaterials = transformMaterialsQuantity(materialsQuantity);
+  
+        console.log("Enviando datos a la base de datos...");
+        await axios.post(URI, {
+          id_student: user.sub,
+          title: title,
+          description: description,
+          linkVideo: linkVideo,
+          linkPoster: linkPoster,
+          area: area,
+          category: category,
+          materials: transformedMaterials,
+          members: members.map((member) => ({
+            name: member.nameMember,
+            lastName: member.lastNameMember,
+            enrollment: member.enrollment,
+          })),
+          teachers: teachers.map((teacher) => ({
+            name: teacher.nameTeacher,
+            lastName: teacher.lastNameTeacher,
+            email: teacher.email,
+          })),
+        });
+  
+        // Si la petición es exitosa, mostrar el mensaje de éxito
+        setContent("El proyecto se ha creado correctamente");
+        setType(false); // Indica que no es un error
+        console.log("Proyecto registrado correctamente");
+      } catch (error) {
+        // Maneja los errores aquí
+        console.error("Error al registrar el proyecto:", error);
+        setContent("Hubo un error al registrar el proyecto. Por favor, intenta nuevamente.");
+        setType(true); // Indica que es un error
+      } finally {
+        // Mostrar el modal independientemente del resultado
+        setShowModal(true);
+      }
+  
+      // Enviar correos electrónicos a los profesores asesores
+      for (const teacher of teachers) {
+        const templateParams = {
+          nombreProfesor: `${teacher.nameTeacher} ${teacher.lastNameTeacher}`,
+          tituloProyecto: title,
+          studentEmail: teacher.email,
+        };
+  
+        try {
+          await axios.post('http://localhost:8000/send-email', {
+            templateName: 'assigned',
+            templateParams
+          });
+          console.log("Correo enviado a", teacher.email);
+        } catch (error) {
+          console.error("Error al enviar el correo:", error);
+        }
+      }
+    }
+  };
+
 
   return (
     <>
@@ -451,6 +505,7 @@ export default function FormExample() {
                     <Form.Group controlId="exampleForm.ControlTextarea1">
                       <Form.Label className="Titulo">Descripción del proyecto</Form.Label>
                       <Form.Control
+                        required
                         as="textarea"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
@@ -871,8 +926,9 @@ export default function FormExample() {
                   </Row>
 
 
-                  {/*<center><Button type="submit" className='mt-4 btn-lg ButtonRegister'>Registrar proyecto</Button></center>*/}
-                  <center><Usure MensajeTitle={"¿Deseas registrar este proyecto?"} BotonA={"Regresar"} BotonB={"Confirmar registro"} className={"mt-4 btn-lg ButtonRegister"} Texto={"Registrar proyecto"} onConfirm={handleSubmit}/></center>
+                  <center><Button type="submit" className='mt-4 btn-lg ButtonRegister'>Registrar proyecto</Button></center>
+                  
+                  {/*<center><Usure MensajeTitle={"¿Deseas registrar este proyecto?"} BotonA={"Regresar"} BotonB={"Confirmar registro"} className={"mt-4 btn-lg ButtonRegister"} Texto={"Registrar proyecto"} onConfirm={handleSubmit} /></center>*/}
                 </Form>   
 
                 <div className='container-fluid mb-4'>
@@ -886,8 +942,6 @@ export default function FormExample() {
         </div>
         {showModal && <Popup content={content} onClose={()=>setShowModal(false)} error={type} ruta={'/principal-estudiante'}/>} 
     </>
-
-
-    
+ 
 );
 }

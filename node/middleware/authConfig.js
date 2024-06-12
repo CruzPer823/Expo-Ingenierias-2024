@@ -142,6 +142,8 @@ async function saveUsersToDatabase(users) {
               {where: {id_person: foundUser.id}}
             )
 
+            
+
             await PersonModel.destroy({where: {id: foundUser.id}});
 
             foundUser.id = personNew.id;

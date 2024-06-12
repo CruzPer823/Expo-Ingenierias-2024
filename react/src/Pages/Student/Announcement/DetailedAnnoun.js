@@ -97,7 +97,7 @@ function AnnounTitle({ TituloDetailed, Fecha, isLoaded }) {
   );
 }
 
-function AnnounBody({ Contenido, isLoaded }) {
+function AnnounBody({ Contenido, isLoaded, Imagen }) {
   return (
     <>
       {isLoaded ? (
@@ -111,7 +111,7 @@ function AnnounBody({ Contenido, isLoaded }) {
           <div className="row">
             <div className="col p-3">
               <span className="texto">
-                <DisplayAnnounce label={"Multimedia"} src={"fondo.jpg"} alt={"Anuncio"}/>
+                <DisplayAnnounce label={"Multimedia"} src={Imagen} alt={"Anuncio"}/>
               </span>
             </div>
           </div>
@@ -160,7 +160,7 @@ export default function DetailedAnnounCont() {
           <AnnounTitle TituloDetailed={announDet.title} Fecha={announDet.createdAt} isLoaded={!isLoading}></AnnounTitle>
         </div>
         <div className="row mt-4 p-3 ContainerAnnoun d-flex align-items-center">
-          <AnnounBody Contenido={announDet.description} isLoaded={!isLoading}></AnnounBody>
+          <AnnounBody Contenido={announDet.description} Imagen={announDet.multimedia} isLoaded={!isLoading}></AnnounBody>
         </div>
         <Link to={'/anuncio-estudiante'} className="row mt-4 p-3 ContainerAnnounBut ButtReturn d-flex justify-items-center">
           <Link to={'/anuncio-estudiante'} className="text-center ButtReturn">Regresar a anuncios</Link>
