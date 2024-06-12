@@ -16,8 +16,7 @@ function Callback() {
     
 
     if (!isLoading && !isAuthenticated) {
-      window.location.href = "http://localhost:3000";
-      return null;
+      navigate('/');
     }
 
     if (!isLoading && isAuthenticated && user) {

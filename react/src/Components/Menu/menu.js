@@ -16,7 +16,6 @@ const RegisterLink = () => {
       if (isAuthenticated && user) {
         try {
           const idTokenClaims = await getIdTokenClaims();
-          console.log("ID Token Claims:", idTokenClaims);
           const decodedToken = jwtDecode(idTokenClaims.__raw);
 
           const namespace = 'http://localhost:3000/';
