@@ -3,6 +3,7 @@ import "./DetailedAnnoun.css";
 import Placeholder from 'react-bootstrap/Placeholder';
 import { Link, useParams } from 'react-router-dom';
 import { useState, useEffect } from "react";
+import DisplayAnnounce from "../../../Components/Display/DisplayAnnounce.js";
 
 import Menu from '../../../Components/Togglebar/togglebar.js';
 
@@ -92,7 +93,7 @@ function AnnounTitle({ TituloDetailed, Fecha, isLoaded }) {
     );
   }
   
-  function AnnounBody({ Contenido, isLoaded }) {
+  function AnnounBody({ Contenido, isLoaded, Imagen }) {
     return (
       <>
         {!isLoaded ? (
@@ -102,6 +103,16 @@ function AnnounTitle({ TituloDetailed, Fecha, isLoaded }) {
                 <span className="texto">{Contenido}</span>
               </div>
             </div>
+
+            <div className="row">
+              <div className="col p-3">
+                <span className="texto">
+                  <DisplayAnnounce label={"Multimedia"} src={Imagen} alt={"Anuncio"}/>
+                </span>
+              </div>
+            </div>
+
+
           </div>
         ) : (
           <div className="container-fluid">
@@ -147,7 +158,7 @@ function AnnounTitle({ TituloDetailed, Fecha, isLoaded }) {
             </div>
 
             <div className="row mt-4 p-3 ContainerAnnoun d-flex align-items-center">
-                <AnnounBody IsLoaded={isLoading} Fecha={announDet.createdAt} Contenido ={announDet.description}></AnnounBody>
+                <AnnounBody IsLoaded={isLoading} Imagen={announDet.multimedia} Fecha={announDet.createdAt} Contenido ={announDet.description}></AnnounBody>
             </div>      
 
             <Link to={'/anuncios-profesor'} className="row mt-4 p-3 ContainerAnnounBut ButtReturn d-flex justify-items-center">
