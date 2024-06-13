@@ -171,18 +171,18 @@ export default function ProjResumeCont() {
     const fetchData = async () => {
         setIsLoaded(false);
         try {
-            const res = await fetch(`http://localhost:8000/projects/resume/student/${id_project}`);
+            const res = await fetch(`https://140.84.165.119/api/projects/resume/student/${id_project}`);
             const data = await res.json();
             setProject(data);
             setComment(data?.comment?.comment || ''); // Usa el operador de encadenamiento opcional y un valor predeterminado.
 
             
-            const leaderResponse = await fetch(`http://localhost:8000/students/${data.id_lider}`);
+            const leaderResponse = await fetch(`https://140.84.165.119/api/students/${data.id_lider}`);
             const leaderData = await leaderResponse.json();
             setLeaderEmail(leaderData.enrollment + "@tec.mx");
 
             
-            const professorResponse = await fetch(`http://localhost:8000/person/resume/${user.sub}`);
+            const professorResponse = await fetch(`https://140.84.165.119/api/person/resume/${user.sub}`);
             const professorData = await professorResponse.json();
             setProfessor({ name: professorData.name, lastName: professorData.lastName });
 
@@ -199,7 +199,7 @@ export default function ProjResumeCont() {
 
   const handleComment = async () => {
       try {
-          await axios.post(`http://localhost:8000/comments/teacher/${id_person}/${id_project}`, {
+          await axios.post(`https://140.84.165.119/api/comments/teacher/${id_person}/${id_project}`, {
               id_person,
               id_project,
               comment
@@ -213,7 +213,7 @@ export default function ProjResumeCont() {
 
   const handleUpdate = async () => {
       try {
-          const dynamicURI = `http://localhost:8000/projects/update/${id_project}`;
+          const dynamicURI = `https://140.84.165.119/api/projects/update/${id_project}`;
           const statusPosterValue = switchPdf ? 'aprobado' : 'rechazado';
           const statusVideoValue = switchVideo ? 'aprobado' : 'rechazado';
           const statusTotal = (switchPdf && switchVideo) ? 'aprobado' : 'rechazado';
@@ -240,7 +240,7 @@ export default function ProjResumeCont() {
          studentEmail
          };
         
-         await axios.post('http://localhost:8000/send-email', {
+         await axios.post('https://140.84.165.119/api/send-email', {
          templateName: 'comment', 
          templateParams
          });

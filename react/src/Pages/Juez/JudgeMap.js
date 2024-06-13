@@ -13,14 +13,14 @@ import './JudgeMap.css'
 function ZoomableImage({ width = '100%', height = '585px' }) {
     const mapId = 1;
     const transformRef = useRef(null);
-    const URLimage = "http://localhost:8000/assets/";
+    const URLimage = "https://140.84.165.119/api/assets/";
     const [mapa, setMapa] = useState({ map_image: '' });
     const [loading, setLoading] = useState(true);
     const { isAuthenticated, isLoading, error, user } = useAuth0();
 
     useEffect(() => {
         setLoading(true);
-        fetch(`http://localhost:8000/map/get/map/${mapId}`)
+        fetch(`https://140.84.165.119/api/map/get/map/${mapId}`)
             .then(response => response.json())
             .then(data => {
                 setMapa({ map_image: data[0].map_image });

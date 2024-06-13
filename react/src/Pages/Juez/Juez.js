@@ -17,10 +17,10 @@ function PageJuez() {
   const { isAuthenticated, isLoading, error, user } = useAuth0();
 
   useEffect(() => {
-    fetch(`http://localhost:8000/Juez/fetchJudgeProject/${user.sub}`)
+    fetch(`https://140.84.165.119/api/Juez/fetchJudgeProject/${user.sub}`)
       .then(response => response.json())
       .then(projectIds => {
-        fetch('http://localhost:8000/Juez/fetchProjects')
+        fetch('https://140.84.165.119/api/Juez/fetchProjects')
           .then(response => response.json())
           .then(allProjects => {
             const filteredProjects = allProjects.filter(project => projectIds.includes(project.id));
@@ -37,7 +37,7 @@ function PageJuez() {
         setLoading(false);
       });
 
-    fetch('http://localhost:8000/Juez/getCategories')
+    fetch('https://140.84.165.119/api/Juez/getCategories')
       .then(response => response.json())
       .then(data => {
         const categoryMap = {};
@@ -48,7 +48,7 @@ function PageJuez() {
       })
       .catch(error => console.error('Error al obtener las categorías:', error));
 
-    fetch('http://localhost:8000/Juez/getAreas')
+    fetch('https://140.84.165.119/api/Juez/getAreas')
       .then(response => response.json())
       .then(data => {
         const areaMap = {};

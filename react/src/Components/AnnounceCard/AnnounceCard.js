@@ -33,10 +33,10 @@ function AnnounceCard({data}){
 
     const confirmDelete = async() => {
 
-      await fetch(`http://localhost:8000/Admin/deleteImage/${deleteMul}`,{
+      await fetch(`https://140.84.165.119/api/Admin/deleteImage/${deleteMul}`,{
             method:`DELETE`,
         });
-      axios.delete(`http://localhost:8000/Admin/Announce/delete/${deleteId}`)
+      axios.delete(`https://140.84.165.119/api/Admin/Announce/delete/${deleteId}`)
           .then(response => {
               console.log("Anuncio correctamente eliminado:",response.data);
           })

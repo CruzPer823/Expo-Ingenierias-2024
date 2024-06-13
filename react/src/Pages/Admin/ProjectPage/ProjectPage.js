@@ -56,13 +56,13 @@ function ProjectPage() {
   const navigate = useNavigate();
   const adminId = user.sub; // Replace this with the actual admin ID from your authentication logic
 
-  const checklistApiUrl = `http://localhost:8000/Admin/projects/${projectId}/material-checklist`;
+  const checklistApiUrl = `https://140.84.165.119/api/Admin/projects/${projectId}/material-checklist`;
   const { data: checklistData } = useFetchData(checklistApiUrl, true);
 
   useEffect(() => {
     const fetchProject = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/projects/resumen/${projectId}`);
+        const response = await axios.get(`https://140.84.165.119/api/projects/resumen/${projectId}`);
         setProject(response.data);
         setLoading(false);
       } catch (err) {
@@ -77,7 +77,7 @@ function ProjectPage() {
   useEffect(() => {
     const fetchAllProjects = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/Admin/projects/');
+        const response = await axios.get('https://140.84.165.119/api/Admin/projects/');
         setAllProjects(response.data);
       } catch (err) {
         console.error("Error fetching all projects:", err.message);

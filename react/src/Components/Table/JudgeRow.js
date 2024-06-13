@@ -8,7 +8,7 @@ function JudgeRow({ user }) {
     const [alert, setAlert] = useState({ type: '', message: '', visible: false });
 
     const assignJudge = () => {
-        axios.post(`http://localhost:8000/Admin/assignProjectJudge`, {
+        axios.post(`https://140.84.165.119/api/Admin/assignProjectJudge`, {
             judgeId: user.id, // Using the user.id for the judgeId
             projectId: projectId // Using the projectId from the URL
         })
@@ -24,7 +24,7 @@ function JudgeRow({ user }) {
     };
 
     const removeJudge = () => {
-        axios.delete(`http://localhost:8000/Admin/remove/projects/${projectId}/judges/${user.id}`)
+        axios.delete(`https://140.84.165.119/api/Admin/remove/projects/${projectId}/judges/${user.id}`)
         .then(response => {
             // Handle successful removal
             setAssigned(false);
@@ -38,7 +38,7 @@ function JudgeRow({ user }) {
 
     // useEffect(() => {
     //     if (projectId) {
-    //         axios.get(`http://localhost:8000/Admin/getProjectJudges`, {
+    //         axios.get(`https://140.84.165.119/api/Admin/getProjectJudges`, {
     //             params: { projectId }
     //         })
     //         .then(response => {
@@ -56,7 +56,7 @@ function JudgeRow({ user }) {
 
     useEffect(() => {
         if (projectId) {
-            axios.get(`http://localhost:8000/Admin/getProjectJudges`, {
+            axios.get(`https://140.84.165.119/api/Admin/getProjectJudges`, {
                 params: { projectId }
             })
             .then(response => {

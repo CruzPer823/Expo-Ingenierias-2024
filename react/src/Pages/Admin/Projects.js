@@ -7,8 +7,8 @@ import DropdownMenu from '../../Components/DropdownMenu/DropdownMenu'; // Import
 import Loader from '../../Components/Loader/Loader';
 import '../../Components/ProjectCard/ProjectCard.css';
 
-const URI = 'http://localhost:8000/Ediciones/';
-const PROJECTS_API = 'http://localhost:8000/Admin/projects/';
+const URI = 'https://140.84.165.119/api/Ediciones/';
+const PROJECTS_API = 'https://140.84.165.119/api/Admin/projects/';
 
 function Projects() {
     const [projects, setProjects] = useState([]);

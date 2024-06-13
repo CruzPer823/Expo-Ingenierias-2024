@@ -35,7 +35,7 @@ function SimpleModal() {
       if (user && user.sub) {
           async function fetchData() {
               try {
-                  fetch(`http://localhost:8000/areas/allareas`)
+                  fetch(`https://140.84.165.119/api/areas/allareas`)
                   .then(res => res.json())
                   .then((data)=>{setArea(data)})
               } catch (error) {
@@ -77,7 +77,7 @@ function SimpleModal() {
               const id_person = user.sub; // Asegúrate de que este valor es correcto
               const promises = secAreas.map(async (id_area) => {
                   id_area = parseInt(id_area, 10); // Convertir id_area a número si es necesario
-                  await axios.post(`http://localhost:8000/areaperson/register`, { id_person, id_area });
+                  await axios.post(`https://140.84.165.119/api/areaperson/register`, { id_person, id_area });
               });
               await Promise.all(promises);
               setType(false);
@@ -206,8 +206,8 @@ export default function Perfil(){
           async function fetchData() {
               try {
                   const [userResponse, areaperResponse] = await Promise.all([
-                      fetch(`http://localhost:8000/person/resume/${user.sub}`).then(res => res.json()),
-                      fetch(`http://localhost:8000/areaperson/getArea/${user.sub}`).then(res => res.json().catch(error => {
+                      fetch(`https://140.84.165.119/api/person/resume/${user.sub}`).then(res => res.json()),
+                      fetch(`https://140.84.165.119/api/areaperson/getArea/${user.sub}`).then(res => res.json().catch(error => {
                           if (error.response && error.response.status === 404 && error.response.data.error === 'No area found for this person') {
                             return { id_person: user.sub, areas: [] };
                           }

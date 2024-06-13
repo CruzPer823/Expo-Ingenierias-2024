@@ -149,7 +149,7 @@ function CommentCont({ role, comments }) {
 
       const names = await Promise.all(
         comments.map(comment =>
-          fetch(`http://localhost:8000/Juez/fetchPerson/${comment.id_person}`)
+          fetch(`https://140.84.165.119/api/Juez/fetchPerson/${comment.id_person}`)
             .then(response => response.json())
             .then(data => ({ id: comment.id_person, name: `${data.name} ${data.lastName}` }))
             .catch(error => {
@@ -282,41 +282,41 @@ export default function ProjResumeCont() {
     const fetchData = async () => {
       try {
         // Obtener los criterios de la rúbrica desde la API
-        const criteriasResponse = await fetch('http://localhost:8000/Juez/fetchCriterias');
+        const criteriasResponse = await fetch('https://140.84.165.119/api/Juez/fetchCriterias');
         const criteriasData = await criteriasResponse.json();
         setCriterias(criteriasData);
 
         // Obtener la información del proyecto
-        const projectResponse = await fetch(`http://localhost:8000/Juez/fetchProject/${projectId}`);
+        const projectResponse = await fetch(`https://140.84.165.119/api/Juez/fetchProject/${projectId}`);
         const projectData = await projectResponse.json();
         setProjectInfo(projectData);
         if (projectData && projectData.id_responsable) {
-          const professorResponse = await fetch(`http://localhost:8000/Juez/fetchPerson/${projectData.id_responsable}`);
+          const professorResponse = await fetch(`https://140.84.165.119/api/Juez/fetchPerson/${projectData.id_responsable}`);
           const professorData = await professorResponse.json();
           setProfessorInfo(professorData);
         }
         if (projectData && projectData.id_lider) {
-          const teamsResponse = await fetch(`http://localhost:8000/Juez/fetchTeam/leader/${projectData.id_lider}`);
+          const teamsResponse = await fetch(`https://140.84.165.119/api/Juez/fetchTeam/leader/${projectData.id_lider}`);
           const teamsData = await teamsResponse.json();
           if (teamsData.length > 0) {
             const teamId = teamsData[0].id; // Utilizar el id del primer equipo
-            const membersResponse = await fetch(`http://localhost:8000/Juez/getMembers/team/${teamId}`);
+            const membersResponse = await fetch(`https://140.84.165.119/api/Juez/getMembers/team/${teamId}`);
             const membersData = await membersResponse.json();
             setMembers(membersData.map(member => member.id_member)); // Obtener solo los id_member
             // Obtener los nombres de los miembros
             const names = await Promise.all(membersData.map(async member => {
-              const studentResponse = await fetch(`http://localhost:8000/Juez/fetchStudent/${member.id_member}`);
+              const studentResponse = await fetch(`https://140.84.165.119/api/Juez/fetchStudent/${member.id_member}`);
               const studentData = await studentResponse.json();
               return studentData.name + " " + studentData.lastName;
             }));
             setMemberNames(names);
           }
-          const studentResponse = await fetch(`http://localhost:8000/Juez/fetchStudent/${projectData.id_lider}`);
+          const studentResponse = await fetch(`https://140.84.165.119/api/Juez/fetchStudent/${projectData.id_lider}`);
           const studentData = await studentResponse.json();
           setStudentInfo(studentData);
         }
         // Verificar si hay comentarios para este proyecto
-        const commentsResponse = await fetch(`http://localhost:8000/Juez/fetchComment/${user.sub}/${projectId}`);
+        const commentsResponse = await fetch(`https://140.84.165.119/api/Juez/fetchComment/${user.sub}/${projectId}`);
         if (commentsResponse.ok) {
           setCommentStatus("Calificado");
         } else {
@@ -325,7 +325,7 @@ export default function ProjResumeCont() {
 
         // Realizar fetch para cada criterio
         const fetchGradeAndComment = async (criterionId) => {
-          const criterionResponse = await fetch(`http://localhost:8000/Juez/fetchGrade/${criterionId}/${user.sub}/${projectId}`);
+          const criterionResponse = await fetch(`https://140.84.165.119/api/Juez/fetchGrade/${criterionId}/${user.sub}/${projectId}`);
           const criterionData = await criterionResponse.json();
           return { grade: criterionData.grade, comment: criterionData.Comentario || "No disponible" };
         };
@@ -337,7 +337,7 @@ export default function ProjResumeCont() {
         setComments(comments);
 
         // Obtener las categorías
-        const categoriesResponse = await fetch('http://localhost:8000/Juez/getCategories');
+        const categoriesResponse = await fetch('https://140.84.165.119/api/Juez/getCategories');
         const categoriesData = await categoriesResponse.json();
         const categoryMap = {};
         categoriesData.forEach(category => {
@@ -346,7 +346,7 @@ export default function ProjResumeCont() {
         setCategories(categoryMap);
 
         // Obtener las áreas
-        const areasResponse = await fetch('http://localhost:8000/Juez/getAreas');
+        const areasResponse = await fetch('https://140.84.165.119/api/Juez/getAreas');
         const areasData = await areasResponse.json();
         const areaMap = {};
         areasData.forEach(area => {
@@ -355,7 +355,7 @@ export default function ProjResumeCont() {
         setAreas(areaMap);
 
         // Obtener comentarios del juez
-        const judgeCommentsResponse = await fetch(`http://localhost:8000/Juez/fetchComments/project/${projectId}`);
+        const judgeCommentsResponse = await fetch(`https://140.84.165.119/api/Juez/fetchComments/project/${projectId}`);
         const judgeCommentsData = await judgeCommentsResponse.json();
         setJudgeComments(judgeCommentsData);
 

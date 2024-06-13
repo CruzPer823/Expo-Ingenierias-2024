@@ -8,7 +8,7 @@ import DisplayAnnounce from '../../../Components/Display/DisplayAnnounce.js';
 
 import ImagenPrueba from '../../../img/CardConcept.png';
 
-const URL = 'http://localhost:8000/announ/detailed/';
+const URL = 'https://140.84.165.119/api/announ/detailed/';
 
 function AnnounTitle({ TituloDetailed, Fecha, isLoaded }) {
 

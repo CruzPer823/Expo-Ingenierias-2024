@@ -17,7 +17,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 
 
-const URL = 'http://localhost:8000/projects/resume/student/';
+const URL = 'https://140.84.165.119/api/projects/resume/student/';
 
 function RubricaCalf({Calf1, Calf2, Calf3, Calf4, Calf5, Rubri1, Rubri2, Rubri3, Rubri4, Rubri5, IsLoaded}) {
   return (

@@ -7,7 +7,7 @@ import SearchBar from '../../Components/SearchBar/SearchBar';
 import RoleFilterAnnounces from '../../Components/RoleFilter/RoleFilterAnnounces';
 import '../../Components/AreaCard/AreaCard.css';
 
-const Announ_API='http://localhost:8000/Admin/Announces/';
+const Announ_API='https://140.84.165.119/api/Admin/Announces/';
 
 function Announces(){
 

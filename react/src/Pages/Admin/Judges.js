@@ -15,7 +15,7 @@ function Judges() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://localhost:8000/Admin/getAllJudges?projectId=${projectId}`);
+                const response = await axios.get(`https://140.84.165.119/api/Admin/getAllJudges?projectId=${projectId}`);
                 setData(response.data);
             } catch (error) {
                 setError(error.message);

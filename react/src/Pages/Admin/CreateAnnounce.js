@@ -37,15 +37,15 @@ function CreateAnnouncePage() {
         let emails = [];
         try {
             if (audience === 'students' || audience === 'all') {
-                const studentResponse = await axios.get('http://localhost:8000/students');
+                const studentResponse = await axios.get('https://140.84.165.119/api/students');
                 emails = emails.concat(studentResponse.data.map(student => `${student.enrollment}@tec.mx`));
             }
             if (audience === 'teachers' || audience === 'all') {
-                const teacherResponse = await axios.get('http://localhost:8000/person');
+                const teacherResponse = await axios.get('https://140.84.165.119/api/person');
                 emails = emails.concat(teacherResponse.data.map(person => person.email));
             }
             if (audience === 'judges') {
-                const judgeResponse = await axios.get('http://localhost:8000/person');
+                const judgeResponse = await axios.get('https://140.84.165.119/api/person');
                 emails = emails.concat(judgeResponse.data.filter(person => person.isJudge).map(person => person.email));
             }
         } catch (error) {
@@ -68,7 +68,7 @@ function CreateAnnouncePage() {
             formData.append('image', selectedFile);
 
             try {
-                const response = await fetch('http://localhost:8000/Admin/uploadAnnounceImage', {
+                const response = await fetch('https://140.84.165.119/api/Admin/uploadAnnounceImage', {
                     method: 'POST',
                     body: formData
                 });
@@ -87,7 +87,7 @@ function CreateAnnouncePage() {
                 return;
             }
         }
-        fetch('http://localhost:8000/Admin/Announce/create', {
+        fetch('https://140.84.165.119/api/Admin/Announce/create', {
             method: 'POST', // Cambia a POST para crear un nuevo registro
             headers: {
                 'Content-Type': 'application/json',
@@ -153,7 +153,7 @@ function CreateAnnouncePage() {
     
                 
                     try {
-                        await axios.post('http://localhost:8000/send-email', {
+                        await axios.post('https://140.84.165.119/api/send-email', {
                             templateName: 'ad',
                             templateParams, 
                         });

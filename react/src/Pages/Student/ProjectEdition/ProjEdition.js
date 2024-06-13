@@ -16,7 +16,7 @@ import ToggleBarStudent from '../../../Components/TogglebarStudent/togglebarStud
 
 import Popup from '../../../Components/Popup/Popup.js';
 
-const URI = 'http://localhost:8000/projects/editionProject/'
+const URI = 'https://140.84.165.119/api/projects/editionProject/'
 
 
 
@@ -74,7 +74,7 @@ function FormExample() {
              const projectResponse = await axios.get(URI + id_project);
              const projectData = projectResponse.data;
  
-             const professorResponse = await fetch(`http://localhost:8000/person/resume/${projectData.id_responsable}`);
+             const professorResponse = await fetch(`https://140.84.165.119/api/person/resume/${projectData.id_responsable}`);
              const professorData = await professorResponse.json();
              const professor = { name: professorData.name, lastName: professorData.lastName };
 
@@ -84,7 +84,7 @@ function FormExample() {
                studentEmail: professorData.email,
              };
  
-             await axios.post('http://localhost:8000/send-email', {
+             await axios.post('https://140.84.165.119/api/send-email', {
                templateName: 'change',
                templateParams
              });  
@@ -104,7 +104,7 @@ function FormExample() {
       
    
     useEffect(()=>{
-        //fetch('http://localhost:8000/projects/'+id_post)
+        //fetch('https://140.84.165.119/api/projects/'+id_post)
         fetch(URI+id_project)
         .then((res)=> res.json())
         .then((data)=>{

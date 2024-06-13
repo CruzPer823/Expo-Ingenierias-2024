@@ -3,7 +3,7 @@ import NavigationBar from '../../Components/NavigationBar/Admin/NavigationBar'
 import DropdownMenu from '../../Components/DropdownMenu/DropdownMenu';
 import ContentCard from '../../Components/ContentCard/ContentCard';
 
-const URI='http://localhost:8000/Ediciones/'
+const URI='https://140.84.165.119/api/Ediciones/'
 
 function Historical() {
   const [selectedOption, setSelectedOption] = useState(null);

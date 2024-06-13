@@ -14,7 +14,7 @@ function EditUserPage() {
 
     // Fetch existing user data
     useEffect(() => {
-        fetch(`http://localhost:8000/users/${userId}`)
+        fetch(`https://140.84.165.119/api/users/${userId}`)
             .then(response => response.json())
             .then(data => {
                 setUser({ name: data.name, lastName: data.lastName, email: data.email, enrollment: data.enrollment }); // Include enrollment
@@ -34,7 +34,7 @@ function EditUserPage() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        fetch(`http://localhost:8000/users/${userId}`, {
+        fetch(`https://140.84.165.119/api/users/${userId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

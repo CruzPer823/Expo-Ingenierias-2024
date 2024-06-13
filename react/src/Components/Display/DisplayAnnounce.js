@@ -3,7 +3,7 @@ import './DisplayAnnounce.css';
 
 function DisplayAnnounce({ src, alt, label,file,id }) {
   const [zoomed, setZoomed] = useState(false);
-  const URLimage="http://localhost:8000/assets/";
+  const URLimage="https://140.84.165.119/api/assets/";
   const toggleZoom = () => {
     setZoomed(!zoomed);
   };

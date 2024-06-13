@@ -47,7 +47,7 @@ function ToggleBar({SectionName}) {
       async function fetchData() {
           try {
             
-              const response = await fetch(`http://localhost:8000/Admin/getAdminInfo/${user.sub}`);
+              const response = await fetch(`https://140.84.165.119/api/Admin/getAdminInfo/${user.sub}`);
               
               // Verificación de que la respuesta es correcta
               if (!response.ok) {

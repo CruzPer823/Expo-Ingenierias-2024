@@ -156,10 +156,10 @@ function CardJuez({ name, namecomplete,setShowModal, setContent, setType}) {
             async function fetchData() {
                 try {
                     const [projectsResponse, userResponse, judgeProjectsResponse, commentsResponse] = await Promise.all([
-                        fetch(`http://localhost:8000/projects/responsable/${user.sub}`).then(res => res.json()),
-                        fetch(`http://localhost:8000/person/resume/${user.sub}`).then(res => res.json()),
-                        fetch(`http://localhost:8000/judgeProjects/fetchJudgeProject/${user.sub}`).then(res => res.json()),
-                        fetch(`http://localhost:8000/jcomments/fetchComment/${user.sub}`).then(res => res.json())
+                        fetch(`https://140.84.165.119/api/projects/responsable/${user.sub}`).then(res => res.json()),
+                        fetch(`https://140.84.165.119/api/person/resume/${user.sub}`).then(res => res.json()),
+                        fetch(`https://140.84.165.119/api/judgeProjects/fetchJudgeProject/${user.sub}`).then(res => res.json()),
+                        fetch(`https://140.84.165.119/api/jcomments/fetchComment/${user.sub}`).then(res => res.json())
                     ]);
                     setProjects(projectsResponse);
                     setUser_bs(userResponse);

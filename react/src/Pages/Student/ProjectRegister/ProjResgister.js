@@ -27,7 +27,7 @@ import { Typeahead } from 'react-bootstrap-typeahead';
 
 import Popup from '../../../Components/Popup/Popup.js';
 
-const URI = 'http://localhost:8000/projects/register'
+const URI = 'https://140.84.165.119/api/projects/register'
 
 function Usure({ Path, className, Texto, MensajeTitle, BotonA, BotonB, onConfirm, recharge = false }) {
   const navigate = useNavigate();
@@ -273,7 +273,7 @@ export default function FormExample() {
   const [type, setType] = useState(false);
 
   useEffect(() => {
-    fetch('http://localhost:8000/projects/register')
+    fetch('https://140.84.165.119/api/projects/register')
       .then((res) => res.json())
       .then((expoData) => setData(expoData));
 
@@ -467,7 +467,7 @@ export default function FormExample() {
         };
   
         try {
-          await axios.post('http://localhost:8000/send-email', {
+          await axios.post('https://140.84.165.119/api/send-email', {
             templateName: 'assigned',
             templateParams
           });

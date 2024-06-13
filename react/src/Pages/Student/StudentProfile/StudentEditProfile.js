@@ -34,7 +34,7 @@ export default function Perfil(){
         if (user && user.sub) {
             async function fetchData() {
                 try {
-                    const userResponse = await fetch(`http://localhost:8000/students/${user.sub}`).then(res => res.json());
+                    const userResponse = await fetch(`https://140.84.165.119/api/students/${user.sub}`).then(res => res.json());
                     setUser(userResponse);
                     setNombre(userResponse.name);  // Inicializa el estado del nombre
                     setApellido(userResponse.lastName);
@@ -62,7 +62,7 @@ export default function Perfil(){
         } else {
             try {
               const id_person = user.sub;
-              await axios.put(`http://localhost:8000/students/update/${id_person}`, {
+              await axios.put(`https://140.84.165.119/api/students/update/${id_person}`, {
                   name: nombre,
                   lastName: apellido,
               });

@@ -12,7 +12,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { useAuth0 } from '@auth0/auth0-react';
 import Popup from '../../../Components/Popup/PopUpElim.js';
 
-const URL = 'http://localhost:8000/projects/resumeProject/';
+const URL = 'https://140.84.165.119/api/projects/resumeProject/';
 
 function MenuProyectos({ id_path, setShowModal, setContent, setType }) {
     const icono = <i className='bi bi-trash-fill'> Eliminar proyecto</i>;

@@ -7,7 +7,7 @@ import './Announ.css';
 import axios from 'axios';
 import { useAuth0 } from '@auth0/auth0-react';
 
-const URL = 'http://localhost:8000/announ/';
+const URL = 'https://140.84.165.119/api/announ/';
 
 function AnnounSearch({ handleSearch }) {
   const handleChange = (e) => {

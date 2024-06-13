@@ -40,8 +40,8 @@ export default function Perfil(){
           async function fetchData() {
               try {
                   const [userResponse, areasResponse, areaperResponse] = await Promise.all([
-                      fetch(`http://localhost:8000/person/resume/${user.sub}`).then(res => res.json()),
-                      fetch(`http://localhost:8000/areas/allareas`).then(res => res.json()),
+                      fetch(`https://140.84.165.119/api/person/resume/${user.sub}`).then(res => res.json()),
+                      fetch(`https://140.84.165.119/api/areas/allareas`).then(res => res.json()),
                   ]);
                   setUser(userResponse);
                   setArea(areasResponse);
@@ -70,12 +70,12 @@ export default function Perfil(){
         } else {
             try {
               const id_person = user.sub;
-              await axios.put(`http://localhost:8000/person/update/${id_person}`, {
+              await axios.put(`https://140.84.165.119/api/person/update/${id_person}`, {
                   name: nombre,
                   lastName: apellido,
               });
               if(secAreas.length > 0){
-                await axios.put(`http://localhost:8000/areaperson/update`, {
+                await axios.put(`https://140.84.165.119/api/areaperson/update`, {
                     id_person,
                     areas: secAreas.map(id_area => parseInt(id_area, 10)) // Convertir id_area a número si es necesario
                 });}

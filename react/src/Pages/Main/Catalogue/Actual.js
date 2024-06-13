@@ -11,7 +11,7 @@ import Card from 'react-bootstrap/Card';
 
 import Modal from 'react-bootstrap/Modal';
 
-const URL = 'http://localhost:8000/projects/catalogue';
+const URL = 'https://140.84.165.119/api/projects/catalogue';
 
 function MemberCont({NombreMiembro}){
     return(

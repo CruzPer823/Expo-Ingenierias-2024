@@ -38,10 +38,10 @@ const useFetchData = (url, isChecklist = false) => {
 };
 
 function Dashboard() {
-  const userApiUrl = 'http://localhost:8000/users/getUsersDoughnut/ChartData';
-  const categoryApiUrl = 'http://localhost:8000/categories/getCategoriesDoughnut/ChartData';
-  const projectStatusApiUrl = 'http://localhost:8000/projects/getProjectStatusDoughnut/ChartData';
-  const checklistApiUrl = ' http://localhost:8000/projects/getMaterialChecklist/Data'; // URL to fetch materials
+  const userApiUrl = 'https://140.84.165.119/api/users/getUsersDoughnut/ChartData';
+  const categoryApiUrl = 'https://140.84.165.119/api/categories/getCategoriesDoughnut/ChartData';
+  const projectStatusApiUrl = 'https://140.84.165.119/api/projects/getProjectStatusDoughnut/ChartData';
+  const checklistApiUrl = ' https://140.84.165.119/api/projects/getMaterialChecklist/Data'; // URL to fetch materials
 
   const { data: userData, loading: loadingUserData, error: errorUserData } = useFetchData(userApiUrl);
   const { data: categoryData, loading: loadingCategoryData, error: errorCategoryData } = useFetchData(categoryApiUrl);

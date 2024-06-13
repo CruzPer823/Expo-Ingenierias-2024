@@ -9,7 +9,7 @@ import Menu from '../../../Components/Togglebar/togglebar.js';
 import axios from 'axios';
 
 
-const URL = 'http://localhost:8000/announ/';
+const URL = 'https://140.84.165.119/api/announ/';
 
 function AnnounSearch({ handleSearch }) {
   const handleChange = (e) => {

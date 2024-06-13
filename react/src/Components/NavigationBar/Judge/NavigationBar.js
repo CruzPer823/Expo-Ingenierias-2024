@@ -106,7 +106,7 @@ export default function Menu({NameSection}){
   });
 
   useEffect(() => {
-    fetch(`http://localhost:8000/Juez/fetchPerson/${idpersona}`)
+    fetch(`https://140.84.165.119/api/Juez/fetchPerson/${idpersona}`)
     .then((res) => res.json())
     .then((data) => {
       setPerson(data);

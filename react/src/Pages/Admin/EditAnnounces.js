@@ -21,7 +21,7 @@ function EditAnnouncePage() {
     const [oldFile, setOldFile] = useState(null);
     // Fetch existing user data
     useEffect(() => {
-        fetch(`http://localhost:8000/Admin/Announces/${anunciosId}`)
+        fetch(`https://140.84.165.119/api/Admin/Announces/${anunciosId}`)
             .then(response => response.json())
             .then(data => {
                 setAnuncio({ title: data.title, description: data.description, audience: data.audience,multimedia:data.multimedia});
@@ -55,7 +55,7 @@ function EditAnnouncePage() {
             formData.append('image', selectedFile);
 
             try {
-                const response = await fetch('http://localhost:8000/Admin/uploadAnnounceImage', {
+                const response = await fetch('https://140.84.165.119/api/Admin/uploadAnnounceImage', {
                     method: 'POST',
                     body: formData
                 });
@@ -74,10 +74,10 @@ function EditAnnouncePage() {
                 return;
             }
         }
-        await fetch(`http://localhost:8000/Admin/deleteImage/${oldFile}`,{
+        await fetch(`https://140.84.165.119/api/Admin/deleteImage/${oldFile}`,{
             method:`DELETE`,
         });
-        fetch(`http://localhost:8000/Admin/Announce/update/${anunciosId}`, {
+        fetch(`https://140.84.165.119/api/Admin/Announce/update/${anunciosId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

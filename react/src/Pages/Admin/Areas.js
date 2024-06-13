@@ -6,7 +6,7 @@ import AddCard from '../../Components/AddCard/AddCard';
 import Loader from '../../Components/Loader/Loader';
 import '../../Components/AreaCard/AreaCard.css';
 
-const AREAS_API = 'http://localhost:8000/Admin/Areas/';
+const AREAS_API = 'https://140.84.165.119/api/Admin/Areas/';
 
 
 function Areas(){

@@ -265,13 +265,13 @@ export default function Hometeacher() {
 
     useEffect(() => {
         //nuevodescr120T
-        //http://localhost:8000/projects/responsable/auth0|6653d38ae957844eac7c9f99
-        //http://localhost:8000/projects/responsable/${user.sub}
+        //https://140.84.165.119/api/projects/responsable/auth0|6653d38ae957844eac7c9f99
+        //https://140.84.165.119/api/projects/responsable/${user.sub}
         async function fetchData() {
             try {
         const [userResponse, projectsResponse] = await Promise.all([
-            fetch(`http://localhost:8000/person/resume/${user.sub}`).then(res => res.json()),
-            fetch(`http://localhost:8000/projects/responsable/${user.sub}`).then(res => res.json().catch(error => {
+            fetch(`https://140.84.165.119/api/person/resume/${user.sub}`).then(res => res.json()),
+            fetch(`https://140.84.165.119/api/projects/responsable/${user.sub}`).then(res => res.json().catch(error => {
                 if (error.response && error.response.status === 404 && error.response.data.error === 'No area found for this person') {
                     return null;
                 }

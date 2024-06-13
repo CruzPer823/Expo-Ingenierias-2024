@@ -22,7 +22,7 @@ function CreateAreaPage() {
         e.preventDefault();
         setLoading(true); // Inicia el estado de carga
 
-        fetch('http://localhost:8000/Admin/Areas/create', {
+        fetch('https://140.84.165.119/api/Admin/Areas/create', {
             method: 'POST', // Cambia a POST para crear un nuevo registro
             headers: {
                 'Content-Type': 'application/json',

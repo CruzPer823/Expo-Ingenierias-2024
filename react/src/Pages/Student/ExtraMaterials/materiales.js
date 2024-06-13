@@ -13,7 +13,7 @@ import axios from 'axios';
 
 import Popup from '../../../Components/Popup/Popup.js';
 
-const URL = 'http://localhost:8000/projects/materials/';
+const URL = 'https://140.84.165.119/api/projects/materials/';
 
 function CardCalif({ title, quantity, onIncrease, onDecrease, className }) {
     const truncateText = (text, limit) => {

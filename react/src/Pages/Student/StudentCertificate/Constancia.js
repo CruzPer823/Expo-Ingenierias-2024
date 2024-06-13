@@ -9,7 +9,7 @@ import Popup from '../../../Components/Popup/PopUpElim.js';
 import './Constancia.css';
 import StudentToggle from '../../../Components/TogglebarStudent/togglebarStudent.js';
 
-const URL = 'http://localhost:8000/projects/certificate/';
+const URL = 'https://140.84.165.119/api/projects/certificate/';
 
 function CardCalif({ student_name, project, setShowModal, setContent, setType }) {
     const doc = new jsPDF();

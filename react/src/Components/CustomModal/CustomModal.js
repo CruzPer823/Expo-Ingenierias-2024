@@ -11,7 +11,7 @@ function CustomModal({ show, handleClose, projectId, adminId, handleSuccess }) {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post('http://localhost:8000/projects/disqualify', {
+      const response = await axios.post('https://140.84.165.119/api/projects/disqualify', {
         id_admin: adminId,
         id_project: projectId,
         reason: disqualificationReason,

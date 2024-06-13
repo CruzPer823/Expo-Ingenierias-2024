@@ -19,7 +19,7 @@ function AdminMap() {
     useEffect(() => {
         setLoading(true);
 
-        fetch("http://localhost:8000/map/get/map/1")
+        fetch("https://140.84.165.119/api/map/get/map/1")
         .then(response => response.json())
             .then(data => {
                 setMapa({ map_image: data[0].map_image });
@@ -45,7 +45,7 @@ function AdminMap() {
             formData.append('image', selectedFile);
 
             try {
-                const response = await fetch('http://localhost:8000/Admin/uploadAnnounceImage', {
+                const response = await fetch('https://140.84.165.119/api/Admin/uploadAnnounceImage', {
                     method: 'POST',
                     body: formData
                 });
@@ -67,7 +67,7 @@ function AdminMap() {
 
         if (oldFile) {
             try {
-                await fetch(`http://localhost:8000/Admin/deleteImage/${oldFile}`, {
+                await fetch(`https://140.84.165.119/api/Admin/deleteImage/${oldFile}`, {
                     method: 'DELETE',
                 });
             } catch (error) {
@@ -75,7 +75,7 @@ function AdminMap() {
             }
         }
 
-        fetch(`http://localhost:8000/map/updateMap/1`, {
+        fetch(`https://140.84.165.119/api/map/updateMap/1`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

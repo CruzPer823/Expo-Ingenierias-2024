@@ -12,9 +12,9 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 import { useParams } from "react-router-dom";
 
-const URL = 'http://localhost:8000/students/'
+const URL = 'https://140.84.165.119/api/students/'
 
-const URLAnnoun = 'http://localhost:8000/announ/countReadAnnouncementsStudent/'
+const URLAnnoun = 'https://140.84.165.119/api/announ/countReadAnnouncementsStudent/'
 
 
 const LogoutButton = () => {

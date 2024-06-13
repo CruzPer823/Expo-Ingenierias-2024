@@ -44,7 +44,7 @@ function Table({ data, searchQuery = "", selectedRole = "", judgeTable = false, 
     const confirmDelete = () => {
         const updatedData = tableData.filter(row => row.id !== deleteUserId);
         setTableData(updatedData);
-        axios.patch(`http://localhost:8000/users/toggleActiveStatus/${deleteUserId}`)
+        axios.patch(`https://140.84.165.119/api/users/toggleActiveStatus/${deleteUserId}`)
             .then(response => {
                 console.log("User status toggled successfully:", response.data);
             })
@@ -93,7 +93,7 @@ function Table({ data, searchQuery = "", selectedRole = "", judgeTable = false, 
                 description:modifiedRows[id].description,
                 weight:parseInt(modifiedRows[id].weight)
             };
-        return axios.put(`http://localhost:8000/Admin/updateCriteria/${id}`, updatedCriteria).then(response=>{
+        return axios.put(`https://140.84.165.119/api/Admin/updateCriteria/${id}`, updatedCriteria).then(response=>{
             console.log("Criteria updated successfully:", response.data);
             setType(false);
             setContent("La rúbrica ha sido correctamente actualizada");
@@ -148,7 +148,7 @@ function Table({ data, searchQuery = "", selectedRole = "", judgeTable = false, 
                     ]);
     
                     // Make the API call after updating roles
-                    axios.put(`http://localhost:8000/users/${id}/updateRole`, {
+                    axios.put(`https://140.84.165.119/api/users/${id}/updateRole`, {
                         roles: updatedUser.roles // Assuming updatedUser is the modified user object
                     })
                     .then(response => {
@@ -172,7 +172,7 @@ function Table({ data, searchQuery = "", selectedRole = "", judgeTable = false, 
                 ]);
     
                 // Make the API call after updating roles
-                axios.put(`http://localhost:8000/users/${id}/updateRole`, {
+                axios.put(`https://140.84.165.119/api/users/${id}/updateRole`, {
                     roles: updatedUser.roles // Assuming updatedUser is the modified user object
                 })
                 .then(response => {

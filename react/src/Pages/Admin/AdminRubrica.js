@@ -10,7 +10,7 @@ function AdminRubrica() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/Admin/getCriterias')
+        axios.get('https://140.84.165.119/api/Admin/getCriterias')
             .then(response => {
                 setData(response.data);
                 setLoading(false);

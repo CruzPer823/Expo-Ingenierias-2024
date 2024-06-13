@@ -11,7 +11,7 @@ import { Link} from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 
 
-const URLAnnoun = 'http://localhost:8000/announ/countReadAnnouncementsPerson/'
+const URLAnnoun = 'https://140.84.165.119/api/announ/countReadAnnouncementsPerson/'
 
 const LogoutButton = () => {
   const { logout } = useAuth0();
@@ -50,7 +50,7 @@ function ToggleBar({SectionName}) {
 
     async function fetchData() {
         try {
-            const response = await fetch(`http://localhost:8000/person/resume/${user.sub}`);
+            const response = await fetch(`https://140.84.165.119/api/person/resume/${user.sub}`);
             
             // Verificación de que la respuesta es correcta
             if (!response.ok) {

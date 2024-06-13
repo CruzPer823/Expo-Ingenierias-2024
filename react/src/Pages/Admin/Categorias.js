@@ -5,7 +5,7 @@ import CategoriesCardList from '../../Components/CategoriesCard/CategoriesCard';
 import Loader from '../../Components/Loader/Loader';
 import '../../Components/AreaCard/AreaCard.css';
 
-const CATEGORIES_API = 'http://localhost:8000/Admin/Categories/';
+const CATEGORIES_API = 'https://140.84.165.119/api/Admin/Categories/';
 
 
 function Categorias(){

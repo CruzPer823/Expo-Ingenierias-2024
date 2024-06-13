@@ -17,7 +17,7 @@ function EditCategoryPage() {
 
     // Fetch existing user data
     useEffect(() => {
-        fetch(`http://localhost:8000/Admin/Categories/${categoriaId}`)
+        fetch(`https://140.84.165.119/api/Admin/Categories/${categoriaId}`)
             .then(response => response.json())
             .then(data => {
                 setCategory({ title: data.title, description: data.description});
@@ -37,7 +37,7 @@ function EditCategoryPage() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        fetch(`http://localhost:8000/Admin/Categories/update/${categoriaId}`, {
+        fetch(`https://140.84.165.119/api/Admin/Categories/update/${categoriaId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

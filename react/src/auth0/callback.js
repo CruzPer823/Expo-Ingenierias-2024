@@ -6,7 +6,7 @@ import axios from 'axios';
 import LoadingSpinner from './loading.js';
 
 function Callback() {
-  const URL = "http://localhost:8000/Admin/getAdmin/";
+  const URL = "https://140.84.165.119/api/Admin/getAdmin/";
   const { isAuthenticated, isLoading, error, user } = useAuth0();
   const [isCheckingAdmin, setIsCheckingAdmin] = useState(true);
   const navigate = useNavigate();

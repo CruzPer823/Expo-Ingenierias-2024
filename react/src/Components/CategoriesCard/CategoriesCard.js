@@ -35,7 +35,7 @@ function CategoriesCard({data}){
     };
 
     const confirmDelete = async() => {
-      axios.patch(`http://localhost:8000/Admin/Categories/inhabilitate/${deleteId}`).then(response => {
+      axios.patch(`https://140.84.165.119/api/Admin/Categories/inhabilitate/${deleteId}`).then(response => {
         console.log("Categoria correctamente inhabilitada:",response.data);
       }).catch(error=>{console.error("Error al inhabilitar la Categoria:", error)})
       setShowModal(false);

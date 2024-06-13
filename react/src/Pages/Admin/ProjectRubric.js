@@ -18,7 +18,7 @@ const ProjectRubric = () => {
   useEffect(() => {
     const fetchCriteria = async () => {
       try {
-        const response = await fetch('http://localhost:8000/Juez/fetchCriterias');
+        const response = await fetch('https://140.84.165.119/api/Juez/fetchCriterias');
         const data = await response.json();
         setCriteria(data);
         setSelectedCriteria(Array(data.length).fill(0));
@@ -76,7 +76,7 @@ const ProjectRubric = () => {
       try {
         // Enviamos los datos de la rúbrica
         for (const criterionData of criteriaData) {
-          const response = await fetch('http://localhost:8000/Juez/createCriteriaJudge', {
+          const response = await fetch('https://140.84.165.119/api/Juez/createCriteriaJudge', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -89,7 +89,7 @@ const ProjectRubric = () => {
         }
 
         // Enviamos el comentario adicional
-        const responseComment = await fetch('http://localhost:8000/Juez/createComment', {
+        const responseComment = await fetch('https://140.84.165.119/api/Juez/createComment', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -108,7 +108,7 @@ const ProjectRubric = () => {
         window.location.href = `/Juez`;
 
         // Actualizamos la calificación final del proyecto
-        const responseUpdateFinalGrade = await fetch(`http://localhost:8000/projects/projects/update-final-grade/${projectId}`, {
+        const responseUpdateFinalGrade = await fetch(`https://140.84.165.119/api/projects/projects/update-final-grade/${projectId}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json'

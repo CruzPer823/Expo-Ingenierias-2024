@@ -17,7 +17,7 @@ function EditAreaPage() {
 
     // Fetch existing user data
     useEffect(() => {
-        fetch(`http://localhost:8000/Admin/Areas/${areaId}`)
+        fetch(`https://140.84.165.119/api/Admin/Areas/${areaId}`)
             .then(response => response.json())
             .then(data => {
                 setArea({ name: data.name, description: data.description});
@@ -37,7 +37,7 @@ function EditAreaPage() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        fetch(`http://localhost:8000/Admin/Areas/update/${areaId}`, {
+        fetch(`https://140.84.165.119/api/Admin/Areas/update/${areaId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

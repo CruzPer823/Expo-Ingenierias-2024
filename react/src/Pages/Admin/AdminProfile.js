@@ -10,7 +10,7 @@ import { useParams } from "react-router-dom";
 
 import { useAuth0 } from '@auth0/auth0-react';
 
-const URL = 'http://localhost:8000/Admin/getAdminInfo/'
+const URL = 'https://140.84.165.119/api/Admin/getAdminInfo/'
 
 function Datos({name,email,type,id,IsLoaded}){
 

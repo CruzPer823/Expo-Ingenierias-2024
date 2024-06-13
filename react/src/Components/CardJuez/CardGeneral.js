@@ -45,7 +45,7 @@ export function Cardlist() {
 
   useEffect(() => {
     // Realizar la llamada al servidor para obtener todos los proyectos
-    fetch('http://localhost:8000/Juez/fetchProjects')
+    fetch('https://140.84.165.119/api/Juez/fetchProjects')
       .then(response => response.json())
       .then(allProjects => {
         setProjects(allProjects);
@@ -53,7 +53,7 @@ export function Cardlist() {
       .catch(error => console.error('Error al obtener los proyectos:', error));
 
     // Realizar la llamada al servidor para obtener las categorías
-    fetch('http://localhost:8000/Juez/getCategories')
+    fetch('https://140.84.165.119/api/Juez/getCategories')
       .then(response => response.json())
       .then(data => {
         // Organizar las categorías en un objeto por id para facilitar la búsqueda
@@ -66,7 +66,7 @@ export function Cardlist() {
       .catch(error => console.error('Error al obtener las categorías:', error));
 
     // Realizar la llamada al servidor para obtener las áreas
-    fetch('http://localhost:8000/Juez/getAreas')
+    fetch('https://140.84.165.119/api/Juez/getAreas')
       .then(response => response.json())
       .then(data => {
         // Organizar las áreas en un objeto por id para facilitar la búsqueda

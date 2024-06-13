@@ -7,7 +7,7 @@ const CustomCarousel = ({ projectId }) => {
   useEffect(() => {
     const fetchJudges = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/Admin/getProjectJudges?projectId=${projectId}`);
+        const response = await axios.get(`https://140.84.165.119/api/Admin/getProjectJudges?projectId=${projectId}`);
         setJudges(response.data);
       } catch (error) {
         console.error('Error fetching judges:', error);

@@ -11,7 +11,7 @@ const AssignJudge = ({ area, project }) => {
   const handleAssignJudgeClick = async () => {
     try {
       // Fetch judges
-      const response = await axios.get(`http://localhost:8000/Admin/getJudges/${area}?projectId=${project}`);
+      const response = await axios.get(`https://140.84.165.119/api/Admin/getJudges/${area}?projectId=${project}`);
       if (response.data.length === 0) {
         setJudges([]);
         setAlert({ type: 'danger', message: 'No se encontraron jueces disponibles', visible: true });
@@ -26,7 +26,7 @@ const AssignJudge = ({ area, project }) => {
           setAlert({ type: 'danger', message: 'No se encontraron jueces disponibles', visible: true });
         } else {
           // Assign the selected judge
-          await axios.post(`http://localhost:8000/Admin/assignProjectJudge`, {
+          await axios.post(`https://140.84.165.119/api/Admin/assignProjectJudge`, {
             judgeId: selectedJudge.id,
             projectId: project
           });
