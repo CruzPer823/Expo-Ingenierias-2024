@@ -10,8 +10,7 @@ const ProtectedRoute = ({ children, requiredRole }) => {
   }
 
   if (!isAuthenticated || userRole !== requiredRole) {
-    window.location.href = "http://localhost:3000";
-    return null; 
+    navigate('/');
   }
 
   return children;
