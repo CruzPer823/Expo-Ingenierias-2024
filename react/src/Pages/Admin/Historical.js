@@ -19,6 +19,9 @@ function Historical() {
       alert("Debes seleccionar una opción antes de exportar.");
     } else {
       const response = await fetch(`${URI}/export/${selectedOption}`);
+      if(!response){
+          console.error('Error al obtener el Historico');
+      }
       const blob =await response.blob();
       const url=window.URL.createObjectURL(blob);
       const a = document.createElement('a');

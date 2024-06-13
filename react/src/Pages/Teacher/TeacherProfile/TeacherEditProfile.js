@@ -108,7 +108,7 @@ export default function Perfil(){
         return (
             <>
               <Menu />
-              <div className='container-fluid m-5 perfil cont-principal mx-auto'>
+              <div className='container-fluid perfil cont-principal mx-auto'>
                 <div className='row p-2'>
                   <i className="bi bi-person-circle icon-p"></i>
                 </div>
@@ -119,7 +119,7 @@ export default function Perfil(){
                 </div>
                 <Form noValidate validated={validated} className='row p-2' onSubmit={handleSubmit}>
                 <div className='row p-2'>
-                <div className='col-6 col-md-6'>
+                <div className='col-3 col-md-4'>
                 <h3>Nombre: </h3>
                 </div>
                 <div className='col-6 col-md-6'>
@@ -127,7 +127,7 @@ export default function Perfil(){
                 </div>
             </div>
             <div className='row p-2'>
-                <div className='col-6 col-md-6'>
+                <div className='col-6 col-md-4'>
                 <h3>Apellido: </h3>
                 </div>
                 <div className='col-6 col-md-6'>
@@ -150,30 +150,27 @@ export default function Perfil(){
                   </div>
                 </div>
                   <Row className="mb-3">
-                    <Form.Group as={Col} md="12" controlId="validationArea">
+                  <Form.Group as={Col} md="12" controlId="validationArea">
                       <div className='container-fluid'>
-                        <div className='row'>
-                          <div className='col'>
                           <ToggleButtonGroup
                             type="checkbox"
                             value={secAreas}
                             className='d-flex justify-content-between w-100'
                         >
                             {areas.map(area => (
-                                <ToggleButton
-                                key={area.id}
-                                id={"tbg-check-" + area.id}
-                                value={area.id}
-                                className='ButtonMaterials w-100'
-                                onChange={() => handleToggleChange(area.id)}
-                            >
-                                {area.name}
-                            </ToggleButton>
+                                <>
+                            <Form.Check
+                            type="checkbox"
+                            checked={secAreas.includes(area.id)}
+                            onChange={() => handleToggleChange(area.id)}
+                            inline
+                            label={area.name}
+                            className='ButtonAreas w-100'
                             
+                        />
+                            </>
                             ))}
                         </ToggleButtonGroup>
-                          </div>
-                        </div>
                       </div>
                     </Form.Group>
                   </Row>

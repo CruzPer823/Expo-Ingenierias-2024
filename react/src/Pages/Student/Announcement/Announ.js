@@ -39,7 +39,7 @@ function hasData(variable) {
 function AnnounIcon({ isRead }) {
   return (
     <>
-     {isRead ? (<i className={'bi bi-envelope-open-fill AnnounIcon'}></i>) :(<i className={'bi bi-envelope-fill AnnounIcon'}></i>)}
+     {isRead ? (<i className={'bi bi-envelope-open-fill AnnounIconAbierto'}></i>) :(<i className={'bi bi-envelope-fill AnnounIconCerrado'}></i>)}
     </>
   );
 }

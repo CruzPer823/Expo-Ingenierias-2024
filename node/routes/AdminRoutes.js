@@ -15,11 +15,11 @@ import fs from 'fs';
 import path from 'path';
 
 const router = express.Router()
-// Rutas de anuncios
+
 router.get('/getAdmin/:adminId',getAdmin);
 router.get('/getAdminInfo/:id',getAdminInfo);
 router.put('/updateAdmin/:id',updateAdmin);
-
+// Rutas de anuncios
 router.get('/Announces/',getAllAnnounces);
 router.get('/Announces/:id',getAnnounce);
 router.post('/Announce/create',createAnnounce);
@@ -68,13 +68,20 @@ router.post('/uploadAnnounceImage', upload.single('image'), (req, res) => {
 
 router.delete('/deleteImage/:filename',(req, res) => {
     const filename = req.params.filename;
-  
-    fs.unlink(`assets/${filename}`, (err) => {
-      if (err) {
-        return res.status(500).send({ message: 'Error al eliminar la imagen', error: err });
-      }
-      res.status(200).send({ message: 'Imagen eliminada con éxito' });
+
+    fs.access(`assets/${filename}`,fs.constants.F_OK,(err)=>{
+        if(err){
+          return res.status(201).send({ message: 'La imagen no existe' });
+        }
+
+        fs.unlink(`assets/${filename}`, (err) => {
+          if (err) {
+            return res.status(500).send({ message: 'Error al eliminar la imagen', error: err });
+          }
+          res.status(200).send({ message: 'Imagen eliminada con éxito' });
+        });
     });
+    
   });
 
 

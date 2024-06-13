@@ -211,6 +211,20 @@
         REFERENCES "projects"("id")
   );
 
+  CREATE TABLE "comments_judge" (
+    "id_person" VARCHAR(50),
+    "id_project" VARCHAR(15),
+    "comment" CLOB,
+    "createdAt" DATE,
+    "updatedAt" DATE,
+    CONSTRAINT "FK_commentsjudge.id_person"
+      FOREIGN KEY ("id_person")
+        REFERENCES "persons"("id"),
+    CONSTRAINT "FK_commentsjudge.id_project"
+      FOREIGN KEY ("id_project")
+        REFERENCES "projects"("id")
+  );
+
   CREATE TABLE "team_members" (
     "id_team" INT,
     "id_member" VARCHAR(50),
@@ -312,6 +326,20 @@
         REFERENCES "persons"("id")
   );
 
+  CREATE TABLE "comments_judge" (
+    "id_person" VARCHAR(50),
+    "id_project" VARCHAR(15),
+    "comment" CLOB,
+    "createdAt" DATE,
+    "updatedAt" DATE,
+    CONSTRAINT "FK_commentsjudge.id_person"
+      FOREIGN KEY ("id_person")
+        REFERENCES "persons"("id"),
+    CONSTRAINT "FK_commentsjudge.id_project"
+      FOREIGN KEY ("id_project")
+        REFERENCES "projects"("id")
+  );
+
 -- INSERTS
 
   Insert into ADMIN."students" ("id","name","lastName","enrollment","createdAt","updatedAt") values ('auth0|6654224574b4f6b24c120e5d','Sarai','Santiago Lozano','a01735331',to_date('27-MAY-24','DD-MON-RR'),to_date('27-MAY-24','DD-MON-RR'));
@@ -334,7 +362,7 @@
   Insert into ADMIN."categories" ("title","description","createdAt","updatedAt") values ('Prototipo finalizado','Categor a relacionada con...',to_date('03-MAY-24','DD-MON-RR'),to_date('03-MAY-24','DD-MON-RR'));
 
   Insert into ADMIN."editions" ("period","year","createdAt","updatedAt") values ('Primavera',2023,to_date('03-MAY-24','DD-MON-RR'),to_date('03-MAY-24','DD-MON-RR'));
-  Insert into ADMIN."editions" ("period","year","createdAt","updatedAt") values ('Oto�o',2024,to_date('03-MAY-24','DD-MON-RR'),to_date('03-MAY-24','DD-MON-RR'));
+  Insert into ADMIN."editions" ("period","year","createdAt","updatedAt") values ('Otoño',2024,to_date('03-MAY-24','DD-MON-RR'),to_date('03-MAY-24','DD-MON-RR'));
 
 
   Insert into ADMIN."projects" ("id", "title", "description", "statusGeneral", "statusPoster", "statusVideo", "linkPoster", "linkVideo", "finalGrade", "id_edition", "id_area", "id_category", "id_lider", "id_responsable") values ('ABC10','title','descripcion','en revision','en revision','en revision','linkPoster','nuevofdsgsadgsdgasg',0,1,1,1,'auth0|66465772cddc69d8a11bcff9','auth0|6653d38ae957844eac7c9f99');
@@ -392,7 +420,7 @@
 
 COMMIT;
 --DROP ALL THE TABLES
-  drop table DBTOOLS$EXECUTION_HISTORY cascade constraints;
+  drop table "DBTOOLS$EXECUTION_HISTORY" cascade constraints;
   drop table "maps" cascade constraints;
   drop table "editions" cascade constraints;
   drop table "students" cascade constraints;
@@ -410,6 +438,7 @@ COMMIT;
   drop table "materials" cascade constraints;
   drop table "materials_projects" cascade constraints;
   drop table "comments" cascade constraints;
+  drop table "comments_judge" cascade constraints;
   drop table "team_members" cascade constraints;
   drop table "asessor_projects" cascade constraints;
   drop table "criteria_judges" cascade constraints;
@@ -417,6 +446,7 @@ COMMIT;
   drop table "areas_persons" cascade constraints;
   drop table "announ_read_person" cascade constraints;
   drop table "announ_read_student" cascade constraints;
+  drop table "comments_judge" cascade constraints;
 
 
 ALTER TABLE "announcements" DROP CONSTRAINT SYS_C0036657;

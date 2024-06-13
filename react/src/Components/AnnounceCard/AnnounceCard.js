@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -7,9 +7,15 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../AreaCard/AreaCard.css';
 import AddCard from '../AddCard/AddCard';
 import imagen from './announce.png';
+import AdminDeleteUserPopUp from '../Popup/AdminDeleteUserPopUp';
 
 function AnnounceCard({data}){
-    const {id,title,description,audience,multimedia} = data;
+    const {id,title,description,audience,multimedia,createdAt} = data;
+    const [showModal, setShowModal] = useState(false);
+    const [modalContent, setModalContent] = useState("");
+    const [deleteId, setDeleteId] = useState(null);
+    const [deleteMul,setDeletedMul] = useState(null);
+    
     const truncateString = (str, num) => {
         if (str.length <= num) {
             return str;
@@ -19,14 +25,31 @@ function AnnounceCard({data}){
     const navigate = useNavigate();
 
     const handleDelete = async(id,multimedia) => {
-      await fetch(`http://localhost:8000/Admin/deleteImage/${multimedia}`,{
+      setShowModal(true);
+      setModalContent("¿Estas seguro de querer eliminar el anuncio? Esta accion no puede deshacerse")
+      setDeleteId(id);
+      setDeletedMul(multimedia);
+    };
+
+    const confirmDelete = async() => {
+
+      await fetch(`http://localhost:8000/Admin/deleteImage/${deleteMul}`,{
             method:`DELETE`,
         });
-      axios.delete(`http://localhost:8000/Admin/Announce/delete/${id}`).then(response => {
-        console.log("Anuncio correctamente eliminado:",response.data);
-      }).catch(error=>{console.error("Error al eliminar el anuncio:", error)})
+      axios.delete(`http://localhost:8000/Admin/Announce/delete/${deleteId}`)
+          .then(response => {
+              console.log("Anuncio correctamente eliminado:",response.data);
+          })
+          .catch(error => {
+              console.error("Error al eliminar el anuncio:", error);
+          });
+      setShowModal(false);
       window.location.reload();
-    };
+  };
+
+  const closeModal = () => {
+      setShowModal(false);
+  };
 
     const handleEditClick = () => {
         // Redirect to EditUserPage and pass the userId as a URL parameter
@@ -52,8 +75,16 @@ function AnnounceCard({data}){
             <h2>{truncateString(`${title}`,15)}</h2>
             <p className='description'>{truncateString(` Descripción: ${description}`,50)}</p>
             <p className='descriptionAud'>{`Audiencia: ${handleRoles(audience)}`}</p>
+            <p className='descriptionAud'>{` Creación: ${createdAt.slice(0,10)}`}</p>
             <button className="btn btn-primary custom-primaty-btn btnPrin" onClick={handleEditClick}>Editar</button>
             <button className="btn  btn-danger mx-2 btnElim" onClick={()=>handleDelete(id,multimedia)}>Eliminar</button>
+            {showModal && (
+                <AdminDeleteUserPopUp 
+                    content={modalContent} 
+                    onClose={closeModal} 
+                    onConfirm={confirmDelete} 
+                />
+              )}
             </div>
         </div>
     );

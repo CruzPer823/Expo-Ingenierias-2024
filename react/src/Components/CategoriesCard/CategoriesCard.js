@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -9,13 +9,18 @@ import './CategoriesCard.css';
 import imagen1 from './1.png';
 import imagen2 from './2.png';
 import imagen3 from './3.png';
+import AdminDeleteUserPopUp from '../Popup/AdminDeleteUserPopUp';
 import imagenLoco from './Areas.png';
 import AddCard from '../AddCard/AddCard';
-
 
 function CategoriesCard({data}){
     const navigate = useNavigate();
     const {id,title,description,isActive} = data;
+    const [showModal, setShowModal] = useState(false);
+    const [modalContent, setModalContent] = useState("");
+    const [deleteId, setDeleteId] = useState(null);
+
+
     const truncateString = (str, num) => {
         if (str.length <= num) {
             return str;
@@ -24,11 +29,22 @@ function CategoriesCard({data}){
     };
 
     const handleDelete = (id) => {
-      axios.patch(`http://localhost:8000/Admin/Categories/inhabilitate/${id}`).then(response => {
+      setShowModal(true);
+      setModalContent("¿Estas seguro de querer eliminar la categoria? Esta accion no puede deshacerse")
+      setDeleteId(id);
+    };
+
+    const confirmDelete = async() => {
+      axios.patch(`http://localhost:8000/Admin/Categories/inhabilitate/${deleteId}`).then(response => {
         console.log("Categoria correctamente inhabilitada:",response.data);
       }).catch(error=>{console.error("Error al inhabilitar la Categoria:", error)})
+      setShowModal(false);
       window.location.reload();
     };
+
+    const closeModal = () => {
+      setShowModal(false);
+  };
 
     const handleEditClick = () => {
       // Redirect to EditUserPage and pass the userId as a URL parameter
@@ -54,7 +70,14 @@ function CategoriesCard({data}){
             <h2 className='titleCat'>{truncateString(`${title}`,10)}</h2>
             <p className='descriptionCat'>{truncateString(`${description}`,53)}</p>
             <button className="btn btn-primary custom-primaty-btn btnPrin" onClick={handleEditClick}>Editar</button>
-            <button className="btn  btn-danger mx-2 btnElim" onClick={()=>handleDelete(id)}>inhabilitar</button>
+            <button className="btn  btn-danger mx-2 btnElim" onClick={()=>handleDelete(id)}>Eliminar</button>
+            {showModal && (
+                <AdminDeleteUserPopUp 
+                    content={modalContent} 
+                    onClose={closeModal} 
+                    onConfirm={confirmDelete} 
+                />
+              )}
             </div>
         </div>
     );

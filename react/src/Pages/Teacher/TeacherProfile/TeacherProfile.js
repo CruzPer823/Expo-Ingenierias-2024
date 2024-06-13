@@ -14,7 +14,7 @@ import Row from 'react-bootstrap/Row';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import Usure from '../../../Components/BotonConfirmacion/ConfBot';
-
+import Popup from '../../../Components/Popup/PopUpElim.js';
 
 import { Modal, Button } from 'react-bootstrap';
 
@@ -28,6 +28,9 @@ function SimpleModal() {
     const [secAreas, setSecAreas] = useState([]); // Cambiado a un array para manejar múltiples selecciones
     const [areaperson, setAreaPerson] = useState([]);
     const [validated, setValidated] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [type, setType] = useState(false);
+    const [content, setContent] = useState(null);
     useEffect(() => {
       if (user && user.sub) {
           async function fetchData() {
@@ -77,11 +80,14 @@ function SimpleModal() {
                   await axios.post(`http://localhost:8000/areaperson/register`, { id_person, id_area });
               });
               await Promise.all(promises);
+              setType(false);
+              setShowModal(true);
+            setContent("Area agregada existosamente");
               // Maneja el éxito si es necesario
           } catch (error) {
-              console.error('Full error object:', error);
-              const errorMessage = error.response ? error.response.data.message : error.message || 'Error desconocido';
-              throw new Error(`An error has occurred: ${errorMessage}`);
+            setType(true);
+            setContent(error.response?.data?.message || "Error al agregar el área");
+            setShowModal(true);
           }
       }
       setValidated(true);
@@ -106,38 +112,32 @@ function SimpleModal() {
                     </center>
                   </div>
                 </div>
-                <Form noValidate validated={validated} className='row p-2' onSubmit={handleSubmit}>
-                  <Row className="mb-3">
+                <Form noValidate validated={validated} className='row p-1' onSubmit={handleSubmit}>
+                  <Row className="mb-1 w-100">
                     <Form.Group as={Col} md="12" controlId="validationArea">
                       <div className='container-fluid'>
-                        <div className='row'>
-                          <div className='col'>
                           <ToggleButtonGroup
                             type="checkbox"
                             value={secAreas}
                             className='d-flex justify-content-between w-100'
                         >
                             {areas.map(area => (
-                                <ToggleButton
-                                key={area.id}
-                                id={"tbg-check-" + area.id}
-                                value={area.id}
-                                className='ButtonMaterials w-100'
-                                onChange={() => handleToggleChange(area.id)}
-                            >
-                                {area.name}
-                            </ToggleButton>
+                                <>
+                            <Form.Check
+                            type="checkbox"
+                            checked={secAreas.includes(area.id)}
+                            onChange={() => handleToggleChange(area.id)}
+                            inline
+                            label={area.name}
+                            className='ButtonAreas w-100'
                             
+                        />
+                            </>
                             ))}
                         </ToggleButtonGroup>
-                          </div>
-                        </div>
                       </div>
                     </Form.Group>
-                  </Row>
-                  <Row className="mb-3">
-                  </Row>
-                
+                  </Row>                
                 <Modal.Body className='centered-container h-100 d-flex justify-content-evenly'>
                     <Button variant="secondary" className='ButtonContinue' onClick={handleClose}>
                         Cerrar
@@ -149,6 +149,7 @@ function SimpleModal() {
                 </Form>
                 </Modal.Body>
             </Modal>
+            {showModal && <Popup content={content} onClose={()=>setShowModal(false)} error={type} ruta={'/perfil-profesor'}/>}
         </>
     );
 }
@@ -208,13 +209,13 @@ export default function Perfil(){
                       fetch(`http://localhost:8000/person/resume/${user.sub}`).then(res => res.json()),
                       fetch(`http://localhost:8000/areaperson/getArea/${user.sub}`).then(res => res.json().catch(error => {
                           if (error.response && error.response.status === 404 && error.response.data.error === 'No area found for this person') {
-                              return null;
+                            return { id_person: user.sub, areas: [] };
                           }
                           throw error;
                       }))
                   ]);
-                  setUser(userResponse);
-                  setAreaPerson(areaperResponse);
+                    setAreaPerson(areaperResponse);
+                    setUser(userResponse);
               } catch (error) {
                   console.error('Error fetching data:', error);
               }
@@ -231,17 +232,22 @@ export default function Perfil(){
       return () => window.removeEventListener('resize', handleResize);
   }, [user]);// Dependencias del useEffect
   useEffect(() => {
-    if (areaperson.id_person === "" && areaperson.areas.length === 0) {
+    if (areaperson && areaperson.areas && areaperson.areas.length === 0) {
         setIsEmpty(true);
-    } 
+    }
 }, [areaperson]);
-
+useEffect(() => {
+    if (areaperson && areaperson.areas && areaperson.areas.length != 0) {
+        setIsEmpty(false);
+    }
+}, [areaperson]);
+  console.log(areaperson);
   console.log(isEmpty);
   
         return (
             <>
               <Menu />
-              <div className='container-fluid m-5 perfil cont-principal-profile-profe mx-auto'>
+              <div className='container-fluid perfil cont-principal-profile-profe mx-auto mt-4 pt-3'>
                 <div className='row p-2'>
                   <i className="bi bi-person-circle icon-p"></i>
                 </div>
@@ -251,7 +257,7 @@ export default function Perfil(){
                   </div>
                 </div>
                 <Datos name={`${user_b.name} ${user_b.lastName}`} type={"Profesor"} email={user.email} />
-                {isEmpty && (
+                {!isEmpty && (
                     <div className='row p-2'>
                     <div className='col-6 col-md-6'>
                     <h3>Área: </h3>
@@ -263,13 +269,13 @@ export default function Perfil(){
                   </div>
               </div>
           )}
-           {!isEmpty && (
+           {isEmpty && (
                   <div className='row p-2'>
                   <div className='col-6 col-md-6'>
                   <h3>Área: </h3>
                   </div>
                   <div className='col-6 col-md-6 mb-4'>
-                  <span>Registrar que areas podrías ser juez de proyectos</span>
+                  <span>Registrar en que areas podrías ser juez de proyectos</span>
                 </div>
             </div>
 

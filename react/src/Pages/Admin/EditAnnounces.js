@@ -96,7 +96,7 @@ function EditAnnouncePage() {
             }
         })
         .catch(error => {
-            console.error('Error actualizando al usuario:', error);
+            console.error('Error actualizando al anuncio:', error);
             alert('Un error ocurrió, inténtelo después otra vez.');
         });
     };
@@ -128,7 +128,7 @@ function EditAnnouncePage() {
                                             onChange={handleChange}
                                             required
                                         />
-                                        {selectedFile? null: <DisplayAnnounce label={"Multimedia"} src={anuncio.multimedia} alt={"Anuncio"}/>}
+                                        {selectedFile? <><p style={{fontWeight:700,marginTop:'1vh'}}>Imagen cargada!!</p></>: <DisplayAnnounce label={"Multimedia"} src={anuncio.multimedia} alt={"Anuncio"}/>}
                                          
                                          <UploadFile onFileSelect={handleFileSelect}/>
 

@@ -5,11 +5,8 @@ import { useAuth0 } from '@auth0/auth0-react';
 import React, { useState, useEffect } from "react";
 import logo from '../../../img/logo-certificado.png';
 import firma from '../../../img/firma-ejemplo.jpg';
-
 import Popup from '../../../Components/Popup/PopUpElim.js';
-
 import './Constancia.css';
-
 import StudentToggle from '../../../Components/TogglebarStudent/togglebarStudent.js';
 
 const URL = 'http://localhost:8000/projects/certificate/';
@@ -58,7 +55,7 @@ function CardCalif({ student_name, project, setShowModal, setContent, setType })
     }
 
     return (
-        <div className='col-auto p-3'>
+        <div className='col-md-4 col-sm-6 p-3'>
             <div className="card cardconst mb-1 me-0">
                 <div className="imagConstancias ConstanciaCardPhoto"></div>
                 <div className="text constanciastextsirveporfa">
@@ -93,7 +90,6 @@ function tieneInformacion(variable) {
 
 export default function ProjSelection() {
     const [projects, setProjects] = useState([]); // Estado inicial como un arreglo vacío
-
     const { user } = useAuth0();
     const id_student = user.sub;
     const [ConstCheck, setConstCheck] = useState("False");
@@ -104,6 +100,8 @@ export default function ProjSelection() {
     const [content, setContent] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [type, setType] = useState(false);
+
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const checkDate = () => {
@@ -122,6 +120,7 @@ export default function ProjSelection() {
     }, [projects, target1, target]);
 
     useEffect(() => {
+        setIsLoading(true)
         fetch(URL + id_student)
             .then((res) => res.json())
             .then((data) => {
@@ -130,9 +129,11 @@ export default function ProjSelection() {
                 } else {
                     setProjects([]); // Si la respuesta no es un arreglo, establece un arreglo vacío
                 }
+                setIsLoading(false);
             })
             .catch((error) => {
                 console.error("Error fetching projects:", error);
+                setIsLoading(false);
                 setProjects([]); // En caso de error, establece un arreglo vacío
             });
     }, [id_student]);
@@ -149,21 +150,33 @@ export default function ProjSelection() {
             </div>
 
             <div className='container-fluid'>
-                {ConstCheck === "False" && (
-                    <div className='container-fluid p-3'>
-                        <center>
-                            <div className='row p-3 m-3 NoProjContainer'>
-                                <div className='col p-3'>
-                                    <p className='mb-0'>Aún no puedes visualizar o descargar las constancias que hayas adquirido durante el evento. Espera a que acabe el evento y vuelve a esta pestaña para descargar tus constancias.</p>
+                {isLoading ? (
+                    <div className='col-12 mt-5 d-flex align-items-center justify-content-center'>
+                        <div className="semicircle">
+                            <div>
+                                <div>
+                                    <div>
+                                        <div>
+                                            <div>
+                                                <div>
+                                                    <div>
+                                                        <div>
+                                                            <div>
+                                                                <div></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </center>
+                        </div>
                     </div>
-                )}
-
-                {ConstCheck === "True" && (
+                ) : (
                     <>
-                        {!tieneInformacion(projects) && (
+                        {ConstCheck === "False" && (
                             <div className='container-fluid p-3'>
                                 <center>
                                     <div className='row p-3 m-3 NoProjContainer'>
@@ -175,29 +188,52 @@ export default function ProjSelection() {
                             </div>
                         )}
 
-                        {tieneInformacion(projects) && (
-                            projects.map((item) => (
-                                <div className='row d-flex flex-col justify-content-evenly' key={item.id_project}>
-                                    <CardCalif
-                                        key={item.student.id}
-                                        student_name={item.student.name + " " + item.student.lastName}
-                                        project={item.title}
-                                        setShowModal={setShowModal}
-                                        setContent={setContent}
-                                        setType={setType}
-                                    />
-                                    {item.team.members.map((student, index) => (
-                                        <CardCalif
-                                            key={student.id} // Asegúrate de usar una key única
-                                            student_name={student.name + " " + student.lastName}
-                                            project={item.title}
-                                            setShowModal={setShowModal}
-                                            setContent={setContent}
-                                            setType={setType}
-                                        />
-                                    ))}
-                                </div>
-                            ))
+                        {ConstCheck === "True" && (
+                            <>
+                                {!tieneInformacion(projects) && (
+                                    <div className='container-fluid p-3'>
+                                        <center>
+                                            <div className='row p-3 m-3 NoProjContainer'>
+                                                <div className='col p-3'>
+                                                    <p className='mb-0'>Aún no puedes visualizar o descargar las constancias que hayas adquirido durante el evento. Espera a que acabe el evento y vuelve a esta pestaña para descargar tus constancias.</p>
+                                                </div>
+                                            </div>
+                                        </center>
+                                    </div>
+                                )}
+
+                                {tieneInformacion(projects) && (
+                                    projects.map((item) => (
+                                        <div className='container ColorFondoCons mb-5' key={item.id_project}>
+                                            <div className='row'>
+                                                <div className='col-12'>
+                                                    <h2 className='TituloProyectosIndiviCons'>Proyecto: {item.title}</h2>
+                                                </div>
+                                            </div>
+                                            <div className='row d-flex flex-wrap justify-content-evenly'>
+                                                <CardCalif
+                                                    student_name={item.student.name + " " + item.student.lastName}
+                                                    project={item.title}
+                                                    setShowModal={setShowModal}
+                                                    setContent={setContent}
+                                                    setType={setType}
+                                                />
+
+                                                {item.team.members.map((student) => (
+                                                    <CardCalif
+                                                        key={student.id} // Asegúrate de usar una key única
+                                                        student_name={student.name + " " + student.lastName}
+                                                        project={item.title}
+                                                        setShowModal={setShowModal}
+                                                        setContent={setContent}
+                                                        setType={setType}
+                                                    />
+                                                ))}
+                                            </div>
+                                        </div>
+                                    ))
+                                )}
+                            </>
                         )}
                     </>
                 )}

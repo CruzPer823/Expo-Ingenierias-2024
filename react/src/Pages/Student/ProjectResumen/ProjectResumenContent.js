@@ -23,31 +23,31 @@ function RubricaCalf({Calf1, Calf2, Calf3, Calf4, Calf5, Rubri1, Rubri2, Rubri3,
   return (
     <Accordion>
       <Accordion.Item eventKey="0">
-        <Accordion.Header><span className='Subtitulo'>Calificación rubro 1: </span> <span className='Texto Resultado'>{!IsLoaded && (<Spinner animation="grow" size="sm" />)}{IsLoaded && (<>{tieneInformacion(Calf1) ? (Calf1 + " pts") : ("Sin nota")}</>)}</span></Accordion.Header>
+        <Accordion.Header><span className='Subtitulo'>Calificación rubro 1: </span> <span className='Texto Resultado'>{!IsLoaded && (<Spinner animation="grow" size="sm" />)}{IsLoaded && (<>{tieneInformacion(Calf1) ? (Calf1 + " pts") : ("-- pts")}</>)}</span></Accordion.Header>
         <Accordion.Body>
           {Rubri1}
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item eventKey="1">
-        <Accordion.Header><span className='Subtitulo'>Calificación rubro 2: </span> <span className='Texto Resultado'> {!IsLoaded && (<Spinner animation="grow" size="sm" />)}{IsLoaded && (<>{tieneInformacion(Calf2) ? (Calf2 + " pts") : ("Sin nota")}</>)}</span></Accordion.Header>
+        <Accordion.Header><span className='Subtitulo'>Calificación rubro 2: </span> <span className='Texto Resultado'> {!IsLoaded && (<Spinner animation="grow" size="sm" />)}{IsLoaded && (<>{tieneInformacion(Calf2) ? (Calf2 + " pts") : ("-- pts")}</>)}</span></Accordion.Header>
         <Accordion.Body>
           {Rubri2}
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item eventKey="2">
-        <Accordion.Header><span className='Subtitulo'>Calificación rubro 3: </span> <span className='Texto Resultado'>{!IsLoaded && (<Spinner animation="grow" size="sm" />)}{<>{tieneInformacion(Calf3) ? (Calf3 + " pts") : ("Sin nota")}</>}</span></Accordion.Header>
+        <Accordion.Header><span className='Subtitulo'>Calificación rubro 3: </span> <span className='Texto Resultado'>{!IsLoaded && (<Spinner animation="grow" size="sm" />)}{<>{tieneInformacion(Calf3) ? (Calf3 + " pts") : ("-- pts")}</>}</span></Accordion.Header>
         <Accordion.Body>
           {Rubri3}
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item eventKey="3">
-        <Accordion.Header><span className='Subtitulo'>Calificación rubro 4: </span> <span className='Texto Resultado'> {!IsLoaded && (<Spinner animation="grow" size="sm" />)}{IsLoaded && (<>{tieneInformacion(Calf4) ? (Calf4 + " pts") : ("Sin nota")}</>)}</span></Accordion.Header>
+        <Accordion.Header><span className='Subtitulo'>Calificación rubro 4: </span> <span className='Texto Resultado'> {!IsLoaded && (<Spinner animation="grow" size="sm" />)}{IsLoaded && (<>{tieneInformacion(Calf4) ? (Calf4 + " pts") : ("-- pts")}</>)}</span></Accordion.Header>
         <Accordion.Body>
           {Rubri4}
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item eventKey="4">
-        <Accordion.Header><span className='Subtitulo'>Calificación rubro 5: </span> <span className='Texto Resultado'> {!IsLoaded && (<Spinner animation="grow" size="sm" />)}{IsLoaded && (<>{tieneInformacion(Calf5) ? (Calf5 + " pts") : ("Sin nota")}</>)}</span></Accordion.Header>
+        <Accordion.Header><span className='Subtitulo'>Calificación rubro 5: </span> <span className='Texto Resultado'> {!IsLoaded && (<Spinner animation="grow" size="sm" />)}{IsLoaded && (<>{tieneInformacion(Calf5) ? (Calf5 + " pts") : ("-- pts")}</>)}</span></Accordion.Header>
         <Accordion.Body>
           {Rubri5}
         </Accordion.Body>
@@ -103,7 +103,7 @@ function InfoProj({lead, profLead,members, IsLoaded}){
             </div>
           </div>
 
-          <div className ="row pb-1">
+          <div className ="row pb-1 ps-4">
             {!IsLoaded && (
               <div className ='col-md ps-4'>
                 <Placeholder animation="glow" className="w-100">
@@ -523,6 +523,7 @@ function JuezContComment({comment,id_judge,comentariosRubrica}){
 }
 
 function tieneInformacion(variable) {
+
   if (variable === null || variable === undefined || Object.keys(variable).length === 0 || variable === "NaN") {
       return false;
   }
@@ -666,7 +667,7 @@ function Rubrica({Calf11, Calf21, Calf31, Calf41, Calf51, Rubri11, Rubri21, Rubr
 function FinalCalf({finalCalf, IsLoaded}){
   return(
     <>
-      <div className='col-xxl-3 h-50 ClaseParaeliminarH'>
+      <div className='col-xxl-3 ClaseParaeliminarH'>
         <h1 className ="Titulo text-break">Calificación final</h1>
           <div className ='container-fluid '>
             <div className ="row align-items-center">
@@ -675,9 +676,9 @@ function FinalCalf({finalCalf, IsLoaded}){
                   <center><Spinner animation="border" size="xs" className='BolitaDeCargaCalFin' /></center>
                 )}
                 {IsLoaded && (
-                  <span className ="FinalResul text-center">
-                    {tieneInformacion(finalCalf) ? (finalCalf + "/10") : (<div className='container mt-3 ContNoComment'><center> <div className='row'><div className='col ClaseParatamanoDecontenedor'> <i className='bi bi-award-fill IconoNohayComentarios colornohaycomment'></i> </div></div> <div className='row'><div className='col colornohaycomment TamanoFinalCalf'> Aun han calificado tu proyecto</div></div> </center></div>)}
-                  </span> 
+                  <>
+                    {tieneInformacion(finalCalf) ? (<span className ="FinalResul text-center">{finalCalf + "/10" }</span>) : (<span className ="text-center"><div className='container-fluid ContNoComment'><center> <div className='row'><div className='col ClaseParatamanoDecontenedor'> <i className='bi bi-award-fill IconoNohayComentarios colornohaycomment'></i> </div></div> <div className='row'><div className='col colornohaycomment TamanoFinalCalf'> Aun han calificado tu proyecto</div></div> </center></div></span> )}
+                  </>
                 )}
               </div>              
             </div>
@@ -716,7 +717,7 @@ export default function ProjResumeCont(){
     gradeCriteria3: "",
     gradeCriteria4: "",
     gradeCriteria5: "",
-    finalGrade: "",
+    finalGrade: 0,
     comment: "",
     criterias: [
       { id: 1, description: "", weight: 0 },
@@ -758,12 +759,14 @@ export default function ProjResumeCont(){
 
   return(
     <>
+   
     <StudentToggle NameSection={"Resumen de proyecto"}></StudentToggle>
     <div className='container-fluid centered-container mt-3 '>
       <div className='container-fluid'>
         <div className='row justify-content-between d-flex align-items-center'>
         {isLargeScreen ? (
           <>
+           
             <InfoProj IsLoaded={IsLoaded} lead={project.student.name + " " + project.student.lastName} profLead={project.Lider.name + " " + project.Lider.lastName} members={project.team.members}></InfoProj>
             <ProjResume IsLoaded={IsLoaded} type={project.category.title} area={project.area.name} descr={project.description} title={project.title}></ProjResume>
             <ProjVal postVal={project.statusPoster} vidVal={project.statusVideo} finalRes={project.statusGeneral} id_project={id_project}></ProjVal>
@@ -777,7 +780,6 @@ export default function ProjResumeCont(){
         )}
 
         </div>
-  
         <div className='row m-2 justify-content-between d-flex align-items-center w-100 mb-4'>
           <div className='Info col-md-12'>
             <div className="m-auto p-4">
@@ -787,7 +789,7 @@ export default function ProjResumeCont(){
 
                   <CommentCont IsLoaded={IsLoaded} role={"Juez"} comment={project.comentariosAgrupados}></CommentCont>
 
-
+                  
                   <Rubrica IsLoaded={IsLoaded} Calf11={project.gradeCriteria1} Calf21={project.gradeCriteria2} Calf31={project.gradeCriteria3} Calf41={project.gradeCriteria4} Calf51={project.gradeCriteria5} Rubri11={findCriteriaById(1).description} Rubri21={findCriteriaById(2).description} Rubri31={findCriteriaById(3).description} Rubri41={findCriteriaById(4).description} Rubri51={findCriteriaById(5).description}></Rubrica>
                   <FinalCalf IsLoaded={IsLoaded} finalCalf={project.finalGrade}></FinalCalf>
                 </div>

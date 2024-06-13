@@ -21,6 +21,25 @@
 .table-container {
     overflow-x: auto;
 }
+.rubricTable{
+    margin-top: 11vh;
+    color: #0C356A;
+}
+.rubricButton{
+    display: flex;
+    justify-content: center;
+    
+}
+.rubricTitle *{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    color: #0C356A;
+    
+}
+
 
 .role-btn-group {
     display: flex;

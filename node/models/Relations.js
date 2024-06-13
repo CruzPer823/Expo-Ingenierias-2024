@@ -12,6 +12,7 @@ import AnnounceModel from "./AnnounceModel.js";
 import MapModel from "./MapModel.js";
 import ProjectMapModel from "./ProjectMapModel.js";
 import CommentModel from "./CommentModel.js";
+import JudgeCommentModel from "./JudgeXCommentModel.js";
 import CriteriaModel from "./CriteriaModel.js";
 import CriteriaJudgeModel from "./CriteriaJudgeModel.js";
 import DisqualifiedModel from "./DisqualifiedModel.js";
@@ -164,6 +165,12 @@ CommentModel.belongsTo(PersonModel,{foreignKey:'id_person'});
 ProjectModel.hasMany(CommentModel,{foreignKey:'id_project'});
 CommentModel.belongsTo(ProjectModel, { foreignKey: 'id_project' });
 
+//comentarios
+PersonModel.hasMany(JudgeCommentModel,{foreignKey:'id_person'});
+JudgeCommentModel.belongsTo(PersonModel,{foreignKey:'id_person'});
+ProjectModel.hasMany(JudgeCommentModel,{foreignKey:'id_project'});
+JudgeCommentModel.belongsTo(ProjectModel, { foreignKey: 'id_project' });
+
 //criterios
 CriteriaModel.hasMany(CriteriaJudgeModel,{foreignKey:'id_criteria'});
 CriteriaJudgeModel.belongsTo(CriteriaModel,{foreignKey:'id_criteria'});
@@ -222,6 +229,7 @@ export {
         MaterialProjectModel,
         ProjectMapModel,
         CommentModel,
+        JudgeCommentModel,
         MapModel,
         CriteriaJudgeModel,
         CriteriaModel,

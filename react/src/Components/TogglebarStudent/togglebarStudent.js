@@ -21,14 +21,13 @@ const LogoutButton = () => {
   const { logout } = useAuth0();
 
   const handleLogout = () => {
-    logout({
-      returnTo: "http://localhost:3000", 
-    });
+    logout();
   };
 
-  
   return (
-    <Link to='/' className="TextoValid2" onClick={handleLogout}>Cerrar sesión</Link>
+    <div className="TextoValid2" onClick={handleLogout} style={{ cursor: 'pointer' }}>
+      Cerrar sesión
+    </div>
   );
 };
 
@@ -151,10 +150,10 @@ function ToggleBarStudent({SectionName}) {
 
 
               <div className='row m-2 mt-5'>
-                <div className ='col-md-auto mt-5'>
-                  <Link onClick={() => { handleClose(); }} class="bi bi-box-arrow-left docu-icon2"></Link>
-                  <LogoutButton/>
-                </div>  
+                <div className='col-md-auto mt-5 d-flex align-items-center'>
+                  <Link onClick={() => { handleClose(); }} className="bi bi-box-arrow-left docu-icon2" style={{ display: 'inline' }}></Link>
+                  <LogoutButton />
+                </div>
               </div>
 
             </div>
@@ -202,9 +201,22 @@ export default function Menu({NameSection}){
   <div className="row " id = "NavBar">
 
     {isLargeScreen ? (
+      <>
       <div className="col-5">
         <ToggleBarStudent SectionName={NameSection} />
       </div>
+      
+      <div className={`col-7 collapse navbar-collapse justify-content-end FondoDeMenu`} id="navbarNav">
+        <ul className="navbar-nav">
+          <li className="nav-item">
+            <Link to="/Ediciones-pasadas" className='nav-link opciones m-2'>Ediciones Pasadas</Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/Catalogo" className='nav-link opciones m-2'>Catalogo</Link>
+          </li>
+        </ul>
+      </div>
+      </>
     ) : (
       <>
         <div className="col-12">

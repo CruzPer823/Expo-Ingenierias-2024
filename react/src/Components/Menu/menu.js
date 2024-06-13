@@ -3,67 +3,66 @@ import { Link } from 'react-router-dom';
 import './menu.css';
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { jwtDecode } from 'jwt-decode';
 
 const RegisterLink = () => {
-  const { loginWithRedirect } = useAuth0();
-  
-  return (
-    <button onClick={() => loginWithRedirect()} className="opciones-btn me-3">Iniciar Sesión</button>
-  );
-};
-
-const PlatformLink = () => {
-  const URL = "http://localhost:8000/Admin/getAdmin/";
-  const { isAuthenticated, isLoading, user } = useAuth0();
-  const [isCheckingAdmin, setIsCheckingAdmin] = useState(false);
+  const { isAuthenticated, isLoading, user, loginWithRedirect, getIdTokenClaims } = useAuth0();
   const navigate = useNavigate();
+  const [firstName, setFirstName] = useState('');
 
-  const handlePlatformClick = () => {
-    if (!isLoading && isAuthenticated && user) {
-      setIsCheckingAdmin(true);
-
-      const checkAdminStatus = async () => {
+  useEffect(() => {
+    const fetchUserMetadata = async () => {
+      if (isAuthenticated && user) {
         try {
-          const response = await axios.get(`${URL}${user.sub}`);
-          const isAdmin = response.data.length > 0;
+          const idTokenClaims = await getIdTokenClaims();
+          const decodedToken = jwtDecode(idTokenClaims.__raw);
 
-          if (isAdmin) {
-            localStorage.setItem('userRole', 'admin');
-            navigate('/Admin');
+          const namespace = 'http://localhost:3000/';
+          const userMetadata = decodedToken[`${namespace}user_metadata`];
+
+          if (userMetadata && userMetadata.firstName) {
+            setFirstName(userMetadata.firstName);
           } else {
-            throw new Error('Not an admin');
+            setFirstName(user.name); 
           }
         } catch (error) {
-          if (error.response && error.response.status === 404) {
-            const username = user.email.split('@')[0];
-            const isStudent = /^[aA]\d{8}$/.test(username);
-
-            if (isStudent) {
-              localStorage.setItem('userRole', 'student');
-              navigate('/principal-estudiante');
-            } else {
-              localStorage.setItem('userRole', 'teacher');
-              navigate('/principal-profesor');
-            }
-          } else {
-            console.error('Error checking admin status:', error);
-            navigate('/');
-          }
-        } finally {
-          setIsCheckingAdmin(false);
+          console.error('Error fetching user metadata:', error);
         }
-      };
+      }
+    };
 
-      checkAdminStatus();
+    fetchUserMetadata();
+  }, [isAuthenticated, user, getIdTokenClaims]);
+
+  const handlePlatformClick = () => {
+    if (!isLoading && !isAuthenticated) {
+      loginWithRedirect();
+    } else if (user) {
+      const userRole = localStorage.getItem('userRole');
+      const username = user.email.split('@')[0];
+      const isStudent = /^[aA]\d{8}$/.test(username);
+
+      if (userRole === 'admin') {
+        navigate('/Admin');
+      } else if (isStudent && userRole === 'student') {
+        navigate('/principal-estudiante');
+      } else if (userRole === 'teacher') {
+        navigate('/principal-profesor');
+      } else {
+        navigate('/');
+      }
     }
   };
 
   return (
-    <button onClick={handlePlatformClick} className="opciones-btn me-3">Iniciar Sesión</button>
+    <button onClick={handlePlatformClick} className="opciones-btn me-3">
+      {isAuthenticated ? `¡Hola ${firstName}!` : 'Iniciar Sesión'}
+    </button>
   );
 };
+
+
 
 export default function Menu() {
   const { isAuthenticated } = useAuth0();
@@ -104,7 +103,7 @@ export default function Menu() {
                     <Link to="/Catalogo" className='nav-link opciones m-2'>Catalogo</Link>
                   </li>
                   <li className="nav-item">
-                    {isAuthenticated ? <PlatformLink /> : <RegisterLink />}
+                    <RegisterLink />
                   </li>
                 </ul>
               </div>

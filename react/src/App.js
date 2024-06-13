@@ -51,7 +51,6 @@ import CreateCategoryPage from './Pages/Admin/CreateCategory';
 import CreateAnnouncePage from './Pages/Admin/CreateAnnounce';
 import Announces from './Pages/Admin/Announces';
 import AdminRubrica from './Pages/Admin/AdminRubrica';
-import EditCriteriaPage from './Pages/Admin/EditCriteriaPage.js';
 import PerfilAdmin from './Pages/Admin/AdminProfile.js';
 import EditAdminProfile from './Pages/Admin/AdminEditProfile.js';
 import ProjectRubric from './Pages/Admin/ProjectRubric.js';
@@ -119,6 +118,7 @@ function App() {
               <Route path="/Admin" element={<ProtectedRoute requiredRole="admin"><Dashboard /></ProtectedRoute>} />
               <Route path="/Admin/admin-profile" element={<ProtectedRoute requiredRole="admin"><PerfilAdmin /></ProtectedRoute>} />
               <Route path="/Admin/editar-admin-perfil" element={<ProtectedRoute requiredRole="admin"><EditAdminProfile /></ProtectedRoute>} />
+              {/* historico */}
               <Route path="/Admin/historico" element={<ProtectedRoute requiredRole="admin"><Historical /></ProtectedRoute>} />
               {/* Manejo de usuarios */}
               <Route path="/Admin/usuarios" element={<ProtectedRoute requiredRole="admin"><Users /></ProtectedRoute>} />
@@ -128,6 +128,7 @@ function App() {
               <Route path="/Admin/proyectos" element={<ProtectedRoute requiredRole="admin"><Projects /></ProtectedRoute>} />
               <Route path="/Admin/proyectos/:projectId" element={<ProtectedRoute requiredRole="admin"><ProjectPage /></ProtectedRoute>} />
               <Route path='/Admin/proyectos/calificar/:projectId' element={<ProtectedRoute requiredRole="admin"><ProjectRubric /></ProtectedRoute>}></Route>
+              {/* manejo de áreas */}
               <Route path="/Admin/areas" element={<ProtectedRoute requiredRole="admin"><Areas/></ProtectedRoute>}/>
               <Route path='/Admin/areas/nuevo' element={<ProtectedRoute requiredRole="admin"><CreateAreaPage/></ProtectedRoute>}/>
               <Route path="/Admin/areas/:areaId" element={<ProtectedRoute requiredRole="admin"><EditAreaPage/></ProtectedRoute>}/>
@@ -143,7 +144,6 @@ function App() {
               <Route path='/Admin/anuncios/nuevo' element={<ProtectedRoute requiredRole="admin"><CreateAnnouncePage/></ProtectedRoute>}/>
               {/* Manejo de rubrica */}
               <Route path='/Admin/rubrica' element={<ProtectedRoute requiredRole="admin"><AdminRubrica /></ProtectedRoute>}/>
-              <Route path='/Admin/rubrica/criterio/:criteriaId' element={<ProtectedRoute requiredRole="admin"><EditCriteriaPage /></ProtectedRoute>}/>
 
               {/* Judge Routes */}
               <Route path="/Juez" element={<ProtectedRoute requiredRole="teacher"><Juez /></ProtectedRoute>} />
@@ -156,23 +156,6 @@ function App() {
   );
 }
 
-// const getTitle = (pathname) => {
-//   switch (pathname) {
-//     case '/Admin':
-//       return 'Tablero';
-//     case '/Admin/historico':
-//       return 'Historico';
-//     case '/Admin/usuarios':
-//       return 'Usuarios';
-//     case '/Admin/proyectos':
-//       return 'Proyectos';
-//     case '/Admin/anuncios':
-//       return 'Anuncios';
-//     case '/Admin/perfil':
-//       return 'Perfil';
-//     default:
-//       return 'Your Default Title';
-//   }
-// };
+
 
 export default App;

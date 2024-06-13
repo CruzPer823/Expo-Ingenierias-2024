@@ -37,7 +37,7 @@ function MemberCont({NombreMiembro}){
 }
 
 
-function ButtonMaterials({material1, setMaterial1, material2, setMaterial2, material3, setMaterial3}) {
+function ButtonMaterials({materialsData, materialsQuantity,handleMaterialQuantity}) {
 const [show, setShow] = useState(false);
 
 return (
@@ -61,63 +61,28 @@ return (
           <div className='container'>
               <div className='row'>
                   <div className='col'>
-                      <p>Esta sección no es obligatria, unicamente si necesitas materiales extra para la presentación de tu proyecto</p>
+                      <p>Esta sección no es obligatoria, únicamente si necesitas materiales extra para la presentación de tu proyecto</p>
                   </div>
               </div>
 
-              <div className='row align-items-center m-2'>
-                  <div className='col-4'>
-                      <span className='Subtitulo'>Contacto de 220v</span>
-                  </div>
+              {materialsData.map(material => (
+                <div className='row align-items-center m-2'>
+                    <div className='col-4'>
+                        <span className='Subtitulo'>{material.name}</span>
+                    </div>
+                    <div className='col-auto'>
+                        <Button className='ButtonAddLessMaterials' onClick={() => handleMaterialQuantity(material.id, -1)}>-</Button>
+                    </div>
 
-                  <div className='col-auto'>
-                      <Button className='ButtonAddLessMaterials' onClick={()=>material1!==0 && setMaterial1(material1-1)}>-</Button>
-                  </div>
+                    <div className='col-auto'>
+                        <span>{materialsQuantity[material.id] || 0}</span>
+                    </div>
 
-                  <div className='col-auto'>
-                      <span>{material1}</span>
-                  </div>
-
-                  <div className='col-auto'>
-                      <Button className='ButtonAddLessMaterials' onClick={()=>material1 !== 3 && setMaterial1(material1+1)}>+</Button>
-                  </div>
-              </div>
-
-              <div className='row align-items-center m-2'>
-                  <div className='col-4'>
-                      <span className='Subtitulo'>Mampara para poster</span>
-                  </div>
-
-                  <div className='col-auto'>
-                      <Button className='ButtonAddLessMaterials' onClick={()=>material2 !== 0 && setMaterial2(material2-1)} >-</Button>
-                  </div>
-
-                  <div className='col-auto'>
-                      <span>{material2}</span>
-                  </div>
-
-                  <div className='col-auto'>
-                      <Button className='ButtonAddLessMaterials' onClick={()=>material2 !== 3 && setMaterial2(material2+1)}>+</Button>
-                  </div>
-              </div>
-
-              <div className='row align-items-center m-2  '>
-                  <div className='col-4'>
-                      <span className='Subtitulo'>Pantalla</span>
-                  </div>
-
-                  <div className='col-auto'>
-                      <Button className='ButtonAddLessMaterials' onClick={()=>material3 !== 0 && setMaterial3(material3-1)}>-</Button>
-                  </div>
-
-                  <div className='col-auto text-center'>
-                      <span>{material3}</span>
-                  </div>
-
-                  <div className='col-auto'>
-                      <Button className='ButtonAddLessMaterials' onClick={()=>material3 !== 3 && setMaterial3(material3+1)}>+</Button>
-                  </div>
-              </div>
+                    <div className='col-auto'>
+                        <Button className='ButtonAddLessMaterials' onClick={() => handleMaterialQuantity(material.id, 1)}>+</Button>
+                    </div>
+                </div>
+              ))}
           </div>
         </Modal.Body>
       </Modal>
@@ -216,7 +181,7 @@ function CategoryButtons({setCategory, categories}) {
 }
 
 export default function FormExample() {
-  const [data, setData] = useState({ students: [], teachers: [], categories: [], areas: [] });
+  const [data, setData] = useState({ students: [], teachers: [], categories: [], areas: [], materials: []});
   const [validated, setValidated] = useState(false);
   const [memberNum, setMemberNum] = useState(1);
   const [teacherNum, setTeacherNum] = useState(1);
@@ -228,9 +193,15 @@ export default function FormExample() {
   const [linkPoster, setLinkPoster] = useState('');
   const [area, setArea] = useState(1);
   const [category, setCategory] = useState(1);
-  const [contacto, setContacto] = useState(0);
-  const [mampara, setMampara] = useState(0);
-  const [pantalla, setPantalla] = useState(0);
+
+  const [materialsQuantity, setMaterialsQuantity] = useState({});
+
+  const handleMaterialQuantity = (materialId, quantity) => {
+    setMaterialsQuantity(prevState => ({
+      ...prevState,
+      [materialId]: Math.max(0, Math.min(3, (prevState[materialId] || 0) + quantity)) // Asegura que la cantidad esté entre 0 y 3
+    }));
+  };
 
   const { isAuthenticated, isLoadingAuth, error, user } = useAuth0();
 
@@ -260,6 +231,25 @@ export default function FormExample() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+    // Función para manejar la actualización de la cantidad de un material
+    useEffect(() => {
+      const initialQuantities = {};
+      data.materials.forEach(material => {
+        initialQuantities[material.id] = 0;
+      });
+      setMaterialsQuantity(initialQuantities);
+    }, [data.materials]);
+
+
+  // Función para transformar el estado al formato deseado, incluyendo materiales con cantidad 0
+  const transformMaterialsQuantity = (materialsQuantity) => {
+    return Object.entries(materialsQuantity)
+      .map(([id, amount]) => ({
+        id_material: id,
+        amount: amount
+      }));
+  };
+  
   const handleSubmit = async (event) => {
     if (event) {
       event.preventDefault();
@@ -276,6 +266,8 @@ export default function FormExample() {
       setContent("El proyecto se ha creado correctamente");
       setShowModal(true); 
 
+      const transformedMaterials = transformMaterialsQuantity(materialsQuantity);
+
       await axios.post(URI, {
         id_student: user.sub,
         title: title,
@@ -284,11 +276,7 @@ export default function FormExample() {
         linkPoster: linkPoster,
         area: area,
         category: category,
-        materials: [
-          { id_material: 1, amount: contacto },
-          { id_material: 2, amount: mampara },
-          { id_material: 3, amount: pantalla },
-        ],
+        materials: transformedMaterials,
         members: members.map((member) => ({
           name: member.nameMember,
           lastName: member.lastNameMember,
@@ -372,8 +360,6 @@ export default function FormExample() {
     setTeacherNum(teacherNum - 1);
   };
   
-
-
   //Students
   const handleEnrollmentChange = (value, indexMember) => {
     const updatedMembers = [...members];
@@ -387,8 +373,6 @@ export default function FormExample() {
     setMembers(updatedMembers);
   };
   
-
-
   const handleMemberSelect = (selected, indexMember) => {
     if (selected.length > 0) {
       const student = selected[0];
@@ -865,7 +849,7 @@ export default function FormExample() {
 
                           <div className='row d-flex justify-content-center'>
                               <div className='d-flex justify-content-center p-3 BckGrnd'>
-                                  <ButtonMaterials material1={contacto} setMaterial1={setContacto} material2={mampara} setMaterial2={setMampara} material3={pantalla} setMaterial3={setPantalla}/>
+                                  <ButtonMaterials materialsData={data.materials} materialsQuantity={materialsQuantity} handleMaterialQuantity={handleMaterialQuantity}/>
                               </div>
                           </div>
                       </div>

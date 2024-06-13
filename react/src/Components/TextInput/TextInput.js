@@ -36,7 +36,7 @@ function TextInput({ label, name, value, onChange, required = false }) {
   return (
     <div className="text-input">
       
-      <h2 className="text-input-label">{label}:</h2>
+      <h2 className="text-input-label">{label}</h2>
         <textarea
           name={name}
           value={value}
