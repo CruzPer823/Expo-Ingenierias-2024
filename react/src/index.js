@@ -8,6 +8,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import {HashRouter}  from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { Auth0Provider } from "@auth0/auth0-react";
 
 console.log(
@@ -28,12 +29,14 @@ root.render(
       useRefreshTokens={true} 
       cacheLocation="localstorage"
       authorizationParams={{
-        redirect_uri: "http://localhost:3000/Callback"
+        redirect_uri: "http://localhost:3000/Callback/"
   }}
     >
-      <HashRouter>
+     <BrowserRouter>
+      {/*<HashRouter>*/}
         <App />
-      </HashRouter>
+      </BrowserRouter>
+      {/*</HashRouter>*/}
     </Auth0Provider>
   </React.StrictMode>
 );
