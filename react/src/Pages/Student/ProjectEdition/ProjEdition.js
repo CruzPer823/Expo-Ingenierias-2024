@@ -227,7 +227,7 @@ function FormExample() {
                 </Row>
 
 
-                <center><Usure MensajeTitle={"¿Estas de acuerdo con los cambios?"} BotonA={"Regresar"} BotonB={"Aceptar cambios"} className={"ButtonRegister mt-3 btn-lg"} Texto={"Aceptar cambios"} onConfirm={handleSubmit}/></center>
+                <center><Usure MensajeTitle={"¿Estas de acuerdo con los cambios?"} BotonA={"Regresar"} BotonB={"Aceptar cambios"} className={"ButtonRegister mt-3 btn-lg"} Path={'/resumen-proyecto-estudiante/' + id_project} Texto={"Aceptar cambios"} onConfirm={handleSubmit}/></center>
 
                 {/*<center><Button type="submit" className='mt-4 btn-lg ButtonRegister'>Registrar proyecto</Button></center> */}
 

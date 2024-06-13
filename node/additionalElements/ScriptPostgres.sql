@@ -421,3 +421,4 @@ Insert into "projects" ("id","title","statusGeneral","statusPoster","statusVideo
   Insert into "criteria_judges" ("id_project","id_admin","grade","createdAt","updatedAt") values ('NanPro1',null,9,to_date('09-JUN-24','DD-MON-RR'),to_date('09-JUN-24','DD-MON-RR'));
   Insert into "criteria_judges" ("id_project","id_admin","grade","createdAt","updatedAt") values ('NanPro1',null,8,to_date('09-JUN-24','DD-MON-RR'),to_date('09-JUN-24','DD-MON-RR'));
   
+  
