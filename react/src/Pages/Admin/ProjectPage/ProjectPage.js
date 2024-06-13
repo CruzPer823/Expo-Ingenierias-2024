@@ -128,37 +128,44 @@ function ProjectPage() {
       <NavigationBar NameSection={project.title}/>
       <div className="container-fluid mt-3">
         <div className="row">
-          
-
           <div className="col-lg-6">
-          <Widget
-        title={"Póster"}
-        centered={true}
-        content={
-          <button
-            className="admin-poster-button"
-            onClick={handleRedirect}
-            style={{ backgroundImage: `url(${project.poster})` }}
-          >
-            <div className="text-admin-poster-button-container">
-              Ver Poster
-            </div>
-          </button>
-        }
-      />
+            <Widget 
+              title={"Póster"} 
+              centered={true} 
+              content={
+                <div>
+                  <a href={project.poster} className="file" style={{ display: 'inline-block', marginRight: '10px' }}>
+                    <i className="bi bi-file-earmark-pdf icono" id="logo"></i>
+                  </a>
+                </div>
+              } 
+            />
           </div>
           <div className="col-lg-6">
-            <div className="row">
-              <div className="col-lg-12">
-                <Widget title={"Video"} centered={true} content={<VideoCard url={project.video} />} />
-              </div>
-              <div className="col-lg-12">
-                <Widget title={"Descripción del proyecto"} centered={true} content={<p style={{marginLeft:"10px", marginRight:"10px"}}>{project.description}</p>} />
-              </div>
-            </div>
+            <Widget 
+              title={"Video"} 
+              centered={true} 
+              content={ 
+                <div>
+                  <a href={project.video} className="file" style={{ display: 'inline-block', marginRight: '10px' }}>
+                    <i className="bi bi-youtube icono" id="logo"></i>
+                  </a>
+                  {/* <VideoCard url={project.video} /> */}
+                </div>
+              } 
+            />
           </div>
         </div>
-        
+
+        <div className="row">
+          <div className="col-lg-12">
+            <Widget 
+              title={"Descripción del proyecto"} 
+              centered={true} 
+              content={<p style={{marginLeft: "10px", marginRight: "10px"}}>{project.description}</p>} 
+            />
+          </div>
+        </div>
 
         <div className="row">
 
