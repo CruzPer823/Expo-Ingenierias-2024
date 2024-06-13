@@ -18,7 +18,7 @@ const db = new Sequelize({
 });*/
 
 
-const db = new Sequelize('expoingenieria', 'postgres', 'Gerardo07', {
+const db = new Sequelize('expoingenieria', 'postgres', '12345', {
     host: 'localhost',
     dialect: 'postgres'
 });
